@@ -35,7 +35,8 @@ dnl Checks for libraries.
 check_popt=""
 AC_CHECK_LIB([popt], [main], check_popt=true)
 if test "x$check_popt" == x ; then
-	AC_MSG_ERROR([*** libpopt not found.])
+#	AC_MSG_ERROR([*** libpopt not found.])
+	AC_MSG_WARN([ libpopt not found.])
 else
 	POPT_LIBS=-lpopt
 	AC_SUBST(POPT_LIBS)
@@ -46,6 +47,13 @@ fi
 dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS([langinfo.h locale.h stdlib.h string.h])
+
+
+check_iconv=""
+AC_CHECK_HEADERS([iconv.h],check_iconv=true)
+if test "x$check_iconv" == x ; then
+	AC_MSG_ERROR([*** iconv.h not found.])
+fi
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
