@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.11 2005/02/23 15:03:27 lav Exp $
+    $Id: enrich_fs_options.c,v 1.12 2005/02/24 16:06:26 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -84,7 +84,7 @@ static int strstr_in_list(const char *str, const char **list)
  */
 static void add_option(char *options, const char *option1, const char *option2)
 {
-	if (options[0] && options[strlen(options)-1] != ',')
+	if (options[0] !='0' && options[strlen(options)-1] != ',')
 		strcat(options,",");
 	strcat(options, option1);
 	if (option2)

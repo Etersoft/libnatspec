@@ -1,7 +1,7 @@
 # Configure ac for LIBNATSPEC project
 #
 AC_PREREQ(2.52)
-AC_INIT([libnatspec], [0.0.3], lav@etersoft.ru)
+AC_INIT([libnatspec], [0.0.5], lav@etersoft.ru)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 #AS_VERSION(comedilib, COMEDILIB, 0, 7, 21)
 #AS_LIBTOOL(COMEDILIB, 0, 7, 18, yes)

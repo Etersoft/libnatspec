@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec_internal.h,v 1.9 2005/02/23 15:03:27 lav Exp $
+    $Id: natspec_internal.h,v 1.10 2005/02/24 16:06:26 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -50,7 +50,7 @@
  * signs from it, pack locale again
  * and return malloc allocated locale string
  */
-char *repack_locale(const char *locale);
+char *_natspec_repack_locale(const char *locale);
 
 /* Struct of charset_relation table */
 struct charsetrel_entry

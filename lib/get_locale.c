@@ -12,7 +12,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.10 2005/02/23 15:03:27 lav Exp $
+    $Id: get_locale.c,v 1.11 2005/02/24 16:06:26 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -83,7 +83,7 @@ static char *get_from_system_i18n(const char *str)
 		char buf[100], buf1[100];
 		char *r;
 		/* Read next line */
-		r = fgets(buf,99,fd);
+		r = fgets(buf, 99, fd);
 		if (!r) break;
 		/* Remove space symbols FIXME: some glibc func?*/
 		for (i = 0; *r; r++)
@@ -101,6 +101,7 @@ static char *get_from_system_i18n(const char *str)
 		buf1[i] = 0;
 		DEBUG (printf("GSL: after space removing '%s'",buf1));
 		i = strlen(str);
+		/* CHECKME: if i < strlen(buf1)? */
 		if (!strncmp(buf1, str, i) && buf1[i] == '=')
 		{
 			locale = strdup ( buf1+i+1 );
@@ -129,12 +130,12 @@ char *natspec_get_system_locale()
 char *natspec_extract_charset_from_locale(const char *locale)
 {
 	char *lang, *next, *dialect, *charset, *ret;
-    if (!locale || !locale[0])
+    if (locale == NULL || locale[0] == '\0')
 		return NULL;
 	lang = strdup( locale );
-    next = strchr(lang,':'); if (next) *next++='\0';
-    dialect = strchr(lang,'@'); if (dialect) *dialect++='\0';
-    charset = strchr(lang,'.'); if (charset) *charset++='\0';
+    next = strchr(lang,':'); if (next) *next++ = '\0';
+    dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
+    charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
 	ret = natspec_humble_charset(charset);
 	free (lang);
 	return ret;
@@ -142,7 +143,7 @@ char *natspec_extract_charset_from_locale(const char *locale)
 
 
 /* Internal: repack locale string (compress charset) */
-char *repack_locale(const char *locale)
+char *_natspec_repack_locale(const char *locale)
 {
 	char *buf, *lang, *next, *dialect, *charset, *country;
     if (!locale || !locale[0] ||
@@ -151,10 +152,10 @@ char *repack_locale(const char *locale)
 	DEBUG (printf("repack_locale\n"));
 	lang = strdup( locale );
 	buf = malloc( strlen(locale) + 1 );
-    next = strchr(lang,':'); if (next) *next++='\0';
-    dialect = strchr(lang,'@'); if (dialect) *dialect++='\0';
-    charset = strchr(lang,'.'); if (charset) *charset++='\0';
-    country = strchr(lang,'_'); if (country) *country++='\0';
+    next = strchr(lang,':'); if (next) *next++ = '\0';
+    dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
+    charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
+    country = strchr(lang,'_'); if (country) *country++ = '\0';
 	strcpy(buf, lang);
 	if (country)
 	{
