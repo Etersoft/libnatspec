@@ -1,7 +1,8 @@
-libnatspec-0.2.0: 04-Mar-2005:
+libnatspec-0.2.0: 17-Mar-2005:
  - rename get_user_locale() to get_current_locale()
- - fix for toupper/tolower/isalnum/strcasecmp using
+ - discard from toupper/tolower/isalnum/strcasecmp using (it was locale depended)
  - fix DOS charset for uk_UA
+ - introduce samba/loadparams (for server autotuning) - does not work yet
 
 libnatspec-0.1.9: 03-Mar-2005:
  - add jfs support
