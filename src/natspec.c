@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.12 2005/02/27 19:26:19 lav Exp $
+    $Id: natspec.c,v 1.13 2005/03/02 18:25:38 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#include <assert.h>
 
 #include "natspec_internal.h"
 
@@ -70,8 +71,7 @@ static const char *get_charset(char *charset_type)
 {
 	const char *charset;
 	int type;
-	if (!charset_type)
-		return NULL;
+	assert (charset_type);
 	if (!strcasecmp(charset_type,"WIN"))
 		type = NATSPEC_WINCS;
 	else if (!strcasecmp(charset_type,"DOS"))
@@ -83,6 +83,7 @@ static const char *get_charset(char *charset_type)
 	else
 	{
 		if (verbose) printf("We do not know %s type of encoding\n",charset_type);
+		printf("ASCII\n");
 		exit(1);
 	}
 	charset = natspec_get_charset_by_locale(type, locale);
@@ -132,6 +133,8 @@ int main(int argc, const char** argv)
 	printf("Compiled without popt\n");
 	exit(1);
 #endif
+	if (argc == 1)
+		info = 1;
 	if (version || info)
 	{
 		printf("%s version %s\n",PACKAGE, PACKAGE_VERSION);
@@ -139,17 +142,17 @@ int main(int argc, const char** argv)
 	}
 	if (info)
 	{
-		printf(" = Overall information =\n");
+		printf(" === Overall information ===\n");
 		verbose = 1;
 	}
 	locale = natspec_get_user_locale();
 	if (flag_locale || info)
 	{
-		if (verbose) printf("Using locale:");
+		if (verbose) printf("Using (user) locale: ");
 		printf("%s\n",locale);
 	}
 	if (verbose)
-		printf("System locale:'%s'\n", natspec_get_system_locale());
+		printf("System locale: %s\n", natspec_get_system_locale());
 	if (fsenc || info)
 	{
 		const char *buf;
@@ -184,6 +187,7 @@ int main(int argc, const char** argv)
 			get_charset(types[i]);
 		exit(0);
 	}
-	get_charset(charset_type);
+	if (charset_type)
+		get_charset(charset_type);
 	return 0;
 }

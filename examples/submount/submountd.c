@@ -167,9 +167,6 @@ int do_mount(char *device, char *mountpoint, char *fstype,
 	     unsigned long flags, char *options)
 {
 	int retval;
-#ifdef HAVE_NATSPEC
-	char *mount_opts;
-#endif
 #if USE_RESMGR
 	struct passwd *pwd;
 	int uid = 0;
@@ -198,13 +195,10 @@ int do_mount(char *device, char *mountpoint, char *fstype,
 	}
 #endif
 
-#ifndef HAVE_NATSPEC
-	retval = mount(device, mountpoint, fstype, flags, options);
-#else
-	mount_opts = natspec_get_enriched_fs_options(fstype, options);
-	retval = mount(device, mountpoint, fstype, flags, mount_opts);
-	free(mount_opts);
+#ifdef HAVE_NATSPEC
+	options = natspec_get_enriched_fs_options(fstype, options);
 #endif
+	retval = mount(device, mountpoint, fstype, flags, options);
 
 	if (retval) {
 		if ((errno == EROFS) && (!(flags & MS_RDONLY))) {
@@ -212,9 +206,11 @@ int do_mount(char *device, char *mountpoint, char *fstype,
 			retval = do_mount(device, mountpoint, fstype, flags,
 				  options);
 		}
-		return retval;
 	}
-	return 0;
+#ifdef HAVE_NATSPEC
+	free(options);
+#endif
+	return retval;
 }
 
 

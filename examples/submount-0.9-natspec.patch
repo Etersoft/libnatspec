@@ -15,7 +15,7 @@
  AC_OUTPUT
 
 --- /home/lav/work/build/BUILD/submount-0.9/submountd-0.9/submountd.c	2005-02-26 16:08:47 +0300
-+++ submountd-0.9/submountd.c	2005-02-26 16:08:00 +0300
++++ submountd-0.9/submountd.c	2005-03-01 17:28:37 +0300
 @@ -40,6 +40,10 @@
  #include <pwd.h>
  #endif
@@ -27,32 +27,31 @@
  #include "submountd.h"
  
  
-@@ -163,6 +167,9 @@
- 	     unsigned long flags, char *options)
- {
- 	int retval;
-+#ifdef HAVE_NATSPEC
-+	char *mount_opts;
-+#endif
- #if USE_RESMGR
- 	struct passwd *pwd;
- 	int uid = 0;
-@@ -190,7 +197,14 @@
+@@ -190,6 +194,10 @@
  		}
  	}
  #endif
 +
-+#ifndef HAVE_NATSPEC
- 	retval = mount(device, mountpoint, fstype, flags, options);
-+#else
-+	mount_opts = natspec_get_enriched_fs_options(fstype, options);
-+	retval = mount(device, mountpoint, fstype, flags, mount_opts);
-+	free(mount_opts);
++#ifdef HAVE_NATSPEC
++	options = natspec_get_enriched_fs_options(fstype, options);
 +#endif
+ 	retval = mount(device, mountpoint, fstype, flags, options);
  
  	if (retval) {
- 		if ((errno == EROFS) && (!(flags & MS_RDONLY))) {
-
+@@ -198,9 +206,11 @@
+ 			retval = do_mount(device, mountpoint, fstype, flags,
+ 				  options);
+ 		}
+-		return retval;
+ 	}
+-	return 0;
++#ifdef HAVE_NATSPEC
++	free(options);
++#endif
++	return retval;
+ }
+ 
+ 
 
 --- /home/lav/work/build/BUILD/submount-0.9/submountd-0.9/Makefile.am	2005-02-20 17:24:46 +0300
 +++ submountd-0.9/Makefile.am	2005-02-20 15:49:35 +0300

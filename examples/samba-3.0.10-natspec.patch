@@ -105,3 +105,21 @@
  	if (use_kerberos && !got_user) {
  		got_pass = True;
  	}
+
+--- loadparm.c.o	2005-03-02 01:29:36 +0300
++++ source/param/loadparm.c	2005-03-02 01:35:10 +0300
+@@ -53,6 +53,14 @@
+ 
+ #include "includes.h"
+ 
++#ifdef HAVE_NATSPEC
++#include <natspec.h>
++#undef DEFAULT_DOS_CHARSET
++#undef DEFAULT_UNIX_CHARSET
++#define DEFAULT_UNIX_CHARSET natspec_get_charset_by_locale(NATSPEC_UNIXCS, NULL)
++#define DEFAULT_DOS_CHARSET natspec_get_charset_by_locale(NATSPEC_DOSCS, NULL)
++#endif
++
+ BOOL in_client = False;		/* Not in the client by default */
+ BOOL bLoaded = False;
+ 
