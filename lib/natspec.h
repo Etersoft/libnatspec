@@ -41,6 +41,10 @@
  
 char *natspec_get_system_locale();
 
+/*
+ * Returns malloc allocated string with current charset
+ */
+const char *natspec_get_charset();
 
 /*
  * Returns static string with charset of filename
