@@ -25,7 +25,12 @@ AC_ENABLE_STATIC(no)
 AM_PROG_LIBTOOL
 
 # Checks for libraries.
-AC_CHECK_LIB([popt], [main])
+check_popt=""
+AC_CHECK_LIB([popt], [main], check_popt=true)
+if test "x$check_popt" == x ; then
+	AC_MSG_ERROR([*** libpopt not found.])
+fi
+
 
 # Checks for header files.
 AC_HEADER_STDC
