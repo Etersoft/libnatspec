@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.4 2005/02/24 19:18:42 lav Exp $
+    $Id: convert.c,v 1.5 2005/02/25 21:35:43 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -47,6 +47,10 @@ char *natspec_convert(const char *in_str,
 	char *ansa = (char*)malloc(lena+1);
 	char *ansbptr = (char*)in_str;
 	char *ansaptr = ansa;
+	if ( tocode == NULL || !strlen(tocode))
+		tocode = natspec_get_charset();
+	if ( fromcode == NULL || !strlen(fromcode))
+		fromcode = natspec_get_charset();
 	frt = iconv_open(tocode, fromcode);
 	if (frt == (iconv_t) -1)
 	{
