@@ -1,11 +1,12 @@
 /* This code contains charset to codepage map originally from
     WINE project (file dlls/kernel/locale.c)
+	LGPL license
 */
 
 static const struct charset_entry
 {
     const char *charset_name;
-    UINT        codepage;
+    unsigned int        codepage;
 } charset_names[] =
 {
     { "BIG5", 950 },
@@ -59,5 +60,5 @@ static const struct charset_entry
     { "ISO88599", 28599 },
     { "KOI8R", 20866 },
     { "KOI8U", 21866 },
-    { "UTF8", CP_UTF8 }
+    { "UTF8", 65001 }
 };

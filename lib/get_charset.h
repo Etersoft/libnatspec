@@ -22,8 +22,8 @@ char *natspec_get_system_locale();
 /*
  * Returns static string with charset of filename
  * in system
+ * If G_FILENAME_ENCODING exists, returns its value
  * If locale is empty string, use system locale
- * If G_FILENAME_ENCODING exist, returns its value
  */
  
 const char * natspec_get_filename_encoding(const char * locale);

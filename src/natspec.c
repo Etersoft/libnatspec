@@ -1,3 +1,9 @@
+/*
+ * Public domain
+ * Copyright (c) 2005 Etersoft
+ * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
+ */
+
 #include <stdlib.h>
 #include <string.h>
 #include "get_charset.h"
@@ -20,7 +26,7 @@
 
 char *charset_type;
 char *locale;
-int version, verbose;
+int version, verbose, fsenc;
 
 #if defined HAVE_POPT
 poptContext context = NULL;
@@ -30,6 +36,8 @@ struct poptOption options[] =
      "Type of needed charset: unix (default), win, dos, mac", ""},
     {"locale", 'l', POPT_ARG_STRING,  &locale, 0,
      "Using locale (from $LANG by default)", ""},
+    {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 0,
+     "Get filesystem encoding", ""},
     {"version", 'V', POPT_ARG_NONE, &version, 0,
      "Display version and exit", NULL },
     {"verbose", 'v', POPT_ARG_NONE, &verbose, 0,
@@ -83,6 +91,13 @@ int main(int argc, const char** argv)
 	{
 		if (verbose) printf("Use $LANG as locale variable\n");
 		locale=getenv("LANG");
+	}
+	if (fsenc)
+	{
+		char *buf;
+		buf = natspec_get_filename_encoding(locale);
+		printf("%s\n",buf);
+		exit(0);
 	}
 	if (!charset_type || !charset_type[0])
 		charset_type="UNIX";

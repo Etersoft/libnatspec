@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <winnls.h>
-#include <wine/unicode.h>
+//#include <wine/unicode.h>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,6 +17,7 @@ static const char * get_charset (UINT codepage)
 	  return charset_names[i].charset_name;
 	}
     }
+	fprintf(stderr,"Can't locate codepage %d\n",codepage);
   return "";
 }
 

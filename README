@@ -1,0 +1,10 @@
+Example of use:
+
+// Get the file system encoding (local encoding)
+fileenc = natspec_get_filename_encoding("");
+
+// Get the filename encoding in foreign system WIN
+win_cs = natspec_get_charset_by_locale(NATSPEC_WINCS,"");
+
+// Do conversion from foreign to local encoding
+iconv_open(win_cs, fileenc);

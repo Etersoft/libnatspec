@@ -1,4 +1,5 @@
 #!/bin/sh
+# charset relation generator
 OUTFILE=get_charset_data.h
 
 print()
