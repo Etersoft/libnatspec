@@ -10,11 +10,13 @@
 
 #include "natspec_internal.h"
 
+// iocharset & codepage
 static const char *list_fat_fs[] =
 {
 	"vfat", "fat", "msdos", NULL
 };
 
+// iocharset
 static const char *list_io_fs[] =
 {
 	"cdfss", "iso9660", "udf", NULL
@@ -57,7 +59,9 @@ char* natspec_enrich_fs_options(const char *fs, const char *options)
 
 	// Getting typical values
 	charset = natspec_get_filename_encoding("");
-	codepage = natspec_get_charset_by_locale(NATSPEC_DOSCS, "");
+	codepage = natspec_codepage_from_charset(
+		natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
+	DEBUG (fprintf (stderr,"ENRICH: codepage=%s\n",codepage));
 
 	// Specially for each file system
 	if ( str_in_list (fs, list_fat_fs) )

@@ -12,7 +12,9 @@
 #include <stdio.h>
 
 #include "data/get_charset_data.h"
+/*#include "data/charset_names.h"*/
 #include "natspec_internal.h"
+
 
 /* Internal: Helper for bsearch */
 static int charset_locale_cmp( const void *name, const void *entry )
@@ -22,7 +24,7 @@ static int charset_locale_cmp( const void *name, const void *entry )
     return strcasecmp( (const char *)name, rel->locale );
 }
 
-/* remove punctuation characters from charset name */
+/* Removes punctuation characters from charset name */
 static char *clean_charset( const char *charset)
 {
 	int i, j;
@@ -62,6 +64,7 @@ char *natspec_get_charset_from_locale(const char *locale)
 
 /* Returns system locale string (malloc allocated)
 NB TODO: fix ugly malloc, fgets, and from LANG copying using
+TODO: allowing space symbols in file
 */
 char *natspec_get_system_locale()
 {
@@ -164,7 +167,7 @@ static const char *get_cs_by_type(const int type,
 }
 
 
-// try search by encoding
+// Internal: try search by encoding
 static const struct charset_entry* get_entry_by_charset(const int bytype,
 	const char *charset, const char *locale)
 {
@@ -226,11 +229,31 @@ static const struct charset_entry* get_entry_by_locale(const char *locale)
 	return entry;
 }
 
+/* Returns codepage from charset */
+const char *natspec_codepage_from_charset(const char *cs)
+{
+	//char *s=0; *s=0;
+	int i;
+	for (i=0;i<strlen(cs);i++)
+		if (isdigit(cs[i]))
+			return &cs[i];
+	return cs;
+}
+
 const char * natspec_get_charset_by_locale(const int type, const char *locale)
 {
 	const struct charset_entry* entry = get_entry_by_locale(locale);
 	return get_cs_by_type(type, entry);
 }
+
+/*
+const char * natspec_get_codepage_by_locale(const int type, const char *locale)
+{
+	const struct charset_entry* entry = get_entry_by_locale(locale);
+	const char *cs = get_cs_by_type(type, entry);
+	return natspec_codepage_from_charset(cs);
+}
+*/
 
 const char * natspec_get_charset_by_charset(const int type,
 	const int bytype, const char *charset)
@@ -239,6 +262,7 @@ const char * natspec_get_charset_by_charset(const int type,
 	entry = get_entry_by_charset(bytype, charset, "");
 	return get_cs_by_type(type, entry);
 }
+
 
 const char *natspec_get_filename_encoding(const char *locale)
 {

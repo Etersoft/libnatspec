@@ -44,6 +44,10 @@ const char * natspec_get_filename_encoding(const char * locale);
 const char * natspec_get_charset_by_locale(const int type,
 	const char *locale);
 
+/*
+char *natspec_get_codepage_by_locale(const int type,
+	const char *locale);
+*/
 
 /*
  * Specially for mount command
@@ -59,6 +63,13 @@ char * natspec_enrich_fs_options(const char* fs, const char *options);
  */
  
 char *natspec_get_charset_from_locale(const char *locale);
+
+/*
+ * Hack for strange behaviour of kernel
+ * from IBM866 -> 866
+ * from cp1251 -> 1251
+ */
+const char *natspec_codepage_from_charset(const char *cs);
 
 
 /*
