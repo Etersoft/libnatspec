@@ -23,7 +23,7 @@ dnl    PKG_CHECK_MODULES(NATSPEC,libnatspec,with_natspec_support=yes,with_natspe
 dnl	AC_DEFINE(HAVE_NATSPEC,1,[Define if you have the natspec library]))
 dnl	AM_CONDITIONAL(HAVE_NATSPEC, $with_natspec_support)
     AC_MSG_CHECKING([for NATSPEC support])
-	PKG_CHECK_MODULES(NATSPEC, libnatspec,
+	PKG_CHECK_MODULES(NATSPEC, libnatspec >= 0.1.0,
 		[AC_DEFINE(HAVE_NATSPEC,1,[Define if you have the natspec library])])
 dnl	AC_MSG_RESULT(yes)
     AC_SUBST(NATSPEC_CFLAGS)
