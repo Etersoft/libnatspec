@@ -10,7 +10,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_charset.c,v 1.16 2005/03/02 18:23:45 lav Exp $
+    $Id: get_charset.c,v 1.17 2005/03/06 15:13:12 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -61,6 +61,9 @@ char *natspec_humble_charset( const char *charset)
 	char *buf;
 	if (charset == NULL || charset[0] == '\0')
 		return NULL;
+	/* Do not remove punctuation for ANSI encoding... */
+	if (strstr(charset,"ANSI_X3") != NULL)
+		return strdup(charset);
 	buf = malloc( strlen(charset) + 1 );
    	for (i = 0, j = 0; charset[i]; i++)
 	{
@@ -184,7 +187,7 @@ const char * natspec_get_charset_by_locale(const int type, const char *locale)
 		locale = must_free = natspec_get_system_locale();
 	else
 	if (locale[0] == '\0')
-		locale = must_free = natspec_get_user_locale();
+		locale = must_free = natspec_get_current_locale();
 	entry = get_entry_by_locale(locale);
 	free (must_free);
 	return get_cs_by_type(type, entry);
