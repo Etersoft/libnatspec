@@ -10,7 +10,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_charset.c,v 1.17 2005/03/06 15:13:12 lav Exp $
+    $Id: get_charset.c,v 1.18 2005/03/09 20:14:25 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -51,7 +51,7 @@ static int charset_locale_cmp( const void *name, const void *entry )
 {
     const struct charsetrel_entry *rel = (const struct charsetrel_entry *)entry;
 	DEBUG (printf ("Compare %s with %s\n", (const char*)name, rel->locale));
-    return strcasecmp( (const char *)name, rel->locale );
+    return strcmp( (const char *)name, rel->locale );
 }
 
 /* Removes punctuation characters from charset name */
@@ -64,17 +64,17 @@ char *natspec_humble_charset( const char *charset)
 	/* Do not remove punctuation for ANSI encoding... */
 	if (strstr(charset,"ANSI_X3") != NULL)
 		return strdup(charset);
-	buf = malloc( strlen(charset) + 1 );
+	buf = alloca( strlen(charset) + 1 );
    	for (i = 0, j = 0; charset[i]; i++)
 	{
 		if (charset[i] == ':')
 			break;
         if (isalnum(charset[i]))
-			buf[j++] = toupper(charset[i]);
+			buf[j++] = _n_toupper(charset[i]);
 	}
    	buf[j] = 0;
 	DEBUG (printf ("Clean charset '%s', after: '%s'",charset, buf));
-	return buf;
+	return strdup(buf);
 }
 
 /* Returns current charset */
@@ -135,7 +135,7 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 {
 	const struct charsetrel_entry *entry = NULL;
 	char *must_free = NULL;
-	DEBUG (printf("get_entry_by_charset charset=%s, locale=%s\n",charset, locale));
+	DEBUG (printf("get_entry_by_charset charset=%s\n",charset));
 	/* If charset is NULL, use current charset */
 	if ((charset == NULL || charset[0] == '\0') && bytype == NATSPEC_UNIXCS)
 	{
@@ -149,7 +149,7 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 		DEBUG (printf("Find with charset '%s'\n", charset));
 		/* Fixme: can we strict suppose enemy encoding by unix charset? */
 		for (i = 0; i< sizeof(charset_relation)/sizeof(charset_relation[0]); i++)
-			if (!strcasecmp (charset, get_cs_by_type(bytype,&charset_relation[i])))
+			if (!strcmp (charset, get_cs_by_type(bytype,&charset_relation[i])))
 			{
 	    		entry = &charset_relation[i];
 				break;
@@ -165,14 +165,14 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 	const struct charsetrel_entry *entry = NULL;
 	char *replocale = _natspec_repack_locale(locale);
 
-	/* Search the same locale string in table */
+	/* Search the same locale string in table. We are sure locale is repacked (normalized) */
 	if (replocale != NULL && replocale[0] != '\0')
 		entry = bsearch( replocale, charset_relation,
 	    	sizeof(charset_relation)/sizeof(charset_relation[0]),
 	        sizeof(charset_relation[0]), charset_locale_cmp );
 	free (replocale);
 
-	DEBUG (if (!entry) printf ("Can't find the locale '%s', search by charset '%s' now\n", locale, charset));
+	DEBUG (if (!entry) printf ("Can't find the locale '%s'\n", locale));
 	return entry;
 }
 

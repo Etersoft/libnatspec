@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.19 2005/03/02 18:22:07 lav Exp $
+    $Id: enrich_fs_options.c,v 1.20 2005/03/09 20:14:25 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -63,7 +63,7 @@ static int str_in_list(const char *str, const char **list)
 	for (;*list != NULL;list++)
 	{
 		DEBUG (printf("Comparing '%s' and '%s'\n", str, *list));
-		if (!strcasecmp(str, *list))
+		if (!strcmp(str, *list))
 			return 1;
 	}
 	return 0;
@@ -151,6 +151,7 @@ static void add_options(char *buf, const char *fs)
 char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 {
 	char *ret;
+	/* Our additional options does not need more than 100 byte */
 	char buf[100]; buf[0] = '\0';
 
 	/* if encoding issues already exist in options, do nothing */

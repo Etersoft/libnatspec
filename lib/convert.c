@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.11 2005/03/06 15:12:04 lav Exp $
+    $Id: convert.c,v 1.12 2005/03/09 20:14:25 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -78,7 +78,7 @@ char *natspec_convert_with_translit(const char *in_str,
 	size_t lena = strlen(in_str)*6; /* FIXME see E2BIG for errno */
 	size_t lenb = strlen(in_str);
 	size_t lentmp;
-	char *ansa = (char*)malloc(lena+1);
+	char *ansa = (char*)alloca(lena+1);
 	char *ansbptr = (char*)in_str;
 	char *ansaptr = ansa, *tmpptr;
 
@@ -87,7 +87,6 @@ char *natspec_convert_with_translit(const char *in_str,
 	if (frt == (iconv_t) (-1) || ucs2 == (iconv_t) (-1))
 	{
 		char buf[100];
-		free (ansa);
 		snprintf(buf,99,"Broken encoding: '%s' or '%s' (%d) or UCS2 (%d). May be you forget setlocale in main?\n",
 			tocode, fromcode, (int)frt, (int)ucs2);
 		perror(buf);
@@ -101,7 +100,7 @@ char *natspec_convert_with_translit(const char *in_str,
 			break;
 		if ( errno != EILSEQ )
 			break;
-		/* Replace invalid input character. See code of links, sim, iconv */
+		/* Replace invalid input character. See code of links, sim, iconv, catdoc */
 		lentmp = 2;
 		tmpptr = (char*) &tmp;
 		DEBUG (printf("%d, %s:%d\n",ucs2,ansbptr,lenb));
@@ -127,7 +126,6 @@ char *natspec_convert_with_translit(const char *in_str,
 	iconv_close(frt);
 	*ansaptr = '\0';
 	ansaptr = strdup(ansa);
-	free(ansa);
 	return ansaptr;
 }
 
@@ -139,7 +137,7 @@ char *natspec_convert(const char *in_str,
 	iconv_t frt;
 	size_t lena = strlen(in_str)*6; /* FIXME see E2BIG for errno */
 	size_t lenb = strlen(in_str);
-	char *ansa = (char*)malloc(lena+1);
+	char *ansa = (char*)alloca(lena+1);
 	char *ansbptr = (char*)in_str;
 	char *ansaptr = ansa;
 	char *ret = NULL;
@@ -155,7 +153,6 @@ char *natspec_convert(const char *in_str,
 		}
 		iconv_close(frt);
 	}
-	free(ansa);
 	return ret;
 }
 

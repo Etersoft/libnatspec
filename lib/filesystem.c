@@ -9,7 +9,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: filesystem.c,v 1.4 2005/03/02 18:22:29 lav Exp $
+    $Id: filesystem.c,v 1.5 2005/03/09 20:14:25 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -34,6 +34,7 @@
 #include <strings.h>
 #include <string.h>
 #include <ctype.h>
+#include <assert.h>
 
 #include "natspec_internal.h"
 
@@ -47,20 +48,24 @@
 static int charset_cmp( const void *name, const void *entry )
 {
     const struct charset_entry *charset = (const struct charset_entry *)entry;
-    return strcasecmp( (const char *)name, charset->charset_name );
+    return strcmp( (const char *)name, charset->charset_name );
 }
 
 
 /* Returns codepage from charset */
-static char __cfc[10]; /* FIXME */
-const char *natspec_get_codepage_by_charset(const char *cs)
+static char __cfc[10]; /* FIXME this ugly thing */
+const char *natspec_get_codepage_by_charset(const char *charset)
 {
 	const struct charset_entry *entry;
+	char *cs = natspec_humble_charset(charset);
+	/* We are sure now cs is normalized */
 	entry = bsearch( cs, charset_names,
                      sizeof(charset_names)/sizeof(charset_names[0]),
                      sizeof(charset_names[0]), charset_cmp );
+	free(cs);
     if (entry)
 	{
+		assert( entry->codepage < 1000000);
 		sprintf(__cfc,"%d",entry->codepage);
 		return __cfc;
 	}
@@ -68,14 +73,17 @@ const char *natspec_get_codepage_by_charset(const char *cs)
 }
 
 /* Returns nls name (in Linux kernel notation) from charset */
-const char *natspec_get_nls_by_charset(const char *cs)
+const char *natspec_get_nls_by_charset(const char *charset)
 {
 	const struct charset_entry *entry = NULL;
-	if (cs != NULL)
+	if (charset != NULL)
 	{
+		char *cs = natspec_humble_charset(charset);
+		/* We are sure now cs is normalized */
 		entry = bsearch( cs, charset_names,
                      sizeof(charset_names)/sizeof(charset_names[0]),
                      sizeof(charset_names[0]), charset_cmp );
+		free(cs);
 	    if (entry)
 			return entry->nls;
 	}

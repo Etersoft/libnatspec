@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspec.h,v 1.17 2005/03/02 18:24:54 lav Exp $
+    $Id: natspec.h,v 1.18 2005/03/09 20:14:25 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -43,30 +43,34 @@ extern "C" {
 #define NATSPEC_MACCS 3
 
 /* 
- * Returns malloc allocated string with user (current) locale
- * get from LC_ALL:LC_CTYPE:LANG evironment variable, if fails,
- * get from get_system_locale()
+ * Returns malloc allocated string with current locale.
+ * Gets from LC_ALL:LC_CTYPE:LANG evironment variable, if fails,
+ * gets value from get_system_locale()
  */
  
+char *natspec_get_current_locale();
+
+/* Obsolete (user locale is locale from ~/.i18n, but we do not use it now): */
 char *natspec_get_user_locale();
+
 
 /* 
  * Returns malloc allocated string with system locale
- * get from LANG variable in /etc/sysconfig/i18n file
+ * retrieved from LANG variable in /etc/sysconfig/i18n file
  */
  
 char *natspec_get_system_locale();
 
 /*
- * Returns const string with current charset
+ * Returns static string with current charset
  * (according to locale, not filename encoding)
  * NOTE: you have to use setlocale(LC_ALL,"") before call this function
  */
 const char *natspec_get_charset();
 
 /*
- * Returns static string with charset in nls form (like in kernel)
- * of filename in system for locale.
+ * Returns static string in nls form (like in kernel) with filename charset
+ * for locale.
  * If G_FILENAME_ENCODING exists and correct, returns its value
  * If locale is empty, use user locale
  * If locale is NULL, use system locale
@@ -97,7 +101,7 @@ const char * natspec_get_charset_by_locale(const int type,
  * 	which must be freed with free(). Otherwise NULL.
  */
  
-/* Translaterate inconvenient symbols */
+/* Transliterate inconvenient symbols */
 char *natspec_convert_with_translit(const char *in_str,
 	const char *tocode, const char *fromcode);
 
@@ -109,7 +113,7 @@ char *natspec_convert(const char *in_str,
 
 /*
  * Specially for mount-like command.
- * Add need i18n params for fs type to mount options
+ * Adds need i18n params for fs type to mount options
  * and return new string
  * Params:
  *  fs      - filesystem type string
@@ -144,6 +148,7 @@ const char *natspec_get_nls_by_charset(const char *cs);
 char *natspec_extract_charset_from_locale(const char *locale);
 
 /* Removes punctuation characters from charset name */
+/* TODO: this function must to fix any charset name to iconv convenient */
 char *natspec_humble_charset( const char *charset);
 
 

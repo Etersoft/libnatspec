@@ -12,7 +12,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.14 2005/03/06 15:13:12 lav Exp $
+    $Id: get_locale.c,v 1.15 2005/03/09 20:14:25 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -184,8 +184,7 @@ char *_natspec_repack_locale(const char *locale)
 {
 	int i;
 	char *buf, *lang, *next, *dialect, *charset, *country;
-    if (!locale || !locale[0] ||
-		!strcmp(locale,"POSIX") || !strcmp(locale,"C") )
+    if (!locale || !locale[0])
 		return NULL;
 	DEBUG (printf("repack_locale\n"));
 	lang = strdup( locale );
@@ -196,12 +195,12 @@ char *_natspec_repack_locale(const char *locale)
     country = strchr(lang,'_'); if (country) *country++ = '\0';
 
 	for (i=0; i<strlen(lang); i++)
-		tolower(lang[i]);
+		_n_tolower(lang[i]);
 	strcpy(buf, lang);
 	if (country)
 	{
 		for (i=0; i<strlen(country); i++)
-			toupper(country[i]);
+			_n_toupper(country[i]);
 		strcat(buf, "_");
 		strcat(buf, country);
 	}
@@ -214,6 +213,8 @@ char *_natspec_repack_locale(const char *locale)
 	}
 	if (dialect)
 	{
+		for(i=0; i<strlen(dialect); i++)
+			_n_tolower(dialect[i]);
 		strcat(buf, "@");
 		strcat(buf, dialect);
 	}
