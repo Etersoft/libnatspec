@@ -1,5 +1,5 @@
 /* Helper for autogenerate charset_relation table
-    $Id: print_data_string.c,v 1.9 2005/03/09 20:07:30 lav Exp $
+    $Id: print_data_string.c,v 1.10 2005/03/17 15:29:17 lav Exp $
 */
 
 #include <windows.h>
@@ -26,7 +26,7 @@ static const char * get_charset (UINT codepage)
   return "";
 }
 
-/* Next two func copied from libnatspec / get_charset.c and get_locale.c */
+/* Next three func copied from libnatspec / get_charset.c and get_locale.c */
 
 /* Removes punctuation characters from charset name */
 char *natspec_humble_charset( const char *charset)
