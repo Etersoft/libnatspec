@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <iconv.h>
+#include <stdio.h>
 
 #include "natspec.h"
 #include "data/charset_names.h"
@@ -55,7 +56,9 @@ int main(void)
 	printf("fileenc:%s\n",natspec_get_filename_encoding (""));
 	printf("system locale:%s\n",natspec_get_system_locale ());
 	test_for_iconv();
+	ret = natspec_enrich_fs_options(NULL, NULL);
+	printf("enrich NULL: %s\n",ret);
 	ret = natspec_enrich_fs_options("vfat", "defaults");
-	printf("enrich: %s\n",ret);
+	printf("enrich VFAT: %s\n",ret);
 	return 0;
 }
