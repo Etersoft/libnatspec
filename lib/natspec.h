@@ -4,6 +4,9 @@
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  */
 
+#ifndef __NATSPEC_H
+#define __NATSPEC_H
+
 /* Types of character set tables for various OS */
 
 #define NATSPEC_UNIXCS 0
@@ -42,6 +45,12 @@ const char * natspec_get_charset_by_locale(const int type,
 	const char *locale);
 
 
+/*
+ * Specially for mount command
+ * Returns malloc string with enriched options
+ */
+char * natspec_enrich_fs_options(const char* fs, const char *options);
+
 /* Not recommended for use: */
 
 
@@ -60,3 +69,4 @@ char *natspec_get_charset_from_locale(const char *locale);
 const char * natspec_get_charset_by_charset(const int type,
 	const int bytype, const char *charset);
 
+#endif

@@ -1,3 +1,4 @@
+// Helper for autogenerate charset_relation table
 #include <windows.h>
 #include <winnls.h>
 //#include <wine/unicode.h>
@@ -36,7 +37,6 @@ main (int argc, char **argv)
   GetLocaleInfoW (lcid, LOCALE_IDEFAULTMACCODEPAGE | LOCALE_RETURN_NUMBER,
 		  (LPWSTR) & mac_cp, sizeof (mac_cp) / sizeof (WCHAR));
 
-  //printf ("acp=%d mac=%d oem=%d unix=%d\n",ansi_cp, mac_cp, oem_cp, unix_cp);
   printf ("%d ", lcid);
   printf ("%s ", get_charset (unix_cp));
   printf ("%s ", get_charset (ansi_cp));

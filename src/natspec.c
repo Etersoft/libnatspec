@@ -6,7 +6,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "get_charset.h"
+#include "natspec.h"
 
 
 #define HAVE_POPT_H
@@ -94,7 +94,7 @@ int main(int argc, const char** argv)
 	}
 	if (fsenc)
 	{
-		char *buf;
+		const char *buf;
 		buf = natspec_get_filename_encoding(locale);
 		printf("%s\n",buf);
 		exit(0);

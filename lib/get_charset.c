@@ -12,8 +12,7 @@
 #include <stdio.h>
 
 #include "data/get_charset_data.h"
-#include "get_charset.h"
-#define DEBUG(n)
+#include "natspec_internal.h"
 
 /* Internal: Helper for bsearch */
 static int charset_locale_cmp( const void *name, const void *entry )

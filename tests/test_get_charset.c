@@ -8,7 +8,7 @@
 #include <locale.h>
 #include <iconv.h>
 
-#include "get_charset.h"
+#include "natspec.h"
 #include "data/charset_names.h"
 
 void test_for_iconv()
@@ -33,7 +33,7 @@ void test_for_iconv()
 int main(void)
 {
 	int i;
-	char *locale[6];
+	char *locale[6], *ret;
 	locale[0] = getenv("LANG");
 	locale[1] = getenv("LC_CTYPE");
 	locale[2] = "";
@@ -55,5 +55,7 @@ int main(void)
 	printf("fileenc:%s\n",natspec_get_filename_encoding (""));
 	printf("system locale:%s\n",natspec_get_system_locale ());
 	test_for_iconv();
+	ret = natspec_enrich_fs_options("vfat", "defaults");
+	printf("enrich: %s\n",ret);
 	return 0;
 }
