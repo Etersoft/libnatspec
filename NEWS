@@ -1,3 +1,10 @@
+libnatspec-0.0.9: 27-Feb-2005:
+ - rename enrich_fs_options to get_enriched_fs_options with incompatible change args
+ - update mount/submount example patches
+ - add example path for samba (smbmount/cifsmount)
+ - add auto assumed local encoding in natspec_convert
+ - rename convert to fuzzy convert, add transliteration from links if conv is not possible
+
 libnatspec-0.0.4: 24-Feb-2005:
  - add python binding
  - code cleanup

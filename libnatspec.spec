@@ -12,7 +12,7 @@ Packager: Vitaly Lipatov <lav@altlinux.ru>
 
 Source: http://www.etersoft.ru/download/%name-%version.tar.bz2
 
-# manually removed: gcc-g77  xorg-x11-libs
+# manually removed: gcc-g77 xorg-x11-libs
 # Automatically added by buildreq on Wed Feb 23 2005
 BuildRequires: gcc-c++ hostinfo libpopt-devel libstdc++-devel python-base python-modules-encodings
 
@@ -83,7 +83,6 @@ mv usr/%_lib/lib* %_lib
 %files devel-examples
 %doc examples
 
-# disable by default
 #%files -n python-module-natspec
 #%python_sitelibdir/natspec.py
 #%python_sitelibdir/_natspec.so
