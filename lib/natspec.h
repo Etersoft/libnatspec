@@ -35,6 +35,7 @@
 
 /* 
  * Returns malloc allocated string with system locale
+ * get from LANG evironment variable, if fails,
  * get from LANG variable in /etc/sysconfig/i18n file
  */
  

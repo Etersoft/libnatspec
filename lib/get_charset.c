@@ -161,6 +161,7 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 	}
 	if (!entry)
 	{
+		// It will broken brain if we have a few identical charset
 		charset = natspec_get_charset_from_locale(locale);
 		DEBUG (printf ("Can't find the locale '%s', search by charset '%s' now\n", locale, charset));
 		entry = get_entry_by_charset(NATSPEC_UNIXCS, charset, locale);

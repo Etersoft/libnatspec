@@ -35,7 +35,7 @@
 
 char *charset_type;
 char *locale;
-int version, verbose, fsenc, fcodepage;
+int version, verbose, fsenc, fcodepage, nls, flag_help;
 
 #if defined HAVE_LIBPOPT
 poptContext context = NULL;
@@ -47,13 +47,15 @@ struct poptOption options[] =
      "Using locale (from $LANG by default)", ""},
     {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 0,
      "Get filesystem encoding", ""},
+    {"nls", 'n', POPT_ARG_NONE,  &nls, 0,
+     "Get filesystem encoding in nls form", ""},
     {"codepage", 'c', POPT_ARG_NONE,  &fcodepage, 0,
-     "Get filesystem encoding", ""},
+     "Get codepage", ""},
     {"version", 'V', POPT_ARG_NONE, &version, 0,
      "Display version and exit", NULL },
     {"verbose", 'v', POPT_ARG_NONE, &verbose, 0,
      "Verbose output", NULL },
-    {"help", 'h', POPT_ARG_NONE, 0, 1, "Show this help message" },
+    {"help", 'h', POPT_ARG_NONE, &flag_help, 1, "Show this help message" },
     {(char *) NULL, '\0', 0, NULL, 0}
 };
 #endif
@@ -79,19 +81,24 @@ int main(int argc, const char** argv)
     if(rc == 1) {
     }
   }
-  /*
+/*
+  { int flag_help=1;
   if (argv) {
       while (poptPeekArg(poptCtx))
-		locale = (char *)poptGetArg(poptCtx);
+		flag_help=0;
+		//locale = (char *)poptGetArg(poptCtx);
       poptFreeContext(poptCtx);
 	}
-	*/
-    if(argc == 1)
+*/	
+    if(flag_help)
 	{
 	poptPrintHelp(poptCtx, stderr, 0);
     exit(0);
 	}
 
+#else
+	printf("Complied without popt\n");
+	exit(1);
 #endif
 	if (version)
 	{
@@ -108,6 +115,15 @@ int main(int argc, const char** argv)
 		const char *buf;
 		if (verbose) printf("Filename encoding:\n");
 		buf = natspec_get_filename_encoding(locale);
+		printf("%s\n",buf);
+		exit(0);
+	}
+	if (nls)
+	{
+		const char *buf;
+		if (verbose) printf("Filename encoding in nls form:\n");
+		buf = natspec_get_nls_from_charset(
+			natspec_get_filename_encoding(locale));
 		printf("%s\n",buf);
 		exit(0);
 	}

@@ -43,7 +43,17 @@ TODO: Как-то должна учитываться ~/.i18n ?
 char *natspec_get_system_locale()
 {
 	char *locale = malloc(100);
-	locale[0] = '\0';
+	char *tmp;
+
+	// Try LANG from environment
+	tmp = getenv("LANG");
+	if (tmp)
+	{
+		strcpy(locale, tmp);
+		return locale;
+	}
+
+	// Read system wide locale
 	FILE *fd = fopen("/etc/sysconfig/i18n","r");
 	for (;fd;)
 	{
@@ -77,9 +87,6 @@ char *natspec_get_system_locale()
 	}
 	if (fd)
 		fclose(fd);
-	// If can't read sysconfig, try LANG from environment
-	if (!locale[0])
-		strcpy(locale, getenv("LANG"));
 	return locale;
 }
 
