@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.5 2005/02/25 21:35:43 lav Exp $
+    $Id: convert.c,v 1.6 2005/02/26 01:03:39 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -33,52 +33,96 @@
 #include <string.h>
 
 #include "natspec_internal.h"
+#include "unicode/uni_7b.h"
 
-/* Returns converts input string from encoding to encoding
- * Source: from my old patch for XMMS (2002 year)
- */
-char *natspec_convert(const char *in_str,
-	const char *tocode, const char *fromcode)
+/* Open iconv table */
+static iconv_t _natspec_iconv_open(const char *tocode, const char *fromcode)
 {
-	size_t result;
-	iconv_t frt;
-	size_t lena = strlen(in_str)*2; /* FIXME see E2BIG for errno */
-	size_t lenb = strlen(in_str);
-	char *ansa = (char*)malloc(lena+1);
-	char *ansbptr = (char*)in_str;
-	char *ansaptr = ansa;
 	if ( tocode == NULL || !strlen(tocode))
 		tocode = natspec_get_charset();
 	if ( fromcode == NULL || !strlen(fromcode))
 		fromcode = natspec_get_charset();
-	frt = iconv_open(tocode, fromcode);
-	if (frt == (iconv_t) -1)
-	{
-	    DEBUG (perror ("iconv_open()"));
-	    return NULL;
-	}
 
+	return iconv_open(tocode, fromcode);
+}
+
+static int ucs2_cmp( const void *ucs2, const void *entry )
+{
+	const struct u7_struct *s = (const struct u7_struct*)entry;
+	const unsigned short u = *((const unsigned short*)ucs2);
+	return (u - s->x);
+}
+
+/* Get transliterated UCS2 character */
+static const char *get_7bit (unsigned short ucs2)
+{
+	struct u7_struct *entry;
+	entry = bsearch( &ucs2, unicode_7b,
+	  	sizeof(unicode_7b) / sizeof(unicode_7b[0]),
+	    sizeof(unicode_7b[0]), ucs2_cmp );
+	if (entry == NULL || entry->s == NULL)
+		return "_";
+	DEBUG (printf("ucs2:%x, %s, entry:%x\n",ucs2, entry->s, entry));
+	return entry->s;
+}
+
+/* Returns converts input string from encoding to encoding
+ * Source: from my old patch for XMMS (2002 year)
+ */
+char *natspec_fuzzy_convert(const char *in_str,
+	const char *tocode, const char *fromcode)
+{
+	size_t result;
+	unsigned short tmp;
+	iconv_t frt, ucs2;
+	size_t lena = strlen(in_str)*6; /* FIXME see E2BIG for errno */
+	size_t lenb = strlen(in_str);
+	size_t lentmp;
+	char *ansa = (char*)malloc(lena+1);
+	char *ansbptr = (char*)in_str;
+	char *ansaptr = ansa, *tmpptr;
+
+	frt = _natspec_iconv_open(tocode, fromcode);
+	ucs2 = _natspec_iconv_open("UCS2", fromcode);
+	if (frt == (iconv_t) (-1) || ucs2 == (iconv_t) (-1))
+	{
+		free (ansa);
+		return NULL;
+	}
 	for (;;)
 	{
+		DEBUG (printf("%s:%d %d [%c]\n",ansbptr,lenb,lenb,*ansbptr));
 		result = iconv(frt, &ansbptr, &lenb, &ansaptr, &lena);
 		if (result != (size_t) -1)
 			break;
-		if ( errno == EILSEQ )
+		if ( errno != EILSEQ )
+			break;
+		/* Replace invalid input character. See code of links, sim, iconv */
+		lentmp = 2;
+		tmpptr = (char*) &tmp;
+		DEBUG (printf("%d, %s:%d\n",ucs2,ansbptr,lenb));
+		result = iconv(ucs2, &ansbptr, &lenb, &tmpptr, &lentmp);
+		if ((result == (size_t) -1 && errno == E2BIG) || result != (size_t) -1)
 		{
-			/* Replace invalid input character FIXME: see iconv util code
-			*ansaptr++ = *ansbptr; */
+			DEBUG (printf("br\n"));
+			const char *t = get_7bit(tmp);
+			strcpy(ansaptr, t);
+			ansaptr += strlen(t);
+			lena -= 2;
+		}
+		else
+		{
+			DEBUG (printf("%d '%c'\n",errno, *ansbptr));
+			perror("");
 			*ansaptr++ = '_';
 			lena--;
 			ansbptr++;
 			lenb--;
-			continue;
 		}
-		DEBUG (perror ("iconv()"));
-		return NULL;
 	}
+	iconv_close(frt);
 	ansa[strlen(in_str) - lenb] = '\0';
-
-	if (iconv_close(frt) != 0)
-	    DEBUG (perror ("iconv_close()"));
-	return ansa;
+	ansaptr = strdup(ansa);
+	free(ansa);
+	return ansaptr;
 }
