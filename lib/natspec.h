@@ -88,6 +88,9 @@ const char *natspec_get_codepage_from_charset(const char *cs);
 const char *natspec_get_nls_from_charset(const char *cs);
 
 
+/* Returns converts input string from encoding to encoding */
+char *natspec_convert(const char *in_str, const char *tocode, const char *fromcode);
+
 
 /* Not recommended for use: */
 
