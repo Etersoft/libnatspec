@@ -1,5 +1,5 @@
 Name: libnatspec
-Version: 0.1.1
+Version: 0.1.9
 Release: alt1
 
 Summary: Nation & languages specifity issues library
@@ -90,6 +90,9 @@ mv usr/%_lib/%name.* %_lib
 
 
 %changelog
+* Thu Mar 03 2005 Vitaly Lipatov <lav@altlinux.ru> 0.1.9-alt1
+- 0.2pre release
+
 * Sun Feb 27 2005 Vitaly Lipatov <lav@altlinux.ru> 0.1.0-alt1
 - first stable release
 

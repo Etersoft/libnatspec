@@ -1,4 +1,4 @@
-libnatspec-0.1.1: 03-Mar-2005:
+libnatspec-0.1.9: 03-Mar-2005:
  - add jfs support
  - update submount patch (to be simple)
  - update samba patch (add default charsets for params)
