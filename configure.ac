@@ -1,6 +1,8 @@
 # AC_PREREQ(2.59)
-AC_INIT([libnatspec], [0.0.2], lav@etersoft.ru)
+AC_INIT([libnatspec], [0.0.3], lav@etersoft.ru)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
+#AS_VERSION(comedilib, COMEDILIB, 0, 7, 21)
+#AS_LIBTOOL(COMEDILIB, 0, 7, 18, yes)
 
 AC_CONFIG_HEADER(config.h)
 CFLAGS="-Wall -pedantic -funsigned-char"
