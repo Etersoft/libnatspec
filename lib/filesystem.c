@@ -9,7 +9,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: filesystem.c,v 1.2 2005/02/23 15:03:27 lav Exp $
+    $Id: filesystem.c,v 1.3 2005/02/27 19:04:32 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -87,15 +87,17 @@ const char *natspec_get_nls_by_charset(const char *cs)
 /* Return filename encoding for locale */
 const char *natspec_get_filename_encoding(const char *locale)
 {
-	/* Try get from env */
+	/* Try get from environment variable */
 	const char *buf = getenv("G_FILENAME_ENCODING");
     /* FIXME: test for comma-separated list in G_FILENAME_ENCODING */
-	if (buf)
+	if (buf != NULL && buf[0] != '\0')
 	{
-		/* Search in static table the same name: normalized */
+		/* If get from env non empty string,
+		   search in static table the same name: normalized */
 		buf = natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_UNIXCS, buf);
 	}
-	else
+	/* If above try is failed */
+	if (buf == NULL || buf[0] == '\0')
 	{
 		/* Get charset from locale */
 		buf = natspec_get_charset_by_locale(NATSPEC_UNIXCS, locale);
