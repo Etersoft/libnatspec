@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.14 2005/02/24 19:18:42 lav Exp $
+    $Id: enrich_fs_options.c,v 1.15 2005/02/25 10:19:47 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -32,10 +32,16 @@
 
 #include "natspec_internal.h"
 
-/* iocharset & codepage */
+/* FAT/CDFS: iocharset & codepage */
 static const char *list_fat_fs[] =
 {
 	"vfat", "fat", "msdos", NULL
+};
+
+/* SMB/CIFS: iocharset & codepage */
+static const char *list_smb_fs[] =
+{
+	"smb", "smbfs", "cifs", NULL
 };
 
 /* iocharset TODO: test with jfs */
@@ -54,8 +60,6 @@ static const char *list_enc_opts[] =
 /* Is there str in list */
 static int str_in_list(const char *str, const char **list)
 {
-	if (!str)
-		return 0;
 	for (;*list;list++)
 	{
 		DEBUG (printf("Comparing '%s' and '%s'\n", str, *list));
@@ -68,7 +72,7 @@ static int str_in_list(const char *str, const char **list)
 /* Is there one string from list in str? */
 static int strstr_in_list(const char *str, const char **list)
 {
-	if (!str)
+	if (str == NULL)
 		return 0;
 	for (;*list;list++)
 	{
@@ -84,6 +88,8 @@ static int strstr_in_list(const char *str, const char **list)
  */
 static void add_option(char *options, const char *option1, const char *option2)
 {
+	if (strlen(option1) == 0)
+		return;
 	if (options[0] != '\0' && options[strlen(options)-1] != ',')
 		strcat(options,",");
 	strcat(options, option1);
@@ -96,6 +102,8 @@ static void add_option(char *options, const char *option1, const char *option2)
 static void add_options(char *buf, const char *fs)
 {
 	const char *charset, *codepage;
+	if (fs == NULL)
+		return;
 	/* charset of our system */
 	charset = natspec_get_filename_encoding("");
 	/* codepage DOS system as assumes by current locale */
@@ -124,7 +132,7 @@ static void add_options(char *buf, const char *fs)
 			add_option(buf, "nls=", charset);
 	}
 	
-	else if ( !strcmp (fs, "smb") || !strcmp(fs, "smbfs"))
+	else if ( str_in_list (fs, list_smb_fs) )
 	{
 		/* smb has some specifity with codepage names */
 		codepage = natspec_get_nls_by_charset(
@@ -140,27 +148,21 @@ static void add_options(char *buf, const char *fs)
 }
 
 /* Add needed i18n options for fs type */
-char* natspec_enrich_fs_options(const char *fs, char **options)
+char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 {
-	char buf[100], *ret; buf[0] = '\0';
+	char buf[100]; buf[0] = '\0';
+	char *ret;
 
-	if (!options) return NULL;
-	if (!fs || !fs[0]) return *options;
-	
-	/* Enriching options string only if it does not contains any encoding options */
-	if ( strstr_in_list (*options, list_enc_opts) )
-		return *options;
+	/* if encoding issues already exist in options, do nothing */
+	if ( strstr_in_list (options, list_enc_opts) )
+		return strdup(options);
 
 	add_options(buf, fs);
-	if (buf[0] == '\0')
-		return *options;
-	if (*options)
-	{
-		ret = malloc ( strlen(*options) + strlen(buf) + 1 + 1 );
-		strcpy (ret, *options);
-		add_option (ret, buf, NULL);
-		free (*options);
-	} else
-		ret = strdup (buf);
-	return *options = ret;
+	if (options == NULL)
+		return strdup (buf);
+
+	ret = malloc ( strlen(options) + strlen(buf) + 1 + 1 );
+	strcpy (ret, options);
+	add_option (ret, buf, NULL);
+	return ret;
 }

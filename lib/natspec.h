@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspec.h,v 1.13 2005/02/23 15:03:27 lav Exp $
+    $Id: natspec.h,v 1.14 2005/02/25 10:19:47 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -102,15 +102,14 @@ char *natspec_convert(const char *in_str,
 
 /*
  * Specially for mount-like command.
- * Realloc memory for options and add to it
- * need i18n params for fs type
+ * Add need i18n params for fs type to mount options
+ * and return new string
  * Params:
- *  fs - filesystem type
- *  options - pointer to pointer at options string
- * NB: we do free(*options) after new string is allocated
+ *  fs      - filesystem type string
+ *  options - already exist options string
  * Returns: new allocated string with enriched options
  */
-char * natspec_enrich_fs_options(const char* fs, char **options);
+char * natspec_get_enriched_fs_options(const char* fs, const char *options);
 
 /*
  * Returns codepage for charset
