@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.10 2005/02/25 10:20:12 lav Exp $
+ * $Id: test_get_charset.c,v 1.11 2005/02/26 01:06:36 lav Exp $
  *
  */
 
@@ -73,6 +73,20 @@ void test_for_iconv()
 	printf("TEST_ICONV: comformance test is completed: %d charsets\n",i);
 }
 
+void test_for_convert()
+{
+	char *t, *ti; 
+	ti = "Test ÐÒÏ×ÅÒËÁ";
+	t = natspec_fuzzy_convert(ti, "ASCII", NULL);
+	printf("%s -> '%s'\n",ti,t);
+	ti = "Ïðîâåðêà";
+	t = natspec_fuzzy_convert(ti, "", "CP1251");
+	printf("%s -> '%s'\n",ti,t);
+	ti = "Test ÐÒÏ×ÅÒËÁ";
+	t = natspec_fuzzy_convert(ti, "UCS2", "");
+	printf("%s -> '%s'\n",ti,t);
+}
+
 void test_nls()
 {
 	int i;
@@ -124,5 +138,6 @@ int main(void)
 	test_for_iconv();
 	test_nls();
 	test_for_enrich();
+	test_for_convert();
 	return 0;
 }
