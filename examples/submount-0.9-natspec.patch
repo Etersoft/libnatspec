@@ -1,0 +1,67 @@
+# Adds libnatspec support
+# Vitaly Lipatov <lav@etersoft.ru>
+
+--- /home/lav/work/build/BUILD/submount-0.9/submountd-0.9/configure.ac	2005-02-26 16:08:47 +0300
++++ submountd-0.9/configure.ac	2005-02-26 16:00:03 +0300
+@@ -37,6 +37,9 @@
+ fi
+ AC_SUBST(LIB_RESMGR)
+ 
++# Checks for libnatspec
++AM_PATH_NATSPEC
++				
+ AC_PREFIX_DEFAULT(/)
+ AC_CONFIG_FILES([Makefile])
+ AC_OUTPUT
+
+--- /home/lav/work/build/BUILD/submount-0.9/submountd-0.9/submountd.c	2005-02-26 16:08:47 +0300
++++ submountd-0.9/submountd.c	2005-02-26 16:08:00 +0300
+@@ -40,6 +40,10 @@
+ #include <pwd.h>
+ #endif
+ 
++#ifdef HAVE_NATSPEC
++#include <natspec.h>
++#endif
++
+ #include "submountd.h"
+ 
+ 
+@@ -163,6 +167,9 @@
+ 	     unsigned long flags, char *options)
+ {
+ 	int retval;
++#ifdef HAVE_NATSPEC
++	char *mount_opts;
++#endif
+ #if USE_RESMGR
+ 	struct passwd *pwd;
+ 	int uid = 0;
+@@ -190,7 +197,14 @@
+ 		}
+ 	}
+ #endif
++
++#ifndef HAVE_NATSPEC
+ 	retval = mount(device, mountpoint, fstype, flags, options);
++#else
++	mount_opts = natspec_get_enriched_fs_options(fstype, options);
++	retval = mount(device, mountpoint, fstype, flags, mount_opts);
++	free(mount_opts);
++#endif
+ 
+ 	if (retval) {
+ 		if ((errno == EROFS) && (!(flags & MS_RDONLY))) {
+
+
+--- /home/lav/work/build/BUILD/submount-0.9/submountd-0.9/Makefile.am	2005-02-20 17:24:46 +0300
++++ submountd-0.9/Makefile.am	2005-02-20 15:49:35 +0300
+@@ -2,7 +2,7 @@
+ sbin_PROGRAMS = submountd net-submountd
+ 
+ submountd_SOURCES = submountd.c mount_guess_fstype.c
+-submountd_LDADD = $(LIB_RESMGR)
++submountd_LDADD = $(LIB_RESMGR) $(NATSPEC_LIBS)
+ net_submountd_SOURCES = net-submountd.c
+ man_MANS = submount.8
+ 
