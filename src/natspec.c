@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.14 2005/03/03 10:50:00 lav Exp $
+    $Id: natspec.c,v 1.15 2005/03/09 20:12:44 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -29,6 +29,7 @@
 #include <string.h>
 #include <strings.h>
 #include <assert.h>
+#include <locale.h>
 
 #include "natspec_internal.h"
 
@@ -38,30 +39,27 @@
 
 
 char *charset_type;
-char *locale;
+char *locale, *transliterate;
 int version, verbose, fsenc, fcodepage, nls, flag_help, info, flag_locale;
 
 #if defined HAVE_LIBPOPT
 poptContext context = NULL;
 struct poptOption options[] =
 {
-    {"charset", 's', POPT_ARG_STRING,  &charset_type, 0,
-     "print charset for op. system: unix, win, dos, mac (case insensivity)", ""},
-    {"locale", 'l', POPT_ARG_NONE,  &flag_locale, 1,
-     "print current locale", ""},
-    {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 1,
-     "print filesystem encoding", ""},
-/*    {"nls", 'n', POPT_ARG_NONE,  &nls, 1,
-     "print filesystem encoding in nls form", ""},
-*/
-    {"info", 'i', POPT_ARG_NONE,  &info, 0,
-     "print overall encoding/charset info for your system", ""},
     {"codepage", 'c', POPT_ARG_NONE,  &fcodepage, 1,
      "print codepage", ""},
+    {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 1,
+     "print filesystem encoding", ""},
+    {"info", 'i', POPT_ARG_NONE,  &info, 0,
+     "print overall encoding/charset info for your system", ""},
+    {"transl", 'a', POPT_ARG_STRING,  &transliterate, 1,
+     "transliterate args from ENC to current encoding and print it", ""},
     {"version", 'V', POPT_ARG_NONE, &version, 1,
      "display version and exit", NULL },
     {"verbose", 'v', POPT_ARG_NONE, &verbose, 0,
      "verbose output", NULL },
+    {"charset", 's', POPT_ARG_STRING,  &charset_type, 0,
+     "print charset for op. system: unix, win, dos, mac (case insensivity)", ""},
     {"help", 'h', POPT_ARG_NONE, &flag_help, 1, "Show this help message" },
     {(char *) NULL, '\0', 0, NULL, 0}
 };
@@ -69,6 +67,7 @@ struct poptOption options[] =
 
 static const char *get_charset(char *charset_type)
 {
+	/* FIXME: strcasecmp is locale depends */
 	const char *charset;
 	int type;
 	assert (charset_type);
@@ -130,7 +129,7 @@ int main(int argc, const char** argv)
 	}
 
 #else
-	printf("Compiled without popt\n");
+	printf("Compiled without popt. Exit\n");
 	exit(1);
 #endif
 	if (argc == 1)
@@ -140,16 +139,33 @@ int main(int argc, const char** argv)
 		printf("%s version %s\n",PACKAGE, PACKAGE_VERSION);
 		if (!info) exit(0);
 	}
+	if (transliterate)
+	{
+		char *str = NULL;
+		if (argv) {
+			while (poptPeekArg(poptCtx))
+				str = (char *)poptGetArg(poptCtx);
+			poptFreeContext(poptCtx);
+		}
+		if ( str != NULL)
+		{
+			setlocale(LC_ALL,"");
+			str = natspec_convert_with_translit(str, "", transliterate);
+			puts(str);
+		}
+		exit(0);
+	}
 	if (info)
 	{
 		printf(" === Overall information ===\n");
 		verbose = 1;
 	}
-	locale = natspec_get_user_locale();
+	locale = natspec_get_current_locale();
 	if (flag_locale || info)
 	{
-		if (verbose) printf("Using (user) locale: ");
-		printf("%s\n",locale);
+		if (verbose) printf("Current locale: ");
+		printf("%s",locale);
+		if (verbose) puts("");
 	}
 	if (verbose)
 		printf("System locale: %s\n", natspec_get_system_locale());
@@ -158,25 +174,19 @@ int main(int argc, const char** argv)
 		const char *buf;
 		if (verbose) printf("Filename encoding in iconv/nls form: ");
 		buf = natspec_get_filename_encoding("");
-		printf("%s\n",buf);
+		printf("%s",buf);
+		if (verbose) puts("");
 		if (!info) exit(0);
 	}
-/*	if (nls || info)
-	{
-		const char *buf;
-		if (verbose) printf("Filename system encoding in nls form (iocharset): ");
-		buf = natspec_get_filename_encoding(locale);
-		printf("%s\n",buf);
-		if (!info) exit(0);
-	}
-*/
+
 	if (fcodepage || info)
 	{
 		const char *buf;
 		if (verbose) printf("Codepage of DOS: ");
 		buf = natspec_get_codepage_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
-		printf("%s\n",buf);
+		printf("%s",buf);
+		if (verbose) puts("");
 		if (!info) exit(0);
 	}
 	if (info)
