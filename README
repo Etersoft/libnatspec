@@ -5,13 +5,13 @@
 == About libnatspec ===
 
 libnatspec is a collection of function for requiest various
-charsets and locales - from host system, from other system.
-It work in Linux and no test done in other Unix-like system.
+charsets and locales for host system and for other system.
 The libnatspec allows applications to be written that are
-locale and distro independent.
-It contains table with relation between locale name and encoding
-other system. Libnatspec is tries to use user locale information
-if possible.
+locale and system independent. Libnatspec is tries to use
+user locale information if possible.
+It contains table with relations between locale name and encoding
+of other system. 
+It works in Linux only and not tested in other Unix-like system yet.
 
 
 This distribution contains library, header files and binding
