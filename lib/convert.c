@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.6 2005/02/26 01:03:39 lav Exp $
+    $Id: convert.c,v 1.7 2005/02/26 10:06:47 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -125,4 +125,11 @@ char *natspec_fuzzy_convert(const char *in_str,
 	ansaptr = strdup(ansa);
 	free(ansa);
 	return ansaptr;
+}
+
+/* Obsoletes */
+char *natspec_convert(const char *in_str,
+	const char *tocode, const char *fromcode)
+{
+	return natspec_fuzzy_convert(in_str,tocode,fromcode);
 }

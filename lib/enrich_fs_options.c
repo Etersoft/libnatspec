@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.15 2005/02/25 10:19:47 lav Exp $
+    $Id: enrich_fs_options.c,v 1.16 2005/02/26 10:06:47 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -165,4 +165,14 @@ char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 	strcpy (ret, options);
 	add_option (ret, buf, NULL);
 	return ret;
+}
+
+/* Obsoletes */
+char* natspec_enrich_fs_options(const char *fs, char **options)
+{
+	char *opt;
+	opt = natspec_get_enriched_fs_options(fs,*options);
+	free(*options);
+	*options = opt;
+	return opt;
 }
