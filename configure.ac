@@ -39,6 +39,7 @@ AC_FUNC_MALLOC
 AC_CHECK_FUNCS([nl_langinfo setlocale strcasecmp strchr])
 
 AC_CONFIG_FILES([Makefile
+				 libnatspec.pc
                  lib/Makefile
                  src/Makefile
 				 tests/Makefile])
