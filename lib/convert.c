@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.7 2005/02/26 10:06:47 lav Exp $
+    $Id: convert.c,v 1.8 2005/02/26 11:19:16 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -113,7 +113,7 @@ char *natspec_fuzzy_convert(const char *in_str,
 		else
 		{
 			DEBUG (printf("%d '%c'\n",errno, *ansbptr));
-			perror("");
+			DEBUG (perror(""));
 			*ansaptr++ = '_';
 			lena--;
 			ansbptr++;
@@ -121,7 +121,8 @@ char *natspec_fuzzy_convert(const char *in_str,
 		}
 	}
 	iconv_close(frt);
-	ansa[strlen(in_str) - lenb] = '\0';
+	/*ansa[strlen(in_str) - lenb] = '\0';*/
+	*ansaptr = '\0';
 	ansaptr = strdup(ansa);
 	free(ansa);
 	return ansaptr;
