@@ -1,0 +1,79 @@
+# Adds libnatspec support
+# Vitaly Lipatov <lav@etersoft.ru>
+--- /home/lav/work/build/BUILD/sdcv/Makefile	2004-03-07 17:39:57 +0300
++++ Makefile	2005-02-22 02:31:30 +0300
+@@ -2,10 +2,10 @@
+ CC = gcc
+ CXX = g++
+ CFLAGS = -g -Wall -O0 -DHAVE_MMAP
+-CXXFLAGS = -g -Wall -O0 -ansi \
++CXXFLAGS = $(CFLAGS) -ansi \
+            `pkg-config --cflags glib-2.0` \
+-	   -DSTARDICT_DATA_DIR=\""$(datadir)/stardict"\" -DHAVE_MMAP
+-LDFLAGS = `pkg-config --libs glib-2.0` -lz 
++	   -DSTARDICT_DATA_DIR=\""$(datadir)/stardict"\" -DHAVE_NATSPEC
++LDFLAGS = `pkg-config --libs glib-2.0 libnatspec` -lz
+ 
+ .cpp.o:
+ 	$(CXX) -c $(CXXFLAGS) -o $@  $<
+--- /home/lav/work/build/BUILD/sdcv/main.cpp	2004-03-10 20:19:55 +0300
++++ main.cpp	2005-02-21 22:48:52 +0300
+@@ -21,8 +21,13 @@
+ #include <iostream>
+ #include <clocale>
+ 
++#ifdef HAVE_NATSPEC
++#include <natspec.h>
++#endif
++
+ #include "utils.hpp"
+ 
++
+ class PrintUTF8{
+   std::string utf8_str;
+ public:
+@@ -30,19 +35,24 @@
+   friend std::ostream &operator<<(std::ostream &os, PrintUTF8);
+ };
+ 
++
+ std::ostream &operator<<(std::ostream &os, PrintUTF8 print_utf8)
+ {
++#ifndef HAVE_NATSPEC
+   gsize bytes_read, bytes_written;
+   GError *err=NULL;
+ 
++
+   gchar *res=g_locale_from_utf8(print_utf8.utf8_str.c_str(), -1, &bytes_read, &bytes_written, &err);
+   if(NULL==res){
+     std::cerr<<"Can not convert "<<print_utf8.utf8_str<<" to current locale.\n"<<err->message<<std::endl;
+     g_error_free(err);
+     exit(EXIT_FAILURE);
+   }
+-
+-  os<<res;
++#else
++  gchar *res = natspec_convert(print_utf8.utf8_str.c_str(), NULL, "UTF-8");
++#endif
++  os << res;
+   g_free(res); 
+   return os;
+ }
+@@ -51,6 +61,7 @@
+ {
+   if(NULL==loc_str)
+     return;
++#ifndef HAVE_NATSPEC
+   gsize bytes_read;
+   gsize bytes_written;
+   GError *err=NULL;
+@@ -60,6 +71,9 @@
+     g_error_free(err);
+     return;
+   }
++#else
++  gchar *str = natspec_convert(loc_str, "UTF-8", NULL);
++#endif
+   if(str[0]=='\0')
+     return;
+   std::vector<LibCore::SearchResult> res;
