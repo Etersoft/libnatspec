@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.10 2005/02/23 15:03:27 lav Exp $
+    $Id: natspec.c,v 1.11 2005/02/25 10:20:46 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -45,13 +45,14 @@ poptContext context = NULL;
 struct poptOption options[] =
 {
     {"charset", 's', POPT_ARG_STRING,  &charset_type, 0,
-     "set type of needed charset: unix (default), win, dos, mac", ""},
+     "print charset for op. system: unix, win, dos, mac (case insensivity)", ""},
     {"locale", 'l', POPT_ARG_NONE,  &flag_locale, 1,
      "print system locale", ""},
     {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 1,
      "print filesystem encoding", ""},
-    {"nls", 'n', POPT_ARG_NONE,  &nls, 1,
+/*    {"nls", 'n', POPT_ARG_NONE,  &nls, 1,
      "print filesystem encoding in nls form", ""},
+*/
     {"info", 'i', POPT_ARG_NONE,  &info, 0,
      "print overall encoding/charset info for your system", ""},
     {"codepage", 'c', POPT_ARG_NONE,  &fcodepage, 1,
@@ -151,12 +152,12 @@ int main(int argc, const char** argv)
 	if (fsenc || info)
 	{
 		const char *buf;
-		if (verbose) printf("Filename encoding in iconv form: ");
+		if (verbose) printf("Filename encoding in iconv/nls form: ");
 		buf = natspec_get_filename_encoding(locale);
 		printf("%s\n",buf);
 		if (!info) exit(0);
 	}
-	if (nls || info)
+/*	if (nls || info)
 	{
 		const char *buf;
 		if (verbose) printf("Filename system encoding in nls form (iocharset): ");
@@ -164,10 +165,11 @@ int main(int argc, const char** argv)
 		printf("%s\n",buf);
 		if (!info) exit(0);
 	}
+*/
 	if (fcodepage || info)
 	{
 		const char *buf;
-		if (verbose) printf("Codepage of another system (codepage): ");
+		if (verbose) printf("Codepage of DOS: ");
 		buf = natspec_get_codepage_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
 		printf("%s\n",buf);
