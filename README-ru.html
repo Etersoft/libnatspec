@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>FreeSource : БиблиотекаNATSPEC</title>
+<meta name="robots" content="noindex, nofollow" />
+  <meta http-equiv="content-type" content="text/html; charset=windows-1251" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" type="text/css" href="http://www.freesource.info/wiki/themes/tabs/css/wakkaprint.css" />
+</head>
+
+<body>
+
+<div class="header">
+  <h1>
+  FreeSource: 
+  <a href="http://www.freesource.info/wiki/bibliotekanatspec">БиблиотекаNATSPEC</a>  (Версия для печати)
+  </h1>
+</div>
+
+<div class="pageBefore"><img src="http://www.freesource.info/wiki/images/z.gif" width="1" height="1" border="0" alt="" style="display:block" align="top" /></div><div class="page">
+<a name="h301-1"></a><h1> Библиотека NATSPEC </h1>
+<br />
+Библиотека NATSPEC предназначена для&nbsp;сглаживания национальных особенностей при&nbsp;использовании программ, а&nbsp;точнее:<br />
+<ul><li> решения проблемы с&nbsp;кодировкой для&nbsp;большинства случаев;
+</li><li> предоставления различных вспомогательных средств, облегчающих локализацию программ.</li></ul>
+<br />
+ <!--notypo--><fieldset><legend><strong> Оглавление документа   </strong></legend><div class="toc1"><a href="#h301-2"> Причины появления </a></div><div class="toc1"><a href="#h301-3"> Зачем она&nbsp;нужна </a></div><div class="toc1"><a href="#h301-4"> Как&nbsp;она устроена </a></div><div class="toc1"><a href="#h301-5"> Где&nbsp;скачать и&nbsp;как ознакомиться </a></div><div class="toc1"><a href="#h301-6"> Как&nbsp;использовать </a></div></fieldset><!--/notypo--><br />
+<a name="h301-2"></a><h2> Причины появления </h2>
+<br />
+Пользователь Linux, который действительно работает в&nbsp;этой системе, часто сталкивается с&nbsp;проблемами кодировок: как&nbsp;содержимого файлов, так&nbsp;названий файлов. Практически на&nbsp;каждом шагу встречаются случаи, когда пользователя заставляют указывать кодировку (названий) файлов, с&nbsp;которыми он&nbsp;имеет дело. Это&nbsp;происходит при<br />
+<ul><li> монтировании дискет, <span class="nobr">компакт-дисков</span>, <span class="nobr">флэш-дисков</span>, принесённых жёстких дисков и&nbsp;других носителей;
+</li><li> монтировании сетевых ресурсов через SAMBA;
+</li><li> записи дисков (создании файловых систем) с&nbsp;помощью команд mkisofs, growisofs, программ k3b, xcdroast и&nbsp;подобное;
+</li><li> в&nbsp;файловом менеджере mc, если вы&nbsp;хотите воспользоваться заложенной туда возможностью перекодирования текстов</li></ul>
+ <br />
+ Более того, существует целое непаханное поле программ, где&nbsp;надо бы&nbsp;указывать кодировку, а&nbsp;нечем:<br />
+<ul><li> в&nbsp;<span class="nobr">ftp-серверах</span> и&nbsp;<span class="nobr">ftp-клиентах</span>;
+</li><li> все&nbsp;используемые для&nbsp;установки ОС&nbsp;файловые системы; файловая система <span class="missingpage">Rock&nbsp;Ridge</span> на&nbsp;оптических дисках;
+</li><li> многие <span class="nobr">мультимедиа-проигрыватели</span>.</li></ul>
+<br />
+Зачастую эти&nbsp;проблемы не&nbsp;решены, или&nbsp;решены частным образом, или&nbsp;решены не&nbsp;совсем корректным патчем.<br />
+<br />
+Становится понятно, что&nbsp;в&nbsp;системе должна быть возможность получить ответ на&nbsp;следующие вопросы:<br />
+<ul><li>  какая кодировка используется для&nbsp;хранения названий файлов в&nbsp;системе?
+</li><li> какая кодировка используется для&nbsp;хранения содержимого файлов?</li></ul>
+ <br />
+При&nbsp;этом часто можно слышать мнение, что&nbsp;эти ответы в&nbsp;общем случае не&nbsp;имеют ответа, и&nbsp;принципиально иметь не&nbsp;могут,<br />
+а&nbsp;потому не&nbsp;надо и&nbsp;невозможно пытаться на&nbsp;них ответить.<br />
+По&nbsp;большому счёту ситуацию практически исправляет (если полностью забыть о&nbsp;совместимости) полный перевод<br />
+системы на&nbsp;кодировку <span class="nobr">UTF-8</span>. К&nbsp;сожалению, даже при&nbsp;этом возникнет ряд&nbsp;проблем (см. <a name="problemyperexodanautf8" href="http://www.freesource.info/wiki/Problemy_Perexoda_Na_UTF8?v=eop" class="">Проблемы&nbsp;Перехода&nbsp;На&nbsp;UTF&nbsp;8</a>)<br />
+<br />
+Но&nbsp;вопросы совместимости никто не&nbsp;отменял и&nbsp;в любом случае порядок взаимодействия как&nbsp;с&nbsp;другими операционными системами (Windows, DOS, MAC), так&nbsp;и&nbsp;с <span class="nobr">Unix-подобными</span> операционными системами должен быть установлен и&nbsp;сформулирован. Особенно это&nbsp;важно для&nbsp;дистрибутива.<br />
+<br />
+По&nbsp;(возможно, беглом) рассмотрении кода таких проектов как&nbsp;WINE, Linux kernel, gettext, <span class="missingpage">Ly&nbsp;X</span>, GLIBC, GLIB, mount, submount, cdrtools, zip, dia, beep, xmms были сформулированы требования и&nbsp;создана реализация библиотеки, которая позволяет получать ответы на&nbsp;вопросы о&nbsp;кодировках,<br />
+а&nbsp;также имеет ряд&nbsp;вспомогательных функций, востребованных во&nbsp;многих проектах.<br />
+<a name="h301-3"></a><h2> Зачем она&nbsp;нужна </h2>
+<br />
+Существует множество программ,  тесно работающие с&nbsp;кодировками, но&nbsp;по объективным обстоятельствам идущие своим путём в&nbsp;их поддержке.<br />
+Чего стоит только поддержка перекодирования, встроенная в&nbsp;mkisofs, и&nbsp;использующая nls, выдранный из&nbsp;ядра Linux неизвестно какой версии.<br />
+<br />
+Данный проект создан для&nbsp;того, чтобы решать большинство вопросов, связанных с&nbsp;перекодированием, вне&nbsp;конкретной программы. Это&nbsp;повышает<br />
+переносимость, и&nbsp;позволяет не&nbsp;отвлекаться конкретному проекту на&nbsp;написание костылей для&nbsp;решения общесистемных проблем.<br />
+<br />
+Библиотека не&nbsp;является серебряной пулей или&nbsp;панацеей, это&nbsp;всего лишь средство повысить переносимость данных между разными системами, и&nbsp;облегчить жизнь пользователей и&nbsp;программистов на&nbsp;текущем переходном этапе, когда всё прогрессивное человечество одной ногой перешло в&nbsp;<span class="nobr">UTF-8</span> (нет, эта&nbsp;аббревиатура не&nbsp;относится к&nbsp;НЛО или&nbsp;гробам).<br />
+<a name="h301-4"></a><h2> Как&nbsp;она устроена </h2>
+<br />
+Библиотека LIBNATSPEC определяет такие важные понятия, как<br />
+<ul><li> кодировка локальной файловой системы (filename encoding)
+</li><li> пользовательская локаль (user locale)
+</li><li> системная локаль (system locale)
+</li><li> кодировка текущей локали
+</li><li> кодировка (charset) и&nbsp;кодовая таблица (codepage) иных операционных систем (WIN,DOS,MAC) для&nbsp;данной локали</li></ul>
+и&nbsp;предоставляет API&nbsp;для их&nbsp;использования, а&nbsp;также дополнительные функции, позволяющие:<br />
+<ul><li> дополнить параметры монтирования указанием кодировок в&nbsp;соответствии с&nbsp;типом файловой системы
+</li><li> перекодировать строки с&nbsp;потерями (для целей отображения пользователю в&nbsp;ситуациях, когда его&nbsp;локаль</li></ul>
+ не&nbsp;позволяет воспроизвести все&nbsp;используемые символы)<br />
+<br />
+Базой для&nbsp;эвристики является таблица, получаемая примерно по&nbsp;следующему алгоритму: По&nbsp;списку локалей, установленных с&nbsp;glibc, имеющейся в&nbsp;локали информации об&nbsp;основной кодировке, а&nbsp;также программе, получающей информации о&nbsp;соответствии кодировок различных ОС&nbsp;из WINE, формируется статический массив, который используется в&nbsp;библиотеке в&nbsp;дальнейшем для&nbsp;определения кодировки по&nbsp;локали и&nbsp;пр.<br />
+ <br />
+Библиотека написана на&nbsp;языке C&nbsp;с учётом максимально возможной переносимости. В&nbsp;настоящий момент для&nbsp;сборки требуется<br />
+glibc и&nbsp;libpopt. Тестирование на&nbsp;других системах не&nbsp;проводилось.<br />
+Имеются интерфесы для&nbsp;других языков:<br />
+<ul><li> python</li></ul>
+<br />
+Имеется консольная программа, позволяющая получать определённые в&nbsp;библиотеке параметры. Например<br />
+<div class="indent"> $ natspec -l    &ndash; показать системную локаль<br />
+ $ natspec -i    &ndash; вывести всю&nbsp;доступную информацию</div>
+(просьба посмотреть и&nbsp;высказать свои замечания по&nbsp;качеству определения ситуации на&nbsp;вашей машине)<br />
+<br />
+Для&nbsp;ALT Linux:<br />
+В&nbsp;системе имеется файл /etc/sysconfig/i18n, в&nbsp;котором, кроме всего прочего, задана системная локаль строчкой LANG=локаль. Например, у&nbsp;меня в&nbsp;системе указано в&nbsp;этом файле: LANG=ru_RU.<span class="nobr">KOI8-R</span><br />
+<a name="h301-5"></a><h2> Где&nbsp;скачать и&nbsp;как ознакомиться </h2>
+<br />
+Библиотека доступна в&nbsp;свободном репозитории пакетов <a href="http://sisyphus.ru" target="_blank" title="Внешняя ссылка (откроется в новом окне)" class="outerlink"><img src="http://www.freesource.info/wiki/themes/tabs/icons/web.gif" alt="" border="0" />Сизиф</a><br />
+На&nbsp;следующих ресурсах всегда выложены последние версии библиотеки:<br />
+<ul><li> <a href="http://etersoft.ru/download/natspec" target="_blank" title="Внешняя ссылка (откроется в новом окне)" class="outerlink"><img src="http://www.freesource.info/wiki/themes/tabs/icons/web.gif" alt="" border="0" />http://etersoft.ru/download/natspec</a>
+</li><li> <a href="ftp://ftp.altlinux.ru/pub/people/lav/natspec" target="_blank" title="Внешняя ссылка (откроется в новом окне)" class="outerlink"><img src="http://www.freesource.info/wiki/themes/tabs/icons/web.gif" alt="" border="0" />ftp://ftp.altlinux.ru/pub/people/lav/natspec</a> (здесь также есть src.rpm, а&nbsp;также самая свежая сборка пакета)</li></ul>
+<br />
+С&nbsp;любыми вопросами можно обращаться по&nbsp;адресу, указанному в&nbsp;файле README проекта.<br />
+Я&nbsp;буду рад&nbsp;помочь собрать эту&nbsp;библиотеку для&nbsp;вашего дистрибутива.<br />
+<a name="h301-6"></a><h2> Как&nbsp;использовать </h2>
+<br />
+В&nbsp;каталоге examples проекта лежат исправленные файлы и&nbsp;образцы патчей, решающих проблему<br />
+с&nbsp;кодировками для&nbsp;ряда программ. Возможно в&nbsp;вашей системе эти&nbsp;патчи ещё не&nbsp;применены, или&nbsp;они не&nbsp;внесены<br />
+в&nbsp;основную ветвь разработки программы.<br />
+<br />
+<!--notypo--><fieldset><legend>Страницы, ссылающиеся на данную:</legend>
+<a name=".vitalylipatov" href="http://www.freesource.info/wiki/Vitaly_Lipatov?v=17pg#bibliotekanatspec" class="" title="Vitaly&nbsp;Lipatov">VitalyLipatov</a><br />
+<a name=".kodirovkanazvanijjfajjlov" href="http://www.freesource.info/wiki/Kodirovka_Nazvanijj_Fajjlov?v=pcp#bibliotekanatspec" class="" title="Кодировка&nbsp;Названий&nbsp;Файлов">КодировкаНазванийФайлов</a><br />
+<a name=".situacijasarxivatorami" href="http://www.freesource.info/wiki/Situacija_S_Arxivatorami?v=s88#bibliotekanatspec" class="" title="Ситуация&nbsp;С&nbsp;Архиваторами">СитуацияСАрхиваторами</a><br />
+</fieldset>
+<!--/notypo--><br /></div>
+</body></html>

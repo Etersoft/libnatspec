@@ -14,6 +14,9 @@ locale name and encoding.
 This distribution contains library, header files and binding
 to other languages as python.
 
+Please if you discover some bug or misfunction of the natspec library
+on your system, email me about it.
+
 === Installation ===
 
 Installation instructions are found in INSTALL.
