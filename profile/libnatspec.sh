@@ -5,4 +5,4 @@
 # but using natspec library is better.
 
 NATSPEC=/usr/bin/natspec
-test -x $NATSPEC && export G_FILENAME_ENCODING=`natspec -f`
+test -x $NATSPEC && export G_FILENAME_ENCODING=`$NATSPEC -f`
