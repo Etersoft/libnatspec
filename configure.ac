@@ -43,11 +43,9 @@ else
 	AC_DEFINE(HAVE_LIBPOPT,1,[Define if you have the POPT library])
 fi
 
-
 dnl Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS([langinfo.h locale.h stdlib.h string.h])
-
+AC_CHECK_HEADERS([langinfo.h locale.h stdlib.h string.h strings.h])
 
 check_iconv=""
 AC_CHECK_HEADERS([iconv.h],check_iconv=true)
@@ -57,10 +55,12 @@ fi
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
+AC_TYPE_SIZE_T
 
 dnl Checks for library functions.
 AC_FUNC_MALLOC
-AC_CHECK_FUNCS([nl_langinfo setlocale strcasecmp strchr])
+AC_FUNC_ALLOCA
+AC_CHECK_FUNCS([nl_langinfo setlocale strcasecmp strchr strdup strstr])
 
 dnl Python
 AC_ARG_WITH(python, [  --with-python    Compile python binding ],
