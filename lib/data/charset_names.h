@@ -1,7 +1,7 @@
 /* This code contains charset to codepage map originally from
     WINE project (file dlls/kernel/locale.c)
 	LGPL license
-	$Id: charset_names.h,v 1.7 2005/03/17 15:28:06 lav Exp $
+	$Id: charset_names.h,v 1.8 2005/03/17 19:06:45 lav Exp $
  */
 /* 
 
@@ -24,10 +24,10 @@ static const struct charset_entry
 } charset_names[] =
 {
     { "BIG5",      "big5",        950 },	/* Traditional Chinese charset (Big5) */
+    { "CP1125",    "cp1125",      1125 }, /* Codepage 1125 (Ukrainian DOS codepage) */
     { "CP1250",    "cp1250",      1250 },	/* Windows CP1250 (Slavic/Central European Languages) */
     { "CP1251",    "cp1251",      1251 }, /* Windows CP1251 (Bulgarian, Belarusian) */
     { "CP1252",    "cp1252",      1252 }, /* // */
-    { "CP1125",    "cp1125",      1125 }, /* Codepage 1125 (Ukrainian DOS codepage) */
     { "CP1253",    "cp1253",      1253 }, /* // */
     { "CP1254",    "cp1254",      1254 }, /* // */
     { "CP1255",    "cp1255",      1255 }, /* Hebrew charsets (ISO-8859-8, CP1255) */
