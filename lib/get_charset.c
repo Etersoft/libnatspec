@@ -10,7 +10,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_charset.c,v 1.14 2005/02/24 16:06:26 lav Exp $
+    $Id: get_charset.c,v 1.15 2005/02/27 19:06:07 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -96,24 +96,26 @@ static char *normalize_charset(const char *charset)
 }
 */
 
+/* Returns charset for type OS. It never returns NULL,
+ * but current charset */
 static const char *get_cs_by_type(const int type,
 	const struct charsetrel_entry* entry)
 {
-	assert (entry != NULL);
-	switch(type)
-	{
-		case NATSPEC_WINCS:
-			return ( entry->win_cs ? entry->win_cs : "CP1252");
-		case NATSPEC_DOSCS:
-			return ( entry->dos_cs ? entry->dos_cs : "CP437");
-		case NATSPEC_MACCS:
-			return ( entry->mac_cs ? entry->mac_cs : "MAC");
-		case NATSPEC_UNIXCS:
-			return ( entry->unix_cs ? entry->unix_cs : "iso8859-1"); /* Really? */
-	}
-	/* We can't be here */
-	assert ( entry == NULL);
-	return NULL;
+	DEBUG (assert (entry != NULL));
+	if (entry)
+		switch(type)
+		{
+			case NATSPEC_WINCS:
+				return ( entry->win_cs ? entry->win_cs : "CP1252");
+			case NATSPEC_DOSCS:
+				return ( entry->dos_cs ? entry->dos_cs : "CP437");
+			case NATSPEC_MACCS:
+				return ( entry->mac_cs ? entry->mac_cs : "MAC");
+			case NATSPEC_UNIXCS:
+				return ( entry->unix_cs ? entry->unix_cs : "iso8859-1"); /* Really? */
+		}
+	/* fallback to locale charset */
+	return natspec_get_charset();
 }
 
 
@@ -128,9 +130,9 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 	if (charset == NULL && locale != NULL && bytype == NATSPEC_UNIXCS)
 	{
 		char *old;
-		/* If locale does not specify, use system locale */
+		/* If locale does not specify, use user locale */
 		if (locale[0] == '\0')
-			locale = must_free = natspec_get_system_locale();
+			locale = must_free = natspec_get_user_locale();
 		old = setlocale(LC_ALL, locale);
 		free (must_free);
 		/* Get charset for current locale */
@@ -184,10 +186,16 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 /* Returns charset by locale for type */
 const char * natspec_get_charset_by_locale(const int type, const char *locale)
 {
+	char *must_free = NULL;
 	const struct charsetrel_entry* entry;
+	/* use system locale for NULL or user locale if empty */
 	if (locale == NULL)
-		locale = natspec_get_system_locale();
+		locale = must_free = natspec_get_system_locale();
+	else
+	if (locale[0] == '\0')
+		locale = must_free = natspec_get_user_locale();
 	entry = get_entry_by_locale(locale);
+	free (must_free);
 	return get_cs_by_type(type, entry);
 }
 
