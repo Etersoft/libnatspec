@@ -94,6 +94,15 @@ static void add_options(char *buf, const char *fs)
 		if (charset)
 			add_option(buf, "nls=", charset);
 	} else
+	if ( !strcmp (fs, "smb") || !strcmp(fs, "smbfs"))
+	{
+		codepage = natspec_get_nls_from_charset(
+			natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
+		if (charset)
+			add_option(buf, "iocharset=", charset);
+		if (codepage)
+			add_option(buf, "codepage=", codepage);
+	} else
 		DEBUG (fprintf(stderr, "NATSPEC: do not know %s fs\n",fs));
 }
 
