@@ -1,9 +1,11 @@
 libnatspec-0.0.9: 27-Feb-2005:
  - rename enrich_fs_options to get_enriched_fs_options with incompatible change args
- - update mount/submount example patches
+ - update mount/submount, sdcv example patches
  - add example path for samba (smbmount/cifsmount)
  - add auto assumed local encoding in natspec_convert
- - rename convert to fuzzy convert, add transliteration from links if conv is not possible
+ - add convert_with_translit with transliteration
+   from links if conversion is not possible
+ - add natspec.m4 for autotools, it makes natspec configure is easy
 
 libnatspec-0.0.4: 24-Feb-2005:
  - add python binding
@@ -17,13 +19,11 @@ libnatspec-0.0.3: 23-Feb-2005:
  - add examples of patch for mount, submount, mkisofs, isoinfo, stardict-sdcv
  
 libnatspec-0.0.2: 22-Feb-2005:
-
  - add get_charset function
  - add convert for lossy conversion between encoding
  - add smbfs support in enrich_fs_options
 
 libnatspec-0.0.1: 20-Feb-2005:
-
  - first public release after born
  - support for mount filesystem (enrich_fs_options)
  - system filename encoding detection (get_filename_encoding)

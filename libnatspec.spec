@@ -1,6 +1,6 @@
 Name: libnatspec
 Version: 0.0.5
-Release: alt1
+Release: alt2
 
 Summary: Nation & languages specifity issues library
 

@@ -860,7 +860,7 @@ static void parse_mount_smb(int argc, char **argv)
 	}
 #ifdef HAVE_NATSPEC
 	p = natspec_get_enriched_fs_options("smbfs", options);
-	strcpy(options, p);
+	pstrcpy(options, p);
 	free (p);
 #endif
 }
