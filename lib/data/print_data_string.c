@@ -1,5 +1,5 @@
 /* Helper for autogenerate charset_relation table
-    $Id: print_data_string.c,v 1.7 2005/02/23 15:03:27 lav Exp $
+    $Id: print_data_string.c,v 1.8 2005/03/06 15:13:51 lav Exp $
 */
 
 #include <windows.h>
@@ -33,6 +33,9 @@ char *natspec_humble_charset( const char *charset)
 	char *buf;
 	if (!charset || !charset[0])
 		return NULL;
+	/* Do not remove punctuation for ANSI encoding... */
+	if (strstr(charset,"ANSI_X3") != NULL)
+		return (char*)charset;
 	buf = malloc( strlen(charset) + 1 );
    	for (i = 0, j = 0; charset[i]; i++)
         if (isalnum(charset[i]))

@@ -57,7 +57,7 @@ static const struct charsetrel_entry charset_relation[] =
  {"br_FR@euro",   1171,  "ISO885915",   "CP1252",   "IBM850",   "MAC" },
  {"bs_BA",        1033,  "ISO88592",    "CP1252",   "IBM437",   "MAC" },
  {"byn_ER",       1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
- {"C",            1033,  "ANSIX341968", "CP1252",   "IBM437",   "MAC" },
+ {"C",            1033,  "ANSI_X3.4-1968", "CP1252",   "IBM437",   "MAC" },
  {"ca_ES",        1027,  "ISO88591",    "CP1252",   "IBM850",   "MAC" },
  {"ca_ES@euro",   1027,  "ISO885915",   "CP1252",   "IBM850",   "MAC" },
  {"ca_ES.utf8",   1027,  "UTF8",        "CP1252",   "IBM850",   "MAC" },
@@ -258,7 +258,7 @@ static const struct charsetrel_entry charset_relation[] =
  {"pa_IN",        1094,  "UTF8",         NULL,       NULL,       NULL },
  {"pl_PL",        1045,  "ISO88592",    "CP1250",   "IBM852",    NULL },
  {"pl_PL.utf8",   1045,  "UTF8",        "CP1250",   "IBM852",    NULL },
- {"POSIX",        1033,  "ANSIX341968", "CP1252",   "IBM437",   "MAC" },
+ {"POSIX",        1033,  "ANSI_X3.4-1968", "CP1252",   "IBM437",   "MAC" },
  {"pt_BR",        1046,  "ISO88591",    "CP1252",   "IBM850",   "MAC" },
  {"pt_BR.utf8",   1046,  "UTF8",        "CP1252",   "IBM850",   "MAC" },
  {"pt_PT",        2070,  "ISO88591",    "CP1252",   "IBM850",   "MAC" },
@@ -337,7 +337,5 @@ static const struct charsetrel_entry charset_relation[] =
  {"zu_ZA.utf8",   1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
 
 /* Follow entries is dummy for ASCII/ANSI encoding */
- { "POSIX",	1033,	"ASCII",	"CP1252",	"IBM437",	"MAC" },
- { "POSIX",	1033,	"ANSIX341968",	"CP1252",	"IBM437",	"MAC" }
-
+ { "POSIX",	1033,	"ASCII",	"CP1252",	"IBM437",	"MAC" }
 };
