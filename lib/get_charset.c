@@ -44,7 +44,7 @@
 static int charset_locale_cmp( const void *name, const void *entry )
 {
     const struct charsetrel_entry *rel = (const struct charsetrel_entry *)entry;
-	DEBUG (printf ("Compare %s with %s\n", name, rel->locale));
+	DEBUG (printf ("Compare %s with %s\n", (const char*)name, rel->locale));
     return strcasecmp( (const char *)name, rel->locale );
 }
 

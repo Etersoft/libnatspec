@@ -42,9 +42,16 @@ static const char *list_io_fs[] =
 	"iso9660", "udf", /*"jfs",*/ NULL
 };
 
+static const char *list_enc_opts[] =
+{
+	"iocharset", "codepage", "nls", NULL
+};
+
 /* FIXME: test for comma-separated list in str */
 static int str_in_list(const char *str, const char **list)
 {
+	if (!str)
+		return 0;
 	for (;*list;list++)
 	{
 		DEBUG (printf("Comparing '%s' and '%s'\n", str, *list));
@@ -110,28 +117,26 @@ char* natspec_enrich_fs_options(const char *fs, char **options)
 {
 	char buf[100], *ret; buf[0] = 0;
 
-	/* Enriching options string only if it does not contains encoding options */
-	if (*options &&
-		(strstr(*options,"iocharset") || 
-			strstr(*options, "codepage") ||
-			strstr(*options,"nls")))
-		return *options;
-	if (!fs)
+	if (!options) return NULL;
+	if (!fs || !fs[0]) return *options;
+	
+	/* Enriching options string only if it does not contains any encoding options */
+	if ( str_in_list (*options, list_enc_opts) )
 		return *options;
 
 	add_options(buf, fs);
-
+	if (!buf[0])
+		return *options;
 	if (*options)
 	{
 		ret = malloc ( strlen(*options) + strlen(buf) + 1 + 1 );
 		strcpy (ret, *options);
 		add_option (ret, buf, NULL);
+		free (*options);
 	} else
 	{
 		ret = malloc ( strlen(buf) + 1);
 		strcpy (ret, buf);
 	}
-	free (*options);
-	*options = ret;
-	return ret;
+	return *options = ret;
 }
