@@ -82,7 +82,7 @@ mv usr/%_lib/lib* %_lib
 %_datadir/aclocal/*
 
 %files devel-examples
-%doc examples
+%doc examples profile
 
 #%files -n python-module-natspec
 #%python_sitelibdir/natspec.py
