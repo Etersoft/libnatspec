@@ -1,4 +1,4 @@
-SUBDIRS = lib src tests
+SUBDIRS = lib src src/python tests
 
 # install for devel
 pkgconfigdir 	= $(libdir)/pkgconfig

@@ -1,4 +1,4 @@
-# AC_PREREQ(2.59)
+AC_PREREQ(2.52)
 AC_INIT([libnatspec], [0.0.3], lav@etersoft.ru)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 #AS_VERSION(comedilib, COMEDILIB, 0, 7, 21)
@@ -26,6 +26,7 @@ AC_DISABLE_STATIC
 AC_ENABLE_SHARED(yes)
 AC_ENABLE_STATIC(no)
 AM_PROG_LIBTOOL
+#AC_PROG_LIBTOOL
 
 # Checks for libraries.
 check_popt=""
@@ -50,14 +51,25 @@ AC_C_CONST
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([nl_langinfo setlocale strcasecmp strchr])
 
+# Python
+#AC_MSG_CHECKING([Check for python])
+AM_PATH_PYTHON(2.3)
+AM_CHECK_PYTHON_HEADERS(HAVE_PYTHON=yes,[HAVE_PYTHON=no;AC_MSG_WARN([python headers not found, disabling python binding])])
+AM_CONDITIONAL(HAVE_PYTHON, [test "x$HAVE_PYTHON" = xyes])
 
-# AC_ARG_WITH(debug, [  --with-debug    Compile with debug information' ], CFLAGS="$CFLAGS -קףפבקיפר_תהוףר_זלבחי_הלס_ןפלבהכי")
+#AS_COMPILER_FLAG([-fno-strict-aliasing],[PYTHON_QUIET="$PYTHON_QUIET -fno-strict-aliasing"], true )
+#AS_COMPILER_FLAG([-Wno-unused-function],[PYTHON_QUIET="$PYTHON_QUIET -Wno-unused-function"], true )
+#AC_SUBST(PYTHON_QUIET)
+
+
+AC_ARG_WITH(debug, [  --with-debug    Compile with debug information' ], CFLAGS="$CFLAGS -g")
 
 
 AC_CONFIG_FILES([Makefile
 				 libnatspec.pc
                  lib/Makefile
                  src/Makefile
+				 src/python/Makefile
 				 tests/Makefile])
 
 AC_OUTPUT

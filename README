@@ -1,15 +1,52 @@
-=== Example of use: ===
+    LIBNATSPEC
+	The Nation Specifity Library
+	Vitaly Lipatov <lav@etersoft.ru>
 
+== About libnatspec ===
+
+libnatspec is a collection of function for requiest various
+charsets - from host system, from other system.
+It work in Linux and no test done in other Unix-like system.
+The libnatspec allows applications to be written that are
+distro independent. It contains table with relation between
+locale name and encoding.
+
+This distribution contains library, header files and binding
+to other languages as python.
+
+=== Installation ===
+
+Installation instructions are found in INSTALL.
+For RPM-based system you can use libnatspec.spec as example.
+
+=== More Information ===
+
+libnatspec also has a web page, at http://etersoft.ru/natspec.
+New versions of the package can be found on the ftp site
+ftp://ftp.altlinux.ru/pub/people/lav/natspec or the http site
+http://etersoft.ru/download/natspec
+
+libnatspec may be freely distibuted and modified in accordance with
+the GNU Lesser General Public License.  Examplesin the libnatspec
+distribution can fall under different licenses;
+see the individual files for details.
+
+The person for contact is Vitaly Lipatov <lav@etersoft.ru>
+
+=== Example of use ===
+
+==== Convert from other system to our ====
 // Get the filename encoding in your system
-fileenc = natspec_get_filename_encoding("");
+const char *fileenc = natspec_get_filename_encoding("");
 
-// Get the filename encoding in foreign system WIN
-win_cs = natspec_get_charset_by_locale(NATSPEC_WINCS,"");
+// Get the filename encoding in other system WIN
+const char *win_cs = natspec_get_charset_by_locale(NATSPEC_WINCS,"");
 
 // Do conversion from foreign to local filename encoding
-unix_filename=natspec_convert(win_filename,win_cs, fileenc);
+const char * unix_filename = natspec_convert(win_filename,win_cs, fileenc);
 
-Using in .c files:
+
+==== Using in .c files ====
 
 #ifdef HAVE_NATSPEC
 #include <natspec.h>
@@ -19,7 +56,9 @@ Using in .c files:
 	some with natspec using
 #endif
 
-=== koi8-r ===
+
+
+==== In russian: koi8-r ====
 
 Основные черты:
 	 * Статический массив формируется программой под WINE
