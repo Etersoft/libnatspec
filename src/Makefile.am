@@ -1,5 +1,5 @@
-SUBDIRS = python
+#SUBDIRS = python
 bin_PROGRAMS 	= natspec
 natspec_SOURCES = natspec.c
 natspec_LDADD 	= $(top_srcdir)/lib/libnatspec.la $(POPT_LIBS)
-natspec_CFLAGS	= -I$(top_srcdir)/lib
+natspec_CFLAGS	= -I$(top_srcdir)/lib -pedantic

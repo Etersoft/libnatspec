@@ -7,6 +7,8 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
+    $Id: enrich_fs_options.c,v 1.11 2005/02/23 15:03:27 lav Exp $
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation, version 2.1
@@ -42,12 +44,14 @@ static const char *list_io_fs[] =
 	"iso9660", "udf", /*"jfs",*/ NULL
 };
 
+/* If see this type of fs, skip enriching */
 static const char *list_enc_opts[] =
 {
 	"iocharset", "codepage", "nls", NULL
 };
 
 /* FIXME: test for comma-separated list in str */
+/* Is there str in list */
 static int str_in_list(const char *str, const char **list)
 {
 	if (!str)
@@ -61,6 +65,7 @@ static int str_in_list(const char *str, const char **list)
 	return 0;
 }
 
+/* Is there one string from list in str? */
 static int strstr_in_list(const char *str, const char **list)
 {
 	if (!str)
@@ -74,7 +79,9 @@ static int strstr_in_list(const char *str, const char **list)
 	return 0;
 }
 
-/* FIXME: add bound control */
+/* FIXME: add bound control
+ * Internal: adds new option1,2 to options param
+ */
 static void add_option(char *options, const char *option1, const char *option2)
 {
 	if (options[0] && options[strlen(options)-1] != ',')
@@ -89,7 +96,6 @@ static void add_option(char *options, const char *option1, const char *option2)
 static void add_options(char *buf, const char *fs)
 {
 	const char *charset, *codepage;
-	/* Getting typical values */
 	/* charset of our system */
 	charset = natspec_get_filename_encoding("");
 	/* codepage DOS system as assumes by current locale */
@@ -104,18 +110,21 @@ static void add_options(char *buf, const char *fs)
 			add_option(buf, "iocharset=", charset);
 		if (codepage)
 			add_option(buf, "codepage=", codepage);
-	} else
-	if ( str_in_list (fs, list_io_fs) )
+	}
+	
+	else if ( str_in_list (fs, list_io_fs) )
 	{
 		if (charset)
 			add_option(buf, "iocharset=", charset);
-	} else
-	if ( !strcmp (fs, "ntfs"))
+	}
+	
+	else if ( !strcmp (fs, "ntfs"))
 	{
 		if (charset)
 			add_option(buf, "nls=", charset);
-	} else
-	if ( !strcmp (fs, "smb") || !strcmp(fs, "smbfs"))
+	}
+	
+	else if ( !strcmp (fs, "smb") || !strcmp(fs, "smbfs"))
 	{
 		/* smb has some specifity with codepage names */
 		codepage = natspec_get_nls_by_charset(
@@ -124,10 +133,13 @@ static void add_options(char *buf, const char *fs)
 			add_option(buf, "iocharset=", charset);
 		if (codepage)
 			add_option(buf, "codepage=", codepage);
-	} else
+	}
+	
+	else
 		DEBUG (fprintf(stderr, "NATSPEC: do not know %s fs\n",fs));
 }
 
+/* Add needed i18n options for fs type */
 char* natspec_enrich_fs_options(const char *fs, char **options)
 {
 	char buf[100], *ret; buf[0] = 0;
@@ -149,9 +161,6 @@ char* natspec_enrich_fs_options(const char *fs, char **options)
 		add_option (ret, buf, NULL);
 		free (*options);
 	} else
-	{
-		ret = malloc ( strlen(buf) + 1);
-		strcpy (ret, buf);
-	}
+		ret = strdup (buf);
 	return *options = ret;
 }

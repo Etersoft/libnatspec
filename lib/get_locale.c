@@ -12,6 +12,8 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
+    $Id: get_locale.c,v 1.10 2005/02/23 15:03:27 lav Exp $
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation, version 2.1
@@ -72,17 +74,18 @@ char *natspec_get_user_locale()
 /* Read system wide locale, return str or NULL if it does not exist */
 static char *get_from_system_i18n(const char *str)
 {
+	int i;
 	char *locale = NULL;
 	FILE *fd;
 	fd = fopen("/etc/sysconfig/i18n","r");
 	for (;fd;)
 	{
-		int i;
-		char *r;
 		char buf[100], buf1[100];
+		char *r;
+		/* Read next line */
 		r = fgets(buf,99,fd);
 		if (!r) break;
-		/* Remove space symbols */
+		/* Remove space symbols FIXME: some glibc func?*/
 		for (i = 0; *r; r++)
 		{
 			switch (*r)
@@ -100,7 +103,7 @@ static char *get_from_system_i18n(const char *str)
 		i = strlen(str);
 		if (!strncmp(buf1, str, i) && buf1[i] == '=')
 		{
-			locale = strdup (buf1+i+1);
+			locale = strdup ( buf1+i+1 );
 			break;
 		}
 	}
@@ -128,8 +131,7 @@ char *natspec_extract_charset_from_locale(const char *locale)
 	char *lang, *next, *dialect, *charset, *ret;
     if (!locale || !locale[0])
 		return NULL;
-	lang = malloc( strlen(locale) + 1 );
-    strcpy( lang, locale );
+	lang = strdup( locale );
     next = strchr(lang,':'); if (next) *next++='\0';
     dialect = strchr(lang,'@'); if (dialect) *dialect++='\0';
     charset = strchr(lang,'.'); if (charset) *charset++='\0';
@@ -147,9 +149,8 @@ char *repack_locale(const char *locale)
 		!strcmp(locale,"POSIX") || !strcmp(locale,"C") )
 		return NULL;
 	DEBUG (printf("repack_locale\n"));
-	lang = malloc( strlen(locale) + 1 );
+	lang = strdup( locale );
 	buf = malloc( strlen(locale) + 1 );
-    strcpy( lang, locale );
     next = strchr(lang,':'); if (next) *next++='\0';
     dialect = strchr(lang,'@'); if (dialect) *dialect++='\0';
     charset = strchr(lang,'.'); if (charset) *charset++='\0';

@@ -1,10 +1,12 @@
 #!/bin/sh
 # charset relation generator
+#    $Id: gen_data.sh,v 1.6 2005/02/23 15:03:27 lav Exp $
+
 OUTFILE=get_charset_data.h
 
 print()
 {
-	printf "\t{ \"%s\",\t%d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }" $@ >>$OUTFILE
+	printf " { \"%s\",\t%d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }" $@ >>$OUTFILE
 }
 
 echo Test string for $LANG locale:
@@ -18,11 +20,12 @@ static const struct charsetrel_entry charset_relation[] =
 {
 	/* locale,     lcid,    unix,        windows,    dos,      mac charset */
 EOF
+echo "Generating with WINE program..."
 echo "This is log error file. See for your problem locale here and send me a mail: lav@etersoft.ru">./gen_data.out.txt
-for i in `locale -a | sort` POSIX C
+for i in `locale -a | sort`
 do
 #	printf "\t{ %-15s %d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }" "\"$i\"," `LANG=$i ./print_data_string 2>/dev/null` >>$OUTFILE
-	echo -e -n "\t{" >>$OUTFILE
+	echo -e -n " {" >>$OUTFILE
 	LANG=$i LC_CTYPE=$i ./print_data_string 2>>./gen_data.out.txt >>$OUTFILE
 	echo -e " }," >>$OUTFILE
 done

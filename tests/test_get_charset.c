@@ -2,6 +2,9 @@
  * Public domain
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
+ *
+ * $Id: test_get_charset.c,v 1.9 2005/02/23 15:03:27 lav Exp $
+ *
  */
 
 #include <stdlib.h>

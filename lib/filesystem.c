@@ -9,6 +9,8 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
+    $Id: filesystem.c,v 1.2 2005/02/23 15:03:27 lav Exp $
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation, version 2.1
@@ -42,10 +44,6 @@
 #endif
 
 
-/***********************************************************************
- *              charset_cmp (internal)
- */
-
 static int charset_cmp( const void *name, const void *entry )
 {
     const struct charset_entry *charset = (const struct charset_entry *)entry;
@@ -66,8 +64,7 @@ const char *natspec_get_codepage_by_charset(const char *cs)
 		sprintf(__cfc,"%d",entry->codepage);
 		return __cfc;
 	}
-	else
-		return "437"; /* codepage for ascii? */
+	return "437"; /* codepage for ascii? */
 }
 
 /* Returns nls name (in Linux kernel notation) from charset */
@@ -87,10 +84,12 @@ const char *natspec_get_nls_by_charset(const char *cs)
 }
 
 
+/* Return filename encoding for locale */
 const char *natspec_get_filename_encoding(const char *locale)
 {
 	/* Try get from env */
 	const char *buf = getenv("G_FILENAME_ENCODING");
+    /* FIXME: test for comma-separated list in G_FILENAME_ENCODING */
 	if (buf)
 	{
 		/* Search in static table the same name: normalized */

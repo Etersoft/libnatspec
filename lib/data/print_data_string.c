@@ -1,4 +1,7 @@
-// Helper for autogenerate charset_relation table
+/* Helper for autogenerate charset_relation table
+    $Id: print_data_string.c,v 1.7 2005/02/23 15:03:27 lav Exp $
+*/
+
 #include <windows.h>
 #include <winnls.h>
 //#include <wine/unicode.h>
@@ -80,7 +83,7 @@ main (int argc, char **argv)
 	char buf[100];
 	char *l = getenv("LANG");
 	sprintf(buf,"\"%s\"",l);
-  print_w (buf, 14);
+  print_w (buf, 16);
 	
   sprintf (buf, "%d", lcid);
   print_w (buf, 7);

@@ -1,3 +1,5 @@
+# Configure ac for LIBNATSPEC project
+#
 AC_PREREQ(2.52)
 AC_INIT([libnatspec], [0.0.3], lav@etersoft.ru)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
@@ -5,7 +7,7 @@ AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 #AS_LIBTOOL(COMEDILIB, 0, 7, 18, yes)
 
 AC_CONFIG_HEADER(config.h)
-CFLAGS="-Wall -pedantic -funsigned-char"
+CFLAGS="-Wall -funsigned-char"
 
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE

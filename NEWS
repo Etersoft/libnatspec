@@ -1,3 +1,6 @@
+libnatspec-0.0.4: 24-Feb-2005:
+ - add python binding
+ 
 libnatspec-0.0.3: 23-Feb-2005:
  - fix bug with unix charset (was due misunderstanging wine behaviour)
  - add examples of patch for mount, submount, mkisofs, isoinfo, stardict-sdcv

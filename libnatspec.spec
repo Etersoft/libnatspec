@@ -1,5 +1,5 @@
 Name: libnatspec
-Version: 0.0.3
+Version: 0.0.4
 Release: alt1
 
 Summary: Nation & languages specifity issues library
@@ -13,8 +13,8 @@ Packager: Vitaly Lipatov <lav@altlinux.ru>
 Source: http://www.etersoft.ru/download/%name-%version.tar.bz2
 
 # manually removed: gcc-g77  xorg-x11-libs
-# Automatically added by buildreq on Sun Feb 20 2005
-BuildRequires: gcc-c++ hostinfo libpopt-devel libstdc++-devel
+# Automatically added by buildreq on Wed Feb 23 2005
+BuildRequires: gcc-c++ hostinfo libpopt-devel libstdc++-devel python-base python-modules-encodings
 
 %description
 Nation & languages specifity issues library
@@ -78,8 +78,10 @@ mv usr/%_lib/lib* %_lib
 
 %files devel-examples
 %doc examples
-#%files python-module-natspec
-#%python_sitelibdir/*.so
+
+%files -n python-module-natspec
+%python_sitelibdir/natspec.py
+%python_sitelibdir/_natspec.so
 
 
 %changelog

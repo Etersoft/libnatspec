@@ -10,6 +10,8 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
+    $Id: get_charset.c,v 1.13 2005/02/23 15:03:27 lav Exp $
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation, version 2.1
@@ -111,11 +113,12 @@ static const char *get_cs_by_type(const int type,
 		default:
 			break;
 	}
+	DEBUG (printf("bug in libnatspec"));
 	return "ascii";
 }
 
 
-/* Internal: try search in charset_relation by encoding (troubles with the same enc*/
+/* Internal: try search in charset_relation by encoding (troubles with the same enc)*/
 static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 	const char *charset, const char *locale)
 {
@@ -161,11 +164,12 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 	const struct charsetrel_entry *entry = NULL;
 	char *buf = repack_locale(locale);
 	/* Search the same locale string */
-	if (buf && buf[0])
+	if (buf)
 	{
-		entry = bsearch( buf, charset_relation,
-	    	sizeof(charset_relation)/sizeof(charset_relation[0]),
-	        sizeof(charset_relation[0]), charset_locale_cmp );
+		if ( buf[0] != '\0')
+			entry = bsearch( buf, charset_relation,
+		    	sizeof(charset_relation)/sizeof(charset_relation[0]),
+		        sizeof(charset_relation[0]), charset_locale_cmp );
 		free (buf);
 	}
 	/* If can't find by locale, try by charset identity */
@@ -181,7 +185,7 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 }
 
 
-/* Returns charset for locale */
+/* Returns charset by locale for type */
 const char * natspec_get_charset_by_locale(const int type, const char *locale)
 {
 	const struct charsetrel_entry* entry;
@@ -191,15 +195,7 @@ const char * natspec_get_charset_by_locale(const int type, const char *locale)
 	return get_cs_by_type(type, entry);
 }
 
-/*
-const char * natspec_get_codepage_by_locale(const int type, const char *locale)
-{
-	const struct charset_entry* entry = get_entry_by_locale(locale);
-	const char *cs = get_cs_by_type(type, entry);
-	return natspec_codepage_from_charset(cs);
-}
-*/
-
+/* Returns static string by charset by bytype for type */
 const char * natspec_get_charset_by_charset(const int type,
 	const int bytype, const char *charset)
 {
