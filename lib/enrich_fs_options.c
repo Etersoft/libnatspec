@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.13 2005/02/24 16:15:24 lav Exp $
+    $Id: enrich_fs_options.c,v 1.14 2005/02/24 19:18:42 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -142,7 +142,7 @@ static void add_options(char *buf, const char *fs)
 /* Add needed i18n options for fs type */
 char* natspec_enrich_fs_options(const char *fs, char **options)
 {
-	char buf[100], *ret; buf[0] = 0;
+	char buf[100], *ret; buf[0] = '\0';
 
 	if (!options) return NULL;
 	if (!fs || !fs[0]) return *options;
@@ -152,7 +152,7 @@ char* natspec_enrich_fs_options(const char *fs, char **options)
 		return *options;
 
 	add_options(buf, fs);
-	if (!buf[0])
+	if (buf[0] == '\0')
 		return *options;
 	if (*options)
 	{
