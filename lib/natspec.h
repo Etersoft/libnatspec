@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspec.h,v 1.15 2005/02/26 01:04:05 lav Exp $
+    $Id: natspec.h,v 1.16 2005/02/26 15:23:06 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -94,9 +94,14 @@ const char * natspec_get_charset_by_locale(const int type,
  * Returns: a newly allocated nul-terminated string,
  * 	which must be freed with free(). Otherwise NULL.
  */
-char *natspec_fuzzy_convert(const char *in_str,
+ 
+/* Translaterate inconvenient symbols */
+char *natspec_convert_with_translit(const char *in_str,
 	const char *tocode, const char *fromcode);
 
+/* Returns NULL is conversion is failed */
+char *natspec_convert(const char *in_str,
+	const char *tocode, const char *fromcode);
 
 /************* Helper functions *******************/
 

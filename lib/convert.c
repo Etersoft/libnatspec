@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.8 2005/02/26 11:19:16 lav Exp $
+    $Id: convert.c,v 1.9 2005/02/26 15:23:06 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -69,7 +69,7 @@ static const char *get_7bit (unsigned short ucs2)
 /* Returns converts input string from encoding to encoding
  * Source: from my old patch for XMMS (2002 year)
  */
-char *natspec_fuzzy_convert(const char *in_str,
+char *natspec_convert_with_translit(const char *in_str,
 	const char *tocode, const char *fromcode)
 {
 	size_t result;
@@ -128,9 +128,31 @@ char *natspec_fuzzy_convert(const char *in_str,
 	return ansaptr;
 }
 
-/* Obsoletes */
+
 char *natspec_convert(const char *in_str,
 	const char *tocode, const char *fromcode)
 {
-	return natspec_fuzzy_convert(in_str,tocode,fromcode);
+	size_t result;
+	iconv_t frt;
+	size_t lena = strlen(in_str)*6; /* FIXME see E2BIG for errno */
+	size_t lenb = strlen(in_str);
+	char *ansa = (char*)malloc(lena+1);
+	char *ansbptr = (char*)in_str;
+	char *ansaptr = ansa;
+	char *ret = NULL;
+
+	frt = _natspec_iconv_open(tocode, fromcode);
+	if (frt != (iconv_t) (-1))
+	{
+		result = iconv(frt, &ansbptr, &lenb, &ansaptr, &lena);
+		if (result != (size_t) -1)
+		{
+			*ansaptr = '\0';
+			ret = strdup(ansa);
+		}
+		iconv_close(frt);
+	}
+	free(ansa);
+	return ret;
 }
+
