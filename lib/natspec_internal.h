@@ -33,6 +33,10 @@
 
 #include "natspec.h"
 
+#ifdef HAVE_NL_LANGINFO
+# define HAVE_LANGINFO_CODESET
+#endif
+
 #define DEBUG(n)
 
 char *repack_locale(const char *locale);

@@ -33,29 +33,8 @@
 
 #include "natspec_internal.h"
 
-#ifdef HAVE_LANGINFO_H
-# include <langinfo.h>
-#endif
-/*
-#if HAVE_SETLOCALE
-# include <locale.h>
-#endif
-*/
-
 /*#include "data/charset_names.h"*/
 
-const char *natspec_get_charset()
-{
-#ifdef HAVE_GLIB
-	const gchar *charset;
-	g_get_charset(&charset);
-	return charset;
-#elifdef HAVE_LANGINFO_CODESET
-	return nl_langinfo(CODESET);
-#else
-	return natspec_get_charset_by_locale(NATSPEC_UNIXCS, "");
-#endif
-}
 
 /* Returns system locale string (malloc allocated)
 NB TODO: fix ugly malloc, fgets, and from LANG copying using

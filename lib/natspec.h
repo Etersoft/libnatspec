@@ -42,7 +42,7 @@
 char *natspec_get_system_locale();
 
 /*
- * Returns malloc allocated string with current charset
+ * Returns const string with current charset
  */
 const char *natspec_get_charset();
 

@@ -29,15 +29,33 @@
 
 #include <stdlib.h>
 #include <locale.h>
-#include <langinfo.h>
 #include <stdio.h>
 #include <strings.h>
 #include <string.h>
 #include <ctype.h>
 
 #include "natspec_internal.h"
+
 #include "data/get_charset_data.h"
 #include "data/charset_names.h"
+
+#ifdef HAVE_LANGINFO_H
+# include <langinfo.h>
+#endif
+
+/* Returns current charset */
+const char *natspec_get_charset()
+{
+#ifdef HAVE_GLIB
+	const gchar *charset;
+	g_get_charset(&charset);
+	return charset;
+#elifdef HAVE_LANGINFO_CODESET
+	return nl_langinfo(CODESET);
+#else
+	return natspec_get_charset_by_locale(NATSPEC_UNIXCS, "");
+#endif
+}
 
 
 /* Internal: Helper for bsearch */
@@ -117,7 +135,7 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 	const struct charsetrel_entry *entry = NULL;
 	char *must_free = NULL;
 	DEBUG (printf("get_entry_by_charset charset=%s, locale=%s\n",charset, locale));
-	/* Если не указана, но знаем локаль, получаем по системной локали */
+	/* Если не указана charset, но знаем локаль, получаем по системной локали */
 	if (!charset && locale && bytype == NATSPEC_UNIXCS)
 	{
 		char *old;
@@ -127,7 +145,7 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 		old = setlocale(LC_ALL,locale);
 		if (must_free)
 			free (must_free);
-		charset = must_free = clean_charset(nl_langinfo(CODESET));
+		charset = must_free = clean_charset(natspec_get_charset());
 		DEBUG (printf("2 cs=%s\n",charset));
 		setlocale(LC_ALL, old); /* is it correct return to previous settings? */
 	}
