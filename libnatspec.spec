@@ -1,5 +1,5 @@
 Name: libnatspec
-Version: 0.1.0
+Version: 0.1.1
 Release: alt1
 
 Summary: Nation & languages specifity issues library
@@ -63,7 +63,7 @@ Python binding for natspec
 # move to /lib
 cd %buildroot
 mkdir -p %_lib
-mv usr/%_lib/lib* %_lib
+mv usr/%_lib/%name.* %_lib
 
 %post -p %post_ldconfig
 

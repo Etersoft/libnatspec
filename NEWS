@@ -1,3 +1,6 @@
+libnatspec-0.1.1:
+ - add jfs support
+
 libnatspec-0.1.0: 27-Feb-2005:
  - fixed locale using order, add some fallbacks for unusual situation
  - update docs

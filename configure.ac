@@ -1,7 +1,7 @@
 # Configure ac for LIBNATSPEC project
 #
 AC_PREREQ(2.52)
-AC_INIT([libnatspec], [0.1.0], lav@etersoft.ru)
+AC_INIT([libnatspec], [0.1.1], lav@etersoft.ru)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 dnl AS_VERSION(comedilib, COMEDILIB, 0, 7, 21)
 dnl AS_LIBTOOL(COMEDILIB, 0, 7, 18, yes)
@@ -71,6 +71,7 @@ AC_ARG_WITH(debug, [  --with-debug    Compile with debug information], CFLAGS="$
 AC_CONFIG_FILES([Makefile
 				 libnatspec.pc
                  lib/Makefile
+                 libhi/Makefile
                  src/Makefile
 				 src/python/Makefile
 				 tests/Makefile])
