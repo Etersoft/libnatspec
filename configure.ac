@@ -1,5 +1,5 @@
 # AC_PREREQ(2.59)
-AC_INIT([libnatspec], [0.0.1], lav@etersoft.ru)
+AC_INIT([libnatspec], [0.0.2], lav@etersoft.ru)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 
 AC_CONFIG_HEADER(config.h)
