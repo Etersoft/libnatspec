@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.13 2005/03/02 18:25:38 lav Exp $
+    $Id: natspec.c,v 1.14 2005/03/03 10:50:00 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -48,7 +48,7 @@ struct poptOption options[] =
     {"charset", 's', POPT_ARG_STRING,  &charset_type, 0,
      "print charset for op. system: unix, win, dos, mac (case insensivity)", ""},
     {"locale", 'l', POPT_ARG_NONE,  &flag_locale, 1,
-     "print user locale", ""},
+     "print current locale", ""},
     {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 1,
      "print filesystem encoding", ""},
 /*    {"nls", 'n', POPT_ARG_NONE,  &nls, 1,
