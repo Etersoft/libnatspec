@@ -695,7 +695,7 @@ static swig_type_info *swig_types[1];
 
 #define SWIG_name    "_natspec"
 
-#include "../../include/natspec.h"
+#include "../../lib/natspec.h"
 
 #ifdef __cplusplus
 extern "C" {
