@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec_internal.h,v 1.10 2005/02/24 16:06:26 lav Exp $
+    $Id: natspec_internal.h,v 1.11 2005/03/09 20:08:04 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -30,17 +30,26 @@
 #define __NATSPEC_INTERNAL_H
 
 #ifdef HAVE_CONFIG_H
-# include "../config.h"
+#	include "../config.h"
 #else
-# error Something is broken
+#	error Something is broken
 #endif
 
 #include "natspec.h"
 
 #ifdef HAVE_NL_LANGINFO
-# define HAVE_LANGINFO_CODESET
+#	define HAVE_LANGINFO_CODESET
 #else
 	#error "Some error"
+#endif
+
+#ifdef __USE_GNU
+#	define _n_toupper(n) toupper_l(n,"C")
+#	define _n_tolower(n) tolower_l(n,"C")
+#else
+#	define _n_toupper(n) toupper(n)
+#	define _n_tolower(n) tolower(n)
+#	warning "We can't use locale independent lower/upper without GNU"
 #endif
 
 /* Add n in next line for debug messaging */
