@@ -40,6 +40,11 @@ for developing applications with %name
 %install
 %makeinstall
 
+# move to /lib
+cd %buildroot
+mkdir -p %_lib
+mv usr/%_lib/lib* %_lib
+
 %post -p %post_ldconfig
 
 %postun -p %postun_ldconfig
@@ -53,6 +58,7 @@ for developing applications with %name
 %files devel
 %_includedir/*
 /%_lib/%name.so
+%_libdir/pkgconfig/*
 
 %changelog
 * Mon Feb 21 2005 Vitaly Lipatov <lav@altlinux.ru> 0.0.2-alt1
