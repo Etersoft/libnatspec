@@ -5,11 +5,14 @@
 == About libnatspec ===
 
 libnatspec is a collection of function for requiest various
-charsets - from host system, from other system.
+charsets and locales - from host system, from other system.
 It work in Linux and no test done in other Unix-like system.
 The libnatspec allows applications to be written that are
-distro independent. It contains table with relation between
-locale name and encoding.
+locale and distro independent.
+It contains table with relation between locale name and encoding
+other system. Libnatspec is tries to use user locale information
+if possible.
+
 
 This distribution contains library, header files and binding
 to other languages as python.
@@ -62,14 +65,7 @@ const char * unix_filename = natspec_convert(win_filename,win_cs, fileenc);
 ==== Using in configure.in files ====
 1. Add line with AM_PATH_NATSPEC in configure.in
 it makes NATSPEC_LIBS, NATSPEC_CFLAGS for Makefiles
-and HAVE_NATSPEC in configure.h if
-option --with-natspec is present for configure
+and HAVE_NATSPEC in config.h
+2. Use option --with-natspec for configure
 
 
-==== In russian: koi8-r ====
-
-По списку локалей, установленных с glibc, имеющейся в локали
-информации об основной кодировке, а также программе,
-получающей информации о соответствии кодировок различных
-ОС из WINE, формируется статический массив, который используется
-в библиотеке в дальнейшем для определения кодировки по локали и пр.

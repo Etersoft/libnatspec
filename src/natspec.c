@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.11 2005/02/25 10:20:46 lav Exp $
+    $Id: natspec.c,v 1.12 2005/02/27 19:26:19 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -47,7 +47,7 @@ struct poptOption options[] =
     {"charset", 's', POPT_ARG_STRING,  &charset_type, 0,
      "print charset for op. system: unix, win, dos, mac (case insensivity)", ""},
     {"locale", 'l', POPT_ARG_NONE,  &flag_locale, 1,
-     "print system locale", ""},
+     "print user locale", ""},
     {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 1,
      "print filesystem encoding", ""},
 /*    {"nls", 'n', POPT_ARG_NONE,  &nls, 1,
@@ -148,12 +148,13 @@ int main(int argc, const char** argv)
 		if (verbose) printf("Using locale:");
 		printf("%s\n",locale);
 	}
-	if (verbose) printf("System locale is '%s'\n",natspec_get_system_locale());
+	if (verbose)
+		printf("System locale:'%s'\n", natspec_get_system_locale());
 	if (fsenc || info)
 	{
 		const char *buf;
 		if (verbose) printf("Filename encoding in iconv/nls form: ");
-		buf = natspec_get_filename_encoding(locale);
+		buf = natspec_get_filename_encoding("");
 		printf("%s\n",buf);
 		if (!info) exit(0);
 	}

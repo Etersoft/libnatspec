@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.12 2005/02/26 15:23:24 lav Exp $
+ * $Id: test_get_charset.c,v 1.13 2005/02/27 19:26:19 lav Exp $
  *
  */
 
@@ -119,6 +119,7 @@ int main(void)
 {
 	int i;
 	char *locale[7];
+	printf("FIRST fileenc: %s\n",natspec_get_filename_encoding (""));
 	locale[0] = getenv("LANG");
 	locale[1] = "POSIX";
 	locale[2] = "C";
@@ -141,7 +142,7 @@ int main(void)
 			printf ("\tfor %d CS: '%s' (%s)\n", j, e, natspec_get_nls_by_charset(e));
 		}
 	}
-	printf("fileenc:%s\n",natspec_get_filename_encoding (""));
+	printf("fileenc: %s\n",natspec_get_filename_encoding (""));
 	test_for_iconv();
 	test_nls();
 	test_for_enrich();
