@@ -29,7 +29,7 @@
 
 #include "natspec.h"
 
-#define DEBUG(n) n
+#define DEBUG(n)
 
 char *repack_locale(const char *locale);
 

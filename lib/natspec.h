@@ -75,15 +75,6 @@ char *natspec_get_codepage_by_locale(const int type,
  */
 char * natspec_enrich_fs_options(const char* fs, const char *options);
 
-/* Not recommended for use: */
-
-
-/* 
- * Returns malloc allocated string with charset get from _locale_
- */
- 
-char *natspec_get_charset_from_locale(const char *locale);
-
 /*
  * from charset to codepage translator
  * from IBM866 -> 866
@@ -93,6 +84,16 @@ const char *natspec_get_codepage_from_charset(const char *cs);
 
 /* from KOI8R -> koi8-r */
 const char *natspec_get_nls_from_charset(const char *cs);
+
+
+
+/* Not recommended for use: */
+
+/* 
+ * Returns malloc allocated string with charset get from _locale_
+ */
+ 
+char *natspec_get_charset_from_locale(const char *locale);
 
 
 /*
