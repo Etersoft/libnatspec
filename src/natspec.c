@@ -35,23 +35,25 @@
 
 char *charset_type;
 char *locale;
-int version, verbose, fsenc, fcodepage, nls, flag_help;
+int version, verbose, fsenc, fcodepage, nls, flag_help, info;
 
 #if defined HAVE_LIBPOPT
 poptContext context = NULL;
 struct poptOption options[] =
 {
-    {"type", 't', POPT_ARG_STRING,  &charset_type, 0,
+    {"charset", 's', POPT_ARG_STRING,  &charset_type, 0,
      "Type of needed charset: unix (default), win, dos, mac", ""},
     {"locale", 'l', POPT_ARG_STRING,  &locale, 0,
-     "Using locale (from $LANG by default)", ""},
-    {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 0,
+     "Using locale (system locale by default)", ""},
+    {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 1,
      "Get filesystem encoding", ""},
-    {"nls", 'n', POPT_ARG_NONE,  &nls, 0,
+    {"nls", 'n', POPT_ARG_NONE,  &nls, 1,
      "Get filesystem encoding in nls form", ""},
-    {"codepage", 'c', POPT_ARG_NONE,  &fcodepage, 0,
+    {"info", 'i', POPT_ARG_NONE,  &info, 0,
+     "Print overall encoding/charset info for your system", ""},
+    {"codepage", 'c', POPT_ARG_NONE,  &fcodepage, 1,
      "Get codepage", ""},
-    {"version", 'V', POPT_ARG_NONE, &version, 0,
+    {"version", 'V', POPT_ARG_NONE, &version, 1,
      "Display version and exit", NULL },
     {"verbose", 'v', POPT_ARG_NONE, &verbose, 0,
      "Verbose output", NULL },
@@ -60,10 +62,36 @@ struct poptOption options[] =
 };
 #endif
 
-int main(int argc, const char** argv)
+static const char *get_charset(char *charset_type)
 {
 	const char *charset;
 	int type;
+	if (!charset_type)
+		return NULL;
+	if (!strcasecmp(charset_type,"WIN"))
+		type = NATSPEC_WINCS;
+	else if (!strcasecmp(charset_type,"DOS"))
+		type = NATSPEC_DOSCS;
+	else if (!strcasecmp(charset_type,"MAC"))
+		type = NATSPEC_MACCS;
+	else if (!strcasecmp(charset_type,"UNIX"))
+		type = NATSPEC_UNIXCS;
+	else
+	{
+		if (verbose) printf("We do not know %s type of encoding\n",charset_type);
+		exit(1);
+	}
+	charset = natspec_get_charset_by_locale(type, locale);
+	if (verbose)
+		printf("Charset of '%s' system: %s\n", charset_type, charset);
+	else
+		printf("%s\n",charset);
+	return charset;
+}
+
+
+int main(int argc, const char** argv)
+{
 
 #if defined HAVE_LIBPOPT
   int rc = 0;
@@ -100,60 +128,55 @@ int main(int argc, const char** argv)
 	printf("Complied without popt\n");
 	exit(1);
 #endif
-	if (version)
+	if (version || info)
 	{
-		printf("Test version of natspec\n");
-		exit(0);
+		printf("%s version %s\n",PACKAGE, PACKAGE_VERSION);
+		if (!info) exit(0);
+	}
+	if (info)
+	{
+		printf(" = Overall information =\n");
+		verbose = 1;
 	}
 	if (!locale)
 	{
-		if (verbose) printf("Use $LANG as locale variable\n");
-		locale=getenv("LANG");
+		if (verbose) printf("Use system locale as locale\n");
+		locale=natspec_get_system_locale();
 	}
-	if (fsenc)
+	if (verbose) printf("Using locale is '%s'\n",locale);
+	if (fsenc || info)
 	{
 		const char *buf;
-		if (verbose) printf("Filename encoding:\n");
+		if (verbose) printf("Filename encoding in iconv form: ");
 		buf = natspec_get_filename_encoding(locale);
 		printf("%s\n",buf);
-		exit(0);
+		if (!info) exit(0);
 	}
-	if (nls)
+	if (nls || info)
 	{
 		const char *buf;
-		if (verbose) printf("Filename encoding in nls form:\n");
+		if (verbose) printf("Filename system encoding in nls form (iocharset): ");
 		buf = natspec_get_nls_from_charset(
 			natspec_get_filename_encoding(locale));
 		printf("%s\n",buf);
-		exit(0);
+		if (!info) exit(0);
 	}
-	if (fcodepage)
+	if (fcodepage || info)
 	{
 		const char *buf;
-		if (verbose) printf("Codepage:\n");
+		if (verbose) printf("Codepage of another system (codepage): ");
 		buf = natspec_get_codepage_from_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
 		printf("%s\n",buf);
+		if (!info) exit(0);
+	}
+	if (info)
+	{
+		char *types[]={"UNIX","WIN","DOS","MAC"};
+		int i;
+		for (i=0; i<sizeof(types)/sizeof(char*);i++)
+			get_charset(types[i]);
 		exit(0);
 	}
-	if (!charset_type || !charset_type[0])
-		charset_type="UNIX";
-	if (!strcasecmp(charset_type,"WIN"))
-		type = NATSPEC_WINCS;
-	else if (!strcasecmp(charset_type,"DOS"))
-		type = NATSPEC_DOSCS;
-	else if (!strcasecmp(charset_type,"MAC"))
-		type = NATSPEC_MACCS;
-	else if (!strcasecmp(charset_type,"UNIX"))
-		type = NATSPEC_UNIXCS;
-	else
-	{
-		if (verbose) printf("We do not know %s type of encoding\n",charset_type);
-		exit(1);
-	}
-		charset = natspec_get_charset_by_locale(type, locale);
-	if (verbose)
-		printf("locale:%s, type:%s, charset:%s\n",locale,charset_type,charset);
-	else
-		printf("%s\n",charset);
+	get_charset(charset_type);
 }
