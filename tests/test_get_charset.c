@@ -12,8 +12,9 @@
 #include <strings.h>
 #include <assert.h>
 
-#include "natspec.h"
+#include "natspec_internal.h"
 #include "data/charset_names.h"
+#include "data/get_charset_data.h"
 
 char *test_ee(char **t)
 {
@@ -72,33 +73,59 @@ void test_for_iconv()
 	else
 		iconv_close(it);
     }
-	printf("TEST_ICONV: comformance test is completed\n");
+	printf("TEST_ICONV: comformance test is completed: %d charsets\n",i);
+}
+
+void test_nls()
+{
+	int i;
+	for (i = 0; i< sizeof(charset_relation)/sizeof(charset_relation[0]); i++)
+	{
+		const char *t;
+		iconv_t it;
+		assert (t=natspec_get_filename_encoding(charset_relation[i].locale));
+		it = iconv_open(t,"UTF-8");
+		if ( it == (iconv_t)(-1))
+	  	{
+		  	printf("TEST_ICONV for nls: does not know '%s'\n",t);
+			exit (1);
+		}
+		else
+			iconv_close(it);
+		
+	}
+	printf("TEST_NLS: comformance test is completed: %d locales\n",i);
 }
 
 int main(void)
 {
 	int i;
-	char *locale[6];
+	char *locale[7];
 	locale[0] = getenv("LANG");
-	locale[1] = getenv("LC_CTYPE");
-	locale[2] = "";
+	locale[1] = "POSIX";
+	locale[2] = "C";
 	locale[3] = NULL;
 	locale[4] = "ru";
 	locale[5] = "ru_RU";
+	locale[6] = "";
+	printf("current locale:%s\n",locale[0]);
+	printf("user locale:%s\n",natspec_get_user_locale ());
+	printf("system locale:%s\n",natspec_get_system_locale ());
+	printf("current charset (nl):%s\n",	natspec_get_charset ());
+	printf("current charset:%s\n",	natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS,NULL));
 	for (i=0; i<sizeof(locale)/sizeof(char*); i++)
 	{
-		printf("locale:%s\n",locale[i]);
-		printf("\tunix=%s\n\twin=%s\n\tdos=%s\n\tmac=%s\n",
-			natspec_get_charset_by_locale(NATSPEC_UNIXCS,locale[i]),
-			natspec_get_charset_by_locale(NATSPEC_WINCS,locale[i]),
-			natspec_get_charset_by_locale(NATSPEC_DOSCS,locale[i]),
-			natspec_get_charset_by_locale(NATSPEC_MACCS,locale[i])
-		);
+		int j;
+		printf("locale:'%s'\n",locale[i]);
+		for (j = NATSPEC_UNIXCS; j<=NATSPEC_MACCS; j++)
+		{
+			const char *e = natspec_get_charset_by_locale(j,locale[i]);
+			printf ("\tfor %d CS: '%s' (%s)\n", j, e, natspec_get_nls_by_charset(e));
+		}
 	}
-	printf("charset:%s\n",	natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS,NULL));
 	printf("fileenc:%s\n",natspec_get_filename_encoding (""));
-	printf("system locale:%s\n",natspec_get_system_locale ());
 	test_for_iconv();
+	test_nls();
 	test_for_enrich();
 	return 0;
 }

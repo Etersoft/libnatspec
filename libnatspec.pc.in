@@ -4,7 +4,7 @@ libdir=@libdir@
 includedir=@includedir@
 
 Name: libnatspec
-Description: Support library for libnatspec
+Description: Nation specifity library - libnatspec
 Requires:
 Version: @VERSION@
 Libs: -lnatspec

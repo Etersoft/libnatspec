@@ -139,13 +139,13 @@ int main(int argc, const char** argv)
 		printf(" = Overall information =\n");
 		verbose = 1;
 	}
-	locale = natspec_get_system_locale();
-	if (flag_locale)
+	locale = natspec_get_user_locale();
+	if (flag_locale || info)
 	{
-		if (verbose) printf("Use locale:");
+		if (verbose) printf("Using locale:");
 		printf("%s\n",locale);
 	}
-	if (verbose) printf("Using locale is '%s'\n",locale);
+	if (verbose) printf("System locale is '%s'\n",natspec_get_system_locale());
 	if (fsenc || info)
 	{
 		const char *buf;
@@ -158,8 +158,7 @@ int main(int argc, const char** argv)
 	{
 		const char *buf;
 		if (verbose) printf("Filename system encoding in nls form (iocharset): ");
-		buf = natspec_get_nls_from_charset(
-			natspec_get_filename_encoding(locale));
+		buf = natspec_get_filename_encoding(locale);
 		printf("%s\n",buf);
 		if (!info) exit(0);
 	}
@@ -167,7 +166,7 @@ int main(int argc, const char** argv)
 	{
 		const char *buf;
 		if (verbose) printf("Codepage of another system (codepage): ");
-		buf = natspec_get_codepage_from_charset(
+		buf = natspec_get_codepage_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
 		printf("%s\n",buf);
 		if (!info) exit(0);

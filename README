@@ -1,14 +1,23 @@
 === Example of use: ===
 
-// Get the file system encoding (local encoding)
+// Get the filename encoding in your system
 fileenc = natspec_get_filename_encoding("");
 
 // Get the filename encoding in foreign system WIN
 win_cs = natspec_get_charset_by_locale(NATSPEC_WINCS,"");
 
-// Do conversion from foreign to local encoding
-iconv_open(win_cs, fileenc);
+// Do conversion from foreign to local filename encoding
+unix_filename=natspec_convert(win_filename,win_cs, fileenc);
 
+Using in .c files:
+
+#ifdef HAVE_NATSPEC
+#include <natspec.h>
+#endif
+...
+#ifdef HAVE_NATSPEC
+	some with natspec using
+#endif
 
 === koi8-r ===
 
