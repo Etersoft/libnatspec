@@ -1,6 +1,6 @@
 #!/bin/sh
 # charset relation generator
-#    $Id: gen_data.sh,v 1.6 2005/02/23 15:03:27 lav Exp $
+#    $Id: gen_data.sh,v 1.7 2005/03/06 15:33:15 lav Exp $
 
 OUTFILE=get_charset_data.h
 
@@ -22,7 +22,7 @@ static const struct charsetrel_entry charset_relation[] =
 EOF
 echo "Generating with WINE program..."
 echo "This is log error file. See for your problem locale here and send me a mail: lav@etersoft.ru">./gen_data.out.txt
-for i in `locale -a | sort`
+for i in `locale -a | LC_ALL=C sort`
 do
 #	printf "\t{ %-15s %d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }" "\"$i\"," `LANG=$i ./print_data_string 2>/dev/null` >>$OUTFILE
 	echo -e -n " {" >>$OUTFILE
