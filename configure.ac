@@ -77,6 +77,7 @@ dnl AC_MSG_WARN([We have target $target_os])
 
 AC_CONFIG_FILES([Makefile
 				 libnatspec.pc
+				 natspec.m4
                  lib/Makefile
                  libhi/Makefile
                  src/Makefile
