@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.16 2005/02/26 10:06:47 lav Exp $
+    $Id: enrich_fs_options.c,v 1.17 2005/02/27 19:06:15 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -109,7 +109,7 @@ static void add_options(char *buf, const char *fs)
 	/* codepage DOS system as assumes by current locale */
 	codepage = natspec_get_codepage_by_charset(
 		natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
-	DEBUG (fprintf (stderr,"ENRICH: codepage=%s\n",codepage));
+	DEBUG (fprintf (stderr,"fn=%s ENRICH: codepage=%s\n",charset,codepage));
 
 	/* Specially for each file system */
 	if ( str_in_list (fs, list_fat_fs) )
