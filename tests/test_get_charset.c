@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.11 2005/02/26 01:06:36 lav Exp $
+ * $Id: test_get_charset.c,v 1.12 2005/02/26 15:23:24 lav Exp $
  *
  */
 
@@ -77,13 +77,20 @@ void test_for_convert()
 {
 	char *t, *ti; 
 	ti = "Test ÐÒÏ×ÅÒËÁ";
-	t = natspec_fuzzy_convert(ti, "ASCII", NULL);
+	t = natspec_convert_with_translit(ti, "ASCII", NULL);
+	printf("1 %s -> '%s'\n",ti,t);
+	t = natspec_convert_with_translit(ti, "UTF8", "");
+	printf("2 %s -> '%s'\n",ti,t);
+	ti = natspec_convert_with_translit(t, "", "UTF8");
+	printf("3 %s -> '%s'\n",t,ti);
+	ti = "Ïðîâåðêà";
+	t = natspec_convert_with_translit(ti, "", "CP1251");
 	printf("%s -> '%s'\n",ti,t);
 	ti = "Ïðîâåðêà";
-	t = natspec_fuzzy_convert(ti, "", "CP1251");
+	t = natspec_convert(ti, "", "CP1251");
 	printf("%s -> '%s'\n",ti,t);
-	ti = "Test ÐÒÏ×ÅÒËÁ";
-	t = natspec_fuzzy_convert(ti, "UCS2", "");
+	ti = "Ïðîâåðêà \xb9";
+	t = natspec_convert(ti, "", "CP1251");
 	printf("%s -> '%s'\n",ti,t);
 }
 
