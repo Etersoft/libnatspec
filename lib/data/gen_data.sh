@@ -7,7 +7,7 @@ print()
 	printf "\t{ \"%s\",\t%d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }" $@ >>$OUTFILE
 }
 
-echo Test string:
+echo Test string for $LANG locale:
 ./print_data_string || exit 1
 echo
 cat <<EOF >$OUTFILE
@@ -16,19 +16,21 @@ cat <<EOF >$OUTFILE
 */
 static const struct charsetrel_entry charset_relation[] =
 {
-	/* unix locale,       lcid,    unix,       windows,    dos,      mac charset */
+	/* locale,     lcid,    unix,        windows,    dos,      mac charset */
 EOF
-for i in `locale -a | sort`
+echo "This is log error file. See for your problem locale here and send me a mail: lav@etersoft.ru">./gen_data.out.txt
+for i in `locale -a | sort` POSIX C
 do
 #	printf "\t{ %-15s %d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }" "\"$i\"," `LANG=$i ./print_data_string 2>/dev/null` >>$OUTFILE
-	print $i `LANG=$i ./print_data_string 2>/dev/null`
-	echo -e "," >>$OUTFILE
+	echo -e -n "\t{" >>$OUTFILE
+	LANG=$i LC_CTYPE=$i ./print_data_string 2>>./gen_data.out.txt >>$OUTFILE
+	echo -e " }," >>$OUTFILE
 done
 echo >>$OUTFILE
 echo "/* Follow entries is dummy for ASCII/ANSI encoding */" >>$OUTFILE
-print "POSIX" 1033 ASCII CP1252 IBM437 ""
+print "POSIX" 1033 ASCII CP1252 IBM437 "MAC"
 echo -e "," >>$OUTFILE
-print "POSIX" 1033 ANSIX341968 CP1252 IBM437 ""
+print "POSIX" 1033 ANSIX341968 CP1252 IBM437 "MAC"
 echo >>$OUTFILE
 cat <<EOF >>$OUTFILE
 

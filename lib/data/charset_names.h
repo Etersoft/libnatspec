@@ -2,7 +2,14 @@
     WINE project (file dlls/kernel/locale.c)
 	LGPL license
 */
-/* from kernel fs/nls/Config.in
+/* 
+
+TODO:
+ - some gcc option for pack a static string?
+ - add comments
+
+
+from kernel fs/nls/Config.in
   string 'Default NLS Option' CONFIG_NLS_DEFAULT "iso8859-1"
   tristate 'Codepage 437 (United States, Canada)'  CONFIG_NLS_CODEPAGE_437
   tristate 'Codepage 737 (Greek)'                  CONFIG_NLS_CODEPAGE_737
@@ -110,6 +117,9 @@ static const struct charset_entry
     { "ISO88598",  "iso8859-8", 28598 }, /* // 2.4 с чертой */
     { "ISO88599",  "iso8859-9", 28599 }, /* // 2.4 с чертой */
     { "KOI8R",     "koi8-r", 20866 }, /* // 2.4 с чертой */
-    { "KOI8U",     "koi8-r", 21866 }, /* // 2.4 с чертой */
+    { "KOI8U",     "koi8-u", 21866 }, /* // 2.4 с чертой */
+    { "MAC",     "MAC", 10000 },
+    { "MACCYRILLIC", "MAC-CYRILLIC", 10007 },
+    { "MACUKRAINIAN", "MACUKRAINIAN", 10017 },
     { "UTF8",      "utf8", 65001 }
 };
