@@ -858,11 +858,6 @@ static void parse_mount_smb(int argc, char **argv)
 		*(p-1) = 0;	/* remove trailing , */
 		DEBUG(3,("passthrough options '%s'\n", options));
 	}
-#ifdef HAVE_NATSPEC
-	p = natspec_get_enriched_fs_options("smbfs", options);
-	pstrcpy(options, p);
-	free (p);
-#endif
 }
 
 /****************************************************************************
@@ -924,6 +919,12 @@ static void parse_mount_smb(int argc, char **argv)
 	}
 
 	parse_mount_smb(argc, argv);
+
+#ifdef HAVE_NATSPEC
+	p = natspec_get_enriched_fs_options("smbfs", options);
+	pstrcpy(options, p);
+	free (p);
+#endif
 
 	if (use_kerberos && !got_user) {
 		got_pass = True;
