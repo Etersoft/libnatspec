@@ -1,5 +1,11 @@
 #!/bin/sh
 OUTFILE=get_charset_data.h
+
+print()
+{
+	printf "\t{ \"%s\",\t%d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }" $@ >>$OUTFILE
+}
+
 echo Test string:
 ./print_data_string || exit 1
 echo
@@ -19,19 +25,18 @@ static const struct charset_entry
 {
 	/* unix locale,       lcid,    unix,       windows,    dos,      mac charset */
 EOF
-FIRST=""
 for i in `locale -a | sort`
 do
-	#echo -e "\t{ \"$i\",\t \"" >>$OUTFILE
-	if test -z "$FIRST"; then
-		FIRST=no
-	else
-		echo -e "," >>$OUTFILE
-	fi
-	printf "\t{ %-19s " "\"$i\"," >>$OUTFILE
-	LANG=$i ./print_data_string 2>/dev/null >>$OUTFILE
-	echo -n "}" >> $OUTFILE
+#	printf "\t{ %-15s %d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }" "\"$i\"," `LANG=$i ./print_data_string 2>/dev/null` >>$OUTFILE
+	print $i `LANG=$i ./print_data_string 2>/dev/null`
+	echo -e "," >>$OUTFILE
 done
+echo >>$OUTFILE
+echo "/* Follow entries is dummy for ASCII/ANSI encoding */" >>$OUTFILE
+print "POSIX" 1033 ASCII CP1252 IBM437 ""
+echo -e "," >>$OUTFILE
+print "POSIX" 1033 ANSIX341968 CP1252 IBM437 ""
+echo >>$OUTFILE
 cat <<EOF >>$OUTFILE
 
 };
