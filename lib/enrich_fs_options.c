@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.17 2005/02/27 19:06:15 lav Exp $
+    $Id: enrich_fs_options.c,v 1.18 2005/02/28 16:49:50 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -44,10 +44,10 @@ static const char *list_smb_fs[] =
 	"smb", "smbfs", "cifs", NULL
 };
 
-/* iocharset TODO: test with jfs */
+/* iocharset (jfs use Unicode internal, add it too */
 static const char *list_io_fs[] =
 {
-	"iso9660", "udf", /*"jfs",*/ NULL
+	"iso9660", "udf", "jfs", NULL
 };
 
 /* If see this type of fs, skip enriching */
