@@ -1,4 +1,8 @@
-SUBDIRS = lib src src/python tests
+if HAVE_PYTHON
+SUBDIRS = lib src tests src/python
+else
+SUBDIRS = lib src tests
+endif
 
 # install for devel
 pkgconfigdir 	= $(libdir)/pkgconfig
