@@ -7,6 +7,7 @@
 #include <stdio.h>
 
 #include "charset_names.h"
+# include <langinfo.h>
 
 static const char * get_charset (UINT codepage)
 {
@@ -22,6 +23,21 @@ static const char * get_charset (UINT codepage)
   return "";
 }
 
+/* Removes punctuation characters from charset name */
+char *natspec_humble_charset( const char *charset)
+{
+	int i, j;
+	char *buf;
+	if (!charset || !charset[0])
+		return NULL;
+	buf = malloc( strlen(charset) + 1 );
+   	for (i = 0, j = 0; charset[i]; i++)
+        if (isalnum(charset[i]))
+			buf[j++] = charset[i];
+   	buf[j] = 0;
+	return buf;
+}
+
 
 void print_w( char *str, int w)
 {
@@ -34,10 +50,12 @@ void print_w( char *str, int w)
   		printf(" ");
 }
 
-void print_charset( UINT cp, int w)
+void print_charset( UINT cp, int w, char *tt)
 {
   char buf[100];
-  const char *t=get_charset (cp);
+  const char *t = tt;
+  if (cp)
+  	t=get_charset (cp);
   sprintf (buf,"\"%s\"", t);
   if (strlen(t))
 	  print_w(buf, w);
@@ -48,8 +66,8 @@ void print_charset( UINT cp, int w)
 int
 main (int argc, char **argv)
 {
-
-  LCID lcid = GetSystemDefaultLCID ();
+ /* Or system? */
+  LCID lcid = GetUserDefaultLCID ();
   UINT ansi_cp, mac_cp, oem_cp, unix_cp;
   GetLocaleInfoW (lcid, LOCALE_IDEFAULTUNIXCODEPAGE | LOCALE_RETURN_NUMBER,
 		  (LPWSTR) & unix_cp, sizeof (unix_cp) / sizeof (WCHAR));
@@ -66,13 +84,15 @@ main (int argc, char **argv)
 	
   sprintf (buf, "%d", lcid);
   print_w (buf, 7);
-  /* Hack for UTF-8 */
-  if (!strcasestr(l,"utf8"))
-	  print_charset(unix_cp, 15);
-  else
-  	  print_w ("\"UTF8\"",15);
-  print_charset(ansi_cp, 12);
-  print_charset(oem_cp, 12);
-  print_charset(mac_cp, 0);
+  /* I don't know how to set wine for system enc */
+#ifdef DUMMY
+  print_charset(unix_cp, 15,"");
+#else
+  print_charset(0,15,natspec_humble_charset(nl_langinfo(CODESET)));
+#endif
+
+  print_charset(ansi_cp, 12, "");
+  print_charset(oem_cp, 12, "");
+  print_charset(mac_cp, 0, "");
   return 0;
 }

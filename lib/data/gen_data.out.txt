@@ -179,12 +179,10 @@ Warning: Language 'gez_ET' was not recognized, defaulting to English.
 Warning: Language 'gez_ET' was not recognized, defaulting to English.
 Warning: Language 'gez_ET' was not recognized, defaulting to English.
 Warning: Language 'gez_ET' was not recognized, defaulting to English.
-Can't locate codepage 0 for gu_IN locale
 Can't locate codepage 1 for gu_IN locale
 Can't locate codepage 2 for gu_IN locale
 Can't locate codepage 10005 for he_IL locale
 Can't locate codepage 10005 for he_IL.utf8 locale
-Can't locate codepage 0 for hi_IN locale
 Can't locate codepage 1 for hi_IN locale
 Can't locate codepage 2 for hi_IN locale
 Can't locate codepage 10082 for hr_HR locale
@@ -201,7 +199,6 @@ Warning: Language 'iw_IL' was not recognized, defaulting to English.
 Warning: Language 'iw_IL' was not recognized, defaulting to English.
 Can't locate codepage 10001 for ja_JP.eucjp locale
 Can't locate codepage 10001 for ja_JP.utf8 locale
-Can't locate codepage 0 for ka_GE locale
 Can't locate codepage 1 for ka_GE locale
 Can't locate codepage 2 for ka_GE locale
 Warning: Language 'kl_GL' was not recognized, defaulting to English.
@@ -210,7 +207,6 @@ Warning: Language 'kl_GL' was not recognized, defaulting to English.
 Warning: Language 'kl_GL' was not recognized, defaulting to English.
 Warning: Language 'kl_GL' was not recognized, defaulting to English.
 Warning: Language 'kl_GL' was not recognized, defaulting to English.
-Can't locate codepage 0 for kn_IN locale
 Can't locate codepage 1 for kn_IN locale
 Can't locate codepage 2 for kn_IN locale
 fixme:nls:get_env_lcid charset euckr was not recognized
@@ -236,7 +232,6 @@ Warning: Language 'mi_NZ' was not recognized, defaulting to English.
 Warning: Language 'ml_IN' was not recognized, defaulting to English.
 Warning: Language 'ml_IN' was not recognized, defaulting to English.
 Warning: Language 'ml_IN' was not recognized, defaulting to English.
-Can't locate codepage 0 for mr_IN locale
 Can't locate codepage 1 for mr_IN locale
 Can't locate codepage 2 for mr_IN locale
 Warning: Language 'mt_MT' was not recognized, defaulting to English.
@@ -263,7 +258,6 @@ Warning: Language 'om_ET' was not recognized, defaulting to English.
 Warning: Language 'om_KE' was not recognized, defaulting to English.
 Warning: Language 'om_KE' was not recognized, defaulting to English.
 Warning: Language 'om_KE' was not recognized, defaulting to English.
-Can't locate codepage 0 for pa_IN locale
 Can't locate codepage 1 for pa_IN locale
 Can't locate codepage 2 for pa_IN locale
 Can't locate codepage 10029 for pl_PL locale
@@ -312,10 +306,8 @@ Warning: Language 'st_ZA' was not recognized, defaulting to English.
 Warning: Language 'st_ZA' was not recognized, defaulting to English.
 Warning: Language 'st_ZA' was not recognized, defaulting to English.
 Warning: Language 'st_ZA' was not recognized, defaulting to English.
-Can't locate codepage 0 for ta_IN locale
 Can't locate codepage 1 for ta_IN locale
 Can't locate codepage 2 for ta_IN locale
-Can't locate codepage 0 for te_IN locale
 Can't locate codepage 1 for te_IN locale
 Can't locate codepage 2 for te_IN locale
 Warning: Language 'tg_TJ' was not recognized, defaulting to English.
