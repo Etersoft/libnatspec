@@ -10,9 +10,51 @@
 #include <stdio.h>
 #include <string.h>
 #include <strings.h>
+#include <assert.h>
 
 #include "natspec.h"
 #include "data/charset_names.h"
+
+char *test_ee(char **t)
+{
+	char *ret;
+	ret = natspec_enrich_fs_options("reiserfs", t);
+	printf("enrich reiserfs: %s\n",ret);
+	return ret;
+
+}
+
+void test_for_enrich()
+{
+	char *ret, *ret1;
+	ret = NULL;
+	ret = natspec_enrich_fs_options(NULL, NULL);
+	printf("enrich NULL pointer: %s\n", ret);
+	ret = NULL;
+	ret1 = ret;
+	natspec_enrich_fs_options(NULL, &ret);
+	printf("enrich NULL: %s\n",ret);
+	assert (ret == ret1);
+	ret1 = ret;
+	natspec_enrich_fs_options("udf", &ret);
+	printf("enrich udf: ret=%s, ret1=%s\n",ret, ret1);
+	assert (ret != ret1);
+
+	ret1 = ret = strdup("defaults");
+	natspec_enrich_fs_options("vfat", &ret);
+	printf("enrich VFAT: %s %p:%p\n",ret,ret,ret1);
+	assert (ret != ret1);
+
+	ret1 = ret = strdup("");
+	natspec_enrich_fs_options("smb", &ret);
+	printf("enrich SMB: %s %p:%p\n",ret,ret,ret1);
+	assert (ret != ret1);
+
+	ret = strdup("defaults");
+	ret1 = ret;
+	test_ee(&ret);
+	assert (ret == ret1);
+}
 
 void test_for_iconv()
 {
@@ -36,7 +78,7 @@ void test_for_iconv()
 int main(void)
 {
 	int i;
-	char *locale[6], *ret;
+	char *locale[6];
 	locale[0] = getenv("LANG");
 	locale[1] = getenv("LC_CTYPE");
 	locale[2] = "";
@@ -57,13 +99,6 @@ int main(void)
 	printf("fileenc:%s\n",natspec_get_filename_encoding (""));
 	printf("system locale:%s\n",natspec_get_system_locale ());
 	test_for_iconv();
-	ret = NULL;
-	ret = natspec_enrich_fs_options(NULL, &ret);
-	printf("enrich NULL: %s\n",ret);
-	ret = natspec_enrich_fs_options("cdfs", &ret);
-	printf("enrich CDFS: %s\n",ret);
-	ret = strdup("defaults");
-	ret = natspec_enrich_fs_options("vfat", &ret);
-	printf("enrich VFAT: %s\n",ret);
+	test_for_enrich();
 	return 0;
 }
