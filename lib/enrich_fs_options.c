@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.18 2005/02/28 16:49:50 lav Exp $
+    $Id: enrich_fs_options.c,v 1.19 2005/03/02 18:22:07 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -60,7 +60,7 @@ static const char *list_enc_opts[] =
 /* Is there str in list */
 static int str_in_list(const char *str, const char **list)
 {
-	for (;*list;list++)
+	for (;*list != NULL;list++)
 	{
 		DEBUG (printf("Comparing '%s' and '%s'\n", str, *list));
 		if (!strcasecmp(str, *list))
@@ -74,7 +74,7 @@ static int strstr_in_list(const char *str, const char **list)
 {
 	if (str == NULL)
 		return 0;
-	for (;*list;list++)
+	for (;*list != NULL;list++)
 	{
 		DEBUG (printf("Comparing '%s' and '%s'\n", str, *list));
 		if (strstr(str, *list))
@@ -150,8 +150,8 @@ static void add_options(char *buf, const char *fs)
 /* Add needed i18n options for fs type */
 char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 {
-	char buf[100]; buf[0] = '\0';
 	char *ret;
+	char buf[100]; buf[0] = '\0';
 
 	/* if encoding issues already exist in options, do nothing */
 	if ( strstr_in_list (options, list_enc_opts) )

@@ -1,13 +1,13 @@
 /*
     lib/convert.c
 	
-	safe convert between encoding (with losses)
+	sure convert between encoding (with transliteration if needed)
 
     NATSPEC library
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.9 2005/02/26 15:23:06 lav Exp $
+    $Id: convert.c,v 1.10 2005/03/02 18:21:40 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -104,11 +104,11 @@ char *natspec_convert_with_translit(const char *in_str,
 		result = iconv(ucs2, &ansbptr, &lenb, &tmpptr, &lentmp);
 		if ((result == (size_t) -1 && errno == E2BIG) || result != (size_t) -1)
 		{
-			DEBUG (printf("br\n"));
 			const char *t = get_7bit(tmp);
 			strcpy(ansaptr, t);
 			ansaptr += strlen(t);
 			lena -= 2;
+			DEBUG (printf("br\n"));
 		}
 		else
 		{
@@ -121,7 +121,6 @@ char *natspec_convert_with_translit(const char *in_str,
 		}
 	}
 	iconv_close(frt);
-	/*ansa[strlen(in_str) - lenb] = '\0';*/
 	*ansaptr = '\0';
 	ansaptr = strdup(ansa);
 	free(ansa);
