@@ -41,17 +41,17 @@ natspec_get_system_locale = _natspec.natspec_get_system_locale
 
 natspec_get_charset = _natspec.natspec_get_charset
 
+natspec_get_filename_encoding = _natspec.natspec_get_filename_encoding
+
 natspec_get_charset_by_locale = _natspec.natspec_get_charset_by_locale
 
-natspec_enrich_fs_options = _natspec.natspec_enrich_fs_options
+natspec_fuzzy_convert = _natspec.natspec_fuzzy_convert
 
-natspec_get_filename_encoding = _natspec.natspec_get_filename_encoding
+natspec_get_enriched_fs_options = _natspec.natspec_get_enriched_fs_options
 
 natspec_get_codepage_by_charset = _natspec.natspec_get_codepage_by_charset
 
 natspec_get_nls_by_charset = _natspec.natspec_get_nls_by_charset
-
-natspec_convert = _natspec.natspec_convert
 
 natspec_extract_charset_from_locale = _natspec.natspec_extract_charset_from_locale
 

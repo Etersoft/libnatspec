@@ -683,8 +683,7 @@ SWIG_Python_InstallConstants(PyObject *d, swig_const_info constants[]) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define  SWIGTYPE_p_p_char swig_types[0] 
-static swig_type_info *swig_types[2];
+static swig_type_info *swig_types[1];
 
 /* -------- TYPES TABLE (END) -------- */
 
@@ -743,6 +742,21 @@ static PyObject *_wrap_natspec_get_charset(PyObject *self, PyObject *args) {
 }
 
 
+static PyObject *_wrap_natspec_get_filename_encoding(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    char *arg1 ;
+    char *result;
+    
+    if(!PyArg_ParseTuple(args,(char *)"s:natspec_get_filename_encoding",&arg1)) goto fail;
+    result = (char *)natspec_get_filename_encoding((char const *)arg1);
+    
+    resultobj = result ? PyString_FromString(result) : Py_BuildValue((char*)"");
+    return resultobj;
+    fail:
+    return NULL;
+}
+
+
 static PyObject *_wrap_natspec_get_charset_by_locale(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     int arg1 ;
@@ -759,16 +773,15 @@ static PyObject *_wrap_natspec_get_charset_by_locale(PyObject *self, PyObject *a
 }
 
 
-static PyObject *_wrap_natspec_enrich_fs_options(PyObject *self, PyObject *args) {
+static PyObject *_wrap_natspec_fuzzy_convert(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     char *arg1 ;
-    char **arg2 = (char **) 0 ;
+    char *arg2 ;
+    char *arg3 ;
     char *result;
-    PyObject * obj1 = 0 ;
     
-    if(!PyArg_ParseTuple(args,(char *)"sO:natspec_enrich_fs_options",&arg1,&obj1)) goto fail;
-    if ((SWIG_ConvertPtr(obj1,(void **) &arg2, SWIGTYPE_p_p_char,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
-    result = (char *)natspec_enrich_fs_options((char const *)arg1,arg2);
+    if(!PyArg_ParseTuple(args,(char *)"sss:natspec_fuzzy_convert",&arg1,&arg2,&arg3)) goto fail;
+    result = (char *)natspec_fuzzy_convert((char const *)arg1,(char const *)arg2,(char const *)arg3);
     
     resultobj = result ? PyString_FromString(result) : Py_BuildValue((char*)"");
     return resultobj;
@@ -777,13 +790,14 @@ static PyObject *_wrap_natspec_enrich_fs_options(PyObject *self, PyObject *args)
 }
 
 
-static PyObject *_wrap_natspec_get_filename_encoding(PyObject *self, PyObject *args) {
+static PyObject *_wrap_natspec_get_enriched_fs_options(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     char *arg1 ;
+    char *arg2 ;
     char *result;
     
-    if(!PyArg_ParseTuple(args,(char *)"s:natspec_get_filename_encoding",&arg1)) goto fail;
-    result = (char *)natspec_get_filename_encoding((char const *)arg1);
+    if(!PyArg_ParseTuple(args,(char *)"ss:natspec_get_enriched_fs_options",&arg1,&arg2)) goto fail;
+    result = (char *)natspec_get_enriched_fs_options((char const *)arg1,(char const *)arg2);
     
     resultobj = result ? PyString_FromString(result) : Py_BuildValue((char*)"");
     return resultobj;
@@ -814,23 +828,6 @@ static PyObject *_wrap_natspec_get_nls_by_charset(PyObject *self, PyObject *args
     
     if(!PyArg_ParseTuple(args,(char *)"s:natspec_get_nls_by_charset",&arg1)) goto fail;
     result = (char *)natspec_get_nls_by_charset((char const *)arg1);
-    
-    resultobj = result ? PyString_FromString(result) : Py_BuildValue((char*)"");
-    return resultobj;
-    fail:
-    return NULL;
-}
-
-
-static PyObject *_wrap_natspec_convert(PyObject *self, PyObject *args) {
-    PyObject *resultobj;
-    char *arg1 ;
-    char *arg2 ;
-    char *arg3 ;
-    char *result;
-    
-    if(!PyArg_ParseTuple(args,(char *)"sss:natspec_convert",&arg1,&arg2,&arg3)) goto fail;
-    result = (char *)natspec_convert((char const *)arg1,(char const *)arg2,(char const *)arg3);
     
     resultobj = result ? PyString_FromString(result) : Py_BuildValue((char*)"");
     return resultobj;
@@ -890,12 +887,12 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"natspec_get_user_locale", _wrap_natspec_get_user_locale, METH_VARARGS },
 	 { (char *)"natspec_get_system_locale", _wrap_natspec_get_system_locale, METH_VARARGS },
 	 { (char *)"natspec_get_charset", _wrap_natspec_get_charset, METH_VARARGS },
-	 { (char *)"natspec_get_charset_by_locale", _wrap_natspec_get_charset_by_locale, METH_VARARGS },
-	 { (char *)"natspec_enrich_fs_options", _wrap_natspec_enrich_fs_options, METH_VARARGS },
 	 { (char *)"natspec_get_filename_encoding", _wrap_natspec_get_filename_encoding, METH_VARARGS },
+	 { (char *)"natspec_get_charset_by_locale", _wrap_natspec_get_charset_by_locale, METH_VARARGS },
+	 { (char *)"natspec_fuzzy_convert", _wrap_natspec_fuzzy_convert, METH_VARARGS },
+	 { (char *)"natspec_get_enriched_fs_options", _wrap_natspec_get_enriched_fs_options, METH_VARARGS },
 	 { (char *)"natspec_get_codepage_by_charset", _wrap_natspec_get_codepage_by_charset, METH_VARARGS },
 	 { (char *)"natspec_get_nls_by_charset", _wrap_natspec_get_nls_by_charset, METH_VARARGS },
-	 { (char *)"natspec_convert", _wrap_natspec_convert, METH_VARARGS },
 	 { (char *)"natspec_extract_charset_from_locale", _wrap_natspec_extract_charset_from_locale, METH_VARARGS },
 	 { (char *)"natspec_humble_charset", _wrap_natspec_humble_charset, METH_VARARGS },
 	 { (char *)"natspec_get_charset_by_charset", _wrap_natspec_get_charset_by_charset, METH_VARARGS },
@@ -905,10 +902,8 @@ static PyMethodDef SwigMethods[] = {
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static swig_type_info _swigt__p_p_char[] = {{"_p_p_char", 0, "char **", 0},{"_p_p_char"},{0}};
 
 static swig_type_info *swig_types_initial[] = {
-_swigt__p_p_char, 
 0
 };
 
