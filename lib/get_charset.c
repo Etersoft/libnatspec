@@ -207,7 +207,10 @@ const char *natspec_get_nls_from_charset(const char *cs)
     if (entry)
 		return entry->nls;
 	else
-		return cs;
+	{
+		return "ascii"; //ANSIX341968
+		//return cs;
+	}
 }
 
 const char * natspec_get_charset_by_locale(const int type, const char *locale)
