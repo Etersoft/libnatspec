@@ -53,7 +53,7 @@
 -
 -  os<<res;
 +#else
-+  gchar *res = natspec_convert(print_utf8.utf8_str.c_str(), NULL, "UTF-8");
++  gchar *res = natspec_fuzzy_convert(print_utf8.utf8_str.c_str(), NULL, "UTF-8");
 +#endif
 +  os << res;
    g_free(res); 
@@ -72,7 +72,7 @@
      return;
    }
 +#else
-+  gchar *str = natspec_convert(loc_str, "UTF-8", NULL);
++  gchar *str = natspec_fuzzy_convert(loc_str, "UTF-8", NULL);
 +#endif
    if(str[0]=='\0')
      return;
