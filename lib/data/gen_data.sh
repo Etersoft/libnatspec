@@ -1,12 +1,12 @@
 #!/bin/sh
 # charset relation generator
-#    $Id: gen_data.sh,v 1.7 2005/03/06 15:33:15 lav Exp $
+#    $Id: gen_data.sh,v 1.8 2005/03/09 20:07:30 lav Exp $
 
 OUTFILE=get_charset_data.h
 
 print()
 {
-	printf " { \"%s\",\t%d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }" $@ >>$OUTFILE
+	printf " { \"%s\",\t%d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }%s\n" $@ >>$OUTFILE
 }
 
 echo Test string for $LANG locale:
@@ -31,10 +31,8 @@ do
 done
 echo >>$OUTFILE
 echo "/* Follow entries is dummy for ASCII/ANSI encoding */" >>$OUTFILE
-print "POSIX" 1033 ASCII CP1252 IBM437 "MAC"
-echo -e "," >>$OUTFILE
+print "POSIX" 1033 ASCII CP1252 IBM437 "MAC" ,
 print "POSIX" 1033 ANSIX341968 CP1252 IBM437 "MAC"
-echo >>$OUTFILE
 cat <<EOF >>$OUTFILE
 
 };

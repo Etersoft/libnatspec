@@ -1,5 +1,5 @@
 /* Helper for autogenerate charset_relation table
-    $Id: print_data_string.c,v 1.8 2005/03/06 15:13:51 lav Exp $
+    $Id: print_data_string.c,v 1.9 2005/03/09 20:07:30 lav Exp $
 */
 
 #include <windows.h>
@@ -26,6 +26,8 @@ static const char * get_charset (UINT codepage)
   return "";
 }
 
+/* Next two func copied from libnatspec / get_charset.c and get_locale.c */
+
 /* Removes punctuation characters from charset name */
 char *natspec_humble_charset( const char *charset)
 {
@@ -39,11 +41,68 @@ char *natspec_humble_charset( const char *charset)
 	buf = malloc( strlen(charset) + 1 );
    	for (i = 0, j = 0; charset[i]; i++)
         if (isalnum(charset[i]))
-			buf[j++] = charset[i];
+			buf[j++] = toupper(charset[i]);
    	buf[j] = 0;
 	return buf;
 }
 
+/* Returns charset get from _locale_ */
+char *natspec_extract_charset_from_locale(const char *locale)
+{
+	char *lang, *next, *dialect, *charset, *ret;
+    if (locale == NULL || locale[0] == '\0')
+		return NULL;
+	lang = strdup( locale );
+    next = strchr(lang,':'); if (next) *next++ = '\0';
+    dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
+    charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
+	ret = natspec_humble_charset(charset);
+	free (lang);
+	return ret;
+}
+
+
+/* Internal: repack locale string (compress charset, fix register) */
+char *_natspec_repack_locale(const char *locale)
+{
+	int i;
+	char *buf, *lang, *next, *dialect, *charset, *country;
+    if (!locale || !locale[0])
+		return NULL;
+	lang = strdup( locale );
+	buf = malloc( strlen(locale) + 1 );
+    next = strchr(lang,':'); if (next) *next++ = '\0';
+    dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
+    charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
+    country = strchr(lang,'_'); if (country) *country++ = '\0';
+
+	for (i=0; i<strlen(lang); i++)
+		tolower(lang[i]);
+	strcpy(buf, lang);
+	if (country)
+	{
+		for (i=0; i<strlen(country); i++)
+			toupper(country[i]);
+		strcat(buf, "_");
+		strcat(buf, country);
+	}
+	charset = natspec_extract_charset_from_locale(locale);
+	if (charset)
+	{
+		strcat(buf, ".");
+		strcat(buf, charset);
+		free (charset);
+	}
+	if (dialect)
+	{
+		for(i=0; i<strlen(dialect); i++)
+			tolower(dialect[i]);
+		strcat(buf, "@");
+		strcat(buf, dialect);
+	}
+	free (lang);
+	return buf;
+}
 
 void print_w( char *str, int w)
 {
@@ -84,7 +143,7 @@ main (int argc, char **argv)
   GetLocaleInfoW (lcid, LOCALE_IDEFAULTMACCODEPAGE | LOCALE_RETURN_NUMBER,
 		  (LPWSTR) & mac_cp, sizeof (mac_cp) / sizeof (WCHAR));
 	char buf[100];
-	char *l = getenv("LANG");
+	char *l = _natspec_repack_locale(getenv("LANG"));
 	sprintf(buf,"\"%s\"",l);
   print_w (buf, 16);
 	
