@@ -61,6 +61,19 @@ static int str_in_list(const char *str, const char **list)
 	return 0;
 }
 
+static int strstr_in_list(const char *str, const char **list)
+{
+	if (!str)
+		return 0;
+	for (;*list;list++)
+	{
+		DEBUG (printf("Comparing '%s' and '%s'\n", str, *list));
+		if (strstr(str, *list))
+			return 1;
+	}
+	return 0;
+}
+
 /* FIXME: add bound control */
 static void add_option(char *options, const char *option1, const char *option2)
 {
@@ -123,7 +136,7 @@ char* natspec_enrich_fs_options(const char *fs, char **options)
 	if (!fs || !fs[0]) return *options;
 	
 	/* Enriching options string only if it does not contains any encoding options */
-	if ( str_in_list (*options, list_enc_opts) )
+	if ( strstr_in_list (*options, list_enc_opts) )
 		return *options;
 
 	add_options(buf, fs);
