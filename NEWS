@@ -1,3 +1,7 @@
+libnatspec-0.1.0: 27-Feb-2005:
+ - fixed locale using order, add some fallbacks for unusual situation
+ - update docs
+
 libnatspec-0.0.9: 27-Feb-2005:
  - rename enrich_fs_options to get_enriched_fs_options with incompatible change args
  - update mount/submount, sdcv example patches

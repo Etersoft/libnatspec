@@ -90,6 +90,9 @@ mv usr/%_lib/lib* %_lib
 
 
 %changelog
+* Sun Feb 27 2005 Vitaly Lipatov <lav@altlinux.ru> 0.1.0-alt1
+- first stable release
+
 * Sun Feb 27 2005 Vitaly Lipatov <lav@altlinux.ru> 0.0.9-alt1
 - new version (see NEWS)
 
