@@ -31,4 +31,17 @@
 
 #define DEBUG(n) n
 
+char *repack_locale(const char *locale);
+
+struct charsetrel_entry
+{
+    const char *locale;
+    unsigned int lcid;
+    const char *unix_cs;
+    const char *win_cs;
+    const char *dos_cs;
+    const char *mac_cs;
+};
+
+
 #endif

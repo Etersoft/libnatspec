@@ -77,8 +77,9 @@ char* natspec_enrich_fs_options(const char *fs, const char *options)
 		return (options ? strdup(options) : NULL);
 
 	// Getting typical values
-	charset = natspec_get_filename_encoding("");
-	codepage = natspec_codepage_from_charset(
+	charset = natspec_get_nls_from_charset(
+		natspec_get_filename_encoding(""));
+	codepage = natspec_get_codepage_from_charset(
 		natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
 	DEBUG (fprintf (stderr,"ENRICH: codepage=%s\n",codepage));
 

@@ -3,6 +3,7 @@ libnatspec-0.0.1: 20-Feb-2005:
  - first public release after born
  - support for mount filesystem (enrich_fs_options)
  - system filename encoding detection (get_filename_encoding)
+ - get system locale from some file (/etc/sysconfig/i18n) (get_system_locale)
  - retrieve charset/codepage for another OS by system/current
    locale/charset (get_charset_by_locale)
  - command line util for using features in shells (natspec)

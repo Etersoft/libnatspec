@@ -88,7 +88,10 @@ char *natspec_get_charset_from_locale(const char *locale);
  * from IBM866 -> 866
  * from cp1251 -> 1251
  */
-const char *natspec_codepage_from_charset(const char *cs);
+const char *natspec_get_codepage_from_charset(const char *cs);
+
+/* from KOI8R -> koi8-r */
+const char *natspec_get_nls_from_charset(const char *cs);
 
 
 /*
