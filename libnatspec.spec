@@ -1,6 +1,6 @@
 Name: libnatspec
-Version: 0.0.5
-Release: alt2
+Version: 0.0.9
+Release: alt1
 
 Summary: Nation & languages specifity issues library
 
@@ -79,13 +79,14 @@ mv usr/%_lib/lib* %_lib
 %_includedir/*
 /%_lib/%name.so
 %_libdir/pkgconfig/*
+%_datadir/aclocal/*
 
 %files devel-examples
 %doc examples
 
-#%files -n python-module-natspec
-#%python_sitelibdir/natspec.py
-#%python_sitelibdir/_natspec.so
+%files -n python-module-natspec
+%python_sitelibdir/natspec.py
+%python_sitelibdir/_natspec.so
 
 
 %changelog

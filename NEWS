@@ -4,7 +4,7 @@ libnatspec-0.0.9: 27-Feb-2005:
  - add example path for samba (smbmount/cifsmount)
  - add auto assumed local encoding in natspec_convert
  - add convert_with_translit with transliteration
-   from links if conversion is not possible
+   (from links project) if conversion is not possible
  - add natspec.m4 for autotools, it makes natspec configure is easy
 
 libnatspec-0.0.4: 24-Feb-2005:

@@ -4,4 +4,7 @@ SUBDIRS = lib src src/python tests
 pkgconfigdir 	= $(libdir)/pkgconfig
 pkgconfig_DATA 	= libnatspec.pc
 
+m4dir = $(datadir)/aclocal
+m4_DATA = natspec.m4
+
 
