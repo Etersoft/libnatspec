@@ -1,3 +1,4 @@
+! source file not changed !
 # Adds libnatspec support
 # Vitaly Lipatov <lav@etersoft.ru>
 --- /home/lav/work/build/BUILD/submount-0.9/submountd-0.9/configure.ac	2005-02-20 17:24:46 +0300
@@ -12,7 +13,7 @@
 +if test ! "x$check_natspec" == x ; then
 +NATSPEC_LIBS=-lnatspec
 +AC_SUBST(NATSPEC_LIBS)
-+AC_DEFINE(HAVE_natspec,1,[Define if you have the natspec library])
++AC_DEFINE(HAVE_NATSPEC,1,[Define if you have the natspec library])
 +fi
 +				
  AC_PREFIX_DEFAULT(/)
@@ -37,7 +38,7 @@
  #include <pwd.h>
  #endif
  
-+#ifdef HAVE_natspec
++#ifdef HAVE_NATSPEC
 +#include <natspec.h>
 +#endif
 +
@@ -48,7 +49,7 @@
  	     unsigned long flags, char *options)
  {
  	int retval;
-+#ifdef HAVE_natspec
++#ifdef HAVE_NATSPEC
 +	char *mount_opts;
 +#endif
  #if USE_RESMGR
@@ -62,8 +63,8 @@
 +#ifndef HAVE_natspec
  	retval = mount(device, mountpoint, fstype, flags, options);
 +#else
-+	mount_opts = strdup(options);
-+	natspec_enrich_fs_options(fstype, &mount_opts);
++
++	mount_opts = natspec_enrich_fs_options(fstype, options);
 +	retval = mount(device, mountpoint, fstype, flags, mount_opts);
 +	free(mount_opts);
 +#endif

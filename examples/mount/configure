@@ -759,7 +759,7 @@ LIBS="-lnatspec"
 eval $compile
 LIBS=
 if test -s conftest; then
-        echo "#define HAVE_natspec" >> defines.h
+        echo "#define HAVE_NATSPEC" >> defines.h
         echo "HAVE_NATSPEC=yes" >> make_include
         echo "You have natspec"
 else

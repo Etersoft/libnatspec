@@ -1,7 +1,7 @@
-Adds natspec support for automatic charset/codepage enriching
+Add natspec support for automatic charset/codepage enriching
 Vitaly Lipatov <lav@etersoft.ru>
---- /home/lav/work/build/BUILD/util-linux-2.12p/configure	2005-02-20 12:32:33 +0300
-+++ configure	2005-02-20 03:45:46 +0300
+--- /home/lav/work/build/BUILD/util-linux-2.12p/configure	2005-02-25 12:06:02 +0300
++++ configure	2005-02-25 12:03:46 +0300
 @@ -747,3 +747,23 @@
          echo "You don't have blkid"
  fi
@@ -18,7 +18,7 @@ Vitaly Lipatov <lav@etersoft.ru>
 +eval $compile
 +LIBS=
 +if test -s conftest; then
-+        echo "#define HAVE_natspec" >> defines.h
++        echo "#define HAVE_NATSPEC" >> defines.h
 +        echo "HAVE_NATSPEC=yes" >> make_include
 +        echo "You have natspec"
 +else
@@ -27,77 +27,81 @@ Vitaly Lipatov <lav@etersoft.ru>
 +fi
 +rm -f conftest conftest.c
 
---- /home/lav/work/build/BUILD/util-linux-2.12p/mount/Makefile	2005-02-20 12:32:33 +0300
-+++ mount/Makefile	2005-02-20 03:51:40 +0300
-@@ -25,6 +25,10 @@
- BLKID_LIB = -lblkid -luuid
- endif
- 
-+ifeq "$(HAVE_NATSPEC)" "yes"
-+BLKID_LIB := $(BLKID_LIB) -lnatspec
-+endif
-+
- PROGS = $(SUID_PROGS) $(NOSUID_PROGS)
- 
- MAYBE = pivot_root swapoff
-
---- /home/lav/work/build/BUILD/util-linux-2.12p/mount/mount.c	2005-02-20 17:22:10 +0300
-+++ mount/mount.c	2005-02-20 15:35:28 +0300
+--- /home/lav/work/build/BUILD/util-linux-2.12p/mount/mount.c	2005-02-25 12:06:02 +0300
++++ mount/mount.c	2005-02-25 12:03:07 +0300
 @@ -45,6 +45,10 @@
  #include "setproctitle.h"
  #endif
  
-+#ifdef HAVE_natspec
++#ifdef HAVE_NATSPEC
 +#include <natspec.h>
 +#endif
 +
  /* True for fake mount (-f).  */
  static int fake = 0;
  
-@@ -470,8 +474,8 @@
+@@ -470,9 +474,10 @@
   */
  static int
  guess_fstype_and_mount(const char *spec, const char *node, const char **types,
 -		       int flags, char *mount_opts) {
 -   struct mountargs args = { spec, node, NULL, flags & ~MS_NOSYS, mount_opts };
+-   
 +		       int flags, char **mount_opts) {
 +   struct mountargs args = { spec, node, NULL, flags & ~MS_NOSYS, *mount_opts };
-    
++   int ret;
++
     if (*types && strcasecmp (*types, "auto") == 0)
        *types = NULL;
-@@ -504,6 +508,9 @@
+ 
+@@ -504,13 +509,21 @@
        /* do last type below */
        *types = t;
     }
-+#ifdef HAVE_natspec
-+   args.data = natspec_enrich_fs_options(*types, mount_opts);
++#ifdef HAVE_NATSPEC
++   args.data = natspec_get_enriched_fs_options(*types, *mount_opts);
 +#endif
  
     if (*types || (flags & MS_REMOUNT)) {
        args.type = *types;
-@@ -819,6 +826,9 @@
+-      return do_mount_syscall (&args);
++      ret = do_mount_syscall (&args);
+    }
+-
+-   return procfsloop(do_mount_syscall, &args, types);
++   else
++      ret = procfsloop(do_mount_syscall, &args, types);
++#ifdef HAVE_NATSPEC
++   my_free(*mount_opts);
++   *mount_opts = args.data;
++#endif
++   return ret;
+ }
+ 
+ /*
+@@ -819,6 +832,11 @@
  
    suid_check(spec, node, &flags, &user);
  
-+#ifdef HAVE_natspec
-+   extra_opts1 = natspec_enrich_fs_options(types, &extra_opts);
++#ifdef HAVE_NATSPEC
++   extra_opts = natspec_get_enriched_fs_options(types, extra_opts);
++   my_free(extra_opts1);
++   extra_opts1 = extra_opts;
 +#endif
    mount_opts = extra_opts;
  
    if (opt_speed)
-@@ -867,8 +877,11 @@
+@@ -867,8 +885,11 @@
  
    if (!fake)
      mnt5_res = guess_fstype_and_mount (spec, node, &types, flags & ~MS_NOSYS,
 -				       mount_opts);
 -
 +				       &mount_opts);
-+#ifdef HAVE_natspec
++#ifdef HAVE_NATSPEC
 +  if (mount_opts != extra_opts)
 +    extra_opts1 = extra_opts = mount_opts;
 +#endif
    if (fake || mnt5_res == 0) {
        /* Mount succeeded, report this (if verbose) and write mtab entry.  */
        if (loop)
-
-

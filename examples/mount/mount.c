@@ -45,7 +45,7 @@
 #include "setproctitle.h"
 #endif
 
-#ifdef HAVE_natspec
+#ifdef HAVE_NATSPEC
 #include <natspec.h>
 #endif
 
@@ -476,7 +476,8 @@ static int
 guess_fstype_and_mount(const char *spec, const char *node, const char **types,
 		       int flags, char **mount_opts) {
    struct mountargs args = { spec, node, NULL, flags & ~MS_NOSYS, *mount_opts };
-   
+   int ret;
+
    if (*types && strcasecmp (*types, "auto") == 0)
       *types = NULL;
 
@@ -508,16 +509,21 @@ guess_fstype_and_mount(const char *spec, const char *node, const char **types,
       /* do last type below */
       *types = t;
    }
-#ifdef HAVE_natspec
-   args.data = natspec_enrich_fs_options(*types, mount_opts);
+#ifdef HAVE_NATSPEC
+   args.data = natspec_enrich_fs_options(*types, *mount_opts);
 #endif
 
    if (*types || (flags & MS_REMOUNT)) {
       args.type = *types;
-      return do_mount_syscall (&args);
+      ret = do_mount_syscall (&args);
    }
-
-   return procfsloop(do_mount_syscall, &args, types);
+   else
+      ret = procfsloop(do_mount_syscall, &args, types);
+#ifdef HAVE_NATSPEC
+   my_free(*mount_opts);
+   *mount_opts = args.data;
+#endif
+   return ret;
 }
 
 /*
@@ -826,8 +832,10 @@ try_mount_one (const char *spec0, const char *node0, const char *types0,
 
   suid_check(spec, node, &flags, &user);
 
-#ifdef HAVE_natspec
-   extra_opts1 = natspec_enrich_fs_options(types, &extra_opts);
+#ifdef HAVE_NATSPEC
+   extra_opts = natspec_enrich_fs_options(types, extra_opts);
+   my_free(extra_opts1);
+   extra_opts1 = extra_opts;
 #endif
   mount_opts = extra_opts;
 
@@ -878,7 +886,7 @@ retry_nfs:
   if (!fake)
     mnt5_res = guess_fstype_and_mount (spec, node, &types, flags & ~MS_NOSYS,
 				       &mount_opts);
-#ifdef HAVE_natspec
+#ifdef HAVE_NATSPEC
   if (mount_opts != extra_opts)
     extra_opts1 = extra_opts = mount_opts;
 #endif
