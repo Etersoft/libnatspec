@@ -47,7 +47,7 @@ char *natspec_get_system_locale()
 
 	// Try LANG from environment
 	tmp = getenv("LANG");
-	if (tmp)
+	if (tmp && tmp[0]) // Use only if non empty string
 	{
 		strcpy(locale, tmp);
 		return locale;
