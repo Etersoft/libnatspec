@@ -90,6 +90,9 @@ mv usr/%_lib/lib* %_lib
 
 
 %changelog
+* Sun Feb 27 2005 Vitaly Lipatov <lav@altlinux.ru> 0.0.9-alt1
+- new version (see NEWS)
+
 * Thu Feb 24 2005 Vitaly Lipatov <lav@altlinux.ru> 0.0.4-alt1
 - new version (add descriptions, cleanup headers)
 
