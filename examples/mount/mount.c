@@ -510,7 +510,7 @@ guess_fstype_and_mount(const char *spec, const char *node, const char **types,
       *types = t;
    }
 #ifdef HAVE_NATSPEC
-   args.data = natspec_enrich_fs_options(*types, *mount_opts);
+   args.data = natspec_get_enriched_fs_options(*types, *mount_opts);
 #endif
 
    if (*types || (flags & MS_REMOUNT)) {
@@ -833,7 +833,7 @@ try_mount_one (const char *spec0, const char *node0, const char *types0,
   suid_check(spec, node, &flags, &user);
 
 #ifdef HAVE_NATSPEC
-   extra_opts = natspec_enrich_fs_options(types, extra_opts);
+   extra_opts = natspec_get_enriched_fs_options(types, extra_opts);
    my_free(extra_opts1);
    extra_opts1 = extra_opts;
 #endif

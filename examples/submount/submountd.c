@@ -40,7 +40,7 @@
 #include <pwd.h>
 #endif
 
-#ifdef HAVE_natspec
+#ifdef HAVE_NATSPEC
 #include <natspec.h>
 #endif
 
@@ -167,7 +167,7 @@ int do_mount(char *device, char *mountpoint, char *fstype,
 	     unsigned long flags, char *options)
 {
 	int retval;
-#ifdef HAVE_natspec
+#ifdef HAVE_NATSPEC
 	char *mount_opts;
 #endif
 #if USE_RESMGR
@@ -198,11 +198,10 @@ int do_mount(char *device, char *mountpoint, char *fstype,
 	}
 #endif
 
-#ifndef HAVE_natspec
+#ifndef HAVE_NATSPEC
 	retval = mount(device, mountpoint, fstype, flags, options);
 #else
-	mount_opts = strdup(options);
-	natspec_enrich_fs_options(fstype, &mount_opts);
+	mount_opts = natspec_get_enriched_fs_options(fstype, options);
 	retval = mount(device, mountpoint, fstype, flags, mount_opts);
 	free(mount_opts);
 #endif

@@ -50,7 +50,7 @@ std::ostream &operator<<(std::ostream &os, PrintUTF8 print_utf8)
     exit(EXIT_FAILURE);
   }
 #else
-  gchar *res = natspec_convert(print_utf8.utf8_str.c_str(), NULL, "UTF-8");
+  gchar *res = natspec_fuzzy_convert(print_utf8.utf8_str.c_str(), NULL, "UTF-8");
 #endif
   os << res;
   g_free(res); 
@@ -72,7 +72,7 @@ void process_phrase(const char *loc_str, LibCore & lib)
     return;
   }
 #else
-  gchar *str = natspec_convert(loc_str, "UTF-8", NULL);
+  gchar *str = natspec_fuzzy_convert(loc_str, "UTF-8", NULL);
 #endif
   if(str[0]=='\0')
     return;

@@ -37,19 +37,9 @@ LIBS=$save_slptest_LIBS
 fi
 AC_SUBST(LIB_RESMGR)
 
-# Checks for libnatspec.
-#PKG_CHECK_MODULES(NATSPEC, libnatspec,,exit)
-#AC_SUBST(NATSPEC_LIBS)
-#AC_SUBST(NATSPEC_CFLAGS)
-
-check_natspec=""
-AC_CHECK_LIB([natspec], [main], check_natspec=true)
-if test ! "x$check_natspec" == x ; then
-NATSPEC_LIBS=-lnatspec
-AC_SUBST(NATSPEC_LIBS)
-AC_DEFINE(HAVE_natspec,1,[Define if you have the natspec library])]
-fi
-			
+# Checks for libnatspec
+AM_PATH_NATSPEC
+				
 AC_PREFIX_DEFAULT(/)
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
