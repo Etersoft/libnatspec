@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.10 2005/03/02 18:21:40 lav Exp $
+    $Id: convert.c,v 1.11 2005/03/06 15:12:04 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -86,7 +86,11 @@ char *natspec_convert_with_translit(const char *in_str,
 	ucs2 = _natspec_iconv_open("UCS2", fromcode);
 	if (frt == (iconv_t) (-1) || ucs2 == (iconv_t) (-1))
 	{
+		char buf[100];
 		free (ansa);
+		snprintf(buf,99,"Broken encoding: '%s' or '%s' (%d) or UCS2 (%d). May be you forget setlocale in main?\n",
+			tocode, fromcode, (int)frt, (int)ucs2);
+		perror(buf);
 		return NULL;
 	}
 	for (;;)
