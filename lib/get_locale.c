@@ -7,6 +7,8 @@
     This code contains some pieces of code and ideas from
                             WINE project (file dlls/kernel/locale.c)
                             GETTEXT project (file localcharset.c)
+							GNOME project (file gnome-libs/libgnome/gnome-i18n.c)
+
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
@@ -33,35 +35,45 @@
 
 #include "natspec_internal.h"
 
-/*#include "data/charset_names.h"*/
-
-
-/* Returns system locale string (malloc allocated)
-NB TODO: fix ugly malloc, fgets, and from LANG copying using
-TODO: Как-то должна учитываться ~/.i18n ?
-*/
-char *natspec_get_system_locale()
+static char *get_from_env()
 {
-	char *locale = malloc(100);
 	char *tmp;
-	FILE *fd;
-	/* Try LANG from environment
+	/* Try LANGUAGE:LC_ALL:LC_CTYPE:LANG from environment
 	  Ignoring missed, empty or POSIX/C locale
 	 */
-	tmp = getenv("LC_ALL");
-	if (!tmp)
+	/* The highest priority value is the `LANGUAGE' environment
+	variable.  This is a GNU extension.  */
+	tmp = getenv ("LANGUAGE");
+	if (tmp == NULL || tmp[0] == '\0')
+		tmp = getenv("LC_ALL");
+	if (tmp == NULL || tmp[0] == '\0')
 		tmp = getenv("LC_CTYPE");
-	if (!tmp)
+	if (tmp == NULL || tmp[0] == '\0')
 		tmp = getenv("LANG");
 		
-	if (tmp)
-	{
-		strcpy(locale, tmp);
-		if ( tmp[0]	&& strcmp(tmp,"POSIX") && strcmp(tmp,"C") )
-			return locale;
-	}
+	if (tmp != NULL && tmp[0] != '\0' &&
+		strcmp(tmp,"POSIX") && strcmp(tmp,"C") )
+			return strdup(tmp);
+	return NULL;
+}
 
-	/* Read system wide locale */
+/* Returns user locale string (malloc allocated) */
+char *natspec_get_user_locale()
+{
+	char *locale = get_from_env();
+	if (!locale)
+		return natspec_get_system_locale();
+	return locale;
+}
+
+/*
+ * NB TODO: fix ugly buf, fgets
+*/
+/* Read system wide locale, return str or NULL if it does not exist */
+static char *get_from_system_i18n(const char *str)
+{
+	char *locale = NULL;
+	FILE *fd;
 	fd = fopen("/etc/sysconfig/i18n","r");
 	for (;fd;)
 	{
@@ -85,11 +97,10 @@ char *natspec_get_system_locale()
 		}
 		buf1[i] = 0;
 		DEBUG (printf("GSL: after space removing '%s'",buf1));
-		#define NAMEPAR "LANG="
-		r = strstr(buf1, NAMEPAR);
-		if (r)
+		i = strlen(str);
+		if (!strncmp(buf1, str, i) && buf1[i] == '=')
 		{
-			strcpy(locale,buf1+strlen(NAMEPAR));
+			locale = strdup (buf1+i+1);
 			break;
 		}
 	}
@@ -97,6 +108,36 @@ char *natspec_get_system_locale()
 		fclose(fd);
 	return locale;
 }
+
+/* Returns system locale string (malloc allocated) */
+char *natspec_get_system_locale()
+{
+	char *locale = get_from_system_i18n("LANG");
+	if (locale == NULL)
+		locale = get_from_env();
+	/* FIXME: we get SegFault in library (when empty sysconfig/i18n and POSIX locale) if return NULL */
+	if (locale == NULL)
+		locale = strdup("POSIX");
+	return locale;
+}
+
+
+/* Returns charset get from _locale_ */
+char *natspec_extract_charset_from_locale(const char *locale)
+{
+	char *lang, *next, *dialect, *charset, *ret;
+    if (!locale || !locale[0])
+		return NULL;
+	lang = malloc( strlen(locale) + 1 );
+    strcpy( lang, locale );
+    next = strchr(lang,':'); if (next) *next++='\0';
+    dialect = strchr(lang,'@'); if (dialect) *dialect++='\0';
+    charset = strchr(lang,'.'); if (charset) *charset++='\0';
+	ret = natspec_humble_charset(charset);
+	free (lang);
+	return ret;
+}
+
 
 /* Internal: repack locale string (compress charset) */
 char *repack_locale(const char *locale)
@@ -119,7 +160,7 @@ char *repack_locale(const char *locale)
 		strcat(buf, "_");
 		strcat(buf, country);
 	}
-	charset = natspec_get_charset_from_locale(locale);
+	charset = natspec_extract_charset_from_locale(locale);
 	if (charset)
 	{
 		strcat(buf, ".");

@@ -32,7 +32,7 @@
 
 #include "natspec_internal.h"
 
-/* Returns converts input string from encoding to encoding*/
+/* Returns converts input string from encoding to encoding */
 char *natspec_convert(const char *in_str, const char *tocode, const char *fromcode)
 {
 	size_t result;
@@ -58,7 +58,7 @@ char *natspec_convert(const char *in_str, const char *tocode, const char *fromco
 		{
 			/* Replace invalid input character FIXME: see iconv util code
 			*ansaptr++ = *ansbptr; */
-			*ansaptr++ = '?';
+			*ansaptr++ = '_';
 			lena--;
 			ansbptr++;
 			lenb--;

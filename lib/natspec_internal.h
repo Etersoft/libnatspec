@@ -28,13 +28,17 @@
 #define __NATSPEC_INTERNAL_H
 
 #ifdef HAVE_CONFIG_H
-#include "../config.h"
+# include "../config.h"
+#else
+# error Something is broken
 #endif
 
 #include "natspec.h"
 
 #ifdef HAVE_NL_LANGINFO
 # define HAVE_LANGINFO_CODESET
+#else
+	#error "Some error"
 #endif
 
 #define DEBUG(n)

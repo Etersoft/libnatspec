@@ -77,9 +77,10 @@ static void add_options(char *buf, const char *fs)
 {
 	const char *charset, *codepage;
 	/* Getting typical values */
-	charset = natspec_get_nls_from_charset(
-		natspec_get_filename_encoding(""));
-	codepage = natspec_get_codepage_from_charset(
+	/* charset of our system */
+	charset = natspec_get_filename_encoding("");
+	/* codepage DOS system as assumes by current locale */
+	codepage = natspec_get_codepage_by_charset(
 		natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
 	DEBUG (fprintf (stderr,"ENRICH: codepage=%s\n",codepage));
 
@@ -103,7 +104,8 @@ static void add_options(char *buf, const char *fs)
 	} else
 	if ( !strcmp (fs, "smb") || !strcmp(fs, "smbfs"))
 	{
-		codepage = natspec_get_nls_from_charset(
+		/* smb has some specifity with codepage names */
+		codepage = natspec_get_nls_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
 		if (charset)
 			add_option(buf, "iocharset=", charset);
