@@ -1,6 +1,7 @@
 #! /bin/sh
 
 set -x
+#./cvs2cl.pl -btT
 aclocal
 autoheader
 libtoolize --force --copy
