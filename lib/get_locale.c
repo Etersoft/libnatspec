@@ -12,7 +12,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.12 2005/02/27 19:06:15 lav Exp $
+    $Id: get_locale.c,v 1.13 2005/03/02 18:24:24 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -34,11 +34,15 @@
 #include <locale.h>
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
+#include <ctype.h>
 
 #include "natspec_internal.h"
 
 /* Try LANGUAGE:LC_ALL:LC_CTYPE:LANG from environment
    Returns NULL if locale is missed, empty or POSIX/C
+   FIXME: is it equivalent of setlocale(LC_ALL,"")?
+   FIXME: LANGUAGE can has multiple value (and ':')
 */
 static char *get_from_env()
 {
@@ -71,15 +75,29 @@ char *natspec_get_user_locale()
 }
 
 /*
- * TODO: fix ugly buf, fgets
+const char *get_i18n_filename()
+{
+	return "/etc/sysconfig/i18n";
+}
 */
+
+/* File with locale information:
+ *   SuSE         - /etc/rc.local       RC_LANG=
+ *   RedHat-based - /etc/sysconfig/i18n LANG=
+ *   Debian       - /etc/enviroment     LANG=
+ *   Slackware    - /etc/profile        export LANG=
+ *   FreeBSD      - /etc/profile        LANG=ru_RU.KOI8-R; export LANG
+*/
+
+/*TODO: fix ugly buf, fgets */
+/* Since POSIX:1996 locale info we get from LANG variable */
 /* Read system wide locale, return str or NULL if it does not exist */
 static char *get_from_system_i18n(const char *str)
 {
 	int i;
-	char *locale = NULL;
+	char *locale = NULL, *t;
 	FILE *fd;
-	fd = fopen("/etc/sysconfig/i18n","r");
+	fd = fopen(NATSPEC_I18N_FILE,"r");
 	for (;fd;)
 	{
 		char buf[100], buf1[100];
@@ -87,14 +105,19 @@ static char *get_from_system_i18n(const char *str)
 		/* Read next line */
 		r = fgets(buf, 99, fd);
 		if (!r) break;
-		/* Remove space symbols FIXME: some glibc func?*/
+		/* Remove unneeded symbols FIXME: some glibc func?*/
 		for (i = 0; *r; r++)
 		{
+			/* Break line at ';#' symbols */
+			if (*r == ';' || *r == '#')
+				break;
 			switch (*r)
 			{
 				case ' ':
 				case '\n':
 				case '\t':
+				case '"':
+				case '\r':
 					break;
 				default:
 					buf1[i++] = *r;
@@ -102,11 +125,18 @@ static char *get_from_system_i18n(const char *str)
 		}
 		buf1[i] = 0;
 		DEBUG (printf("GSL: after space removing '%s'",buf1));
+		/* Skip comments */
+		if (buf[0] == '#')
+			continue;
 		i = strlen(str);
+		/* Find str in any position */
+		t = strstr(buf1, str);
+		if (t == NULL)
+			continue;
 		/* CHECKME: if i < strlen(buf1)? */
-		if (!strncmp(buf1, str, i) && buf1[i] == '=')
+		if (!strncmp(t, str, i) && t[i] == '=')
 		{
-			locale = strdup ( buf1+i+1 );
+			locale = strdup ( t+i+1 );
 			break;
 		}
 	}
@@ -123,7 +153,7 @@ char *natspec_get_system_locale()
 		locale = get_from_env();
 	/* FIXME: we get SegFault in library (when empty sysconfig/i18n and POSIX locale) if return NULL */
 	if (locale == NULL)
-		locale = strdup("POSIX");
+		locale = strdup("C");
 	return locale;
 }
 
@@ -144,9 +174,10 @@ char *natspec_extract_charset_from_locale(const char *locale)
 }
 
 
-/* Internal: repack locale string (compress charset) */
+/* Internal: repack locale string (compress charset, fix register) */
 char *_natspec_repack_locale(const char *locale)
 {
+	int i;
 	char *buf, *lang, *next, *dialect, *charset, *country;
     if (!locale || !locale[0] ||
 		!strcmp(locale,"POSIX") || !strcmp(locale,"C") )
@@ -158,9 +189,14 @@ char *_natspec_repack_locale(const char *locale)
     dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
     charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
     country = strchr(lang,'_'); if (country) *country++ = '\0';
+
+	for (i=0; i<strlen(lang); i++)
+		tolower(lang[i]);
 	strcpy(buf, lang);
 	if (country)
 	{
+		for (i=0; i<strlen(country); i++)
+			toupper(country[i]);
 		strcat(buf, "_");
 		strcat(buf, country);
 	}
