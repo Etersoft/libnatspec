@@ -46,8 +46,12 @@ char *natspec_get_system_locale()
 	char *tmp;
 
 	// Try LANG from environment
+	// Ignoring missed, empty or POSIX/C locale
 	tmp = getenv("LANG");
-	if (tmp && tmp[0]) // Use only if non empty string
+	if (tmp && tmp[0]
+		&& strcmp(tmp,"POSIX")
+		&& strcmp(tmp,"C") )
+
 	{
 		strcpy(locale, tmp);
 		return locale;
@@ -57,31 +61,31 @@ char *natspec_get_system_locale()
 	FILE *fd = fopen("/etc/sysconfig/i18n","r");
 	for (;fd;)
 	{
+		int i;
 		char *r;
-		char buf[100];
+		char buf[100], buf1[100];
 		r = fgets(buf,99,fd);
-		DEBUG (printf("GSL: get string '%s'",buf));
 		if (!r) break;
-		/* FIXME: space symbols!! */
-		r = strstr(buf,"LANG=");
+		/* Remove space symbols */
+		for (i = 0; *r; r++)
+		{
+			switch (*r)
+			{
+				case ' ':
+				case '\n':
+				case '\t':
+					break;
+				default:
+					buf1[i++] = *r;
+			}
+		}
+		buf1[i] = 0;
+		DEBUG (printf("GSL: after space removing '%s'",buf1));
+		
+		r = strstr(buf1,"LANG=");
 		if (r)
 		{
-			int i;
-			r += 5;
-			for (i=0;*r;r++)
-			{
-				switch (*r)
-				{
-					case ' ':
-					case '\n':
-					case '\t':
-					case '=':
-						break;
-					default:
-						locale[i++] = *r;
-				}
-			}
-			locale[i] = 0;
+			strcpy(locale,buf1);
 			break;
 		}
 	}
