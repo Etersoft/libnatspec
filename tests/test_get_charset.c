@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.14 2005/03/02 18:26:15 lav Exp $
+ * $Id: test_get_charset.c,v 1.15 2005/03/09 20:13:02 lav Exp $
  *
  */
 
@@ -116,7 +116,7 @@ void test_nls()
 		t = natspec_get_charset_by_locale(NATSPEC_UNIXCS, locale);
 		setlocale(LC_ALL,locale);
 		if(natspec_get_charset() != t)
-			printf("Some problem in locale: %s CS: %s - from table: %s\n",locale, natspec_get_charset(),t);
+			printf("Some problem in setting locale: %s CS: %s - from table: %s\n",locale, natspec_get_charset(),t);
 	}
 	printf("TEST_NLS: comformance test is completed: %d locales\n",i);
 }
@@ -136,8 +136,8 @@ int main(void)
 	setlocale(LC_ALL,"");
 	printf("FIRST current charset (nl):%s\n",	natspec_get_charset ());
 	printf("FIRST fileenc: %s\n",natspec_get_filename_encoding (""));
-	printf("current locale:%s\n",locale[0]);
-	printf("user locale:%s\n",natspec_get_user_locale ());
+	printf("user locale:%s\n",locale[0]);
+	printf("current locale:%s\n",natspec_get_current_locale ());
 	printf("system locale:%s\n",natspec_get_system_locale ());
 	printf("current charset (nl):%s\n",	natspec_get_charset ());
 	cas = natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS,NULL);
@@ -159,7 +159,7 @@ int main(void)
 	test_nls();
 	test_for_enrich();
 	printf("SECOND current charset (nl):%s\n",	natspec_get_charset ());
-	cas = setlocale(LC_ALL, NULL);
+	cas = setlocale(LC_ALL, "");
 	printf("old locale: %s\n",cas);
 	test_for_convert();
 	return 0;
