@@ -12,7 +12,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.16 2005/03/17 15:35:18 lav Exp $
+    $Id: get_locale.c,v 1.17 2005/03/17 19:06:17 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -46,7 +46,7 @@
 */
 static char *get_from_env()
 {
-	char *tmp;
+	char *tmp, *next;
 	/* The highest priority value is the `LANGUAGE' environment
 	variable.  This is a GNU extension.  */
 	tmp = getenv ("LANGUAGE");
@@ -57,10 +57,13 @@ static char *get_from_env()
 	if (tmp == NULL || tmp[0] == '\0')
 		tmp = getenv("LANG");
 		
-	if (tmp != NULL && tmp[0] != '\0' &&
-		strcmp(tmp,"POSIX") && strcmp(tmp,"C") )
-			return strdup(tmp);
-	return NULL;
+	if (tmp == NULL || tmp[0] == '\0' ||
+		!strcmp(tmp,"POSIX") || !strcmp(tmp,"C") )
+			return NULL;
+	tmp = strdup(tmp);
+	/* Use only first locale int string */
+	next = strchr(tmp,':'); if (next) *next++ = '\0';
+	return tmp;
 }
 
 /* Returns user locale string (malloc allocated)
@@ -167,12 +170,12 @@ char *natspec_get_system_locale()
 char *natspec_extract_charset_from_locale(const char *locale)
 {
 	char *lang, *next, *dialect, *charset, *ret;
-    if (locale == NULL || locale[0] == '\0')
+	if (locale == NULL || locale[0] == '\0')
 		return NULL;
 	lang = strdup( locale );
-    next = strchr(lang,':'); if (next) *next++ = '\0';
-    dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
-    charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
+	next = strchr(lang,':'); if (next) *next++ = '\0';
+	dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
+	charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
 	ret = natspec_humble_charset(charset);
 	free (lang);
 	return ret;
@@ -184,15 +187,15 @@ char *_natspec_repack_locale(const char *locale)
 {
 	int i;
 	char *buf, *lang, *next, *dialect, *charset, *country;
-    if (!locale || !locale[0])
+	if (!locale || !locale[0])
 		return NULL;
 	DEBUG (printf("repack_locale\n"));
 	lang = strdup( locale );
 	buf = malloc( strlen(locale) + 1 );
-    next = strchr(lang,':'); if (next) *next++ = '\0';
-    dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
-    charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
-    country = strchr(lang,'_'); if (country) *country++ = '\0';
+	next = strchr(lang,':'); if (next) *next++ = '\0';
+	dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
+	charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
+	country = strchr(lang,'_'); if (country) *country++ = '\0';
 
 	for (i=0; i<strlen(lang); i++)
 		_n_tolower(lang[i]);
