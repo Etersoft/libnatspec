@@ -35,12 +35,12 @@
 
 #include "natspec_internal.h"
 
+/* Try LANGUAGE:LC_ALL:LC_CTYPE:LANG from environment
+   Returns NULL if locale is missed, empty or POSIX/C
+*/
 static char *get_from_env()
 {
 	char *tmp;
-	/* Try LANGUAGE:LC_ALL:LC_CTYPE:LANG from environment
-	  Ignoring missed, empty or POSIX/C locale
-	 */
 	/* The highest priority value is the `LANGUAGE' environment
 	variable.  This is a GNU extension.  */
 	tmp = getenv ("LANGUAGE");
@@ -67,7 +67,7 @@ char *natspec_get_user_locale()
 }
 
 /*
- * NB TODO: fix ugly buf, fgets
+ * TODO: fix ugly buf, fgets
 */
 /* Read system wide locale, return str or NULL if it does not exist */
 static char *get_from_system_i18n(const char *str)
