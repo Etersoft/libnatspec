@@ -1,12 +1,12 @@
 Name: libnatspec
-Version: 0.0.2
+Version: 0.0.3
 Release: alt1
 
 Summary: Nation & languages specifity issues library
 
 License: LGPL
 Group: Development/C
-Url: http://www.etersoft.ru
+Url: http://www.etersoft.ru/natspec
 
 Packager: Vitaly Lipatov <lav@altlinux.ru>
 
@@ -18,8 +18,8 @@ BuildRequires: gcc-c++ hostinfo libpopt-devel libstdc++-devel
 
 %description
 Nation & languages specifity issues library
-This library provides helper functions for
-	mount, submount
+This library provides userful functions for
+	mount, submount, mkisofs, multimedia players
 
 %package devel
 Summary: The files needed for %name application development
@@ -30,15 +30,35 @@ Requires: %name = %version-%release
 The %name-devel package contains the necessary include files
 for developing applications with %name
 
+%package devel-examples
+Summary: Examples of %name using
+Group: Development/C
+
+%description devel-examples
+The %name-devel package contains examples of patches
+for developing applications with %name
+
+%package python-module-natspec
+Summary: Python binding
+Group: Development/C
+Requires: %name = %version-%release
+
+%description python-module-natspec
+Python binding for natspec
+
 %prep
 %setup -q
 
 %build
-%configure --libdir=/%_lib
+%configure
 %make_build
+#cd python
+#CFLAGS="$RPM_OPT_FLAGS" %__python setup.py build
+
 
 %install
 %makeinstall
+#%__python setup.py install --root $RPM_BUILD_ROOT
 
 # move to /lib
 cd %buildroot
@@ -60,7 +80,16 @@ mv usr/%_lib/lib* %_lib
 /%_lib/%name.so
 %_libdir/pkgconfig/*
 
+%files devel-examples
+%doc examples
+#%files python-module-natspec
+#%python_sitelibdir/*.so
+
+
 %changelog
+* Wed Feb 23 2005 Vitaly Lipatov <lav@altlinux.ru> 0.0.3-alt1
+- new version (fix bug with unix charset)
+
 * Mon Feb 21 2005 Vitaly Lipatov <lav@altlinux.ru> 0.0.2-alt1
 - new version
 
