@@ -46,6 +46,11 @@ void test_for_enrich()
 	printf("enrich VFAT: %s %p:%p\n",ret,ret,ret1);
 	assert (ret != ret1);
 
+	ret1 = ret = strdup("iocharset=koi8-r");
+	natspec_enrich_fs_options("vfat", &ret);
+	printf("enrich VFAT with io: %s %p:%p\n",ret,ret,ret1);
+	assert (ret == ret1);
+
 	ret1 = ret = strdup("");
 	natspec_enrich_fs_options("smb", &ret);
 	printf("enrich SMB: %s %p:%p\n",ret,ret,ret1);
