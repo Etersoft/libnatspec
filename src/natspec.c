@@ -26,21 +26,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include "natspec.h"
+#include "../config.h"
 
-#if (defined (HAVE_LIBPOPT) && defined (HAVE_POPT_H))
-#define HAVE_POPT
-#endif
-
-#ifdef HAVE_POPT_H
+#ifdef HAVE_LIBPOPT
 #  include <popt.h>
 #endif
 
 
 char *charset_type;
 char *locale;
-int version, verbose, fsenc;
+int version, verbose, fsenc, fcodepage;
 
-#if defined HAVE_POPT
+#if defined HAVE_LIBPOPT
 poptContext context = NULL;
 struct poptOption options[] =
 {
@@ -49,6 +46,8 @@ struct poptOption options[] =
     {"locale", 'l', POPT_ARG_STRING,  &locale, 0,
      "Using locale (from $LANG by default)", ""},
     {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 0,
+     "Get filesystem encoding", ""},
+    {"codepage", 'c', POPT_ARG_NONE,  &fcodepage, 0,
      "Get filesystem encoding", ""},
     {"version", 'V', POPT_ARG_NONE, &version, 0,
      "Display version and exit", NULL },
@@ -64,7 +63,7 @@ int main(int argc, const char** argv)
 	const char *charset;
 	int type;
 
-#if defined HAVE_POPT
+#if defined HAVE_LIBPOPT
   int rc = 0;
   poptContext poptCtx;
   poptCtx = poptGetContext("natspec", argc, (const char **)argv, options, 0);
@@ -107,7 +106,17 @@ int main(int argc, const char** argv)
 	if (fsenc)
 	{
 		const char *buf;
+		if (verbose) printf("Filename encoding:\n");
 		buf = natspec_get_filename_encoding(locale);
+		printf("%s\n",buf);
+		exit(0);
+	}
+	if (fcodepage)
+	{
+		const char *buf;
+		if (verbose) printf("Codepage:\n");
+		buf = natspec_get_codepage_from_charset(
+			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
 		printf("%s\n",buf);
 		exit(0);
 	}
