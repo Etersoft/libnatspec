@@ -12,7 +12,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.15 2005/03/09 20:14:25 lav Exp $
+    $Id: get_locale.c,v 1.16 2005/03/17 15:35:18 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -64,7 +64,7 @@ static char *get_from_env()
 }
 
 /* Returns user locale string (malloc allocated)
- * FIXME: can we do it with glibc?
+ * FIXME: can we do it with glibc not my get_from_env?
  */
 char *natspec_get_current_locale()
 {
