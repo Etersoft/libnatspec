@@ -52,13 +52,9 @@ Python binding for natspec
 %build
 %configure
 %make_build
-#cd python
-#CFLAGS="$RPM_OPT_FLAGS" %__python setup.py build
-
 
 %install
 %makeinstall
-#%__python setup.py install --root $RPM_BUILD_ROOT
 
 # move to /lib
 cd %buildroot

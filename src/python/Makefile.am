@@ -13,3 +13,6 @@ pyexec_SCRIPTS = natspec.py
 
 EXTRA_DIST = natspec.i README.txt natspec.py setup.py test_natspec.py
 
+#cd python
+#CFLAGS="$RPM_OPT_FLAGS" %__python setup.py build
+#%__python setup.py install --root $RPM_BUILD_ROOT

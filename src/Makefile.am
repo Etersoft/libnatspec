@@ -1,3 +1,4 @@
+SUBDIRS = python
 bin_PROGRAMS 	= natspec
 natspec_SOURCES = natspec.c
 natspec_LDADD 	= $(top_srcdir)/lib/libnatspec.la $(POPT_LIBS)
