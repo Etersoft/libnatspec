@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspec.h,v 1.16 2005/02/26 15:23:06 lav Exp $
+    $Id: natspec.h,v 1.17 2005/03/02 18:24:54 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,7 @@ extern "C" {
 #define NATSPEC_MACCS 3
 
 /* 
- * Returns malloc allocated string with system locale
+ * Returns malloc allocated string with user (current) locale
  * get from LC_ALL:LC_CTYPE:LANG evironment variable, if fails,
  * get from get_system_locale()
  */
@@ -51,7 +51,7 @@ extern "C" {
 char *natspec_get_user_locale();
 
 /* 
- * Returns malloc allocated string with user locale
+ * Returns malloc allocated string with system locale
  * get from LANG variable in /etc/sysconfig/i18n file
  */
  
@@ -60,13 +60,15 @@ char *natspec_get_system_locale();
 /*
  * Returns const string with current charset
  * (according to locale, not filename encoding)
+ * NOTE: you have to use setlocale(LC_ALL,"") before call this function
  */
 const char *natspec_get_charset();
 
 /*
  * Returns static string with charset in nls form (like in kernel)
  * of filename in system for locale.
- * If G_FILENAME_ENCODING exists, use its value
+ * If G_FILENAME_ENCODING exists and correct, returns its value
+ * If locale is empty, use user locale
  * If locale is NULL, use system locale
  */
 const char * natspec_get_filename_encoding(const char * locale);
@@ -113,6 +115,7 @@ char *natspec_convert(const char *in_str,
  *  fs      - filesystem type string
  *  options - already exist options string
  * Returns: new allocated string with enriched options
+ * NOTE: options enriched according to user locale in LIBNATSPEC term
  */
 char * natspec_get_enriched_fs_options(const char* fs, const char *options);
 
@@ -146,11 +149,16 @@ char *natspec_humble_charset( const char *charset);
 
 /*
  * Return static string with charset of _type_ op. system
- * if we know _charset_ for _bytype_ op. system
+ * by _charset_ for _bytype_ op. system
+ * is charset is unknown, returns NULL
  */
 
 const char * natspec_get_charset_by_charset(const int type,
 	const int bytype, const char *charset);
+
+/* Unneeded
+int natspec_check_charset(const int type, const char *charset);
+*/
 
 #ifdef __cplusplus
 }
