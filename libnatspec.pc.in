@@ -3,9 +3,9 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: libuniset
+Name: libnatspec
 Description: Support library for libnatspec
 Requires:
 Version: @VERSION@
-Libs: -L${libdir} -lnatspec
-Cflags: -I${includedir}/libnatspec
+Libs: -lnatspec
+Cflags:

@@ -31,6 +31,9 @@
 #include <locale.h>
 #include <langinfo.h>
 #include <stdio.h>
+#include <strings.h>
+#include <string.h>
+#include <ctype.h>
 
 #include "natspec_internal.h"
 #include "data/get_charset_data.h"
@@ -61,8 +64,8 @@ static char *clean_charset( const char *charset)
 	return buf;
 }
 
-// TODO: Приводит к виду, использующемуся в iconv
 /*
+TODO: Приводит к виду, использующемуся в iconv
 static char *normalize_charset(const char *charset)
 {
 	char *buf = malloc( strlen(charset) + 1 );
@@ -74,7 +77,7 @@ static char *normalize_charset(const char *charset)
 /* Returns charset get from _locale_ */
 char *natspec_get_charset_from_locale(const char *locale)
 {
-	char *buf, *lang, *next, *dialect, *charset, *country;
+	char *lang, *next, *dialect, *charset;
     if (!locale || !locale[0])
 		return NULL;
 	lang = malloc( strlen(locale) + 1 );
@@ -107,32 +110,32 @@ static const char *get_cs_by_type(const int type,
 }
 
 
-// Internal: try search by encoding
+/* Internal: try search by encoding */
 static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 	const char *charset, const char *locale)
 {
 	const struct charsetrel_entry *entry = NULL;
 	char *must_free = NULL;
 	DEBUG (printf("get_entry_by_charset charset=%s, locale=%s\n",charset, locale));
-	// Если не указана, но знаем локаль, получаем из системы
-	// (только если получить надо UNIXCS)
+	/* Если не указана, но знаем локаль, получаем по системной локали */
 	if (!charset && locale && bytype == NATSPEC_UNIXCS)
 	{
+		char *old;
 		must_free = NULL;
 		if (!locale[0])
 			locale = must_free = natspec_get_system_locale();
-		char *old = setlocale(LC_ALL,locale);
+		old = setlocale(LC_ALL,locale);
 		if (must_free)
 			free (must_free);
 		charset = must_free = clean_charset(nl_langinfo(CODESET));
 		DEBUG (printf("2 cs=%s\n",charset));
-		setlocale(LC_ALL, old); // is it correct return to previous settings?
+		setlocale(LC_ALL, old); /* is it correct return to previous settings? */
 	}
 	if (charset && charset[0])
 	{
-		DEBUG (printf("Find with charset '%s'\n", charset));
 		int i;
-		// Fixme: can we suppose enemy encoding by unix charset?
+		DEBUG (printf("Find with charset '%s'\n", charset));
+		/* Fixme: can we suppose enemy encoding by unix charset? */
 		for (i = 0; i< sizeof(charset_relation)/sizeof(charset_relation[0]); i++)
 			if (!strcasecmp (charset, get_cs_by_type(bytype,&charset_relation[i])))
 			{
@@ -151,7 +154,7 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 	char *charset;
 	const struct charsetrel_entry *entry = NULL;
 	char *buf = repack_locale(locale);
-	// Search the same locale string
+	/* Search the same locale string */
 	if (buf && buf[0])
 	{
 		entry = bsearch( buf, charset_relation,
@@ -161,7 +164,7 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 	}
 	if (!entry)
 	{
-		// It will broken brain if we have a few identical charset
+		/* It will broken brain if we have a few identical charset */
 		charset = natspec_get_charset_from_locale(locale);
 		DEBUG (printf ("Can't find the locale '%s', search by charset '%s' now\n", locale, charset));
 		entry = get_entry_by_charset(NATSPEC_UNIXCS, charset, locale);
@@ -181,7 +184,7 @@ static int charset_cmp( const void *name, const void *entry )
 }
 
 /* Returns codepage from charset */
-static char __cfc[10]; // FIXME
+static char __cfc[10]; /* FIXME */
 const char *natspec_get_codepage_from_charset(const char *cs)
 {
 	const struct charset_entry *entry;
@@ -207,10 +210,7 @@ const char *natspec_get_nls_from_charset(const char *cs)
     if (entry)
 		return entry->nls;
 	else
-	{
-		return "ascii"; //ANSIX341968
-		//return cs;
-	}
+		return "ascii"; /* ANSIX341968 */
 }
 
 const char * natspec_get_charset_by_locale(const int type, const char *locale)
@@ -242,7 +242,7 @@ const char *natspec_get_filename_encoding(const char *locale)
 	const char *buf = getenv("G_FILENAME_ENCODING");
 	if (buf)
 	{
-		// Search in static table
+		/* Search in static table */
 		buf = natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_UNIXCS, buf);
 		if (buf)
 			return buf;

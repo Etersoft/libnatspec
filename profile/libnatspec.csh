@@ -5,4 +5,4 @@
 # or link natspec library
 
 NATSPEC=/usr/bin/natspec
-test -x $NATSPEC && setenv G_FILENAME_ENCODING `natspec -n`
+test -x $NATSPEC && setenv G_FILENAME_ENCODING `natspec -f`

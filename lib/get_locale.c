@@ -30,6 +30,7 @@
 #include <locale.h>
 #include <langinfo.h>
 #include <stdio.h>
+#include <string.h>
 
 /*#include "data/charset_names.h"*/
 #include "natspec_internal.h"
@@ -37,28 +38,31 @@
 
 /* Returns system locale string (malloc allocated)
 NB TODO: fix ugly malloc, fgets, and from LANG copying using
-TODO: allowing space symbols in file
 TODO: Как-то должна учитываться ~/.i18n ?
 */
 char *natspec_get_system_locale()
 {
 	char *locale = malloc(100);
 	char *tmp;
-
-	// Try LANG from environment
-	// Ignoring missed, empty or POSIX/C locale
-	tmp = getenv("LANG");
-	if (tmp && tmp[0]
-		&& strcmp(tmp,"POSIX")
-		&& strcmp(tmp,"C") )
-
+	FILE *fd;
+	/* Try LANG from environment
+	  Ignoring missed, empty or POSIX/C locale
+	 */
+	tmp = getenv("LC_ALL");
+	if (!tmp)
+		tmp = getenv("LC_CTYPE");
+	if (!tmp)
+		tmp = getenv("LANG");
+		
+	if (tmp)
 	{
 		strcpy(locale, tmp);
-		return locale;
+		if ( tmp[0]	&& strcmp(tmp,"POSIX") && strcmp(tmp,"C") )
+			return locale;
 	}
 
-	// Read system wide locale
-	FILE *fd = fopen("/etc/sysconfig/i18n","r");
+	/* Read system wide locale */
+	fd = fopen("/etc/sysconfig/i18n","r");
 	for (;fd;)
 	{
 		int i;
@@ -81,11 +85,11 @@ char *natspec_get_system_locale()
 		}
 		buf1[i] = 0;
 		DEBUG (printf("GSL: after space removing '%s'",buf1));
-		
-		r = strstr(buf1,"LANG=");
+		#define NAMEPAR "LANG="
+		r = strstr(buf1, NAMEPAR);
 		if (r)
 		{
-			strcpy(locale,buf1);
+			strcpy(locale,buf1+strlen(NAMEPAR));
 			break;
 		}
 	}
@@ -101,7 +105,6 @@ char *repack_locale(const char *locale)
     if (!locale || !locale[0] ||
 		!strcmp(locale,"POSIX") || !strcmp(locale,"C") )
 		return NULL;
-	// Cut : and @
 	DEBUG (printf("repack_locale\n"));
 	lang = malloc( strlen(locale) + 1 );
 	buf = malloc( strlen(locale) + 1 );

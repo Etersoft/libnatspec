@@ -6,4 +6,4 @@ autoheader
 libtoolize --force --copy
 automake --add-missing --include-deps --copy --force-missing
 autoconf
-
+./configure

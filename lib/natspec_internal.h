@@ -27,6 +27,10 @@
 #ifndef __NATSPEC_INTERNAL_H
 #define __NATSPEC_INTERNAL_H
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
 #include "natspec.h"
 
 #define DEBUG(n)

@@ -25,8 +25,9 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "natspec.h"
-#include "../config.h"
+#include <strings.h>
+
+#include "natspec_internal.h"
 
 #ifdef HAVE_LIBPOPT
 #  include <popt.h>
@@ -35,28 +36,28 @@
 
 char *charset_type;
 char *locale;
-int version, verbose, fsenc, fcodepage, nls, flag_help, info;
+int version, verbose, fsenc, fcodepage, nls, flag_help, info, flag_locale;
 
 #if defined HAVE_LIBPOPT
 poptContext context = NULL;
 struct poptOption options[] =
 {
     {"charset", 's', POPT_ARG_STRING,  &charset_type, 0,
-     "Type of needed charset: unix (default), win, dos, mac", ""},
-    {"locale", 'l', POPT_ARG_STRING,  &locale, 0,
-     "Using locale (system locale by default)", ""},
+     "set type of needed charset: unix (default), win, dos, mac", ""},
+    {"locale", 'l', POPT_ARG_NONE,  &flag_locale, 1,
+     "print system locale", ""},
     {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 1,
-     "Get filesystem encoding", ""},
+     "print filesystem encoding", ""},
     {"nls", 'n', POPT_ARG_NONE,  &nls, 1,
-     "Get filesystem encoding in nls form", ""},
+     "print filesystem encoding in nls form", ""},
     {"info", 'i', POPT_ARG_NONE,  &info, 0,
-     "Print overall encoding/charset info for your system", ""},
+     "print overall encoding/charset info for your system", ""},
     {"codepage", 'c', POPT_ARG_NONE,  &fcodepage, 1,
-     "Get codepage", ""},
+     "print codepage", ""},
     {"version", 'V', POPT_ARG_NONE, &version, 1,
-     "Display version and exit", NULL },
+     "display version and exit", NULL },
     {"verbose", 'v', POPT_ARG_NONE, &verbose, 0,
-     "Verbose output", NULL },
+     "verbose output", NULL },
     {"help", 'h', POPT_ARG_NONE, &flag_help, 1, "Show this help message" },
     {(char *) NULL, '\0', 0, NULL, 0}
 };
@@ -125,7 +126,7 @@ int main(int argc, const char** argv)
 	}
 
 #else
-	printf("Complied without popt\n");
+	printf("Compiled without popt\n");
 	exit(1);
 #endif
 	if (version || info)
@@ -138,10 +139,11 @@ int main(int argc, const char** argv)
 		printf(" = Overall information =\n");
 		verbose = 1;
 	}
-	if (!locale)
+	locale = natspec_get_system_locale();
+	if (flag_locale)
 	{
-		if (verbose) printf("Use system locale as locale\n");
-		locale=natspec_get_system_locale();
+		if (verbose) printf("Use locale:");
+		printf("%s\n",locale);
 	}
 	if (verbose) printf("Using locale is '%s'\n",locale);
 	if (fsenc || info)
@@ -179,4 +181,5 @@ int main(int argc, const char** argv)
 		exit(0);
 	}
 	get_charset(charset_type);
+	return 0;
 }

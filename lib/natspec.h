@@ -71,9 +71,11 @@ char *natspec_get_codepage_by_locale(const int type,
 
 /*
  * Specially for mount command
- * Returns malloc string with enriched options
+ * Returns new allocated string with enriched options
+ * options is pointer to pointer at options string, we do free(*options) inside
+ * after new string is allocated
  */
-char * natspec_enrich_fs_options(const char* fs, const char *options);
+char * natspec_enrich_fs_options(const char* fs, char **options);
 
 /*
  * from charset to codepage translator

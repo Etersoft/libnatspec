@@ -3,6 +3,7 @@ AC_INIT([libnatspec], [0.0.1], lav@etersoft.ru)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 
 AC_CONFIG_HEADER(config.h)
+CFLAGS="-Wall -pedantic -funsigned-char"
 
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE
@@ -29,6 +30,10 @@ check_popt=""
 AC_CHECK_LIB([popt], [main], check_popt=true)
 if test "x$check_popt" == x ; then
 	AC_MSG_ERROR([*** libpopt not found.])
+else
+	POPT_LIBS=-lpopt
+	AC_SUBST(POPT_LIBS)
+	AC_DEFINE(HAVE_LIBPOPT,1,[Define if you have the POPT library])
 fi
 
 
