@@ -52,6 +52,8 @@ char* natspec_enrich_fs_options(const char *fs, const char *options)
 	if (options && (strstr(options,"iocharset") || 
 		strstr(options,"codepage") || strstr(options,"nls")))
 		return strdup(options);
+	if (!fs)
+		return (options ? strdup(options) : NULL);
 
 	// Getting typical values
 	charset = natspec_get_filename_encoding("");
@@ -76,8 +78,8 @@ char* natspec_enrich_fs_options(const char *fs, const char *options)
 			add_option(buf, "nls=", charset);
 	} else
 	{
-		DEBUG (fprintf(stderr, "NATSPEC: do not know %s fs\n",fs));
-		return strdup(options);
+		DEBUG (fprintf(stderr, "NATSPEC: do not know %s fs (opt:%s)\n",fs,options));
+		return (options ? strdup(options) : NULL);
 	};
 	ret = malloc ( (options ? strlen(options) : 0) + strlen(buf) + 1);
 	strcpy (ret, (options ? options : "" ));
