@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.13 2005/02/27 19:26:19 lav Exp $
+ * $Id: test_get_charset.c,v 1.14 2005/03/02 18:26:15 lav Exp $
  *
  */
 
@@ -97,11 +97,14 @@ void test_for_convert()
 void test_nls()
 {
 	int i;
+	/* All locales */
 	for (i = 0; i< sizeof(charset_relation)/sizeof(charset_relation[0]); i++)
 	{
 		const char *t;
 		iconv_t it;
-		assert (t=natspec_get_filename_encoding(charset_relation[i].locale));
+		const char *locale = charset_relation[i].locale;
+		assert (t=natspec_get_filename_encoding(locale));
+		/* printf("%s\n",t); */
 		it = iconv_open(t,"UTF-8");
 		if ( it == (iconv_t)(-1))
 	  	{
@@ -110,7 +113,10 @@ void test_nls()
 		}
 		else
 			iconv_close(it);
-		
+		t = natspec_get_charset_by_locale(NATSPEC_UNIXCS, locale);
+		setlocale(LC_ALL,locale);
+		if(natspec_get_charset() != t)
+			printf("Some problem in locale: %s CS: %s - from table: %s\n",locale, natspec_get_charset(),t);
 	}
 	printf("TEST_NLS: comformance test is completed: %d locales\n",i);
 }
@@ -119,7 +125,7 @@ int main(void)
 {
 	int i;
 	char *locale[7];
-	printf("FIRST fileenc: %s\n",natspec_get_filename_encoding (""));
+	const char *cas;
 	locale[0] = getenv("LANG");
 	locale[1] = "POSIX";
 	locale[2] = "C";
@@ -127,11 +133,17 @@ int main(void)
 	locale[4] = "ru";
 	locale[5] = "ru_RU";
 	locale[6] = "";
+	setlocale(LC_ALL,"");
+	printf("FIRST current charset (nl):%s\n",	natspec_get_charset ());
+	printf("FIRST fileenc: %s\n",natspec_get_filename_encoding (""));
 	printf("current locale:%s\n",locale[0]);
 	printf("user locale:%s\n",natspec_get_user_locale ());
 	printf("system locale:%s\n",natspec_get_system_locale ());
 	printf("current charset (nl):%s\n",	natspec_get_charset ());
-	printf("current charset:%s\n",	natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS,NULL));
+	cas = natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS,NULL);
+	printf("current charset:%s\n",cas);
+	/*assert (!strcmp(cas, natspec_get_charset()));*/
+	
 	for (i=0; i<sizeof(locale)/sizeof(char*); i++)
 	{
 		int j;
@@ -146,6 +158,9 @@ int main(void)
 	test_for_iconv();
 	test_nls();
 	test_for_enrich();
+	printf("SECOND current charset (nl):%s\n",	natspec_get_charset ());
+	cas = setlocale(LC_ALL, NULL);
+	printf("old locale: %s\n",cas);
 	test_for_convert();
 	return 0;
 }
