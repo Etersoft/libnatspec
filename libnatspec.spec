@@ -84,9 +84,9 @@ mv usr/%_lib/lib* %_lib
 %files devel-examples
 %doc examples
 
-%files -n python-module-natspec
-%python_sitelibdir/natspec.py
-%python_sitelibdir/_natspec.so
+#%files -n python-module-natspec
+#%python_sitelibdir/natspec.py
+#%python_sitelibdir/_natspec.so
 
 
 %changelog
