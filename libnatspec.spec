@@ -14,6 +14,8 @@ Source: http://www.etersoft.ru/download/%name-%version.tar.bz2
 
 %description
 Nation & languages specifity issues library
+This library provides helper functions for
+	mount, smb
 
 %package devel
 Summary: The files needed for %name application development
@@ -34,18 +36,23 @@ for developing applications with %name
 %install
 %makeinstall
 
-%post -p /sbin/ldconfig
+# move to /lib
+cd %buildroot
+mv usr/%_lib %_lib
 
-%postun -p /sbin/ldconfig
+%post -p %post_ldconfig
+
+%postun -p %postun_ldconfig
 
 %files
 %doc AUTHORS COPYING README ChangeLog NEWS TODO
-%_libdir/*.so.*
+/%_lib/*.so.*
 %_bindir/*
+#/etc/profile.d/%name*
 
 %files devel
-%_includedir/%name
-%_libdir/%name.so
+%_includedir/*
+/%_lib/%name.so
 
 %changelog
 * Sun Feb 20 2005 Vitaly Lipatov <lav@altlinux.ru> 0.0.1-alt0.1
