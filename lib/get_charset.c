@@ -10,7 +10,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_charset.c,v 1.18 2005/03/09 20:14:25 lav Exp $
+    $Id: get_charset.c,v 1.19 2005/03/09 20:18:02 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -69,7 +69,7 @@ char *natspec_humble_charset( const char *charset)
 	{
 		if (charset[i] == ':')
 			break;
-        if (isalnum(charset[i]))
+        if (_n_isalnum(charset[i]))
 			buf[j++] = _n_toupper(charset[i]);
 	}
    	buf[j] = 0;

@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec_internal.h,v 1.11 2005/03/09 20:08:04 lav Exp $
+    $Id: natspec_internal.h,v 1.12 2005/03/09 20:18:02 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -51,6 +51,7 @@
 #	define _n_tolower(n) tolower(n)
 #	warning "We can't use locale independent lower/upper without GNU"
 #endif
+#define _n_isalnum(n) isalnum(n)
 
 /* Add n in next line for debug messaging */
 #define DEBUG(n)
