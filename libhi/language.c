@@ -8,7 +8,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: language.c,v 1.1 2005/03/01 11:17:36 lav Exp $
+    $Id: language.c,v 1.2 2005/03/02 18:25:20 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,7 @@
 
 #include <natspec_internal.h>
 
-const char *get_name_language(const int type, const char *locale)
+const char *get_language_name(const int type, const char *locale)
 {
-	
+	return "english";
 }

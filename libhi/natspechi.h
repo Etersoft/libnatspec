@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspechi.h,v 1.1 2005/03/01 11:17:36 lav Exp $
+    $Id: natspechi.h,v 1.2 2005/03/02 18:25:20 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -37,6 +37,8 @@ extern "C" {
 #define NATSPEC_BABEL   2
 #define NATSPEC_GUI     3
 #define NATSPEC_ISO639  4
+
+const char *get_language_name(const int type, const char *locale);
 
 #ifdef __cplusplus
 }
