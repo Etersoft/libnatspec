@@ -11,11 +11,26 @@ locale and system independent. Libnatspec is tries to use
 user locale information if possible.
 It contains table with relations between locale name and encoding
 of other system. 
-It works in Linux only and not tested in other Unix-like system yet.
+It tested in various OS (with GCC installed):
+ + ALT Linux 2.4 Master (x86)
+ + Debian GNU/Linux 3.0 (Alpha)
+ - Solaris SunOS 5.9 (Sparc/x86) (missed libiconv during linking)
+ ? Slackware (x86)
+ ? Mandrake (x86)
+ ? RedHat (x86)
+ ? ASPLinux (x86)
+ - FreeBSD 4.10 (x86) (missed popt)
+only and not tested in other Unix-like system yet.
 
+It tested with various Linux programs:
+ + mount
+ + mkisofs / isoinfo
+ + smbmount
+ + submount
+ - smbd/nmbd/swat/smbclient
 
 This distribution contains library, header files and binding
-to other languages as python.
+to other languages as python (--with-python option for configure)
 
 Please if you discover some bug or misfunction of the natspec library
 on your system, email me about it.
@@ -23,11 +38,14 @@ on your system, email me about it.
 === Installation ===
 
 Installation instructions are found in INSTALL.
-For RPM-based system you can use libnatspec.spec as example.
+For RPM-based system you can use libnatspec.spec as an example.
 
 === More Information ===
 
-libnatspec also has a web page, at http://etersoft.ru/natspec.
+LIBNATSPEC is at sourceforge.net called as natspec project.
+libnatspec also has a web page, at http://etersoft.ru/natspec
+or http://natspec.sourceforge.net
+
 New versions of the package can be found on the ftp site
 ftp://ftp.altlinux.ru/pub/people/lav/natspec or the http site
 http://etersoft.ru/download/natspec
@@ -42,6 +60,7 @@ The person for contact is Vitaly Lipatov <lav@etersoft.ru>
 === Example of use ===
 
 ==== Convert from other system to our ====
+
 // Get the filename encoding in your system
 const char *fileenc = natspec_get_filename_encoding("");
 

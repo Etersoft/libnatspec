@@ -2,6 +2,7 @@
 #
 AC_PREREQ(2.52)
 AC_INIT([libnatspec], [0.1.1], lav@etersoft.ru)
+dnl AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 dnl AS_VERSION(comedilib, COMEDILIB, 0, 7, 21)
 dnl AS_LIBTOOL(COMEDILIB, 0, 7, 18, yes)
@@ -67,6 +68,12 @@ dnl #AC_SUBST(PYTHON_QUIET)
 
 AC_ARG_WITH(debug, [  --with-debug    Compile with debug information], CFLAGS="$CFLAGS -g")
 
+AC_ARG_WITH(i18n-file, [  --with-i18n-file=file Use this file for system LANG search],
+	i18n_file=$withval,
+	i18n_file=/etc/sysconfig/i18n)
+AC_DEFINE_UNQUOTED(NATSPEC_I18N_FILE,"$i18n_file",[ File with system wide LANG variable])
+dnl case "$target_os" in
+dnl AC_MSG_WARN([We have target $target_os])
 
 AC_CONFIG_FILES([Makefile
 				 libnatspec.pc

@@ -1,0 +1,50 @@
+libnatspec-0.1.1: 03-Mar-2005:
+ - add jfs support
+ - update submount patch (to be simple)
+ - update samba patch (add default charsets for params)
+ - fixes for compilation in various OS
+ - natspec: print overall information by default, print ASCII for unknown system
+ - do not use setlocale anywhere
+ - add --with-i18n-file option for set file with LANG variable at your system
+ - add --with-python option to configure
+ - improved get_filesystem_encoding
+ - humble_charset do toupper now and breaks at ':' symbol
+ - repack_locale do tolower for lang and toupper for country string
+
+libnatspec-0.1.0: 27-Feb-2005:
+ - fixed locale using order, add some fallbacks for unusual situation
+ - update docs
+
+libnatspec-0.0.9: 27-Feb-2005:
+ - rename enrich_fs_options to get_enriched_fs_options with incompatible change args
+ - update mount/submount, sdcv example patches
+ - add example path for samba (smbmount/cifsmount)
+ - add auto assumed local encoding in natspec_convert
+ - add convert_with_translit with transliteration
+   (from links project) if conversion is not possible
+ - add natspec.m4 for autotools, it makes natspec configure is easy
+
+libnatspec-0.0.4: 24-Feb-2005:
+ - add python binding
+ - code cleanup
+ - cleanup comments in header file
+ - add README with short description (in English)
+ - add README-ru.html with description (in Russian)
+ 
+libnatspec-0.0.3: 23-Feb-2005:
+ - fix bug with unix charset (was due misunderstanging wine behaviour)
+ - add examples of patch for mount, submount, mkisofs, isoinfo, stardict-sdcv
+ 
+libnatspec-0.0.2: 22-Feb-2005:
+ - add get_charset function
+ - add convert for lossy conversion between encoding
+ - add smbfs support in enrich_fs_options
+
+libnatspec-0.0.1: 20-Feb-2005:
+ - first public release after born
+ - support for mount filesystem (enrich_fs_options)
+ - system filename encoding detection (get_filename_encoding)
+ - get system locale from some file (/etc/sysconfig/i18n) (get_system_locale)
+ - retrieve charset/codepage for another OS by system/current
+   locale/charset (get_charset_by_locale)
+ - command line util for using features in shells (natspec)
