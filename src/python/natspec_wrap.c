@@ -700,6 +700,20 @@ static swig_type_info *swig_types[1];
 #ifdef __cplusplus
 extern "C" {
 #endif
+static PyObject *_wrap_natspec_get_current_locale(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    char *result;
+    
+    if(!PyArg_ParseTuple(args,(char *)":natspec_get_current_locale")) goto fail;
+    result = (char *)natspec_get_current_locale();
+    
+    resultobj = result ? PyString_FromString(result) : Py_BuildValue((char*)"");
+    return resultobj;
+    fail:
+    return NULL;
+}
+
+
 static PyObject *_wrap_natspec_get_user_locale(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     char *result;
@@ -773,15 +787,32 @@ static PyObject *_wrap_natspec_get_charset_by_locale(PyObject *self, PyObject *a
 }
 
 
-static PyObject *_wrap_natspec_fuzzy_convert(PyObject *self, PyObject *args) {
+static PyObject *_wrap_natspec_convert_with_translit(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     char *arg1 ;
     char *arg2 ;
     char *arg3 ;
     char *result;
     
-    if(!PyArg_ParseTuple(args,(char *)"sss:natspec_fuzzy_convert",&arg1,&arg2,&arg3)) goto fail;
-    result = (char *)natspec_fuzzy_convert((char const *)arg1,(char const *)arg2,(char const *)arg3);
+    if(!PyArg_ParseTuple(args,(char *)"sss:natspec_convert_with_translit",&arg1,&arg2,&arg3)) goto fail;
+    result = (char *)natspec_convert_with_translit((char const *)arg1,(char const *)arg2,(char const *)arg3);
+    
+    resultobj = result ? PyString_FromString(result) : Py_BuildValue((char*)"");
+    return resultobj;
+    fail:
+    return NULL;
+}
+
+
+static PyObject *_wrap_natspec_convert(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    char *arg1 ;
+    char *arg2 ;
+    char *arg3 ;
+    char *result;
+    
+    if(!PyArg_ParseTuple(args,(char *)"sss:natspec_convert",&arg1,&arg2,&arg3)) goto fail;
+    result = (char *)natspec_convert((char const *)arg1,(char const *)arg2,(char const *)arg3);
     
     resultobj = result ? PyString_FromString(result) : Py_BuildValue((char*)"");
     return resultobj;
@@ -884,12 +915,14 @@ static PyObject *_wrap_natspec_get_charset_by_charset(PyObject *self, PyObject *
 
 
 static PyMethodDef SwigMethods[] = {
+	 { (char *)"natspec_get_current_locale", _wrap_natspec_get_current_locale, METH_VARARGS },
 	 { (char *)"natspec_get_user_locale", _wrap_natspec_get_user_locale, METH_VARARGS },
 	 { (char *)"natspec_get_system_locale", _wrap_natspec_get_system_locale, METH_VARARGS },
 	 { (char *)"natspec_get_charset", _wrap_natspec_get_charset, METH_VARARGS },
 	 { (char *)"natspec_get_filename_encoding", _wrap_natspec_get_filename_encoding, METH_VARARGS },
 	 { (char *)"natspec_get_charset_by_locale", _wrap_natspec_get_charset_by_locale, METH_VARARGS },
-	 { (char *)"natspec_fuzzy_convert", _wrap_natspec_fuzzy_convert, METH_VARARGS },
+	 { (char *)"natspec_convert_with_translit", _wrap_natspec_convert_with_translit, METH_VARARGS },
+	 { (char *)"natspec_convert", _wrap_natspec_convert, METH_VARARGS },
 	 { (char *)"natspec_get_enriched_fs_options", _wrap_natspec_get_enriched_fs_options, METH_VARARGS },
 	 { (char *)"natspec_get_codepage_by_charset", _wrap_natspec_get_codepage_by_charset, METH_VARARGS },
 	 { (char *)"natspec_get_nls_by_charset", _wrap_natspec_get_nls_by_charset, METH_VARARGS },

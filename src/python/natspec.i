@@ -11,7 +11,7 @@
 ***********************************************************/
 %module natspec
 %{
-#include "../../include/natspec.h"
+#include "../../lib/natspec.h"
 %}
 
-%include "../../include/natspec.h"
+%include "../../lib/natspec.h"

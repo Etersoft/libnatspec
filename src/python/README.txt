@@ -5,4 +5,5 @@ returned dynamic string.
 Warning!
 This wrapper has a memory leaks for returns allocated
 string functions
-	
+
+python setup.py build	

@@ -35,6 +35,8 @@ NATSPEC_WINCS = _natspec.NATSPEC_WINCS
 NATSPEC_DOSCS = _natspec.NATSPEC_DOSCS
 NATSPEC_MACCS = _natspec.NATSPEC_MACCS
 
+natspec_get_current_locale = _natspec.natspec_get_current_locale
+
 natspec_get_user_locale = _natspec.natspec_get_user_locale
 
 natspec_get_system_locale = _natspec.natspec_get_system_locale
@@ -45,7 +47,9 @@ natspec_get_filename_encoding = _natspec.natspec_get_filename_encoding
 
 natspec_get_charset_by_locale = _natspec.natspec_get_charset_by_locale
 
-natspec_fuzzy_convert = _natspec.natspec_fuzzy_convert
+natspec_convert_with_translit = _natspec.natspec_convert_with_translit
+
+natspec_convert = _natspec.natspec_convert
 
 natspec_get_enriched_fs_options = _natspec.natspec_get_enriched_fs_options
 

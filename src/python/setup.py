@@ -9,7 +9,7 @@ module1 = Extension('_natspec',
 			sources = ['natspec_wrap.c'])
 			
 setup (name='_natspec',
-	version = '0.0.4',
+	version = '0.1.9',
 	description = 'Python wrapper module for the LIBNATSPEC',
 	author = 'Vitaly Lipatov',
 	author_email = 'lav@etersoft.ru',
