@@ -48,6 +48,10 @@ AC_C_CONST
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([nl_langinfo setlocale strcasecmp strchr])
 
+
+# AC_ARG_WITH(debug, [  --with-debug    Compile with debug information' ], CFLAGS="$CFLAGS -קףפבקיפר_תהוףר_זלבחי_הלס_ןפלבהכי")
+
+
 AC_CONFIG_FILES([Makefile
 				 libnatspec.pc
                  lib/Makefile
