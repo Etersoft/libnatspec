@@ -1,0 +1,107 @@
+# Adds libnatspec support
+# Vitaly Lipatov <lav@etersoft.ru>
+
+--- /home/lav/work/build/BUILD/samba-3.0.10/source/configure.in	2004-12-15 22:29:48 +0300
++++ source/configure.in	2005-02-25 13:11:27 +0300
+@@ -1925,6 +1925,24 @@
+     AC_DEFINE(HAVE_KERNEL_SHARE_MODES,1,[Whether the kernel supports share modes])
+ fi
+ 
++#################################################
++# natspec support
++AC_MSG_CHECKING([for NATSPEC support])
++with_natspec_support=no
++AC_ARG_WITH(natspec,
++[  --with-natspec          NATSPEC support (auto iocharset)],
++[ case "$withval" in
++    yes|no)
++	with_natspec_support="$withval"
++	;;
++  esac ])
++
++AC_MSG_RESULT($with_natspec_support)
++if test x"$with_natspec_support" = x"yes"; then
++    AC_DEFINE(HAVE_NATSPEC,1,[Whether natspec is available])
++    NATSPEC_LIBS="-lnatspec"
++    AC_SUBST(NATSPEC_LIBS)
++fi
+ 
+ 
+ 
+
+--- Makefile.in.natspec	2005-02-26 18:12:47 +0300
++++ source/Makefile.in	2005-02-26 18:11:10 +0300
+@@ -34,6 +34,7 @@
+ IDMAP_LIBS=@IDMAP_LIBS@
+ KRB5LIBS=@KRB5_LIBS@
+ LDAP_LIBS=@LDAP_LIBS@
++NATSPEC_LIBS=@NATSPEC_LIBS@
+ 
+ INSTALLCMD=@INSTALL@
+ INSTALLCLIENTCMD_SH=@INSTALLCLIENTCMD_SH@
+@@ -861,7 +862,7 @@
+ 
+ bin/smbmount@EXEEXT@: $(MOUNT_OBJ) bin/.dummy
+ 	@echo Linking $@
+-	@$(CC) $(FLAGS) -o $@ $(MOUNT_OBJ) $(DYNEXP) $(LDFLAGS) $(LIBS) $(KRB5LIBS) $(LDAP_LIBS)
++	@$(CC) $(FLAGS) -o $@ $(MOUNT_OBJ) $(DYNEXP) $(LDFLAGS) $(LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(NATSPEC_LIBS)
+ 
+ bin/smbmnt@EXEEXT@: $(MNT_OBJ) bin/.dummy
+ 	@echo Linking $@
+
+ 
+ #################################################
+ # active directory support
+
+--- /home/lav/work/build/BUILD/samba-3.0.10/source/client/mount.cifs.c	2004-10-26 01:05:11 +0400
++++ source/client/mount.cifs.c	2005-02-25 12:58:48 +0300
+@@ -37,6 +37,10 @@
+ #include <mntent.h>
+ #include <fcntl.h>
+ 
++#ifdef HAVE_NATSPEC
++# include <natspec.h>
++#endif
++
+ #define MOUNT_CIFS_VERSION_MAJOR "1"
+ #define MOUNT_CIFS_VERSION_MINOR "5"
+ 
+@@ -889,6 +893,11 @@
+ 		strcat(options,",");
+ 		strcat(options,orgoptions);
+ 	}
++#ifdef HAVE_NATSPEC
++	temp = natspec_get_enriched_fs_options("cifs", options);
++	free (options);
++	options = temp;
++#endif
+ 	if(verboseflag)
+ 		printf("\nmount.cifs kernel mount options %s \n",options);
+ 	if(mount(share_name, mountpoint, "cifs", flags, options)) {
+
+--- /home/lav/work/build/BUILD/samba-3.0.10/source/client/smbmount.c	2005-02-26 16:19:54 +0300
++++ source/client/smbmount.c	2005-02-25 12:53:37 +0300
+@@ -26,6 +26,10 @@
+ #include <asm/types.h>
+ #include <linux/smb_fs.h>
+ 
++#ifdef HAVE_NATSPEC
++# include <natspec.h>
++#endif
++
+ extern BOOL in_client;
+ extern pstring user_socket_options;
+ 
+@@ -916,6 +920,12 @@
+ 
+ 	parse_mount_smb(argc, argv);
+ 
++#ifdef HAVE_NATSPEC
++	p = natspec_get_enriched_fs_options("smbfs", options);
++	pstrcpy(options, p);
++	free (p);
++#endif
++
+ 	if (use_kerberos && !got_user) {
+ 		got_pass = True;
+ 	}
