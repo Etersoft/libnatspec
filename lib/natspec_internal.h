@@ -41,18 +41,25 @@
 	#error "Some error"
 #endif
 
+/* Add n in next line for debug messaging */
 #define DEBUG(n)
 
+/* Extracts charset (if exist) from locale, removes punctiation
+ * signs from it, pack locale again
+ * and return malloc allocated locale string
+ */
 char *repack_locale(const char *locale);
 
+/* Struct of charset_relation table */
 struct charsetrel_entry
 {
-    const char *locale;
-    unsigned int lcid;
-    const char *unix_cs;
-    const char *win_cs;
-    const char *dos_cs;
-    const char *mac_cs;
+    const char *locale;	/* Unix locale name (from glibc) */
+    unsigned int lcid;	/* Windows locale id (from WINE) */
+			/* for this locale: (can be NULL) */
+    const char *unix_cs;  /* unix charset */
+    const char *win_cs;   /* windows charset */
+    const char *dos_cs;   /* dos charset */
+    const char *mac_cs;   /* mac charset */
 };
 
 
