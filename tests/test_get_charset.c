@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.9 2005/02/23 15:03:27 lav Exp $
+ * $Id: test_get_charset.c,v 1.10 2005/02/25 10:20:12 lav Exp $
  *
  */
 
@@ -19,50 +19,39 @@
 #include "data/charset_names.h"
 #include "data/get_charset_data.h"
 
-char *test_ee(char **t)
-{
-	char *ret;
-	ret = natspec_enrich_fs_options("reiserfs", t);
-	printf("enrich reiserfs: %s\n",ret);
-	return ret;
-
-}
-
 void test_for_enrich()
 {
 	char *ret, *ret1;
+	ret1 = natspec_get_enriched_fs_options(NULL, NULL);
+	printf("enrich NULL: %s\n",ret1);
 	ret = NULL;
-	ret = natspec_enrich_fs_options(NULL, NULL);
-	printf("enrich NULL pointer: %s\n", ret);
-	ret = NULL;
-	ret1 = ret;
-	natspec_enrich_fs_options(NULL, &ret);
-	printf("enrich NULL: %s\n",ret);
-	assert (ret == ret1);
-	ret1 = ret;
-	natspec_enrich_fs_options("udf", &ret);
-	printf("enrich udf: ret=%s, ret1=%s\n",ret, ret1);
-	assert (ret != ret1);
+	ret1 = natspec_get_enriched_fs_options("udf", ret);
+	printf("enrich udf: ret='%s', ret1='%s'\n",ret, ret1);
 
-	ret1 = ret = strdup("defaults");
-	natspec_enrich_fs_options("vfat", &ret);
+	ret = ",";
+	ret1 = natspec_get_enriched_fs_options("udf", ret);
+	printf("enrich udf: ret='%s', ret1='%s'\n",ret, ret1);
+	assert (strcmp(ret,ret1));
+
+	ret = "defaults";
+	ret1 = natspec_get_enriched_fs_options("vfat", ret);
 	printf("enrich VFAT: %s %p:%p\n",ret,ret,ret1);
-	assert (ret != ret1);
+	assert (strcmp(ret,ret1));
 
-	ret1 = ret = strdup("iocharset=koi8-r");
-	natspec_enrich_fs_options("vfat", &ret);
+	ret = "iocharset=koi8-r";
+	ret1 = natspec_get_enriched_fs_options("vfat", ret);
 	printf("enrich VFAT with io: %s %p:%p\n",ret,ret,ret1);
-	assert (ret == ret1);
+	assert (!strcmp(ret,ret1));
 
-	ret1 = ret = strdup("");
-	natspec_enrich_fs_options("smb", &ret);
-	printf("enrich SMB: %s %p:%p\n",ret,ret,ret1);
-	assert (ret != ret1);
+	ret = "";
+	ret1 = natspec_get_enriched_fs_options("smb", ret);
+	printf("enrich SMB: %s\n",ret1);
+	assert (strcmp(ret,ret1));
 
 	ret = strdup("defaults");
-	ret1 = ret;
-	test_ee(&ret);
-	assert (ret == ret1);
+	ret1 = natspec_get_enriched_fs_options("reiserfs", ret);
+	printf("enrich reiserfs: %s\n",ret1);
+	assert (!strcmp(ret,ret1));
 }
 
 void test_for_iconv()
