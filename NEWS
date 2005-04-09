@@ -1,3 +1,8 @@
+libnatspec-0.2.1: 09-Apr-2005:
+ - fix CP1125 order
+ - fix locale string parsing
+ - add print current charset in natspec util (in info mode)
+
 libnatspec-0.2.0: 17-Mar-2005:
  - rename get_user_locale() to get_current_locale()
  - discard from toupper/tolower/isalnum/strcasecmp using (it was locale depended)

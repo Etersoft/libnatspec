@@ -20,9 +20,9 @@ It tested in various OS (with GCC installed):
  ? RedHat (x86)
  ? ASPLinux (x86)
  - FreeBSD 4.10 (x86) (missed popt)
-only and not tested in other Unix-like system yet.
+It is not tested in other Unix-like system yet.
 
-It tested with various Linux programs:
+It has been tested with various Linux programs/servers:
  + mount
  + mkisofs / isoinfo
  + smbmount

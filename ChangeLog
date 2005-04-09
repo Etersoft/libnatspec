@@ -1,3 +1,25 @@
+2005-04-10 01:58  lav
+
+	* src/natspec.c: print current charset (from ln_langinfo and
+	  natspec_get_charset) in info mode
+
+2005-03-17 22:06  lav
+
+	* lib/data/: README.txt, charset_names.h: fix cp1125 order
+
+2005-03-17 22:06  lav
+
+	* lib/get_locale.c: fix for use only first locale from string fix
+	  tabs
+
+2005-03-17 20:37  lav
+
+	* libnatspec.spec: 0.2.0 release
+
+2005-03-17 20:23  lav
+
+	* ChangeLog, NEWS: for 0.2.0 release
+
 2005-03-17 20:16  lav
 
 	* NEWS, TODO, autogen.sh, configure.ac: for 0.2.0
