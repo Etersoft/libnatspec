@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.15 2005/03/09 20:12:44 lav Exp $
+    $Id: natspec.c,v 1.16 2005/04/09 21:58:00 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -35,6 +35,11 @@
 
 #ifdef HAVE_LIBPOPT
 #  include <popt.h>
+#endif
+
+#include <locale.h>
+#ifdef HAVE_LANGINFO_H
+# include <langinfo.h>
 #endif
 
 
@@ -195,6 +200,12 @@ int main(int argc, const char** argv)
 		int i;
 		for (i=0; i<sizeof(types)/sizeof(char*);i++)
 			get_charset(types[i]);
+		setlocale(LC_ALL,"");
+		printf("After setlocale:\n");
+#ifdef HAVE_LANGINFO_H
+		printf("\tnl_langinfo(CODESET): %s\n",nl_langinfo(CODESET));
+#endif
+		printf("\tnatspec_get_charset: %s\n",natspec_get_charset());
 		exit(0);
 	}
 	if (charset_type)
