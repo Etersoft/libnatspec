@@ -53,6 +53,19 @@ if test "x$check_iconv" == x ; then
 	AC_MSG_ERROR([*** iconv.h not found.])
 fi
 
+# check Doxygen
+DOXYGEN=""
+AC_CHECK_PROG(DOX, doxygen, yes)
+if test "x$DOX" != x ; then
+	DOXYGEN="doxygen"
+else
+	AC_MSG_WARN([*** Doxygen not found])
+fi
+AC_SUBST(DOXYGEN)
+AM_CONDITIONAL(HAVE_DOXYGEN, test x$DOX = xyes)
+
+
+
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 AC_TYPE_SIZE_T

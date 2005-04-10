@@ -1,4 +1,10 @@
-SUBDIRS = lib src tests
+DLIST=lib src tests
+
+if HAVE_DOXYGEN
+SUBDIRS = $(DLIST) docs
+else
+SUBDIRS = $(DLIST)
+endif
 
 # install for devel
 pkgconfigdir 	= $(libdir)/pkgconfig

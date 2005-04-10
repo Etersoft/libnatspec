@@ -1,5 +1,6 @@
 DOC_CFG = *Dox.cfg
-DOXYGEN = doxygen
+# оперделяется в configure.ac
+# DOXYGEN = doxygen
 
 DIRS = html
 DOCFILES = ${DIRS}/*.{html,css,png}
