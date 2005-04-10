@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec_internal.h,v 1.12 2005/03/09 20:18:02 lav Exp $
+    $Id: natspec_internal.h,v 1.13 2005/04/10 19:18:20 pv Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -53,25 +53,25 @@
 #endif
 #define _n_isalnum(n) isalnum(n)
 
-/* Add n in next line for debug messaging */
+/*! Add n in next line for debug messaging */
 #define DEBUG(n)
 
-/* Extracts charset (if exist) from locale, removes punctiation
+/*! Extracts charset (if exist) from locale, removes punctiation
  * signs from it, pack locale again
  * and return malloc allocated locale string
  */
 char *_natspec_repack_locale(const char *locale);
 
-/* Struct of charset_relation table */
+/*! Struct of charset_relation table */
 struct charsetrel_entry
 {
-    const char *locale;	/* Unix locale name (from glibc) */
-    unsigned int lcid;	/* Windows locale id (from WINE) */
+    const char *locale;	/*!< Unix locale name (from glibc) */
+    unsigned int lcid;	/*!< Windows locale id (from WINE) */
 			/* for this locale: (can be NULL) */
-    const char *unix_cs;  /* unix charset */
-    const char *win_cs;   /* windows charset */
-    const char *dos_cs;   /* dos charset */
-    const char *mac_cs;   /* mac charset */
+    const char *unix_cs;  /*!< unix charset */
+    const char *win_cs;   /*!< windows charset */
+    const char *dos_cs;   /*!< dos charset */
+    const char *mac_cs;   /*!< mac charset */
 };
 
 

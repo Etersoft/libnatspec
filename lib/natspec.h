@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspec.h,v 1.18 2005/03/09 20:14:25 lav Exp $
+    $Id: natspec.h,v 1.19 2005/04/10 19:18:20 pv Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -42,33 +42,31 @@ extern "C" {
 #define NATSPEC_DOSCS 2
 #define NATSPEC_MACCS 3
 
-/* 
+/*! 
  * Returns malloc allocated string with current locale.
  * Gets from LC_ALL:LC_CTYPE:LANG evironment variable, if fails,
  * gets value from get_system_locale()
  */
- 
 char *natspec_get_current_locale();
 
-/* Obsolete (user locale is locale from ~/.i18n, but we do not use it now): */
+/*! Obsolete (user locale is locale from ~/.i18n, but we do not use it now): */
 char *natspec_get_user_locale();
 
 
-/* 
+/*! 
  * Returns malloc allocated string with system locale
  * retrieved from LANG variable in /etc/sysconfig/i18n file
  */
- 
 char *natspec_get_system_locale();
 
-/*
+/*!
  * Returns static string with current charset
  * (according to locale, not filename encoding)
- * NOTE: you have to use setlocale(LC_ALL,"") before call this function
+ * \note you have to use setlocale(LC_ALL,"") before call this function
  */
 const char *natspec_get_charset();
 
-/*
+/*!
  * Returns static string in nls form (like in kernel) with filename charset
  * for locale.
  * If G_FILENAME_ENCODING exists and correct, returns its value
@@ -78,7 +76,7 @@ const char *natspec_get_charset();
 const char * natspec_get_filename_encoding(const char * locale);
 
 
-/* Returns static string with charset of _type_ operating system
+/*! Returns static string with charset of _type_ operating system
  * for locale in form language[_territory][.charset][@modifier}
  * where language is an ISO 639 language code, territory
  * is an ISO 3166 country code, and codeset is a character set or encoding
@@ -87,7 +85,6 @@ const char * natspec_get_filename_encoding(const char * locale);
  * If locale is empty string, use current locale
  * If locale is NULL, use system locale
  */
-
 const char * natspec_get_charset_by_locale(const int type,
 	const char *locale);
 
@@ -101,29 +98,29 @@ const char * natspec_get_charset_by_locale(const int type,
  * 	which must be freed with free(). Otherwise NULL.
  */
  
-/* Transliterate inconvenient symbols */
+/*! Transliterate inconvenient symbols */
 char *natspec_convert_with_translit(const char *in_str,
 	const char *tocode, const char *fromcode);
 
-/* Returns NULL is conversion is failed */
+/* \return Returns NULL is conversion is failed */
 char *natspec_convert(const char *in_str,
 	const char *tocode, const char *fromcode);
 
 /************* Helper functions *******************/
 
-/*
+/*!
  * Specially for mount-like command.
  * Adds need i18n params for fs type to mount options
  * and return new string
  * Params:
  *  fs      - filesystem type string
  *  options - already exist options string
- * Returns: new allocated string with enriched options
- * NOTE: options enriched according to user locale in LIBNATSPEC term
+ * \return Returns new allocated string with enriched options
+ * \note options enriched according to user locale in LIBNATSPEC term
  */
 char * natspec_get_enriched_fs_options(const char* fs, const char *options);
 
-/*
+/*!
  * Returns codepage for charset
  * Examples:
  *   for IBM866 returns 866
@@ -131,7 +128,7 @@ char * natspec_get_enriched_fs_options(const char* fs, const char *options);
  */
 const char *natspec_get_codepage_by_charset(const char *cs);
 
-/*
+/*!
  * Returns nls form for charset
  * Examples:
  *   for KOI8R returns koi8-r
@@ -141,23 +138,21 @@ const char *natspec_get_nls_by_charset(const char *cs);
 
 /******************** Not recommended for use *******************/
 
-/* 
+/*! 
  * Returns malloc allocated string with charset get from _locale_
  */
- 
 char *natspec_extract_charset_from_locale(const char *locale);
 
-/* Removes punctuation characters from charset name */
-/* TODO: this function must to fix any charset name to iconv convenient */
+/*! Removes punctuation characters from charset name */
+/* \todo this function must to fix any charset name to iconv convenient */
 char *natspec_humble_charset( const char *charset);
 
 
-/*
+/*!
  * Return static string with charset of _type_ op. system
  * by _charset_ for _bytype_ op. system
  * is charset is unknown, returns NULL
  */
-
 const char * natspec_get_charset_by_charset(const int type,
 	const int bytype, const char *charset);
 
