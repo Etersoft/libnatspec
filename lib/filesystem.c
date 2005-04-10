@@ -9,7 +9,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: filesystem.c,v 1.5 2005/03/09 20:14:25 lav Exp $
+    $Id: filesystem.c,v 1.6 2005/04/10 18:24:42 pv Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -52,7 +52,7 @@ static int charset_cmp( const void *name, const void *entry )
 }
 
 
-/* Returns codepage from charset */
+/*! Returns codepage from charset */
 static char __cfc[10]; /* FIXME this ugly thing */
 const char *natspec_get_codepage_by_charset(const char *charset)
 {
@@ -72,7 +72,7 @@ const char *natspec_get_codepage_by_charset(const char *charset)
 	return "437"; /* codepage for ascii? */
 }
 
-/* Returns nls name (in Linux kernel notation) from charset */
+/*! Returns nls name (in Linux kernel notation) from charset */
 const char *natspec_get_nls_by_charset(const char *charset)
 {
 	const struct charset_entry *entry = NULL;
@@ -92,12 +92,12 @@ const char *natspec_get_nls_by_charset(const char *charset)
 }
 
 
-/* Return filename encoding for locale */
+/*! Return filename encoding for locale */
 const char *natspec_get_filename_encoding(const char *locale)
 {
 	/* Try get from environment variable */
 	const char *buf = getenv("G_FILENAME_ENCODING");
-    /* FIXME: test for comma-separated list in G_FILENAME_ENCODING */
+    /*! \todo FIXME: test for comma-separated list in G_FILENAME_ENCODING */
 	if (buf != NULL && locale != NULL && locale[0] == '\0' /*&& natspec_check_charset(NATSPEC_UNIXCS, buf)*/)
 	{
 		/* If get from env non empty string,

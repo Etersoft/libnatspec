@@ -10,7 +10,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_charset.c,v 1.19 2005/03/09 20:18:02 lav Exp $
+    $Id: get_charset.c,v 1.20 2005/04/10 18:24:42 pv Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -46,7 +46,7 @@
 #endif
 
 
-/* Internal: Helper for bsearch */
+/*! Internal: Helper for bsearch */
 static int charset_locale_cmp( const void *name, const void *entry )
 {
     const struct charsetrel_entry *rel = (const struct charsetrel_entry *)entry;
@@ -54,7 +54,7 @@ static int charset_locale_cmp( const void *name, const void *entry )
     return strcmp( (const char *)name, rel->locale );
 }
 
-/* Removes punctuation characters from charset name */
+/*! Removes punctuation characters from charset name */
 char *natspec_humble_charset( const char *charset)
 {
 	int i, j;
@@ -77,7 +77,7 @@ char *natspec_humble_charset( const char *charset)
 	return strdup(buf);
 }
 
-/* Returns current charset */
+/*! Returns current charset */
 const char *natspec_get_charset()
 {
 	const char *charset, *c;
@@ -96,8 +96,8 @@ const char *natspec_get_charset()
 }
 
 
-/*
-TODO: Приводит к виду, использующемуся в iconv
+/*!
+\todo Приводит к виду, использующемуся в iconv
 static char *normalize_charset(const char *charset)
 {
 	char *buf = malloc( strlen(charset) + 1 );
@@ -106,7 +106,7 @@ static char *normalize_charset(const char *charset)
 }
 */
 
-/* Returns charset for type OS. It never returns NULL,
+/*! Returns charset for type OS. It never returns NULL,
  * but current charset if other fails */
 static const char *get_cs_by_type(const int type,
 	const struct charsetrel_entry* entry)
@@ -129,7 +129,7 @@ static const char *get_cs_by_type(const int type,
 }
 
 
-/* Internal: try search in charset_relation by encoding (troubles with the same enc)*/
+/*! Internal: try search in charset_relation by encoding (troubles with the same enc)*/
 static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 	const char *charset)
 {
@@ -159,7 +159,7 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 	return entry;
 }
 
-/* Internal: Search _locale_ in list and returns entry pointer or NULL */
+/*! Internal: Search _locale_ in list and returns entry pointer or NULL */
 static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 {
 	const struct charsetrel_entry *entry = NULL;
@@ -177,7 +177,7 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 }
 
 
-/* Returns charset by locale for type */
+/*! Returns charset by locale for type */
 const char * natspec_get_charset_by_locale(const int type, const char *locale)
 {
 	char *must_free = NULL;
@@ -193,7 +193,7 @@ const char * natspec_get_charset_by_locale(const int type, const char *locale)
 	return get_cs_by_type(type, entry);
 }
 
-/* Returns static string by charset by bytype for type */
+/*! Returns static string by charset by bytype for type */
 const char * natspec_get_charset_by_charset(const int type,
 	const int bytype, const char *charset)
 {

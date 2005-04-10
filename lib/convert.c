@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.12 2005/03/09 20:14:25 lav Exp $
+    $Id: convert.c,v 1.13 2005/04/10 18:24:42 pv Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,7 @@
 #include "natspec_internal.h"
 #include "unicode/uni_7b.h"
 
-/* Open iconv table */
+/*! Open iconv table */
 static iconv_t _natspec_iconv_open(const char *tocode, const char *fromcode)
 {
 	if ( tocode == NULL || !strlen(tocode))
@@ -53,7 +53,7 @@ static int ucs2_cmp( const void *ucs2, const void *entry )
 	return (u - s->x);
 }
 
-/* Get transliterated UCS2 character */
+/*! Get transliterated UCS2 character */
 static const char *get_7bit (unsigned short ucs2)
 {
 	struct u7_struct *entry;
@@ -66,7 +66,7 @@ static const char *get_7bit (unsigned short ucs2)
 	return entry->s;
 }
 
-/* Returns converts input string from encoding to encoding
+/*! Returns converts input string from encoding to encoding
  * Source: from my old patch for XMMS (2002 year)
  */
 char *natspec_convert_with_translit(const char *in_str,

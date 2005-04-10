@@ -12,7 +12,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.17 2005/03/17 19:06:17 lav Exp $
+    $Id: get_locale.c,v 1.18 2005/04/10 18:24:42 pv Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -39,10 +39,10 @@
 
 #include "natspec_internal.h"
 
-/* Try LANGUAGE:LC_ALL:LC_CTYPE:LANG from environment
+/*! Try LANGUAGE:LC_ALL:LC_CTYPE:LANG from environment
    Returns NULL if locale is missed, empty or POSIX/C
-   FIXME: is it equivalent of setlocale(LC_ALL,"")?
-   FIXME: LANGUAGE can has multiple value (and ':')
+   \todo FIXME: is it equivalent of setlocale(LC_ALL,"")?
+   \todo FIXME: LANGUAGE can has multiple value (and ':')
 */
 static char *get_from_env()
 {
@@ -66,8 +66,8 @@ static char *get_from_env()
 	return tmp;
 }
 
-/* Returns user locale string (malloc allocated)
- * FIXME: can we do it with glibc not my get_from_env?
+/*! Returns user locale string (malloc allocated)
+ * \todo FIXME: can we do it with glibc not my get_from_env?
  */
 char *natspec_get_current_locale()
 {
@@ -97,9 +97,10 @@ const char *get_i18n_filename()
  *   FreeBSD      - /etc/profile        LANG=ru_RU.KOI8-R; export LANG
 */
 
-/*TODO: fix ugly buf, fgets */
 /* Since POSIX:1996 locale info we get from LANG variable */
-/* Read system wide locale, return str or NULL if it does not exist */
+/*! Read system wide locale, return str or NULL if it does not exist 
+ * \todo fix ugly buf, fgets
+*/
 static char *get_from_system_i18n(const char *str)
 {
 	int i;
@@ -153,20 +154,20 @@ static char *get_from_system_i18n(const char *str)
 	return locale;
 }
 
-/* Returns system locale string (malloc allocated) */
+/*! Returns system locale string (malloc allocated) */
 char *natspec_get_system_locale()
 {
 	char *locale = get_from_system_i18n("LANG");
 	if (locale == NULL)
 		locale = get_from_env();
-	/* FIXME: we get SegFault in library (when empty sysconfig/i18n and POSIX locale) if return NULL */
+	/*! \todo FIXME: we get SegFault in library (when empty sysconfig/i18n and POSIX locale) if return NULL */
 	if (locale == NULL)
 		locale = strdup("C");
 	return locale;
 }
 
 
-/* Returns charset get from _locale_ */
+/*! Returns charset get from _locale_ */
 char *natspec_extract_charset_from_locale(const char *locale)
 {
 	char *lang, *next, *dialect, *charset, *ret;
@@ -182,7 +183,7 @@ char *natspec_extract_charset_from_locale(const char *locale)
 }
 
 
-/* Internal: repack locale string (compress charset, fix register) */
+/*! Internal: repack locale string (compress charset, fix register) */
 char *_natspec_repack_locale(const char *locale)
 {
 	int i;

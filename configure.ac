@@ -90,6 +90,8 @@ AC_CONFIG_FILES([Makefile
                  libhi/Makefile
                  src/Makefile
 				 src/python/Makefile
+				 docs/libnatspecDox.cfg
+				 docs/Makefile
 				 tests/Makefile])
 
 AC_OUTPUT

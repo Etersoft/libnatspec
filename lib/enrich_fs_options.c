@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.20 2005/03/09 20:14:25 lav Exp $
+    $Id: enrich_fs_options.c,v 1.21 2005/04/10 18:24:42 pv Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -32,32 +32,33 @@
 
 #include "natspec_internal.h"
 
-/* FAT/CDFS: iocharset & codepage */
+/*! FAT/CDFS: iocharset & codepage */
 static const char *list_fat_fs[] =
 {
 	"vfat", "fat", "msdos", NULL
 };
 
-/* SMB/CIFS: iocharset & codepage */
+/*! SMB/CIFS: iocharset & codepage */
 static const char *list_smb_fs[] =
 {
 	"smb", "smbfs", "cifs", NULL
 };
 
-/* iocharset (jfs use Unicode internal, add it too */
+/*! iocharset (jfs use Unicode internal, add it too */
 static const char *list_io_fs[] =
 {
 	"iso9660", "udf", "jfs", NULL
 };
 
-/* If see this type of fs, skip enriching */
+/*! If see this type of fs, skip enriching */
 static const char *list_enc_opts[] =
 {
 	"iocharset", "codepage", "nls", NULL
 };
 
-/* FIXME: test for comma-separated list in str */
-/* Is there str in list */
+/*! Is there str in list 
+	\todo FIXME: test for comma-separated list in str 
+*/
 static int str_in_list(const char *str, const char **list)
 {
 	for (;*list != NULL;list++)
@@ -69,7 +70,7 @@ static int str_in_list(const char *str, const char **list)
 	return 0;
 }
 
-/* Is there one string from list in str? */
+/*! Is there one string from list in str? */
 static int strstr_in_list(const char *str, const char **list)
 {
 	if (str == NULL)
@@ -83,8 +84,9 @@ static int strstr_in_list(const char *str, const char **list)
 	return 0;
 }
 
-/* FIXME: add bound control
+/*!
  * Internal: adds new option1,2 to options param
+ * \todo FIXME: add bound control
  */
 static void add_option(char *options, const char *option1, const char *option2)
 {
@@ -98,7 +100,7 @@ static void add_option(char *options, const char *option1, const char *option2)
 	DEBUG(printf("add_option: '%s', result:%s\n",option1, options));
 }
 
-/* Internal: adds options for filesystem fs */
+/*! Internal: adds options for filesystem fs */
 static void add_options(char *buf, const char *fs)
 {
 	const char *charset, *codepage;
@@ -147,7 +149,7 @@ static void add_options(char *buf, const char *fs)
 		DEBUG (fprintf(stderr, "NATSPEC: do not know %s fs\n",fs));
 }
 
-/* Add needed i18n options for fs type */
+/*! Add needed i18n options for fs type */
 char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 {
 	char *ret;
@@ -168,7 +170,7 @@ char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 	return ret;
 }
 
-/* Obsoletes */
+/*! Obsoletes */
 char* natspec_enrich_fs_options(const char *fs, char **options)
 {
 	char *opt;
