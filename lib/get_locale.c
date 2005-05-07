@@ -12,7 +12,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.18 2005/04/10 18:24:42 pv Exp $
+    $Id: get_locale.c,v 1.19 2005/05/07 07:34:22 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -97,8 +97,8 @@ const char *get_i18n_filename()
  *   FreeBSD      - /etc/profile        LANG=ru_RU.KOI8-R; export LANG
 */
 
-/* Since POSIX:1996 locale info we get from LANG variable */
 /*! Read system wide locale, return str or NULL if it does not exist 
+ *  Since POSIX:1996 locale info we get from LANG variable 
  * \todo fix ugly buf, fgets
 */
 static char *get_from_system_i18n(const char *str)

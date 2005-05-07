@@ -1,3 +1,8 @@
+2005-04-10 02:02  lav
+
+	* ChangeLog, NEWS, README, TODO, configure.ac, libnatspec.spec,
+	  lib/data/README.txt, lib/data/get_charset_data.h: 0.2.1 release
+
 2005-04-10 01:58  lav
 
 	* src/natspec.c: print current charset (from ln_langinfo and

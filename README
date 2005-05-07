@@ -57,14 +57,14 @@ see the example/LICENSE file and individual files for details.
 
 The person for contact is Vitaly Lipatov <lav@etersoft.ru>
 
-=== Example of use ===
+=== Examples of use ===
 
-==== Convert from other system to our ====
+==== Convert files from other system to our one ====
 
 // Get the filename encoding in your system
 const char *fileenc = natspec_get_filename_encoding("");
 
-// Get the filename encoding in other system WIN
+// Get the charset in other system WIN
 const char *win_cs = natspec_get_charset_by_locale(NATSPEC_WINCS,"");
 
 // Do conversion from foreign to local filename encoding
@@ -83,8 +83,9 @@ const char * unix_filename = natspec_convert(win_filename,win_cs, fileenc);
 
 ==== Using in configure.in files ====
 1. Add line with AM_PATH_NATSPEC in configure.in
-it makes NATSPEC_LIBS, NATSPEC_CFLAGS for Makefiles
-and HAVE_NATSPEC in config.h
+it makes NATSPEC_LIBS, NATSPEC_CFLAGS variables for Makefiles
+and defines HAVE_NATSPEC in config.h
 2. Use option --with-natspec for configure
 
 
+07.05.2005

@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.21 2005/04/10 18:24:42 pv Exp $
+    $Id: enrich_fs_options.c,v 1.22 2005/05/07 07:34:22 lav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -50,7 +50,7 @@ static const char *list_io_fs[] =
 	"iso9660", "udf", "jfs", NULL
 };
 
-/*! If see this type of fs, skip enriching */
+/*! If any of this options is already defined, skip enriching */
 static const char *list_enc_opts[] =
 {
 	"iocharset", "codepage", "nls", NULL
@@ -100,7 +100,7 @@ static void add_option(char *options, const char *option1, const char *option2)
 	DEBUG(printf("add_option: '%s', result:%s\n",option1, options));
 }
 
-/*! Internal: adds options for filesystem fs */
+/*! Internal: adds options to buf for filesystem fs */
 static void add_options(char *buf, const char *fs)
 {
 	const char *charset, *codepage;
