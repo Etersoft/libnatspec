@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.22 2005/05/07 07:34:22 lav Exp $
+    $Id: enrich_fs_options.c,v 1.23 2005/06/15 21:11:18 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <strings.h>
+#include <assert.h>
 
 #include "natspec_internal.h"
 
@@ -86,63 +87,58 @@ static int strstr_in_list(const char *str, const char **list)
 
 /*!
  * Internal: adds new option1,2 to options param
+ * (only if option1 is not empty and option2 is exist)
  * \todo FIXME: add bound control
  */
 static void add_option(char *options, const char *option1, const char *option2)
 {
-	if (strlen(option1) == 0)
+	int lenopt = strlen(options);
+	if (strlen(option1) == 0 || option2 == NULL)
 		return;
-	if (options[0] != '\0' && options[strlen(options)-1] != ',')
-		strcat(options,",");
-	strcat(options, option1);
-	if (option2)
-		strcat(options, option2);
+	if (lenopt && options[lenopt-1] != ',')
+		options[lenopt++] = ',';
+	strcpy(options+lenopt, option1);
+	strcat(options, option2);
 	DEBUG(printf("add_option: '%s', result:%s\n",option1, options));
 }
 
 /*! Internal: adds options to buf for filesystem fs */
 static void add_options(char *buf, const char *fs)
 {
-	const char *charset, *codepage;
-	if (fs == NULL)
-		return;
 	/* charset of our system */
-	charset = natspec_get_filename_encoding("");
-	/* codepage DOS system as assumes by current locale */
-	codepage = natspec_get_codepage_by_charset(
-		natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
+	const char *charset = natspec_get_filename_encoding("");
+	/* codepage of DOS system as assumed from current locale */
+	int codepagenum = natspec_get_codepage_by_charset(
+			natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
+	char codepage[10];
+	assert (codepagenum<1000000);
+	sprintf(codepage, "%d", codepagenum);
 	DEBUG (fprintf (stderr,"fn=%s ENRICH: codepage=%s\n",charset,codepage));
 
 	/* Specially for each file system */
 	if ( str_in_list (fs, list_fat_fs) )
 	{
-		if (charset)
-			add_option(buf, "iocharset=", charset);
-		if (codepage)
-			add_option(buf, "codepage=", codepage);
+		add_option(buf, "iocharset=", charset);
+		add_option(buf, "codepage=", codepage);
 	}
 	
 	else if ( str_in_list (fs, list_io_fs) )
 	{
-		if (charset)
-			add_option(buf, "iocharset=", charset);
+		add_option(buf, "iocharset=", charset);
 	}
 	
 	else if ( !strcmp (fs, "ntfs"))
 	{
-		if (charset)
-			add_option(buf, "nls=", charset);
+		add_option(buf, "nls=", charset);
 	}
 	
 	else if ( str_in_list (fs, list_smb_fs) )
 	{
 		/* smb has some specifity with codepage names */
-		codepage = natspec_get_nls_by_charset(
+		const char *cp = natspec_get_nls_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
-		if (charset)
-			add_option(buf, "iocharset=", charset);
-		if (codepage)
-			add_option(buf, "codepage=", codepage);
+		add_option(buf, "iocharset=", charset);
+		add_option(buf, "codepage=", cp);
 	}
 	
 	else
@@ -153,20 +149,22 @@ static void add_options(char *buf, const char *fs)
 char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 {
 	char *ret;
-	/* Our additional options does not need more than 100 byte */
+	/* Our additional options does not need more than 100 bytes */
 	char buf[100]; buf[0] = '\0';
 
-	/* if encoding issues already exist in options, do nothing */
+	/* if encoding issues already exists in options, do nothing */
 	if ( strstr_in_list (options, list_enc_opts) )
 		return strdup(options);
 
-	add_options(buf, fs);
+	if (fs != NULL)
+		add_options(buf, fs);
+
 	if (options == NULL)
 		return strdup (buf);
 
-	ret = malloc ( strlen(options) + strlen(buf) + 1 + 1 );
+	ret = malloc ( strlen(options) + strlen(buf) + 1 + 1 ); /* add 2 byte for '\0' and ',' */
 	strcpy (ret, options);
-	add_option (ret, buf, NULL);
+	add_option (ret, buf, "");
 	return ret;
 }
 

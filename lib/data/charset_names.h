@@ -1,10 +1,10 @@
 /* This code contains charset to codepage map originally from
-    WINE project (file dlls/kernel/locale.c)
+   WINE project (file dlls/kernel/locale.c)
 	LGPL license
-	$Id: charset_names.h,v 1.8 2005/03/17 19:06:45 lav Exp $
+   $Id: charset_names.h,v 1.9 2005/06/15 21:11:23 vitlav Exp $
  */
-/* 
 
+/* 
 TODO:
  - some gcc option for pack a static string?
 
@@ -23,9 +23,9 @@ static const struct charset_entry
     unsigned int        codepage;
 } charset_names[] =
 {
-    { "BIG5",      "big5",        950 },	/* Traditional Chinese charset (Big5) */
+    { "BIG5",      "big5",        950 },  /* Traditional Chinese charset (Big5) */
     { "CP1125",    "cp1125",      1125 }, /* Codepage 1125 (Ukrainian DOS codepage) */
-    { "CP1250",    "cp1250",      1250 },	/* Windows CP1250 (Slavic/Central European Languages) */
+    { "CP1250",    "cp1250",      1250 }, /* Windows CP1250 (Slavic/Central European Languages) */
     { "CP1251",    "cp1251",      1251 }, /* Windows CP1251 (Bulgarian, Belarusian) */
     { "CP1252",    "cp1252",      1252 }, /* // */
     { "CP1253",    "cp1253",      1253 }, /* // */
@@ -34,12 +34,12 @@ static const struct charset_entry
     { "CP1256",    "cp1256",      1256 }, /* // */
     { "CP1257",    "cp1257",      1257 }, /* // */
     { "CP1258",    "cp1258",      1258 }, /* // */
-    { "CP932",     "cp932",        932 },	/* Japanese charsets (Shift-JIS, EUC-JP) */
-    { "CP936",     "cp936",        936 },	/* Simplified Chinese charset (CP936, GB2312) */
-    { "CP949",     "cp949",        949 },	/* Korean charset (CP949, EUC-KR) */
-    { "CP950",     "cp950",        950 },	/* // 2.4 */
+    { "CP932",     "cp932",        932 }, /* Japanese charsets (Shift-JIS, EUC-JP) */
+    { "CP936",     "cp936",        936 }, /* Simplified Chinese charset (CP936, GB2312) */
+    { "CP949",     "cp949",        949 }, /* Korean charset (CP949, EUC-KR) */
+    { "CP950",     "cp950",        950 }, /* // 2.4 */
     { "EUCJP",     "euc-jp",     20932 }, /* // 2.4 euc-jp */
-    { "GB2312",    "gb2312",       936 },	/* // 2.4 ? 2.6 */
+    { "GB2312",    "gb2312",       936 }, /* // 2.4 ? 2.6 */
     { "IBM037",    "cp037",         37 },
     { "IBM1026",   "cp1026",      1026 },
     { "IBM424",    "cp424",        424 },

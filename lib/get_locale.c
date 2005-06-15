@@ -7,12 +7,12 @@
     This code contains some pieces of code and ideas from
                             WINE project (file dlls/kernel/locale.c)
                             GETTEXT project (file localcharset.c)
-							GNOME project (file gnome-libs/libgnome/gnome-i18n.c)
+                            GNOME project (file gnome-libs/libgnome/gnome-i18n.c)
 
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.19 2005/05/07 07:34:22 lav Exp $
+    $Id: get_locale.c,v 1.20 2005/06/15 21:11:18 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -50,15 +50,14 @@ static char *get_from_env()
 	/* The highest priority value is the `LANGUAGE' environment
 	variable.  This is a GNU extension.  */
 	tmp = getenv ("LANGUAGE");
-	if (tmp == NULL || tmp[0] == '\0')
+	if (_n_isempty(tmp))
 		tmp = getenv("LC_ALL");
-	if (tmp == NULL || tmp[0] == '\0')
+	if (_n_isempty(tmp))
 		tmp = getenv("LC_CTYPE");
-	if (tmp == NULL || tmp[0] == '\0')
+	if (_n_isempty(tmp))
 		tmp = getenv("LANG");
-		
-	if (tmp == NULL || tmp[0] == '\0' ||
-		!strcmp(tmp,"POSIX") || !strcmp(tmp,"C") )
+	if (_n_isempty(tmp) ||
+		!strcmp(tmp, "POSIX") || !strcmp(tmp, "C") )
 			return NULL;
 	tmp = strdup(tmp);
 	/* Use only first locale int string */
@@ -72,7 +71,7 @@ static char *get_from_env()
 char *natspec_get_current_locale()
 {
 	char *locale = get_from_env();
-	if (!locale)
+	if (locale == NULL)
 		return natspec_get_system_locale();
 	return locale;
 }
@@ -134,8 +133,8 @@ static char *get_from_system_i18n(const char *str)
 		}
 		buf1[i] = 0;
 		DEBUG (printf("GSL: after space removing '%s'",buf1));
-		/* Skip comments */
-		if (buf[0] == '#')
+		/* Skip empty strings and comments */
+		if (!i)
 			continue;
 		i = strlen(str);
 		/* Find str in any position */
@@ -171,7 +170,7 @@ char *natspec_get_system_locale()
 char *natspec_extract_charset_from_locale(const char *locale)
 {
 	char *lang, *next, *dialect, *charset, *ret;
-	if (locale == NULL || locale[0] == '\0')
+	if (_n_isempty(locale))
 		return NULL;
 	lang = strdup( locale );
 	next = strchr(lang,':'); if (next) *next++ = '\0';
@@ -188,7 +187,7 @@ char *_natspec_repack_locale(const char *locale)
 {
 	int i;
 	char *buf, *lang, *next, *dialect, *charset, *country;
-	if (!locale || !locale[0])
+	if (_n_isempty(locale))
 		return NULL;
 	DEBUG (printf("repack_locale\n"));
 	lang = strdup( locale );

@@ -10,7 +10,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_charset.c,v 1.20 2005/04/10 18:24:42 pv Exp $
+    $Id: get_charset.c,v 1.21 2005/06/15 21:11:18 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -59,17 +59,17 @@ char *natspec_humble_charset( const char *charset)
 {
 	int i, j;
 	char *buf;
-	if (charset == NULL || charset[0] == '\0')
+	if (_n_isempty(charset))
 		return NULL;
 	/* Do not remove punctuation for ANSI encoding... */
-	if (strstr(charset,"ANSI_X3") != NULL)
+	if( strstr(charset,"ANSI_X3") )
 		return strdup(charset);
 	buf = alloca( strlen(charset) + 1 );
    	for (i = 0, j = 0; charset[i]; i++)
 	{
 		if (charset[i] == ':')
 			break;
-        if (_n_isalnum(charset[i]))
+		if (_n_isalnum(charset[i]))
 			buf[j++] = _n_toupper(charset[i]);
 	}
    	buf[j] = 0;
@@ -84,10 +84,7 @@ const char *natspec_get_charset()
 #if defined(HAVE_LANGINFO_CODESET)
 	charset = nl_langinfo(CODESET);
 	c = natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_UNIXCS, charset);
-	if (c == NULL)
-		return charset;
-	else
-		return c;
+	return c ? c : charset;
 #else
 	#error "I have not an idea how do it"
 	/* recursive :) FIXME: I
@@ -129,7 +126,9 @@ static const char *get_cs_by_type(const int type,
 }
 
 
-/*! Internal: try search in charset_relation by encoding (troubles with the same enc)*/
+/*! Internal: try search in charset_relation by encoding
+    (Note: troubles with the same enc
+ */
 static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 	const char *charset)
 {
@@ -137,13 +136,13 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 	char *must_free = NULL;
 	DEBUG (printf("get_entry_by_charset charset=%s\n",charset));
 	/* If charset is NULL, use current charset */
-	if ((charset == NULL || charset[0] == '\0') && bytype == NATSPEC_UNIXCS)
+	if (_n_isempty(charset) && bytype == NATSPEC_UNIXCS)
 	{
 		/* Get charset for current locale */
 		charset = must_free = natspec_humble_charset(natspec_get_charset());
 		DEBUG (printf("2 cs=%s\n", charset));
 	}
-	if (charset != NULL && charset[0] != '\0')
+	if ( !_n_isempty(charset))
 	{
 		int i;
 		DEBUG (printf("Find with charset '%s'\n", charset));
@@ -151,7 +150,7 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 		for (i = 0; i< sizeof(charset_relation)/sizeof(charset_relation[0]); i++)
 			if (!strcmp (charset, get_cs_by_type(bytype,&charset_relation[i])))
 			{
-	    		entry = &charset_relation[i];
+				entry = &charset_relation[i];
 				break;
 			}
 	}
@@ -162,14 +161,13 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 /*! Internal: Search _locale_ in list and returns entry pointer or NULL */
 static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 {
-	const struct charsetrel_entry *entry = NULL;
+	const struct charsetrel_entry *entry;
 	char *replocale = _natspec_repack_locale(locale);
 
 	/* Search the same locale string in table. We are sure locale is repacked (normalized) */
-	if (replocale != NULL && replocale[0] != '\0')
-		entry = bsearch( replocale, charset_relation,
-	    	sizeof(charset_relation)/sizeof(charset_relation[0]),
-	        sizeof(charset_relation[0]), charset_locale_cmp );
+	if ( _n_isempty(replocale))
+		return NULL;
+	entry = _n_bsearch( replocale, charset_relation, charset_locale_cmp );
 	free (replocale);
 
 	DEBUG (if (!entry) printf ("Can't find the locale '%s'\n", locale));
@@ -185,8 +183,7 @@ const char * natspec_get_charset_by_locale(const int type, const char *locale)
 	/* use system locale for NULL or user locale if empty */
 	if (locale == NULL)
 		locale = must_free = natspec_get_system_locale();
-	else
-	if (locale[0] == '\0')
+	else if (locale[0] == '\0')
 		locale = must_free = natspec_get_current_locale();
 	entry = get_entry_by_locale(locale);
 	free (must_free);

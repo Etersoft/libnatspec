@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspec.h,v 1.19 2005/04/10 19:18:20 pv Exp $
+    $Id: natspec.h,v 1.20 2005/06/15 21:11:18 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -121,12 +121,12 @@ char *natspec_convert(const char *in_str,
 char * natspec_get_enriched_fs_options(const char* fs, const char *options);
 
 /*!
- * Returns codepage for charset
+ * Returns codepage (DOS system) for charset
  * Examples:
  *   for IBM866 returns 866
  *   for cp1251 returns 1251
  */
-const char *natspec_get_codepage_by_charset(const char *cs);
+const int natspec_get_codepage_by_charset(const char *cs);
 
 /*!
  * Returns nls form for charset

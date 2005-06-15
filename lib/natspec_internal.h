@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec_internal.h,v 1.13 2005/04/10 19:18:20 pv Exp $
+    $Id: natspec_internal.h,v 1.14 2005/06/15 21:11:18 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -52,6 +52,15 @@
 #	warning "We can't use locale independent lower/upper without GNU"
 #endif
 #define _n_isalnum(n) isalnum(n)
+
+/*! Test string for empty */
+#define _n_isempty(str) (str == NULL || str[0]=='\0')
+
+/*! simplified bsearch */
+#define _n_bsearch(what,where,func) bsearch( what, where, \
+		sizeof(where) / sizeof(where[0]), \
+		sizeof(where[0]), &func )
+
 
 /*! Add n in next line for debug messaging */
 #define DEBUG(n)

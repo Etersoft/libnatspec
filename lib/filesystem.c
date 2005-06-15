@@ -9,7 +9,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: filesystem.c,v 1.6 2005/04/10 18:24:42 pv Exp $
+    $Id: filesystem.c,v 1.7 2005/06/15 21:11:18 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -44,7 +44,7 @@
 # include <langinfo.h>
 #endif
 
-
+/*! Internal: charset comparing for bsearch */
 static int charset_cmp( const void *name, const void *entry )
 {
     const struct charset_entry *charset = (const struct charset_entry *)entry;
@@ -53,23 +53,16 @@ static int charset_cmp( const void *name, const void *entry )
 
 
 /*! Returns codepage from charset */
-static char __cfc[10]; /* FIXME this ugly thing */
-const char *natspec_get_codepage_by_charset(const char *charset)
+const int natspec_get_codepage_by_charset(const char *charset)
 {
 	const struct charset_entry *entry;
 	char *cs = natspec_humble_charset(charset);
 	/* We are sure now cs is normalized */
-	entry = bsearch( cs, charset_names,
-                     sizeof(charset_names)/sizeof(charset_names[0]),
-                     sizeof(charset_names[0]), charset_cmp );
+	entry = _n_bsearch( cs, charset_names, charset_cmp );
 	free(cs);
-    if (entry)
-	{
-		assert( entry->codepage < 1000000);
-		sprintf(__cfc,"%d",entry->codepage);
-		return __cfc;
-	}
-	return "437"; /* codepage for ascii? */
+	if (!entry)
+		return 437; /* codepage for ascii? */
+	return entry->codepage;
 }
 
 /*! Returns nls name (in Linux kernel notation) from charset */
@@ -79,12 +72,10 @@ const char *natspec_get_nls_by_charset(const char *charset)
 	if (charset != NULL)
 	{
 		char *cs = natspec_humble_charset(charset);
-		/* We are sure now cs is normalized */
-		entry = bsearch( cs, charset_names,
-                     sizeof(charset_names)/sizeof(charset_names[0]),
-                     sizeof(charset_names[0]), charset_cmp );
+		/* We are sure now CS is normalized */
+		entry = _n_bsearch( cs, charset_names, charset_cmp );
 		free(cs);
-	    if (entry)
+		if (entry)
 			return entry->nls;
 	}
 	/* returns value should be always correctly */
@@ -95,9 +86,9 @@ const char *natspec_get_nls_by_charset(const char *charset)
 /*! Return filename encoding for locale */
 const char *natspec_get_filename_encoding(const char *locale)
 {
-	/* Try get from environment variable */
+	/* Try get from environment variable (it can be comma-separated,
+	 * but we using first part only */
 	const char *buf = getenv("G_FILENAME_ENCODING");
-    /*! \todo FIXME: test for comma-separated list in G_FILENAME_ENCODING */
 	if (buf != NULL && locale != NULL && locale[0] == '\0' /*&& natspec_check_charset(NATSPEC_UNIXCS, buf)*/)
 	{
 		/* If get from env non empty string,
@@ -105,7 +96,7 @@ const char *natspec_get_filename_encoding(const char *locale)
 		buf = natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_UNIXCS, buf);
 	}
 	/* If above try is failed */
-	if (buf == NULL || buf[0] == '\0')
+	if (_n_isempty(buf))
 	{
 		/* Get charset from locale */
 		buf = natspec_get_charset_by_locale(NATSPEC_UNIXCS, locale);
