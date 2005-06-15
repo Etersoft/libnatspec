@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.16 2005/04/09 21:58:00 lav Exp $
+    $Id: natspec.c,v 1.17 2005/06/15 21:42:35 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -186,11 +186,11 @@ int main(int argc, const char** argv)
 
 	if (fcodepage || info)
 	{
-		const char *buf;
+		int cp;
 		if (verbose) printf("Codepage of DOS: ");
-		buf = natspec_get_codepage_by_charset(
+		cp = natspec_get_codepage_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
-		printf("%s",buf);
+		printf("%d",cp);
 		if (verbose) puts("");
 		if (!info) exit(0);
 	}

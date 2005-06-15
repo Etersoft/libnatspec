@@ -16,7 +16,7 @@ It tested in various OS (with GCC installed):
  + Debian GNU/Linux 3.0 (Alpha)
  - Solaris SunOS 5.9 (Sparc/x86) (missed libiconv during linking)
  ? Slackware (x86)
- ? Mandrake (x86)
+ + Mandrake (x86)
  ? RedHat (x86)
  ? ASPLinux (x86)
  - FreeBSD 4.10 (x86) (missed popt)
@@ -51,7 +51,7 @@ ftp://ftp.altlinux.ru/pub/people/lav/natspec or the http site
 http://etersoft.ru/download/natspec
 
 libnatspec may be freely distibuted and modified in accordance with
-the GNU Lesser General Public License.  Examples in the libnatspec
+the GNU Lesser General Public License. Examples in the libnatspec
 distribution can fall under different licenses;
 see the example/LICENSE file and individual files for details.
 

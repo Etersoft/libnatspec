@@ -1,3 +1,7 @@
+libnatspec-0.2.2: 16-Jun-2005:
+ - fix use static buffer natspec_get_codepage (change type of returned value to int)
+ - review code and some cleanup
+
 libnatspec-0.2.1: 09-Apr-2005:
  - fix CP1125 order
  - fix locale string parsing
