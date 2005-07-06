@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.17 2005/06/15 21:42:35 vitlav Exp $
+    $Id: natspec.c,v 1.18 2005/07/06 21:58:41 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -109,7 +109,7 @@ int main(int argc, const char** argv)
   poptSetOtherOptionHelp(poptCtx, "[OPTION...]");
   while (rc >= 0) {
     if((rc = poptGetNextOpt(poptCtx)) < -1) {
-      printf(("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
+      fprintf(stderr, "Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n",
 	      poptBadOption(poptCtx, 0),
 	      poptStrerror(rc),
 	      argv[0]);
@@ -129,12 +129,12 @@ int main(int argc, const char** argv)
 */	
     if(flag_help)
 	{
-	poptPrintHelp(poptCtx, stderr, 0);
+	poptPrintHelp(poptCtx, stdout, 0);
     exit(0);
 	}
 
 #else
-	printf("Compiled without popt. Exit\n");
+	fprintf(stderr, "Compiled without popt. Exit\n");
 	exit(1);
 #endif
 	if (argc == 1)
