@@ -1,13 +1,13 @@
 /*
     lib/enrich_fs_options.c
 	
-	support for add locale related options to mount
+	support for adding locale related options to mount
 
     NATSPEC library
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: enrich_fs_options.c,v 1.23 2005/06/15 21:11:18 vitlav Exp $
+    $Id: enrich_fs_options.c,v 1.24 2005/07/11 20:48:29 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -145,7 +145,7 @@ static void add_options(char *buf, const char *fs)
 		DEBUG (fprintf(stderr, "NATSPEC: do not know %s fs\n",fs));
 }
 
-/*! Add needed i18n options for fs type */
+/*! Adds needed i18n options for fs type */
 char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 {
 	char *ret;
@@ -162,7 +162,8 @@ char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 	if (options == NULL)
 		return strdup (buf);
 
-	ret = malloc ( strlen(options) + strlen(buf) + 1 + 1 ); /* add 2 byte for '\0' and ',' */
+	ret = malloc ( strlen(options) + 
+			strlen(buf) + 1 + 1 ); /* add 2 byte for '\0' and ',' */
 	strcpy (ret, options);
 	add_option (ret, buf, "");
 	return ret;
