@@ -8,7 +8,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: language.c,v 1.2 2005/03/02 18:25:20 lav Exp $
+    $Id: language.c,v 1.3 2005/07/16 10:14:23 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,18 @@
 
 #include <natspec_internal.h>
 
+/* /usr/share/locale/*/entry.desktop для получения названия языка */
 const char *get_language_name(const int type, const char *locale)
 {
 	return "english";
+}
+
+const char *get_country_name(const char *locale)
+{
+	return "Russia";
+}
+
+int get_country_code(const char *locale)
+{
+	return 7;
 }

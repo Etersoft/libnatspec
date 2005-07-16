@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspechi_internal.h,v 1.1 2005/03/01 11:17:36 lav Exp $
+    $Id: natspechi_internal.h,v 1.2 2005/07/16 10:14:23 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -37,6 +37,13 @@ extern "C" {
 #define NATSPEC_BABEL   2
 #define NATSPEC_GUI     3
 #define NATSPEC_ISO639  4
+
+/* Country codes:
+ * http://www.cia.gov/cia/publications/factbook/appendix/appendix-d.html
+ * ALL http://www.unc.edu/~rowlett/units/codes/country.htm
+ * ISO3166-1 http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
+ * MARC http://www.loc.gov/marc/countries/cou_home.html
+ */
 
 struct language_entry
 {

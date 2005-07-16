@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspechi.h,v 1.2 2005/03/02 18:25:20 lav Exp $
+    $Id: natspechi.h,v 1.3 2005/07/16 10:14:23 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -33,12 +33,20 @@
 extern "C" {
 #endif
 
+/* Types of language nama representation */
 #define NATSPEC_TEX     1
 #define NATSPEC_BABEL   2
 #define NATSPEC_GUI     3
 #define NATSPEC_ISO639  4
 
+/* Returns name of language by locale */
 const char *get_language_name(const int type, const char *locale);
+
+/* Returns name of country by locale */
+const char *get_country_name(const char *locale);
+
+/* Returns code of the country */
+int get_country_code(const char *locale);
 
 #ifdef __cplusplus
 }
