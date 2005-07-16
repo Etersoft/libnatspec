@@ -12,7 +12,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.20 2005/06/15 21:11:18 vitlav Exp $
+    $Id: get_locale.c,v 1.21 2005/07/16 10:04:26 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -39,19 +39,27 @@
 
 #include "natspec_internal.h"
 
-/*! Try LANGUAGE:LC_ALL:LC_CTYPE:LANG from environment
+/*! Try LC_ALL:LC_CTYPE:LANG from environment
    Returns NULL if locale is missed, empty or POSIX/C
    \todo FIXME: is it equivalent of setlocale(LC_ALL,"")?
    \todo FIXME: LANGUAGE can has multiple value (and ':')
 */
+/* From gettext(3):
+> If the LANGUAGE environment variable is set to a  nonempty  value,  and
+> the  locale  is not the "C" locale, the value of LANGUAGE is assumed to
+> contain a colon separated list of  locale  names.  The  functions  will
+> attempt  to  look  up  a translation of msgid in each of the locales in
+> turn.  This is a GNU extension.
+*/
+
 static char *get_from_env()
 {
 	char *tmp, *next;
 	/* The highest priority value is the `LANGUAGE' environment
 	variable.  This is a GNU extension.  */
-	tmp = getenv ("LANGUAGE");
-	if (_n_isempty(tmp))
-		tmp = getenv("LC_ALL");
+/*	tmp = getenv ("LANGUAGE");
+	if (_n_isempty(tmp)) */
+	tmp = getenv("LC_ALL");
 	if (_n_isempty(tmp))
 		tmp = getenv("LC_CTYPE");
 	if (_n_isempty(tmp))
