@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.18 2005/07/06 21:58:41 vitlav Exp $
+    $Id: natspec.c,v 1.19 2005/07/16 14:28:35 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -45,7 +45,7 @@
 
 char *charset_type;
 char *locale, *transliterate;
-int version, verbose, fsenc, fcodepage, nls, flag_help, info, flag_locale;
+int version, verbose, fsenc, fcodepage, nls, flag_help, info, flag_locale, utf8;
 
 #if defined HAVE_LIBPOPT
 poptContext context = NULL;
@@ -55,6 +55,8 @@ struct poptOption options[] =
      "print codepage", ""},
     {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 1,
      "print filesystem encoding", ""},
+	{"utf8", 0, POPT_ARG_NONE,  &utf8, 1,
+     "return 0 if locale is utfed", ""},
     {"info", 'i', POPT_ARG_NONE,  &info, 0,
      "print overall encoding/charset info for your system", ""},
     {"transl", 'a', POPT_ARG_STRING,  &transliterate, 1,
@@ -101,23 +103,21 @@ static const char *get_charset(char *charset_type)
 
 int main(int argc, const char** argv)
 {
-
+	int is_utf8;
 #if defined HAVE_LIBPOPT
-  int rc = 0;
-  poptContext poptCtx;
-  poptCtx = poptGetContext("natspec", argc, (const char **)argv, options, 0);
-  poptSetOtherOptionHelp(poptCtx, "[OPTION...]");
-  while (rc >= 0) {
-    if((rc = poptGetNextOpt(poptCtx)) < -1) {
-      fprintf(stderr, "Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n",
-	      poptBadOption(poptCtx, 0),
-	      poptStrerror(rc),
-	      argv[0]);
-      exit(1);
-    }
-    if(rc == 1) {
-    }
-  }
+	int rc = 0;
+	poptContext poptCtx;
+	poptCtx = poptGetContext("natspec", argc, (const char **)argv, options, 0);
+	poptSetOtherOptionHelp(poptCtx, "[OPTION...]");
+	while (rc >= 0) {
+		if((rc = poptGetNextOpt(poptCtx)) < -1) {
+			fprintf(stderr, "Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n",
+				poptBadOption(poptCtx, 0),
+				poptStrerror(rc),
+				argv[0]);
+			exit(1);
+		}
+	}
 /*
   { int flag_help=1;
   if (argv) {
@@ -206,9 +206,13 @@ int main(int argc, const char** argv)
 		printf("\tnl_langinfo(CODESET): %s\n",nl_langinfo(CODESET));
 #endif
 		printf("\tnatspec_get_charset: %s\n",natspec_get_charset());
-		exit(0);
 	}
 	if (charset_type)
 		get_charset(charset_type);
+	is_utf8 = natspec_locale_is_utf8("");
+	if (verbose)
+		printf("Current locale is%sin UTF8 encoding\n",(is_utf8 ? " " : " NOT "));
+	if (utf8 && !info)
+		return is_utf8 ? 0 : 1;
 	return 0;
 }
