@@ -10,7 +10,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_charset.c,v 1.21 2005/06/15 21:11:18 vitlav Exp $
+    $Id: get_charset.c,v 1.22 2005/07/21 18:29:47 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -84,7 +84,7 @@ const char *natspec_get_charset()
 #if defined(HAVE_LANGINFO_CODESET)
 	charset = nl_langinfo(CODESET);
 	c = natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_UNIXCS, charset);
-	return c ? c : charset;
+	return c ?: charset;
 #else
 	#error "I have not an idea how do it"
 	/* recursive :) FIXME: I
@@ -113,13 +113,13 @@ static const char *get_cs_by_type(const int type,
 		switch(type)
 		{
 			case NATSPEC_WINCS:
-				return ( entry->win_cs ? entry->win_cs : "CP1252");
+				return entry->win_cs ?: "CP1252";
 			case NATSPEC_DOSCS:
-				return ( entry->dos_cs ? entry->dos_cs : "CP437");
+				return entry->dos_cs ?: "CP437";
 			case NATSPEC_MACCS:
-				return ( entry->mac_cs ? entry->mac_cs : "MAC");
+				return entry->mac_cs ?: "MAC";
 			case NATSPEC_UNIXCS:
-				return ( entry->unix_cs ? entry->unix_cs : "iso8859-1"); /* Really? */
+				return entry->unix_cs ?: "iso8859-1"; /* Really? */
 		}
 	/* fallback to locale charset */
 	return natspec_get_charset();
@@ -189,6 +189,14 @@ const char * natspec_get_charset_by_locale(const int type, const char *locale)
 	free (must_free);
 	return get_cs_by_type(type, entry);
 }
+
+/* Returns 0 if locale not in utf8 encoding */
+int natspec_locale_is_utf8(const char * locale)
+{
+	const char *charset = natspec_get_charset_by_locale(NATSPEC_UNIXCS, locale);
+	return !strcmp(charset, "UTF8");
+}
+
 
 /*! Returns static string by charset by bytype for type */
 const char * natspec_get_charset_by_charset(const int type,

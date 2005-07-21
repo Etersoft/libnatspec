@@ -9,7 +9,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: filesystem.c,v 1.7 2005/06/15 21:11:18 vitlav Exp $
+    $Id: filesystem.c,v 1.8 2005/07/21 18:30:26 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -89,9 +89,9 @@ const char *natspec_get_filename_encoding(const char *locale)
 	/* Try get from environment variable (it can be comma-separated,
 	 * but we using first part only */
 	const char *buf = getenv("G_FILENAME_ENCODING");
-	if (buf != NULL && locale != NULL && locale[0] == '\0' /*&& natspec_check_charset(NATSPEC_UNIXCS, buf)*/)
+	if (!_n_isempty(buf) && locale != NULL && locale[0] == '\0')
 	{
-		/* If get from env non empty string,
+		/* If get from env G_FILENAME_ENCODING non empty string, and use current locale (""),
 		   search in static table the same name: normalized */
 		buf = natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_UNIXCS, buf);
 	}
