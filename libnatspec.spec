@@ -1,5 +1,5 @@
 Name: libnatspec
-Version: 0.2.1
+Version: 0.2.2
 Release: alt1
 
 Summary: Nation & languages specifity issues library
@@ -19,7 +19,7 @@ BuildRequires: gcc-c++ hostinfo libpopt-devel libstdc++-devel python-base python
 %description
 Nation & languages specifity issues library
 This library provides userful functions for
-	mount, submount, mkisofs, multimedia players
+mount, submount, mkisofs, multimedia players
 See detailed description at %Url
 
 %package devel
@@ -31,7 +31,7 @@ Requires: %name = %version-%release
 The %name-devel package contains the necessary include files
 for developing applications with %name
 This library try to resolve charset hell (encoding problem)
-in various program depends on locale.
+in a various programs depends on locale and messages.
 
 %package devel-examples
 Summary: Examples of %name using
@@ -62,12 +62,13 @@ Python binding for natspec
 # FIXME: I don't know how to install in /lib
 # move to /lib
 cd %buildroot
-mkdir -p %_lib
-mv usr/%_lib/%name.* %_lib
+mkdir -p %_lib && mv usr/%_lib/%name.* %_lib
 
-%post -p %post_ldconfig
+%post
+%post_ldconfig
 
-%postun -p %postun_ldconfig
+%postun
+%postun_ldconfig
 
 %files
 %doc AUTHORS COPYING README ChangeLog NEWS TODO README-ru.html
@@ -90,6 +91,9 @@ mv usr/%_lib/%name.* %_lib
 
 
 %changelog
+* Fri Jul 22 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.2-alt1
+- small fixes only (see NEWS)
+
 * Sun Apr 10 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.1-alt1
 - new release, small fixes
 
