@@ -1,3 +1,4 @@
+//!!!!!!! добавить dlopen !!!!!!!
 /*
     src/natspec.c
 	
@@ -7,7 +8,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.19 2005/07/16 14:28:35 vitlav Exp $
+    $Id: natspec.c,v 1.20 2005/07/21 21:52:48 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -32,6 +33,7 @@
 #include <locale.h>
 
 #include "natspec_internal.h"
+#include "natspechi_internal.h"
 
 #ifdef HAVE_LIBPOPT
 #  include <popt.h>
@@ -45,7 +47,8 @@
 
 char *charset_type;
 char *locale, *transliterate;
-int version, verbose, fsenc, fcodepage, nls, flag_help, info, flag_locale, utf8;
+int version, verbose, fsenc, fcodepage, nls, flag_help, info;
+int flag_locale, utf8, country_id;
 
 #if defined HAVE_LIBPOPT
 poptContext context = NULL;
@@ -57,6 +60,8 @@ struct poptOption options[] =
      "print filesystem encoding", ""},
 	{"utf8", 0, POPT_ARG_NONE,  &utf8, 1,
      "return 0 if locale is utfed", ""},
+	{"country-id", 0, POPT_ARG_NONE,  &country_id, 1,
+     "print country ID (international numbering)", ""},
     {"info", 'i', POPT_ARG_NONE,  &info, 0,
      "print overall encoding/charset info for your system", ""},
     {"transl", 'a', POPT_ARG_STRING,  &transliterate, 1,
@@ -183,14 +188,22 @@ int main(int argc, const char** argv)
 		if (verbose) puts("");
 		if (!info) exit(0);
 	}
-
+	if (country_id || info)
+	{
+		int id;
+		if (verbose) printf("Country ID (for DOS): ");
+//		id = natspec_get_country_id();
+		printf("%d", id);
+		if (verbose) puts("");
+		if (!info) exit(0);
+	}
 	if (fcodepage || info)
 	{
 		int cp;
 		if (verbose) printf("Codepage of DOS: ");
 		cp = natspec_get_codepage_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
-		printf("%d",cp);
+		printf("%d", cp);
 		if (verbose) puts("");
 		if (!info) exit(0);
 	}
