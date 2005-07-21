@@ -77,6 +77,7 @@ mkdir -p %_lib && mv usr/%_lib/%name.* %_lib
 #/etc/profile.d/%name*
 
 %files devel
+%doc docs/html
 %_includedir/*
 /%_lib/%name.so
 %_libdir/pkgconfig/*
@@ -93,6 +94,7 @@ mkdir -p %_lib && mv usr/%_lib/%name.* %_lib
 %changelog
 * Fri Jul 22 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.2-alt1
 - small fixes only (see NEWS)
+- add html API doc in -devel
 
 * Sun Apr 10 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.1-alt1
 - new release, small fixes
