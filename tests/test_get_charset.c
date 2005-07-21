@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.15 2005/03/09 20:13:02 lav Exp $
+ * $Id: test_get_charset.c,v 1.16 2005/07/21 14:44:16 vitlav Exp $
  *
  */
 
@@ -121,6 +121,19 @@ void test_nls()
 	printf("TEST_NLS: comformance test is completed: %d locales\n",i);
 }
 
+
+#define ok(f,n) printf("%s == %s: %s\n", f,n, (!strcmp(f,n)) ? "PASSED" : "failed");
+#define okn(f,n) printf("%s == %s: %s\n", f,n, (f == n) ? "PASSED" : "failed");
+
+void compliant_test()
+{
+	ok(natspec_get_filename_encoding ("ru_RU.UTF8"), "utf8");
+	ok(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, "UTF-8"), "utf8");
+	okn(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, ""), NULL);
+	okn(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, "haha"), NULL);
+	okn(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, NULL), "koi8-r");
+}
+
 int main(void)
 {
 	int i;
@@ -162,5 +175,6 @@ int main(void)
 	cas = setlocale(LC_ALL, "");
 	printf("old locale: %s\n",cas);
 	test_for_convert();
+	compliant_test();
 	return 0;
 }
