@@ -87,5 +87,7 @@ it makes NATSPEC_LIBS, NATSPEC_CFLAGS variables for Makefiles
 and defines HAVE_NATSPEC in config.h
 2. Use option --with-natspec for configure
 
+==== Links ====
+http://www.sensi.org/~alec/locale/ About locale
 
 07.05.2005

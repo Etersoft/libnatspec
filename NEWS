@@ -1,6 +1,9 @@
-libnatspec-0.2.2: 16-Jun-2005:
+libnatspec-0.2.2: 22-Jul-2005:
  - fix use static buffer natspec_get_codepage (change type of returned value to int)
  - review code and some cleanup
+ - introduce natspec_locale_is_utf8 function
+ - do not use LANGUAGE env variable
+ - build API documentation
 
 libnatspec-0.2.1: 09-Apr-2005:
  - fix CP1125 order

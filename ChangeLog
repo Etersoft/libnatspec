@@ -1,3 +1,112 @@
+2005-07-22 02:05  vitlav
+
+	* libnatspec.spec: cleanup spec for 0.2.2
+
+2005-07-22 01:52  vitlav
+
+	* src/: Makefile.am, natspec.c: add country id print
+
+2005-07-22 01:51  vitlav
+
+	* libhi/: language.c, natspechi.h, natspechi_internal.h,
+	  data/country.asm: in developing
+
+2005-07-21 22:51  vitlav
+
+	* lib/natspec_internal.h: some fixes
+
+2005-07-21 22:50  vitlav
+
+	* lib/natspec.h: introduce natspec_locale_is_utf8
+
+2005-07-21 22:29  vitlav
+
+	* lib/: get_charset.c, filesystem.c: fix bug with empty
+	  G_FILENAME_ENCODING
+
+2005-07-21 22:26  vitlav
+
+	* examples/util-linux-2.12p-natspec.patch: fix spaces
+
+2005-07-21 21:57  vitlav
+
+	* examples/cdrtools-2.01-natspec.patch: support utf8 encoding in
+	  cdrtools
+
+2005-07-21 18:44  vitlav
+
+	* tests/test_get_charset.c: add some test for compliance
+
+2005-07-16 18:28  vitlav
+
+	* src/natspec.c: add --utf8 option for return utf8 status of
+	  current locale
+
+2005-07-16 14:14  vitlav
+
+	* libhi/: language.c, natspechi.h, natspechi_internal.h: Adds
+	  country support and some descriptions.
+
+2005-07-16 14:04  vitlav
+
+	* lib/get_locale.c: disable LANGUAGE using (it is GNU extension
+	  only from messages)
+
+2005-07-12 00:49  vitlav
+
+	* lib/enrich_fs_options.c: remove obsoleted
+	  natspec_enrich_fs_options
+
+2005-07-12 00:48  vitlav
+
+	* lib/enrich_fs_options.c: fix descriptions
+
+2005-07-07 01:58  vitlav
+
+	* src/natspec.c: - print help message to stdout - print error
+	  message to stderr
+
+2005-06-16 01:42  vitlav
+
+	* INSTALL, NEWS, README, TODO, src/natspec.c: small fixes
+
+2005-06-16 01:11  vitlav
+
+	* lib/: convert.c, enrich_fs_options.c, filesystem.c,
+	  get_charset.c, get_locale.c, natspec.h, natspec_internal.h,
+	  data/charset_names.h: code review and cleanup
+
+2005-06-14 00:35  vitlav
+
+	* profile/libnatspec.csh: fixed for csh
+
+2005-05-07 11:34  lav
+
+	* ChangeLog, INSTALL, README, TODO, configure.ac,
+	  lib/enrich_fs_options.c, lib/get_locale.c: some description fixes
+
+2005-04-11 22:48  pv
+
+	* docs/libnatspecDox.cfg.in: Включена настройка для генерирования
+	  документации для языка 'C'
+
+2005-04-10 23:47  pv
+
+	* Makefile.am, configure.ac, docs/Makefile.am: Подключение
+	  makefile-а для генерирования документации встроено в configure
+
+2005-04-10 23:18  pv
+
+	* lib/: natspec.h, natspec_internal.h: Коментарии переведены в
+	  формат doxygen
+
+2005-04-10 22:24  pv
+
+	* INSTALL, configure.ac, docs/Makefile.am,
+	  docs/libnatspecDox.cfg.in, lib/convert.c,
+	  lib/enrich_fs_options.c, lib/filesystem.c, lib/get_charset.c,
+	  lib/get_locale.c: Коментарии переведены в формат doxygen
+
 2005-04-10 02:02  lav
 
 	* ChangeLog, NEWS, README, TODO, configure.ac, libnatspec.spec,
