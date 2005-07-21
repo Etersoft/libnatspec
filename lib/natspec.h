@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspec.h,v 1.20 2005/06/15 21:11:18 vitlav Exp $
+    $Id: natspec.h,v 1.21 2005/07/21 18:50:29 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -58,6 +58,13 @@ char *natspec_get_user_locale();
  * retrieved from LANG variable in /etc/sysconfig/i18n file
  */
 char *natspec_get_system_locale();
+
+/*!
+ * Returns 0 if locale not in utf8 encoding
+ * If locale is empty, use user locale
+ * If locale is NULL, use system locale
+ */
+int natspec_locale_is_utf8(const char * locale);
 
 /*!
  * Returns static string with current charset
@@ -115,7 +122,7 @@ char *natspec_convert(const char *in_str,
  * Params:
  *  fs      - filesystem type string
  *  options - already exist options string
- * \return Returns new allocated string with enriched options
+ * \return Returns new allocated string with enriched options or NULL if failed
  * \note options enriched according to user locale in LIBNATSPEC term
  */
 char * natspec_get_enriched_fs_options(const char* fs, const char *options);
