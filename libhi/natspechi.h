@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspechi.h,v 1.3 2005/07/16 10:14:23 vitlav Exp $
+    $Id: natspechi.h,v 1.4 2005/07/21 21:51:14 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -40,13 +40,16 @@ extern "C" {
 #define NATSPEC_ISO639  4
 
 /* Returns name of language by locale */
-const char *get_language_name(const int type, const char *locale);
+const char *natspec_get_language_name(const int type, const char *locale);
 
 /* Returns name of country by locale */
-const char *get_country_name(const char *locale);
+const char *natspec_get_country_name(const char *locale);
 
 /* Returns code of the country */
-int get_country_code(const char *locale);
+int natspec_get_country_code(const char *locale);
+
+/* Returns country ID (for DOS) */
+int natspec_get_country_id(const char *locale);
 
 #ifdef __cplusplus
 }

@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspechi_internal.h,v 1.2 2005/07/16 10:14:23 vitlav Exp $
+    $Id: natspechi_internal.h,v 1.3 2005/07/21 21:51:14 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -33,6 +33,14 @@
 extern "C" {
 #endif
 
+#ifdef HAVE_CONFIG_H
+#	include "../config.h"
+#else
+#	error Something is broken
+#endif
+
+#include "natspechi.h"
+
 #define NATSPEC_TEX     1
 #define NATSPEC_BABEL   2
 #define NATSPEC_GUI     3
@@ -47,11 +55,13 @@ extern "C" {
 
 struct language_entry
 {
+	const char *locale;
 	const char *tex_name;
 	const char *babel_name;
 	const char *gui_name;
 	char RTL;
 	const char *isocode;
+	const short country_id; /* international numbering */
 }
 
 #ifdef __cplusplus
