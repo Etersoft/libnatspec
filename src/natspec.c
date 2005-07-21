@@ -8,7 +8,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.20 2005/07/21 21:52:48 vitlav Exp $
+    $Id: natspec.c,v 1.21 2005/07/21 22:23:08 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -146,7 +146,7 @@ int main(int argc, const char** argv)
 		info = 1;
 	if (version || info)
 	{
-		printf("%s version %s\n",PACKAGE, PACKAGE_VERSION);
+		printf("%s, compiled %s\n",PACKAGE_STRING,__DATE__);
 		if (!info) exit(0);
 	}
 	if (transliterate)
