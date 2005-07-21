@@ -91,3 +91,15 @@
  #endif
  	} else {
  		if (strcmp(charset, "default") == 0)
+
+--- nls_base.c.o	2001-01-21 00:18:33 +0300
++++ libunls/nls_base.c	2005-07-21 16:08:48 +0400
+@@ -113,6 +113,8 @@
+ 	int ret;
+ #endif
+ 
++	if (!strcmp(charset,"utf8"))
++		charset = "iso8859-1";
+ 	nls = find_nls(charset);
+ 	if (nls) {
+ 		nls->inc_use_count();
