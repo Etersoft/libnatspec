@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec_internal.h,v 1.14 2005/06/15 21:11:18 vitlav Exp $
+    $Id: natspec_internal.h,v 1.15 2005/07/21 18:51:53 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -53,7 +53,9 @@
 #endif
 #define _n_isalnum(n) isalnum(n)
 
-/*! Test string for empty */
+/*! Test string for empty
+ * TODO: if we have some spaces/tabs in the string?
+ */
 #define _n_isempty(str) (str == NULL || str[0]=='\0')
 
 /*! simplified bsearch */
