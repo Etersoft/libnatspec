@@ -1,26 +1,26 @@
 Name: libnatspec
 Version: 0.2.2
-Release: alt1
+Release: alt2
 
 Summary: Nation & languages specifity issues library
 
 License: LGPL
-Group: Development/C
-Url: http://www.etersoft.ru/natspec
+Group: System/Libraries
+URL: http://www.etersoft.ru/natspec
 
 Packager: Vitaly Lipatov <lav@altlinux.ru>
 
 Source: http://www.etersoft.ru/download/%name-%version.tar.bz2
 
-# manually removed: gcc-g77 xorg-x11-libs
-# Automatically added by buildreq on Wed Feb 23 2005
-BuildRequires: gcc-c++ hostinfo libpopt-devel libstdc++-devel python-base python-modules-encodings
+# manually removed: gcc-g77 xorg-x11-libs gcc-c++ libstdc++-devel 
+# Automatically added by buildreq on Fri Jul 22 2005
+BuildRequires: doxygen libg2c-devel libpopt-devel python-base python-modules-encodings
 
 %description
 Nation & languages specifity issues library
 This library provides userful functions for
 mount, submount, mkisofs, multimedia players
-See detailed description at %Url
+See detailed description at %URL
 
 %package devel
 Summary: NATSPEC - resolves charset hell in system
@@ -35,7 +35,7 @@ in a various programs depends on locale and messages.
 
 %package devel-examples
 Summary: Examples of %name using
-Group: Development/C
+Group: Development/Documentation
 
 %description devel-examples
 The %name-devel package contains examples of patches
@@ -43,7 +43,7 @@ for developing applications with %name
 
 %package -n python-module-natspec
 Summary: Python binding
-Group: Development/C
+Group: Development/Python
 Requires: %name = %version-%release
 
 %description -n python-module-natspec
@@ -80,7 +80,7 @@ mkdir -p %_lib && mv usr/%_lib/%name.* %_lib
 %doc docs/html
 %_includedir/*
 /%_lib/%name.so
-%_libdir/pkgconfig/*
+%_pkgconfigdir/*
 %_datadir/aclocal/*
 
 %files devel-examples
@@ -92,9 +92,16 @@ mkdir -p %_lib && mv usr/%_lib/%name.* %_lib
 
 
 %changelog
+* Sat Jul 30 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.2-alt2
+- remove gcc-c++ requires
+- fix spec (thanks to php-coder@)
+- fix packages' groups
+- fix bug #7495 (unexpected macros)
+
 * Fri Jul 22 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.2-alt1
 - small fixes only (see NEWS)
 - add html API doc in -devel
+- update buildreq
 
 * Sun Apr 10 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.1-alt1
 - new release, small fixes
