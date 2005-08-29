@@ -9,7 +9,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: filesystem.c,v 1.8 2005/07/21 18:30:26 vitlav Exp $
+    $Id: filesystem.c,v 1.9 2005/08/29 22:55:48 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -89,6 +89,11 @@ const char *natspec_get_filename_encoding(const char *locale)
 	/* Try get from environment variable (it can be comma-separated,
 	 * but we using first part only */
 	const char *buf = getenv("G_FILENAME_ENCODING");
+	/* The special token "@locale" specifies the character set for the current locale. */
+	/* Note: We already do not use G_FILENAME_ENCODING if it contains not locale name */
+	if (!strcmp(buf, "@locale"))
+		buf = NULL;
+
 	if (!_n_isempty(buf) && locale != NULL && locale[0] == '\0')
 	{
 		/* If get from env G_FILENAME_ENCODING non empty string, and use current locale (""),
