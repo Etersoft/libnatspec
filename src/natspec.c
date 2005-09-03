@@ -1,4 +1,3 @@
-//!!!!!!! добавить dlopen !!!!!!!
 /*
     src/natspec.c
 	
@@ -8,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec.c,v 1.21 2005/07/21 22:23:08 vitlav Exp $
+    $Id: natspec.c,v 1.22 2005/09/03 18:59:28 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -48,7 +47,7 @@
 char *charset_type;
 char *locale, *transliterate;
 int version, verbose, fsenc, fcodepage, nls, flag_help, info;
-int flag_locale, utf8, country_id;
+int flag_locale, utf8, country_id, get_system_locale;
 
 #if defined HAVE_LIBPOPT
 poptContext context = NULL;
@@ -62,6 +61,8 @@ struct poptOption options[] =
      "return 0 if locale is utfed", ""},
 	{"country-id", 0, POPT_ARG_NONE,  &country_id, 1,
      "print country ID (international numbering)", ""},
+	{"system-locale", 0, POPT_ARG_NONE,  &get_system_locale, 1,
+     "print system locale", ""},
     {"info", 'i', POPT_ARG_NONE,  &info, 0,
      "print overall encoding/charset info for your system", ""},
     {"transl", 'a', POPT_ARG_STRING,  &transliterate, 1,
@@ -177,8 +178,13 @@ int main(int argc, const char** argv)
 		printf("%s",locale);
 		if (verbose) puts("");
 	}
-	if (verbose)
-		printf("System locale: %s\n", natspec_get_system_locale());
+	if (get_system_locale || verbose)
+	{
+		if (verbose) printf("System locale: ");
+		printf("%s", natspec_get_system_locale());
+		if (verbose) puts("");
+		if (!info) exit(0);
+	}
 	if (fsenc || info)
 	{
 		const char *buf;
