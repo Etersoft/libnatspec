@@ -1,26 +1,26 @@
 Name: libnatspec
 Version: 0.2.2
-Release: alt2
+Release: alt2.1
 
 Summary: Nation & languages specifity issues library
 
 License: LGPL
 Group: System/Libraries
-URL: http://www.etersoft.ru/natspec
+Url: http://www.etersoft.ru/natspec
 
 Packager: Vitaly Lipatov <lav@altlinux.ru>
 
 Source: http://www.etersoft.ru/download/%name-%version.tar.bz2
 
-# manually removed: gcc-g77 xorg-x11-libs gcc-c++ libstdc++-devel 
+# manually removed: gcc-g77 xorg-x11-libs gcc-c++ libstdc++-devel libg2c-devel 
 # Automatically added by buildreq on Fri Jul 22 2005
-BuildRequires: doxygen libg2c-devel libpopt-devel python-base python-modules-encodings
+BuildRequires: doxygen libpopt-devel python-base python-modules-encodings
 
 %description
 Nation & languages specifity issues library
 This library provides userful functions for
 mount, submount, mkisofs, multimedia players
-See detailed description at %URL
+See detailed description at %url
 
 %package devel
 Summary: NATSPEC - resolves charset hell in system
@@ -92,6 +92,9 @@ mkdir -p %_lib && mv usr/%_lib/%name.* %_lib
 
 
 %changelog
+* Wed Aug 03 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.2-alt2.1
+- really fix unexpected macros
+
 * Sat Jul 30 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.2-alt2
 - remove gcc-c++ requires
 - fix spec (thanks to php-coder@)
