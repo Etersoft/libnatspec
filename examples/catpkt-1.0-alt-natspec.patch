@@ -1,0 +1,162 @@
+diff -urN catpkt-1.0.orig/catpkt.c catpkt-1.0/catpkt.c
+--- catpkt-1.0.orig/catpkt.c	1999-04-03 21:14:51 +0300
++++ catpkt-1.0/catpkt.c	2005-09-15 22:29:21 +0300
+@@ -5,6 +5,9 @@
+ #include <unistd.h>
+ #include <sys/types.h>
+ 
++#include <natspec.h>
++#include <locale.h>
++
+ #include "pkt.h"		// packet header structure
+ 
+ FILE	*fname;			// current pkt
+@@ -22,7 +25,7 @@
+ char	mTOPT[]=".0   ",	// ready to print ToPoint information
+ 	mFMPT[]=".0   ";	// ready to print FromPoint information
+ int 	mesc=1;			// message counter
+-int 	flagI=0, flagC=0, flag1=0, flagM=0, flagK=0;	// comand line params
++int 	flagI=0, flag1=0, flagM=0, flagK=0;	// comand line params
+ 
+ 
+ char *Attrset[16] = {		// attributes
+@@ -253,28 +256,32 @@
+ 	printf( "Msg:  %-10d%64s\n", mesc, Attrs );
+   
+ 	// print "From" name & time
+-	if ( !flagC )
+-		dos2koi( FromUser, FromUser );
++//	if ( !flagC )
++//		dos2koi( FromUser, FromUser );
++	char *newFromUser = natspec_convert_with_translit(FromUser, NULL, "CP866");
+ 	printf( "From: %-32s 2:%i/%i%s  %s\n",
+-			FromUser, pm.pmONet, pm.pmONode, mFMPT, DateTime );
++			newFromUser, pm.pmONet, pm.pmONode, mFMPT, DateTime );
+ 
+ 	// print "To" name
+-	if ( !flagC )
+-		dos2koi( ToUser, ToUser );
++//	if ( !flagC )
++//		dos2koi( ToUser, ToUser );
++	char *newToUser = natspec_convert_with_translit(ToUser, NULL, "CP866");
+ 	printf( "To:   %-32s 2:%i/%i%s\n",
+-			ToUser, pm.pmDNet, pm.pmDNode, mTOPT) ;
++			newToUser, pm.pmDNet, pm.pmDNode, mTOPT) ;
+ 
+ 	// printf subject
+-	if ( !flagC )
+-		dos2koi( Subject, Subject );
+-	printf( "Subj: %-74s\n", Subject );
++//	if ( !flagC )
++//		dos2koi( Subject, Subject );
++	char *newSubject = natspec_convert_with_translit(Subject, NULL, "CP866");
++	printf( "Subj: %-74s\n", newSubject );
+ 
+ 	deline( '-' );			// draw delimiter line
+ 
+-	if ( !flagC )
+-		dos2koi( Text, Text );	// decode text, if needed
++//	if ( !flagC )
++//		dos2koi( Text, Text );	// decode text, if needed
++	char *newText = natspec_convert_with_translit(Text, NULL, "CP866");
+ 
+-	xprintf( Text );		// print body of message
++	xprintf( newText );		// print body of message
+ 
+ 	deline( '=' );			// draw delimiter line
+ 
+@@ -307,7 +314,7 @@
+ 		printf( "FTS Packet Viewer, v.%s\n", VERSION );
+ 		printf( "usage: %s [i c 1 k] filename\n", argv[0] );
+ 		printf( "i - print packet header info\n" );
+-		printf( "c - do not recode text from cp866 (alt) to koi8-r\n" );
++//		printf( "c - do not recode text from cp866 (alt) to koi8-r\n" );
+ 		printf( "1 - print only first message\n" );
+ 		printf( "k - show kludges\n" );
+ 		printf( "\n" );
+@@ -319,8 +326,8 @@
+ 	for ( i = 1; i < (argc-1); i++) {
+ 		if ( strcmp( argv[i], "i" ) == 0 )
+ 			flagI = 1;
+-		if ( strcmp( argv[i], "c" ) == 0 )
+-			flagC = 1;
++//		if ( strcmp( argv[i], "c" ) == 0 )
++//			flagC = 1;
+ 		if ( strcmp( argv[i], "1" ) == 0 )
+ 			flag1 = 1;
+ 		if ( strcmp( argv[i], "m" ) == 0 )
+@@ -335,6 +342,9 @@
+ 		return 1;
+ 	}
+   
++	// set locale
++	setlocale(LC_ALL, "");
++	
+ 	// now we have to define the size of pkt
+ 	if ( fseek( fname, 0, SEEK_END ) == -1 ) {
+ 		perror( "can't define pkt size" );
+Файлы catpkt-1.0.orig/catpkt.o и catpkt-1.0/catpkt.o различаются
+diff -urN catpkt-1.0.orig/dos2koi.c catpkt-1.0/dos2koi.c
+--- catpkt-1.0.orig/dos2koi.c	1999-04-03 21:13:36 +0300
++++ catpkt-1.0/dos2koi.c	1970-01-01 03:00:00 +0300
+@@ -1,38 +0,0 @@
+-/* 'bsd-style-copyrights' must be placed here */
+-
+-#include <stdio.h>
+-#include <string.h>
+-
+-#include "pkt.h"
+-
+-
+-static unsigned char cp866[] = { 
+-0000,0001,0002,0003,0004,0005,0006,0007,0010,0011,0012,0013,0014,0015,0016,0017,
+-0020,0021,0022,0023,0024,0025,0026,0027,0030,0031,0032,0033,0034,0035,0036,0037,
+-0040,0041,0042,0043,0044,0045,0046,0047,0050,0051,0052,0053,0054,0055,0056,0057,
+-0060,0061,0062,0063,0064,0065,0066,0067,0070,0071,0072,0073,0074,0075,0076,0077,
+-0100,0101,0102,0103,0104,0105,0106,0107,0110,0111,0112,0113,0114,0115,0116,0117,
+-0120,0121,0122,0123,0124,0125,0126,0127,0130,0131,0132,0133,0134,0135,0136,0137,
+-0140,0141,0142,0143,0144,0145,0146,0147,0150,0151,0152,0153,0154,0155,0156,0157,
+-0160,0161,0162,0163,0164,0165,0166,0167,0170,0171,0172,0173,0174,0175,0176,0177,
+-0341,0342,0367,0347,0344,0345,0366,0372,0351,0352,0353,0354,0355,0356,0357,0360,
+-0362,0363,0364,0365,0346,0350,0343,0376,0373,0375,0377,0371,0370,0374,0340,0361,
+-0301,0302,0327,0307,0304,0305,0326,0332,0311,0312,0313,0314,0315,0316,0317,0320,
+-0260,0261,0262,0266,0246,0265,0270,0271,0244,0272,0273,0274,0275,0276,0247,0277,
+-0341,0342,0367,0347,0344,0345,0366,0372,0351,0352,0353,0354,0355,0356,0357,0360,
+-0362,0363,0364,0365,0346,0350,0343,0376,0373,0375,0377,0371,0370,0374,0340,0361,
+-0322,0323,0324,0325,0306,0310,0303,0336,0333,0335,0337,0331,0330,0334,0300,0321
+-};
+-
+-
+-void dos2koi( unsigned char *Field, unsigned char *Out )
+-{
+-	unsigned char *zzz = cp866;
+-	unsigned char *Source = Field;
+-	unsigned char *Dest = Out;
+-	
+-	while ( *Source )
+-		*Dest++ = zzz[*Source++];
+-	
+-	return;
+-}
+diff -urN catpkt-1.0.orig/Makefile catpkt-1.0/Makefile
+--- catpkt-1.0.orig/Makefile	1999-04-03 21:16:12 +0300
++++ catpkt-1.0/Makefile	2005-09-15 22:04:53 +0300
+@@ -1,15 +1,14 @@
+ FLAGS	= -O3
+-OBJS	= catpkt.o dos2koi.o
++OBJS	= catpkt.o
++LDFLAGS = -lnatspec
+ 
+ all:    $(OBJS)
+-	gcc $(FLAGS) -o catpkt $(OBJS)
++	gcc $(FLAGS) $(LDFLAGS) -o catpkt $(OBJS)
+ 	strip catpkt
+ 	
+ catpkt.o: catpkt.c pkt.h
+ 	gcc $(FLAGS) -c catpkt.c
+ 	
+-dos2koi.o: dos2koi.c pkt.h
+-	gcc $(FLAGS) -c dos2koi.c
+ 
+ dos:	catpkt.c pkt.h
+ 	@echo "After 'make dos' do not forget to run 'make all'!"
