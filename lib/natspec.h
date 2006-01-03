@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspec.h,v 1.21 2005/07/21 18:50:29 vitlav Exp $
+    $Id: natspec.h,v 1.22 2006/01/03 00:54:46 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -32,6 +32,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <iconv.h>
 
 /******************* Locale/charset *************************/
 
@@ -103,6 +105,7 @@ const char * natspec_get_charset_by_locale(const int type,
  * If the conversion was successful,
  * Returns: a newly allocated nul-terminated string,
  * 	which must be freed with free(). Otherwise NULL.
+ * Note: do not forget call setlocale(LC_ALL, "");
  */
  
 /*! Transliterate inconvenient symbols */
@@ -112,6 +115,14 @@ char *natspec_convert_with_translit(const char *in_str,
 /* \return Returns NULL is conversion is failed */
 char *natspec_convert(const char *in_str,
 	const char *tocode, const char *fromcode);
+
+/*! Unstable API: Open iconv table. You can use emtpy charset string for locale encoding */
+iconv_t natspec_iconv_open(const char *tocode, const char *fromcode);
+
+/*! Unstable API: Do conversion like iconv, with translit if needed */
+size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
+	char **outbuf, size_t *outbytesleft, int transliterate);
+
 
 /************* Helper functions *******************/
 

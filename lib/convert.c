@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.14 2005/06/15 21:11:18 vitlav Exp $
+    $Id: convert.c,v 1.15 2006/01/03 00:54:45 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -37,14 +37,18 @@
 
 #define UCS2_SIZE 2
 
+/* FIXME: static ucs2 :( Need associate with iconv_t */
+static iconv_t ucs2;
+
 /*! Open iconv table */
-static iconv_t _natspec_iconv_open(const char *tocode, const char *fromcode)
+iconv_t natspec_iconv_open(const char *tocode, const char *fromcode)
 {
 	if ( _n_isempty(tocode) )
 		tocode = natspec_get_charset();
 	if ( _n_isempty(fromcode) )
 		fromcode = natspec_get_charset();
 
+	ucs2 = iconv_open("UCS2", fromcode);
 	return iconv_open(tocode, fromcode);
 }
 
@@ -66,6 +70,52 @@ static const char *get_7bit (unsigned short ucs2)
 	return entry->s;
 }
 
+/*! convert as iconv but can transliterate */
+size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
+	char **outbuf, size_t *outbytesleft, int transliterate)
+{
+	size_t result;
+	for(;;)
+	{
+		//DEBUG (printf("%s\n",*inbuf));
+		DEBUG (printf("%d (ucs2: %d), %s:%d\n",cd, ucs2, *inbuf, *inbytesleft));
+		result = iconv(cd, inbuf, inbytesleft, outbuf, outbytesleft);
+		if (result != (size_t) -1)
+			return result; /* done converting successfully */
+		if ( errno != EILSEQ )
+			return result;
+		if (!transliterate || !ucs2)
+			return result;
+		else
+		{
+			/* Replace invalid input character. See code of links, sim, iconv, catdoc */
+			unsigned short tmp;
+			size_t lentmp = UCS2_SIZE;
+			char *tmpptr = (char*) &tmp;
+			DEBUG (printf("replace: %d, %s:%d\n",ucs2, *inbuf, *inbytesleft));
+			result = iconv(ucs2, inbuf, inbytesleft, &tmpptr, &lentmp);
+			if ((result == (size_t) -1 && errno == E2BIG) || result != (size_t) -1)
+			{
+				const char *t = get_7bit(tmp);
+				strcpy(*outbuf, t);
+				(*outbuf) += strlen(t);
+				(*outbytesleft) -= UCS2_SIZE;
+				DEBUG (printf("br\n"));
+			}
+			else
+			{	/* if iconv could not help, skip one byte from input string */
+				/* DEBUG (printf("%d '%c'\n",errno, *ansbptr));
+				DEBUG (perror("")); */
+				**outbuf = '_';
+				(*outbuf)++;
+				(*inbytesleft)--;
+				(*inbuf)++;
+				(*outbytesleft)--;
+			}
+		}
+	}
+}
+
 /*! Returns converts input string from encoding to encoding
  * Source: from my old patch for XMMS (2002 year) and sim code
  * TODO: Locale depends transliterating
@@ -81,8 +131,8 @@ char *natspec_convert_with_translit(const char *in_str,
 	char *ansbptr = (char*)in_str;
 	char *ansaptr = ansa;
 
-	frt = _natspec_iconv_open(tocode, fromcode);
-	ucs2 = _natspec_iconv_open("UCS2", fromcode);
+	frt = natspec_iconv_open(tocode, fromcode);
+	ucs2 = natspec_iconv_open("UCS2", fromcode);
 	if (frt == (iconv_t) -1 || ucs2 == (iconv_t) -1)
 	{
 		char buf[100];
@@ -143,7 +193,7 @@ char *natspec_convert(const char *in_str,
 	char *ansaptr = ansa;
 	char *ret = NULL;
 
-	frt = _natspec_iconv_open(tocode, fromcode);
+	frt = natspec_iconv_open(tocode, fromcode);
 	if (frt != (iconv_t) (-1))
 	{
 		size_t result = iconv(frt, &ansbptr, &lenb, &ansaptr, &lena);
