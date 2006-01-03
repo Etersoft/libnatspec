@@ -1,5 +1,6 @@
 lib_LTLIBRARIES 		= libnatspec.la
-libnatspec_la_SOURCES	= get_charset.c get_locale.c enrich_fs_options.c convert.c filesystem.c \
+libnatspec_la_SOURCES	= get_charset.c get_locale.c enrich_fs_options.c convert.c \
+	filesystem.c detect.c \
 	natspec.h data/get_charset_data.h unicode/uni_7b.h
 libnatspec_la_LDFLAGS 	= -Werror -pedantic
 #libdir 					= /lib

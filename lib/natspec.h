@@ -8,7 +8,7 @@
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 	http://etersoft.ru/natspec
 
-    $Id: natspec.h,v 1.22 2006/01/03 00:54:46 vitlav Exp $
+    $Id: natspec.h,v 1.23 2006/01/03 01:26:15 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -109,20 +109,18 @@ const char * natspec_get_charset_by_locale(const int type,
  */
  
 /*! Transliterate inconvenient symbols */
-char *natspec_convert_with_translit(const char *in_str,
-	const char *tocode, const char *fromcode);
-
 /* \return Returns NULL is conversion is failed */
 char *natspec_convert(const char *in_str,
-	const char *tocode, const char *fromcode);
+	const char *tocode, const char *fromcode, int transliterate);
 
-/*! Unstable API: Open iconv table. You can use emtpy charset string for locale encoding */
+/*! Open iconv table. You can use emtpy charset string for locale encoding */
 iconv_t natspec_iconv_open(const char *tocode, const char *fromcode);
 
-/*! Unstable API: Do conversion like iconv, with translit if needed */
+/*! Do conversion like iconv, with translit if needed */
 size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 	char **outbuf, size_t *outbytesleft, int transliterate);
 
+int natspec_iconv_close(iconv_t cd);
 
 /************* Helper functions *******************/
 
@@ -173,6 +171,11 @@ char *natspec_humble_charset( const char *charset);
  */
 const char * natspec_get_charset_by_charset(const int type,
 	const int bytype, const char *charset);
+
+/* Obsoletes: */
+char *natspec_convert_with_translit(const char *in_str,
+	const char *tocode, const char *fromcode);
+
 
 /* Unneeded
 int natspec_check_charset(const int type, const char *charset);

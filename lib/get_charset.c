@@ -10,7 +10,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_charset.c,v 1.22 2005/07/21 18:29:47 vitlav Exp $
+    $Id: get_charset.c,v 1.23 2006/01/03 01:26:15 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -108,7 +108,7 @@ static char *normalize_charset(const char *charset)
 static const char *get_cs_by_type(const int type,
 	const struct charsetrel_entry* entry)
 {
-	DEBUG (assert (entry != NULL));
+	/* FIXME? DEBUG (assert (entry != NULL)); */
 	if (entry)
 		switch(type)
 		{

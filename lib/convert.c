@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.15 2006/01/03 00:54:45 vitlav Exp $
+    $Id: convert.c,v 1.16 2006/01/03 01:26:15 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 #include "natspec_internal.h"
 #include "unicode/uni_7b.h"
@@ -38,6 +39,7 @@
 #define UCS2_SIZE 2
 
 /* FIXME: static ucs2 :( Need associate with iconv_t */
+static iconv_t cur_cd;
 static iconv_t ucs2;
 
 /*! Open iconv table */
@@ -47,10 +49,19 @@ iconv_t natspec_iconv_open(const char *tocode, const char *fromcode)
 		tocode = natspec_get_charset();
 	if ( _n_isempty(fromcode) )
 		fromcode = natspec_get_charset();
-
+	assert(!ucs2);
 	ucs2 = iconv_open("UCS2", fromcode);
-	return iconv_open(tocode, fromcode);
+	return (ucs2 ? cur_cd = iconv_open(tocode, fromcode) : 0);
 }
+
+/*! For future compatibility */
+int natspec_iconv_close(iconv_t cd)
+{
+	assert (cur_cd == cd);
+	iconv_close(ucs2); ucs2 = 0;
+	return iconv_close(cd);
+}
+
 
 static int ucs2_cmp( const void *ucs2, const void *entry )
 {
@@ -70,11 +81,13 @@ static const char *get_7bit (unsigned short ucs2)
 	return entry->s;
 }
 
-/*! convert as iconv but can transliterate */
+/*! convert as iconv but can transliterate
+ * Source: from my old patch for XMMS (2002 year) and sim code */
 size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 	char **outbuf, size_t *outbytesleft, int transliterate)
 {
 	size_t result;
+	assert (cur_cd == cd);
 	for(;;)
 	{
 		//DEBUG (printf("%s\n",*inbuf));
@@ -116,12 +129,8 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 	}
 }
 
-/*! Returns converts input string from encoding to encoding
- * Source: from my old patch for XMMS (2002 year) and sim code
- * TODO: Locale depends transliterating
- */
-char *natspec_convert_with_translit(const char *in_str,
-	const char *tocode, const char *fromcode)
+char *natspec_convert(const char *in_str,
+	const char *tocode, const char *fromcode, int transliterate)
 {
 	size_t result;
 	iconv_t frt, ucs2;
@@ -132,7 +141,6 @@ char *natspec_convert_with_translit(const char *in_str,
 	char *ansaptr = ansa;
 
 	frt = natspec_iconv_open(tocode, fromcode);
-	ucs2 = natspec_iconv_open("UCS2", fromcode);
 	if (frt == (iconv_t) -1 || ucs2 == (iconv_t) -1)
 	{
 		char buf[100];
@@ -141,69 +149,21 @@ char *natspec_convert_with_translit(const char *in_str,
 		perror(buf);
 		return NULL;
 	}
-	for (;;)
-	{
-		DEBUG (printf("%s:%d %d [%c]\n",ansbptr,lenb,lenb,*ansbptr));
-		result = iconv(frt, &ansbptr, &lenb, &ansaptr, &lena);
-		if (result != (size_t) -1)
-			break; /* done converting successfully */
-		if ( errno != EILSEQ )
-			break;
-		/* Replace invalid input character. See code of links, sim, iconv, catdoc */
-		{
-		unsigned short tmp;
-		size_t lentmp = UCS2_SIZE;
-		char *tmpptr = (char*) &tmp;
-		DEBUG (printf("%d, %s:%d\n",ucs2,ansbptr,lenb));
-		result = iconv(ucs2, &ansbptr, &lenb, &tmpptr, &lentmp);
-		if ((result == (size_t) -1 && errno == E2BIG) || result != (size_t) -1)
-		{
-			const char *t = get_7bit(tmp);
-			strcpy(ansaptr, t);
-			ansaptr += strlen(t);
-			lena -= UCS2_SIZE;
-			DEBUG (printf("br\n"));
-		}
-		else
-		{	/* if iconv could not help, skip one byte from input string */
-			DEBUG (printf("%d '%c'\n",errno, *ansbptr));
-			DEBUG (perror(""));
-			*ansaptr++ = '_';
-			lena--;
-			ansbptr++;
-			lenb--;
-		}
-		}
-	}
-	iconv_close(frt);
+	result = natspec_iconv(frt, &ansbptr, &lenb, &ansaptr, &lena, transliterate);
+	natspec_iconv_close(frt);
 	*ansaptr = '\0';
 	ansaptr = strdup(ansa);
 	return ansaptr;
 }
 
 
-char *natspec_convert(const char *in_str,
+
+/*! Returns converts input string from encoding to encoding
+ * TODO: Locale depends transliterating
+ */
+char *natspec_convert_with_translit(const char *in_str,
 	const char *tocode, const char *fromcode)
 {
-	iconv_t frt;
-	size_t lena = strlen(in_str)*6; /* FIXME see E2BIG for errno */
-	size_t lenb = strlen(in_str);
-	char *ansa = (char*)alloca(lena+1);
-	char *ansbptr = (char*)in_str;
-	char *ansaptr = ansa;
-	char *ret = NULL;
-
-	frt = natspec_iconv_open(tocode, fromcode);
-	if (frt != (iconv_t) (-1))
-	{
-		size_t result = iconv(frt, &ansbptr, &lenb, &ansaptr, &lena);
-		if (result != (size_t) -1)
-		{
-			*ansaptr = '\0';
-			ret = strdup(ansa);
-		}
-		iconv_close(frt);
-	}
-	return ret;
+	return natspec_convert(in_str, tocode, fromcode, 0);
 }
 

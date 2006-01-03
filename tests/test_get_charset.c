@@ -3,13 +3,13 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.16 2005/07/21 14:44:16 vitlav Exp $
+ * $Id: test_get_charset.c,v 1.17 2006/01/03 01:26:15 vitlav Exp $
  *
  */
 
 #include <stdlib.h>
 #include <locale.h>
-#include <iconv.h>
+/* #include <iconv.h> */
 #include <stdio.h>
 #include <string.h>
 #include <strings.h>
@@ -56,42 +56,55 @@ void test_for_enrich()
 
 void test_for_iconv()
 {
-  int i;
-  for (i = 0; i < sizeof (charset_names) / sizeof (charset_names[0]); i++)
-    {
-	  const char *cs = charset_names[i].charset_name;
-	  iconv_t it;
-	  it = iconv_open(cs,"UTF-8");
-	  if ( it == (iconv_t)(-1))
-	  {
-	  	printf("TEST_ICONV: does not know '%s'\n",cs);
-		exit (1);
+	int i;
+	for (i = 0; i < sizeof (charset_names) / sizeof (charset_names[0]); i++) {
+		const char *cs = charset_names[i].charset_name;
+		iconv_t it;
+		it = iconv_open(cs,"UTF-8");
+		if ( it == (iconv_t)(-1)) {
+			printf("TEST_ICONV: does not know '%s'\n",cs);
+			exit (1);
 		}
-	else
-		iconv_close(it);
-    }
+		else
+			iconv_close(it);
+	}
 	printf("TEST_ICONV: comformance test is completed: %d charsets\n",i);
 }
 
 void test_for_convert()
 {
-	char *t, *ti; 
+	iconv_t it; size_t li, lo, result;
+	char *t, *ti;
+	char toi[100],to[100], *tob, *toai;
 	ti = "Test –“œ◊≈“À¡";
-	t = natspec_convert_with_translit(ti, "ASCII", NULL);
+	t = natspec_convert(ti, "ASCII", NULL, 1);
 	printf("1 %s -> '%s'\n",ti,t);
-	t = natspec_convert_with_translit(ti, "UTF8", "");
+	t = natspec_convert(ti, "UTF8", "", 1);
 	printf("2 %s -> '%s'\n",ti,t);
-	ti = natspec_convert_with_translit(t, "", "UTF8");
+	ti = natspec_convert(t, "", "UTF8", 1);
 	printf("3 %s -> '%s'\n",t,ti);
 	ti = "œÓ‚ÂÍ‡";
-	t = natspec_convert_with_translit(ti, "", "CP1251");
+	t = natspec_convert(ti, "", "CP1251", 1);
 	printf("%s -> '%s'\n",ti,t);
 	ti = "œÓ‚ÂÍ‡";
-	t = natspec_convert(ti, "", "CP1251");
+	t = natspec_convert(ti, "", "CP1251", 0);
 	printf("%s -> '%s'\n",ti,t);
 	ti = "œÓ‚ÂÍ‡ \xb9";
-	t = natspec_convert(ti, "", "CP1251");
+	t = natspec_convert(ti, "", "CP1251", 0);
 	printf("%s -> '%s'\n",ti,t);
+	
+	it = natspec_iconv_open("aSCII", "");
+	if ( it == (iconv_t)(-1)) {
+		printf("natspec_iconv: some problems\n");
+		exit (1);
+	}
+	strcpy(toi,"Test - “œ◊≈“À¡ £ÃœﬁŒŸ» …«“’€≈À.");
+	li = strlen(toi); lo = 99; tob = to; toai = toi;
+	printf("Before natspec_iconv: it=%d, %s, len=%d\n", it, toi, li);
+	result = natspec_iconv(it, &toai, &li, &tob, &lo, 1);
+	*tob = '\0';
+	printf("Result natspec_iconv: %s (lo=%d), with result=%d\n", to, lo, result);
+	iconv_close(it);
 }
 
 void test_nls()

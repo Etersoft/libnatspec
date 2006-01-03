@@ -1,8 +1,8 @@
 Name: libnatspec
-Version: 0.2.2
+Version: 0.2.3
 Release: alt2.1
 
-Summary: Nation & languages specifity issues library
+Summary: Library for national and language-specific issues
 
 License: LGPL
 Group: System/Libraries
@@ -17,20 +17,22 @@ Source: http://www.etersoft.ru/download/%name-%version.tar.bz2
 BuildRequires: doxygen libpopt-devel python-base python-modules-encodings
 
 %description
-Nation & languages specifity issues library
+Library for national and language-specific issues.
 This library provides userful functions for
-mount, submount, mkisofs, multimedia players
-See detailed description at %url
+mount, submount, mkisofs, multimedia players.
+This library try to help resolve charset hell (encoding problem)
+in a various programs depends on locale and messages.
+See detailed description at %url.
 
 %package devel
-Summary: NATSPEC - resolves charset hell in system
+Summary: Development package of library for national and language-specific issues
 Group: Development/C
 Requires: %name = %version-%release
 
 %description devel
 The %name-devel package contains the necessary include files
 for developing applications with %name
-This library try to resolve charset hell (encoding problem)
+This library try to help resolve charset hell (encoding problem)
 in a various programs depends on locale and messages.
 
 %package devel-examples
@@ -62,7 +64,7 @@ Python binding for natspec
 # FIXME: I don't know how to install in /lib
 # move to /lib
 cd %buildroot
-mkdir -p %_lib && mv usr/%_lib/%name.* %_lib
+mkdir -p %_lib && mv usr/%_lib/%{name}.* %_lib
 
 %post
 %post_ldconfig
@@ -74,7 +76,7 @@ mkdir -p %_lib && mv usr/%_lib/%name.* %_lib
 %doc AUTHORS COPYING README ChangeLog NEWS TODO README-ru.html
 /%_lib/*.so.*
 %_bindir/*
-#/etc/profile.d/%name*
+#/etc/profile.d/*
 
 %files devel
 %doc docs/html
