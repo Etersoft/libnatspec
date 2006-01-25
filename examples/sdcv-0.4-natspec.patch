@@ -1,0 +1,248 @@
+diff -urN /home/lav/RPM/BUILD/sdcv-0.4/configure.ac sdcv-0.4/configure.ac
+--- /home/lav/RPM/BUILD/sdcv-0.4/configure.ac	2005-06-06 01:56:52 +0400
++++ sdcv-0.4/configure.ac	2006-01-25 11:41:06 +0300
+@@ -22,6 +22,7 @@
+ AC_SUBST(GETTEXT_PACKAGE)
+ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
+ AM_ICONV
++AM_PATH_NATSPEC
+ 
+ AC_FUNC_MMAP
+ 
+
+diff -urN /home/lav/RPM/BUILD/sdcv-0.4/src/Makefile.am sdcv-0.4/src/Makefile.am
+--- /home/lav/RPM/BUILD/sdcv-0.4/src/Makefile.am	2005-06-06 01:56:53 +0400
++++ sdcv-0.4/src/Makefile.am	2006-01-26 02:15:43 +0300
+@@ -1,10 +1,11 @@
+ bin_PROGRAMS = sdcv
+-sdcv_SOURCES = sdcv.cpp getopt.c getopt1.c getopt.h\
++# getopt.c getopt1.c getopt.h
++sdcv_SOURCES = sdcv.cpp \
+ 	lib.cpp lib.h \
+ 	distance.cpp distance.h      \
+ 	dictziplib.c dictziplib.h
+ 
+-sdcv_LDADD = @SDCV_LIBS@ @LIBINTL@ @LIBREADLINE@
++sdcv_LDADD = @SDCV_LIBS@ @LIBINTL@ @LIBREADLINE@ @NATSPEC_LIBS@
+ localedir = $(datadir)/locale
+ 
+ INCLUDES = @SDCV_CFLAGS@ -I. -I$(srcdir) -I..
+
+diff -urN /home/lav/RPM/BUILD/sdcv-0.4/src/sdcv.cpp sdcv-0.4/src/sdcv.cpp
+--- /home/lav/RPM/BUILD/sdcv-0.4/src/sdcv.cpp	2005-06-06 01:56:53 +0400
++++ sdcv-0.4/src/sdcv.cpp	2006-01-26 02:15:02 +0300
+@@ -30,6 +30,10 @@
+ #include <sys/stat.h>
+ #include <sys/types.h>
+ 
++#ifdef HAVE_NATSPEC
++#  include <natspec.h>
++#endif
++
+ #ifdef WITH_READLINE
+ #  include <readline/readline.h>
+ #  include <readline/history.h>
+@@ -72,15 +76,20 @@
+ };
+ 
+ char gVersion[] = VERSION;
++bool  utf8_output=false, utf8_input=false;
+ 
+ static gchar *utf8_to_locale_ign_err(const gchar *utf8_str)
+ {
++#ifdef HAVE_NATSPEC
++//  return natspec_convert(utf8_str, NULL, "UTF-8", 1);
++  return natspec_convert_with_translit(utf8_str, NULL, "UTF-8");
++#else
+   gsize bytes_read, bytes_written;
+   GError *err=NULL;
+   gchar *res;
+   
+   const char * charset;
+-  if(g_get_charset(&charset))
++  if(g_get_charset(&charset) || utf8_output)
+     res=g_strdup(utf8_str);
+   else{
+     res=g_convert_with_fallback(utf8_str, -1, charset, "UTF-8", NULL, 
+@@ -92,42 +101,43 @@
+       exit(EXIT_FAILURE);
+     }
+   }
+-
+   return res;
++#endif
+ }
+ 
+ static gchar *locale_to_utf8(const gchar *loc_str)
+ {
++#ifdef HAVE_NATSPEC
++//  return natspec_convert(loc_str, "UTF-8", NULL, 1);
++  return natspec_convert_with_translit(loc_str, "UTF-8", NULL);
++#else
+   if(NULL==loc_str)
+-    return NULL;
++    return "";
+   gsize bytes_read;
+   gsize bytes_written;
+   GError *err=NULL;
+-  gchar *str=NULL;
++  gchar *str;
+   str=g_locale_to_utf8(loc_str, -1, &bytes_read, &bytes_written, &err);
+   if(NULL==str){
+     fprintf(stderr, _("Can not convert %s to utf8.\n"), loc_str);
+     fprintf(stderr, "%s\n", err->message);
+     g_error_free(err);
+-    return str;
++    exit(EXIT_FAILURE);
+   }
+ 
+   return str;
++#endif
+ }
+ 
+-static void print_search_result(FILE *out, const TSearchResult & res, bool utf8_output)
++static void print_search_result(FILE *out, const TSearchResult & res)
+ {
+-  gchar *loc_bookname=NULL, *loc_def=NULL, *loc_exp=NULL;
+-  if(!utf8_output){
+-    loc_bookname=utf8_to_locale_ign_err(res.bookname.c_str());
+-    loc_def=utf8_to_locale_ign_err(res.def.c_str());
+-    loc_exp=utf8_to_locale_ign_err(res.exp.c_str());
+-  }
++  gchar *loc_bookname, *loc_def, *loc_exp;
++  loc_bookname=utf8_to_locale_ign_err(res.bookname.c_str());
++  loc_def=utf8_to_locale_ign_err(res.def.c_str());
++  loc_exp=utf8_to_locale_ign_err(res.exp.c_str());
+   
+   printf("-->%s\n-->%s\n%s\n\n",
+-	 utf8_output ? res.bookname.c_str() : loc_bookname, 
+-	 utf8_output ? res.def.c_str() : loc_def, 
+-	 utf8_output ? res.exp.c_str() : loc_exp);
++	loc_bookname, loc_def, loc_exp);
+  
+   g_free(loc_bookname);
+   g_free(loc_def);
+@@ -234,8 +244,7 @@
+ }
+ 
+ 
+-static void process_phrase(const char *loc_str, Library& lib, bool utf8_input,
+-			   bool utf8_output, bool force=false)
++static void process_phrase(const char *loc_str, Library& lib, bool force=false)
+ {
+   if(NULL==loc_str)
+     return;
+@@ -264,16 +273,7 @@
+   gsize bytes_written;
+   GError *err=NULL;
+   char *str=NULL;
+-  if (!utf8_input)
+-    str=g_locale_to_utf8(loc_str, -1, &bytes_read, &bytes_written, &err);
+-  else
+-    str=g_strdup(loc_str);
+-  if (NULL==str) {
+-    fprintf(stderr, _("Can not convert %s to utf8.\n"), loc_str);
+-    fprintf(stderr, "%s\n", err->message);
+-    g_error_free(err);
+-    return;
+-  }
++  str=g_locale_to_utf8(loc_str, -1, &bytes_read, &bytes_written, &err);
+ 
+   if(str[0]=='\0')
+     return;
+@@ -295,10 +295,8 @@
+   printf("Time of search: %lf\n", double(t)/CLOCKS_PER_SEC);
+ #endif
+   if (!res_list.empty()) {
+-    gchar *loc_str=NULL;
+-    if(!utf8_output)
+-      loc_str=utf8_to_locale_ign_err(str);
+-    printf(_("Found %d items, similar to %s.\n"), res_list.size(), utf8_output ? str : loc_str);
++    gchar *loc_str=utf8_to_locale_ign_err(str);
++    printf(_("Found %d items, similar to %s.\n"), res_list.size(), loc_str);
+ 
+     g_free(loc_str);
+     /* try to be more clever, if there are
+@@ -327,15 +325,16 @@
+       if (force) {
+         PSearchResult ptr;
+ 	for(ptr=res_list.begin(); ptr!=res_list.end(); ++ptr)
+-	  print_search_result(stdout, *ptr, utf8_output);
++	  print_search_result(stdout, *ptr);
+       } else{
+ 	for (size_t i=0; i<res_list.size(); ++i) {
+-	  gchar *loc_bookname=NULL, *loc_def=NULL;
++	  gchar *loc_bookname, *loc_def;
+ 	  loc_bookname=utf8_to_locale_ign_err(res_list[i].bookname.c_str());
+ 	  loc_def=utf8_to_locale_ign_err(res_list[i].def.c_str());
+ 	  printf("%d)%s-->%s\n", i,
+-		 utf8_output ?  res_list[i].bookname.c_str() : loc_bookname,
+-		 utf8_output ? res_list[i].def.c_str() : loc_def);					 
++		 loc_bookname, loc_def);
++	  g_free(loc_bookname);
++	  g_free(loc_def);
+ 	}
+ 	int choise;
+ 	for (;;) {
+@@ -348,7 +347,7 @@
+ 	  }
+ 	  sscanf(str_choise.c_str(), "%d", &choise);
+ 	  if (choise>=0 && choise<int(res_list.size())) { 
+-	    print_search_result(stdout, res_list[choise], utf8_output);
++	    print_search_result(stdout, res_list[choise]);
+ 	    break;
+ 	  } else 
+ 	    printf(_("Invalid choise.\nIt must be from 0 to %d.\n"), res_list.size()-1);	  
+@@ -356,14 +355,12 @@
+       }
+     } else 
+       for(PSearchResult ptr=res_list.begin(); ptr!=res_list.end(); ++ptr)
+-	print_search_result(stdout, *ptr, utf8_output);
++	print_search_result(stdout, *ptr);
+     
+   } else {
+-    gchar *loc_str=NULL;
+-    if (!utf8_output)
+-      loc_str=utf8_to_locale_ign_err(str);
++    gchar *loc_str=utf8_to_locale_ign_err(str);
+     
+-    printf(_("Nothing similar to %s, sorry :(\n"), utf8_output ? str : loc_str);
++    printf(_("Nothing similar to %s, sorry :(\n"), loc_str);
+     g_free(loc_str);
+   }
+   g_free(str);
+@@ -395,8 +392,7 @@
+ #endif	 
+   int optc;
+   bool h = false, v = false, show_list_dicts=false, 
+-    use_book_name=false, non_interactive=false, 
+-    utf8_output=false, utf8_input=false;
++    use_book_name=false, non_interactive=false;
+   GSList *enable_list=NULL;
+   string data_dir;
+   int option_index = 0;
+@@ -515,6 +511,7 @@
+ 
+   
+   Libs lib;
++  printf(_("Loading...\n"));
+   lib.Load(data_dir+G_DIR_SEPARATOR+"dic", NULL, disable_list);
+ #ifdef SHOW_STATS
+   t=clock()-t;
+@@ -530,14 +527,14 @@
+ 
+   if (optind < argc) {
+     for(int i=optind; i<argc; ++i)
+-      process_phrase(argv[i], library, utf8_input, utf8_output, non_interactive);
++      process_phrase(argv[i], library, non_interactive);
+   } else if(!non_interactive) {    
+ #ifdef WITH_READLINE
+     char *phrase=NULL;
+     do {
+       phrase=readline(_("Enter word or phrase: "));
+       if (phrase) {
+-	process_phrase(phrase, library, utf8_input, utf8_output);
++	process_phrase(phrase, library);
+ 	free(phrase);
+       }
+     } while (phrase);
