@@ -1,6 +1,6 @@
 Name: libnatspec
 Version: 0.2.3
-Release: alt2.1
+Release: alt0.1
 
 Summary: Library for national and language-specific issues
 
@@ -73,7 +73,7 @@ mkdir -p %_lib && mv usr/%_lib/%{name}.* %_lib
 %postun_ldconfig
 
 %files
-%doc AUTHORS COPYING README ChangeLog NEWS TODO README-ru.html
+%doc AUTHORS README ChangeLog NEWS TODO README-ru.html
 /%_lib/*.so.*
 %_bindir/*
 #/etc/profile.d/*
@@ -83,7 +83,7 @@ mkdir -p %_lib && mv usr/%_lib/%{name}.* %_lib
 %_includedir/*
 /%_lib/%name.so
 %_pkgconfigdir/*
-%_datadir/aclocal/*
+%_aclocaldir/*
 
 %files devel-examples
 %doc examples profile
@@ -94,6 +94,10 @@ mkdir -p %_lib && mv usr/%_lib/%{name}.* %_lib
 
 
 %changelog
+* Sun Mar 12 2006 Vitaly Lipatov <lav@altlinux.ru> 0.2.3-alt0.1
+- new version (with natspec_iconv)
+- remove COPYING
+
 * Wed Aug 03 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.2-alt2.1
 - really fix unexpected macros
 
