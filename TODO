@@ -1,5 +1,15 @@
+добавить формы множественных чисел для валют   
+      If you want to handle plural forms, use this form of i18n. 
+	  Parameters:
+	  singular   the singular form of the word, for example "file". 
+	    plural   the plural form of the word. Must contain a "%n" that will be replaced by the number n, for example "%n files" 
+		  n   the number 
+		  Returns:
+		  the correct singular or plural for the selected language, depending on n
+		  
 * koi8-r *
 TODO:
+- добавить pkgconfig?
 - использовать в dict
 - нужно увеличить номер библиотеки? ввести тщательное экспортирование символов
 - исправить реализацию natspec_iconv* (переменную ucs2 и cd - пары)

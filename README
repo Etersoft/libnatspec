@@ -17,7 +17,7 @@ It tested in various OS (with GCC installed):
  - Solaris SunOS 5.9 (Sparc/x86) (missed libiconv during linking)
  ? Slackware (x86)
  + Mandrake (x86)
- ? RedHat (x86)
+ + RedHat (x86)
  ? ASPLinux (x86)
  - FreeBSD 4.10 (x86) (missed popt)
 It is not tested in other Unix-like system yet.
@@ -26,7 +26,7 @@ It has been tested with various Linux programs/servers:
  + mount
  + mkisofs / isoinfo
  + smbmount
- + submount
+ + submount (subfs)
  - smbd/nmbd/swat/smbclient
 
 This distribution contains library, header files and binding
