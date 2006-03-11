@@ -1,0 +1,105 @@
+# Adds libnatspec support
+# FIXME: check shortname support
+# Vitaly Lipatov <lav@etersoft.ru>
+# Konstantin A. Lepikhov <lakostis at altlinux.ru> - updated for 2.01.01a03
+--- /home/lav/work/build/BUILD/cdrtools-2.01/mkisofs/Makefile	2004-02-22 18:13:43 +0300
++++ mkisofs/Makefile	2005-02-23 01:42:05 +0300
+@@ -33,7 +33,7 @@
+ CPPOPTS +=	-DDVD_VIDEO
+ CPPOPTS +=	-DSORTING
+ CPPOPTS +=	-I../libhfs_iso/
+-CPPOPTS	+=	-DHAVE_CONFIG_H -DUSE_LIBSCHILY -DUSE_SCG \
++CPPOPTS	+=	-DHAVE_CONFIG_H -DUSE_LIBSCHILY -DUSE_SCG -DHAVE_NATSPEC \
+ 		'-DAPPID_DEFAULT="MKISOFS ISO 9660/HFS FILESYSTEM BUILDER & CDRECORD CD-R/DVD CREATOR (C) 1993 E.YOUNGDALE (C) 1997 J.PEARSON/J.SCHILLING"' \
+ 		-I../cdrecord
+ CFILES=		mkisofs.c tree.c write.c hash.c rock.c udf.c multi.c \
+@@ -51,7 +51,7 @@
+ 		ifo_read.h dvd_file.h dvd_reader.h bswap.h ifo_types.h \
+ 		../cdrecord/defaults.h
+ 
+-LIBS=		-lhfs -lfile -lunls -lrscg -lscg $(LIB_VOLMGT) -ldeflt -lschily $(SCSILIB) $(LIB_SOCKET)
++LIBS=		-lhfs -lfile -lunls -lrscg -lscg $(LIB_VOLMGT) -ldeflt -lschily $(SCSILIB) $(LIB_SOCKET) -lnatspec
+ XMK_FILE=	Makefile.man hybridman.mk
+ 
+ --- /home/lav/work/build/BUILD/cdrtools-2.01/mkisofs/diag/isoinfo.mk	2004-06-01 14:50:59 +0400
++++ mkisofs/diag/isoinfo.mk	2005-02-23 02:10:32 +0300
+@@ -25,11 +25,11 @@
+ CPPOPTS +=	-DUSE_LARGEFILES
+ CPPOPTS +=	-DUSE_SCG
+ CPPOPTS +=	-I..
+-CPPOPTS +=	-I../../cdrecord
++CPPOPTS +=	-I../../cdrecord -DHAVE_NATSPEC
+ CFILES=		isoinfo.c \
+ 		scsi.c scsi_cdr.c cd_misc.c modes.c \
+ 		defaults.c getnum.c
+-LIBS=		-lunls -lrscg -lscg $(LIB_VOLMGT) -ldeflt -lschily $(SCSILIB) $(LIB_SOCKET)
++LIBS=		-lunls -lrscg -lscg $(LIB_VOLMGT) -ldeflt -lschily $(SCSILIB) $(LIB_SOCKET) -lnatspec
+ XMK_FILE=	Makefile.man
+ 
+ ###########################################################################
+
+ ###########################################################################
+
+--- /home/lav/work/build/BUILD/cdrtools-2.01/mkisofs/mkisofs.c	2004-07-18 00:42:14 +0400
++++ mkisofs/mkisofs.c	2005-02-22 03:19:24 +0300
+@@ -43,6 +43,10 @@
+ #include "udf.h"
+ #endif
+ 
++#ifdef HAVE_NATSPEC
++#include <natspec.h>
++#endif
++
+ #ifdef	NEED_O_BINARY
+ #include <io.h>					/* for setmode() prototype */
+ #endif
+@@ -2347,8 +2347,12 @@ parse_input_files:
+ #if	(defined(__CYGWIN32__) || defined(__CYGWIN__) || defined(__DJGPP__)) && !defined(IS_CYGWIN_1)
+ 		in_nls = load_unls("cp437");
+ #else
++#ifdef HAVE_NATSPEC
++		in_nls = load_unls(natspec_get_filename_encoding(""));
++#else
+ 		in_nls = load_unls("iso8859-1");
+ #endif
++#endif
+ 	} else {
+ 		if (strcmp(icharset, "default") == 0)
+ 			in_nls = load_unls_default();
+--- /home/lav/work/build/BUILD/cdrtools-2.01/mkisofs/diag/isoinfo.c	2004-06-01 17:50:58 +0400
++++ mkisofs/diag/isoinfo.c	2005-02-22 03:19:58 +0300
+@@ -57,6 +57,10 @@
+ #include "../scsi.h"
+ #include "../../cdrecord/defaults.h"
+ 
++#ifdef HAVE_NATSPEC
++#include <natspec.h>
++#endif
++
+ #include <unls.h>
+ 
+ #if	defined(__CYGWIN32__) || defined(__EMX__) || defined(__DJGPP__)
+@@ -898,8 +898,12 @@ main(argc, argv)
+ #if	(defined(__CYGWIN32__) || defined(__CYGWIN__) || defined(__DJGPP__)) && !defined(IS_CYGWIN_1)
+ 		unls = load_unls("cp437");
+ #else
++#ifdef HAVE_NATSPEC
++		unls = load_unls(natspec_get_filename_encoding(""));
++#else
+ 		unls = load_unls("iso8859-1");
+ #endif
++#endif
+ 	} else {
+ 		if (strcmp(charset, "default") == 0)
+ 			unls = load_unls_default();
+--- nls_base.c.o	2001-01-21 00:18:33 +0300
++++ libunls/nls_base.c	2005-07-21 16:08:48 +0400
+@@ -105,6 +105,8 @@ load_unls(charset)
+ {
+ 	struct unls_table *unls;
+ 
++	if (!strcmp(charset,"utf8"))
++		charset = "iso8859-1";
+ 	unls = find_unls(charset);
+ 	if (unls) {
+ 		return (unls);
