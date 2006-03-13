@@ -1,12 +1,13 @@
-libnatspec-0.2.3: 05-Jan-2006:
- - new soname?
- - add natspec_iconv, natspec_iconv_open
+libnatspec-0.2.3-beta: 13-Mar-2006:
+ - add natspec_iconv, natspec_iconv_open, natspec-iconv_close
  - add transliterate param to natspec_convert (set to 0 for old behaviour)
  - obsolete natspec_convert_with_translit (use natspec_convert with last param set to 1)
  - add --system-locale in natspec
  - add patch for o3read
  - add patch for catpkt from Igor Zubkov <icesik@mail.ru>
  - check G_FILENAME_ENCODING for @locale value
+ - add patch for dict client, isoinfo from cdrtools
+ 
 libnatspec-0.2.2: 22-Jul-2005:
  - fix use static buffer natspec_get_codepage (change type of returned value to int)
  - review code and some cleanup

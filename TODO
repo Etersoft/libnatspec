@@ -1,3 +1,10 @@
+ - закоммитить примеры патчей
+ - опубликовать, опробовать в других программах, скрипт публикации обновить
+ - new soname?
+ - use versioning!
+
+iconv_open( nl_langinfo(CODESET), "UTF-8" );
+
 добавить формы множественных чисел для валют   
       If you want to handle plural forms, use this form of i18n. 
 	  Parameters:

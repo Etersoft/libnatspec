@@ -65,7 +65,7 @@ Python binding for natspec
 # move to /lib
 cd %buildroot
 mkdir -p %_lib && mv usr/%_lib/%{name}.* %_lib
-
+rm -rf %buildroot/%_docdir/%name-0.3.0
 %post
 %post_ldconfig
 
@@ -94,8 +94,8 @@ mkdir -p %_lib && mv usr/%_lib/%{name}.* %_lib
 
 
 %changelog
-* Sun Mar 12 2006 Vitaly Lipatov <lav@altlinux.ru> 0.2.3-alt0.1
-- new version (with natspec_iconv)
+* Sun Mar 12 2006 Vitaly Lipatov <lav@altlinux.ru> 0.2.3-alt0.1beta
+- new version (with natspec_iconv), see NEWS
 - remove COPYING
 
 * Wed Aug 03 2005 Vitaly Lipatov <lav@altlinux.ru> 0.2.2-alt2.1
