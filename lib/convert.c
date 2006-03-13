@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.16 2006/01/03 01:26:15 vitlav Exp $
+    $Id: convert.c,v 1.17 2006/03/13 06:04:43 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -49,6 +49,7 @@ iconv_t natspec_iconv_open(const char *tocode, const char *fromcode)
 		tocode = natspec_get_charset();
 	if ( _n_isempty(fromcode) )
 		fromcode = natspec_get_charset();
+	/* do not call again before iconv_close */
 	assert(!ucs2);
 	ucs2 = iconv_open("UCS2", fromcode);
 	return (ucs2 ? cur_cd = iconv_open(tocode, fromcode) : 0);
@@ -57,6 +58,7 @@ iconv_t natspec_iconv_open(const char *tocode, const char *fromcode)
 /*! For future compatibility */
 int natspec_iconv_close(iconv_t cd)
 {
+	/* do not call for other handle */
 	assert (cur_cd == cd);
 	iconv_close(ucs2); ucs2 = 0;
 	return iconv_close(cd);
@@ -81,7 +83,7 @@ static const char *get_7bit (unsigned short ucs2)
 	return entry->s;
 }
 
-/*! convert as iconv but can transliterate
+/*! convert as iconv but can transliterate (returns -1 if error)
  * Source: from my old patch for XMMS (2002 year) and sim code */
 size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 	char **outbuf, size_t *outbytesleft, int transliterate)
@@ -102,17 +104,19 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 		else
 		{
 			/* Replace invalid input character. See code of links, sim, iconv, catdoc */
+			int tmpresult;
 			unsigned short tmp;
 			size_t lentmp = UCS2_SIZE;
 			char *tmpptr = (char*) &tmp;
 			DEBUG (printf("replace: %d, %s:%d\n",ucs2, *inbuf, *inbytesleft));
-			result = iconv(ucs2, inbuf, inbytesleft, &tmpptr, &lentmp);
-			if ((result == (size_t) -1 && errno == E2BIG) || result != (size_t) -1)
+			tmpresult = iconv(ucs2, inbuf, inbytesleft, &tmpptr, &lentmp);
+			if ((tmpresult == (size_t) -1 && errno == E2BIG) || tmpresult != (size_t) -1)
 			{
 				const char *t = get_7bit(tmp);
 				strcpy(*outbuf, t);
 				(*outbuf) += strlen(t);
 				(*outbytesleft) -= UCS2_SIZE;
+				result += tmpresult;
 				DEBUG (printf("br\n"));
 			}
 			else
@@ -124,6 +128,7 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 				(*inbytesleft)--;
 				(*inbuf)++;
 				(*outbytesleft)--;
+				result += 1;
 			}
 		}
 	}
