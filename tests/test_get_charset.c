@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.17 2006/01/03 01:26:15 vitlav Exp $
+ * $Id: test_get_charset.c,v 1.18 2006/03/13 06:04:19 vitlav Exp $
  *
  */
 
@@ -104,7 +104,7 @@ void test_for_convert()
 	result = natspec_iconv(it, &toai, &li, &tob, &lo, 1);
 	*tob = '\0';
 	printf("Result natspec_iconv: %s (lo=%d), with result=%d\n", to, lo, result);
-	iconv_close(it);
+	natspec_iconv_close(it);
 }
 
 void test_nls()
@@ -145,6 +145,23 @@ void compliant_test()
 	okn(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, ""), NULL);
 	okn(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, "haha"), NULL);
 	okn(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, NULL), "koi8-r");
+}
+
+char tin[]={0x4,0x22,0,0};
+
+void test_for_natspec_iconv()
+{
+	/*char *inbuf="Привет!";*/
+	char *inbuf=tin;
+	/*int insize=strlen(inbuf);*/
+	size_t insize=2, size;
+	char buf[100]; size_t outsize = 99;
+	char *outbuf = buf;
+	iconv_t tt = natspec_iconv_open("koi8-r","UCS-2BE");
+	assert (tt != (iconv_t)-1);
+	size = natspec_iconv(tt, &inbuf, &insize, &outbuf, &outsize, 0);
+	*outbuf = 0;
+	printf("natspec_iconv: insize=%d outsize=%d size=%d outbuf=%s\n", insize, outsize, size, buf);
 }
 
 int main(void)
@@ -188,6 +205,7 @@ int main(void)
 	cas = setlocale(LC_ALL, "");
 	printf("old locale: %s\n",cas);
 	test_for_convert();
+	test_for_natspec_iconv();
 	compliant_test();
 	return 0;
 }
