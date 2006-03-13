@@ -1,8 +1,8 @@
 dnl Configure paths for NATSPEC
 dnl Vitaly Lipatov <lav@etersoft.ru>
 
-dnl TODO: AM_PATH_NATSPEC([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
 dnl Tests for NATSPEC, and define NATSPEC_CFLAGS and NATSPEC_LIBS
+dnl TODO: AM_PATH_NATSPEC([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
 dnl
 AC_DEFUN([AM_PATH_NATSPEC],
 [dnl 
@@ -11,7 +11,7 @@ dnl
 
   with_natspec_support=no
   AC_ARG_WITH(natspec,
-    [  --with-natspec          NATSPEC support (auto iocharset)],
+    [  --with-natspec          NATSPEC support (auto charset detecting)],
     [ case "$withval" in
       yes|no)
 	    with_natspec_support="$withval"
