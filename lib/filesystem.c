@@ -9,7 +9,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: filesystem.c,v 1.10 2005/08/31 08:23:57 vitlav Exp $
+    $Id: filesystem.c,v 1.11 2006/03/22 06:26:47 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -92,7 +92,7 @@ const char *natspec_get_filename_encoding(const char *locale)
 	/* The special token "@locale" specifies the character set for the current locale. */
 	/* Note: We already do not use G_FILENAME_ENCODING if it contains not locale name */
 	/* TODO: will we use strstr here? */
-	if (!strcmp(buf, "@locale"))
+	if (buf != NULL && !strcmp(buf, "@locale"))
 		buf = NULL;
 
 	if (!_n_isempty(buf) && locale != NULL && locale[0] == '\0')
