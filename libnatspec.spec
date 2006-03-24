@@ -10,7 +10,7 @@ Url: http://www.etersoft.ru/natspec
 
 Packager: Vitaly Lipatov <lav@altlinux.ru>
 
-Source: http://www.etersoft.ru/download/%name-%version.tar.bz2
+Source: http://www.etersoft.ru/download/%name/%name-%version.tar.bz2
 
 # manually removed: gcc-g77 xorg-x11-libs gcc-c++ libstdc++-devel libg2c-devel 
 # Automatically added by buildreq on Fri Jul 22 2005
