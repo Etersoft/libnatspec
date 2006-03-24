@@ -1,6 +1,6 @@
 Name: libnatspec
 Version: 0.2.3
-Release: alt0.1
+Release: alt0.2beta
 
 Summary: Library for national and language-specific issues
 
@@ -15,6 +15,7 @@ Source: http://www.etersoft.ru/download/%name-%version.tar.bz2
 # manually removed: gcc-g77 xorg-x11-libs gcc-c++ libstdc++-devel libg2c-devel 
 # Automatically added by buildreq on Fri Jul 22 2005
 BuildRequires: doxygen libpopt-devel python-base python-modules-encodings
+BuildRequires: rpm-build-compat
 
 %description
 Library for national and language-specific issues.
@@ -65,7 +66,7 @@ Python binding for natspec
 # move to /lib
 cd %buildroot
 mkdir -p %_lib && mv usr/%_lib/%{name}.* %_lib
-rm -rf %buildroot/%_docdir/%name-0.3.0
+#rm -rf %buildroot/%_docdir/%name-%version
 %post
 %post_ldconfig
 
@@ -94,7 +95,10 @@ rm -rf %buildroot/%_docdir/%name-0.3.0
 
 
 %changelog
-* Sun Mar 12 2006 Vitaly Lipatov <lav@altlinux.ru> 0.2.3-alt0.1beta
+* Fri Mar 24 2006 Vitaly Lipatov <lav@altlinux.ru> 0.2.3-alt0.2beta
+- fix bug with null pointer (thanks to rider@)
+
+* Mon Mar 13 2006 Vitaly Lipatov <lav@altlinux.ru> 0.2.3-alt0.1beta
 - new version (with natspec_iconv), see NEWS
 - remove COPYING
 
