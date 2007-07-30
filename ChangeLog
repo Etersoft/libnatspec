@@ -1,3 +1,115 @@
+2006-03-25 00:29  vitlav
+
+	* libnatspec.spec: fix download URL
+
+2006-03-24 23:58  vitlav
+
+	* libnatspec.spec: bugfix beta release
+
+2006-03-22 09:26  vitlav
+
+	* lib/filesystem.c: fix bug with NULL buf pointer
+
+2006-03-13 09:07  vitlav
+
+	* release_helper.sh: add release helper script (new manner)
+
+2006-03-13 09:07  vitlav
+
+	* natspec.m4.in: fix description
+
+2006-03-13 09:06  vitlav
+
+	* configure.ac, NEWS, TODO, libnatspec.spec: fixes before beta
+	  release
+
+2006-03-13 09:04  vitlav
+
+	* lib/convert.c: small fixes in natspec_iconv
+
+2006-03-13 09:04  vitlav
+
+	* tests/test_get_charset.c: add test for natspec_iconv
+
+2006-03-12 01:29  vitlav
+
+	* examples/cdrtools-2.01.01a03-natspec.patch: fix patch for new
+	  version
+
+2006-03-12 01:27  vitlav
+
+	* libnatspec.spec: spec for new version
+
+2006-03-12 01:26  vitlav
+
+	* README, TODO: commit changes
+
+2006-03-12 01:05  vitlav
+
+	* lib/detect.c: add missed detect
+
+2006-01-26 02:26  vitlav
+
+	* examples/sdcv-0.4-natspec.patch: patch for new version
+
+2006-01-03 04:26  vitlav
+
+	* NEWS, TODO, configure.ac, libnatspec.spec, examples/LICENSE,
+	  lib/Makefile.am, lib/convert.c, lib/get_charset.c, lib/natspec.h,
+	  profile/libnatspec.csh, profile/libnatspec.sh,
+	  src/python/README.txt, src/python/natspec_wrap.c,
+	  tests/test_get_charset.c: changes for updated version 0.2.3 with
+	  new natspec_iconv functions, simplified natspec_convert
+
+2006-01-03 03:54  vitlav
+
+	* lib/: convert.c, natspec.h: add natspec_iconv, rename
+	  _natspec_iconv_open to natspec_iconv_open
+
+2005-09-21 01:26  vitlav
+
+	* examples/catpkt-1.0-alt-natspec.patch: patch from Igor Zubkov
+	  <icesik@mail.ru>
+
+2005-09-05 13:59  vitlav
+
+	* libnatspec.spec: remove libg2c build require
+
+2005-09-03 22:59  vitlav
+
+	* src/natspec.c: add --system locale option
+
+2005-08-31 12:23  vitlav
+
+	* lib/filesystem.c: will strstr better then strcmp for check
+	  @locale in G_FILENAME_ENCODING?
+
+2005-08-30 02:55  vitlav
+
+	* lib/filesystem.c: add official support for
+	  G_FILENAME_ENCODING="@locale"
+
+2005-08-29 17:40  vitlav
+
+	* examples/o3read-0.0.4.patch: natspec in o3read
+
+2005-07-30 00:50  vitlav
+
+	* libnatspec.spec: fix spec for some notes
+
+2005-07-22 02:28  vitlav
+
+	* libnatspec.spec: add html API doc
+
+2005-07-22 02:23  vitlav
+
+	* src/natspec.c: add compiled time in natspec output
+
+2005-07-22 02:09  vitlav
+
+	* ChangeLog, INSTALL, NEWS, README, TODO: some notes, changes, news
+	  for 0.2.2
+
 2005-07-22 02:05  vitlav
 
 	* libnatspec.spec: cleanup spec for 0.2.2

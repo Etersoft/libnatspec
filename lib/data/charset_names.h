@@ -1,7 +1,7 @@
 /* This code contains charset to codepage map originally from
    WINE project (file dlls/kernel/locale.c)
 	LGPL license
-   $Id: charset_names.h,v 1.9 2005/06/15 21:11:23 vitlav Exp $
+   $Id: charset_names.h,v 1.10 2007/07/30 09:01:50 vitlav Exp $
  */
 
 /* 
@@ -27,12 +27,12 @@ static const struct charset_entry
     { "CP1125",    "cp1125",      1125 }, /* Codepage 1125 (Ukrainian DOS codepage) */
     { "CP1250",    "cp1250",      1250 }, /* Windows CP1250 (Slavic/Central European Languages) */
     { "CP1251",    "cp1251",      1251 }, /* Windows CP1251 (Bulgarian, Belarusian) */
-    { "CP1252",    "cp1252",      1252 }, /* // */
-    { "CP1253",    "cp1253",      1253 }, /* // */
-    { "CP1254",    "cp1254",      1254 }, /* // */
+    { "CP1252",    "cp1252",      1252 }, /* European Languages */
+    { "CP1253",    "cp1253",      1253 }, /* Greek */
+    { "CP1254",    "cp1254",      1254 }, /* Turkish */
     { "CP1255",    "cp1255",      1255 }, /* Hebrew charsets (ISO-8859-8, CP1255) */
     { "CP1256",    "cp1256",      1256 }, /* // */
-    { "CP1257",    "cp1257",      1257 }, /* // */
+    { "CP1257",    "cp1257",      1257 }, /* Estonian, Latvian, Lithuanian */
     { "CP1258",    "cp1258",      1258 }, /* // */
     { "CP932",     "cp932",        932 }, /* Japanese charsets (Shift-JIS, EUC-JP) */
     { "CP936",     "cp936",        936 }, /* Simplified Chinese charset (CP936, GB2312) */

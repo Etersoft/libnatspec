@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.17 2006/03/13 06:04:43 vitlav Exp $
+    $Id: convert.c,v 1.18 2007/07/30 09:01:49 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -38,29 +38,43 @@
 
 #define UCS2_SIZE 2
 
-/* FIXME: static ucs2 :( Need associate with iconv_t */
-static iconv_t cur_cd;
-static iconv_t ucs2;
+/* FIXME: only hack */
+#define MAX_UCS2 5
+static struct
+{
+	iconv_t it, ucs2;
+} ucs2table[MAX_UCS2];
 
 /*! Open iconv table */
 iconv_t natspec_iconv_open(const char *tocode, const char *fromcode)
 {
+	int i;
 	if ( _n_isempty(tocode) )
 		tocode = natspec_get_charset();
 	if ( _n_isempty(fromcode) )
 		fromcode = natspec_get_charset();
-	/* do not call again before iconv_close */
-	assert(!ucs2);
-	ucs2 = iconv_open("UCS2", fromcode);
-	return (ucs2 ? cur_cd = iconv_open(tocode, fromcode) : 0);
+	for (i=0; i < MAX_UCS2; i++)
+		if (!ucs2table[i].it) {
+			ucs2table[i].it = iconv_open(tocode, fromcode);
+			if (!ucs2table[i].it)
+				break;
+			ucs2table[i].ucs2 = iconv_open("UCS2", fromcode);
+			if (ucs2table[i].ucs2)
+				return ucs2table[i].it;
+			break;
+		}
+	return 0;
 }
 
 /*! For future compatibility */
 int natspec_iconv_close(iconv_t cd)
 {
-	/* do not call for other handle */
-	assert (cur_cd == cd);
-	iconv_close(ucs2); ucs2 = 0;
+	int i;
+	for (i=0; i < MAX_UCS2; i++)
+		if (ucs2table[i].it == cd) {
+			iconv_close(ucs2table[i].ucs2);
+			ucs2table[i].it = 0;
+		}
 	return iconv_close(cd);
 }
 
@@ -88,8 +102,9 @@ static const char *get_7bit (unsigned short ucs2)
 size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 	char **outbuf, size_t *outbytesleft, int transliterate)
 {
+	int i;
+	iconv_t ucs2 = 0;
 	size_t result;
-	assert (cur_cd == cd);
 	for(;;)
 	{
 		//DEBUG (printf("%s\n",*inbuf));
@@ -99,7 +114,14 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 			return result; /* done converting successfully */
 		if ( errno != EILSEQ )
 			return result;
-		if (!transliterate || !ucs2)
+		if (!transliterate)
+			return result;
+		for (i=0; i < MAX_UCS2; i++)
+			if (ucs2table[i].it == cd) {
+				ucs2 = ucs2table[i].ucs2;
+				break;
+			}
+		if (!ucs2)
 			return result;
 		else
 		{

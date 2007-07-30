@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.18 2006/03/13 06:04:19 vitlav Exp $
+ * $Id: test_get_charset.c,v 1.19 2007/07/30 09:01:50 vitlav Exp $
  *
  */
 
@@ -207,5 +207,6 @@ int main(void)
 	test_for_convert();
 	test_for_natspec_iconv();
 	compliant_test();
+	printf("DONE\n");
 	return 0;
 }

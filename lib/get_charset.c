@@ -10,7 +10,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_charset.c,v 1.23 2006/01/03 01:26:15 vitlav Exp $
+    $Id: get_charset.c,v 1.24 2007/07/30 09:01:49 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -103,7 +103,7 @@ static char *normalize_charset(const char *charset)
 }
 */
 
-/*! Returns charset for type OS. It never returns NULL,
+/*! Returns charset by type of OS. It never returns NULL,
  * but current charset if other fails */
 static const char *get_cs_by_type(const int type,
 	const struct charsetrel_entry* entry)
@@ -127,7 +127,7 @@ static const char *get_cs_by_type(const int type,
 
 
 /*! Internal: try search in charset_relation by encoding
-    (Note: troubles with the same enc
+    (Note: troubles with the same enc)
  */
 static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 	const char *charset)
