@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.18 2007/07/30 09:01:49 vitlav Exp $
+    $Id: convert.c,v 1.19 2007/07/31 21:06:33 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -156,6 +156,9 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 	}
 }
 
+/*! Returns converts input string from encoding to encoding
+ * TODO: Locale depends transliterating
+ */
 char *natspec_convert(const char *in_str,
 	const char *tocode, const char *fromcode, int transliterate)
 {
@@ -184,13 +187,10 @@ char *natspec_convert(const char *in_str,
 }
 
 
-
-/*! Returns converts input string from encoding to encoding
- * TODO: Locale depends transliterating
- */
+/* Obsoleted */
 char *natspec_convert_with_translit(const char *in_str,
 	const char *tocode, const char *fromcode)
 {
-	return natspec_convert(in_str, tocode, fromcode, 0);
+	return natspec_convert(in_str, tocode, fromcode, 1);
 }
 
