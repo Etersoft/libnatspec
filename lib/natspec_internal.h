@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: natspec_internal.h,v 1.15 2005/07/21 18:51:53 vitlav Exp $
+    $Id: natspec_internal.h,v 1.16 2007/07/31 21:16:45 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -32,7 +32,7 @@
 #ifdef HAVE_CONFIG_H
 #	include "../config.h"
 #else
-#	error Something is broken
+#	error "config.h is missed"
 #endif
 
 #include "natspec.h"
@@ -40,7 +40,7 @@
 #ifdef HAVE_NL_LANGINFO
 #	define HAVE_LANGINFO_CODESET
 #else
-	#error "Some error"
+#	error "NL_LANGINFO is missed"
 #endif
 
 #ifdef __USE_GNU
