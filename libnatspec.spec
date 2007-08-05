@@ -14,7 +14,8 @@ Source: http://www.etersoft.ru/download/%name/%name-%version.tar.bz2
 
 # manually removed: gcc-g77 xorg-x11-libs gcc-c++ libstdc++-devel libg2c-devel 
 # Automatically added by buildreq on Fri Jul 22 2005
-BuildRequires: doxygen libpopt-devel python-base python-modules-encodings
+# not used now: python-base python-modules-encodings
+BuildRequires: doxygen libpopt-devel 
 BuildRequires: rpm-build-compat
 
 %description
@@ -64,9 +65,9 @@ Python binding for natspec
 
 # FIXME: I don't know how to install in /lib
 # move to /lib
-cd %buildroot
-mkdir -p %_lib && mv usr/%_lib/%{name}.* %_lib
-#rm -rf %buildroot/%_docdir/%name-%version
+mkdir -p %buildroot%_lib
+mv %buildroot%_libdir/%{name}.* %buildroot%_lib
+
 %post
 %post_ldconfig
 
