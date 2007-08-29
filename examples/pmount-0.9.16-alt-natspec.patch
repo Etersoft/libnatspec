@@ -1,0 +1,71 @@
+https://bugzilla.altlinux.org/show_bug.cgi?id=10180
+
+--- ./configure.ac.orig	2007-07-03 02:34:16 +0400
++++ ./configure.ac	2007-08-28 23:47:18 +0400
+@@ -63,7 +63,24 @@
+         BUILD_HAL=""
+ fi
+ AM_CONDITIONAL(PMOUNT_HAL, test -n "$BUILD_HAL")
+-													   
++
++AC_ARG_WITH(natspec,
++    AC_HELP_STRING([--with-natspec], [enable automatic iocharset mount option determination (default: no)]),
++    [],
++    [with_natspec=no]
++)
++
++if test "$with_natspec" != "no"; then
++    AC_CHECK_HEADER(natspec.h,
++	[AC_CHECK_LIB(natspec, natspec_get_filename_encoding,
++		[LIBS="$LIBS -lnatspec"],
++		[AC_MSG_ERROR([Missing natspec library (install libnatspec-devel or similar?)])])],
++	[AC_MSG_ERROR([Missing /usr/include/natspec.h (install libnatspec-devel or similar?)])])
++	AC_DEFINE(BUILD_NATSPEC, 1, [defined if natspec should be used])
++fi
++
++
++
+ GETTEXT_PACKAGE="pmount"
+ AC_SUBST(GETTEXT_PACKAGE)
+ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
+--- ./src/pmount.c.orig	2007-07-03 03:37:24 +0400
++++ ./src/pmount.c	2007-08-28 23:04:25 +0400
+@@ -30,6 +30,12 @@
+ #include "luks.h"
+ #include "config.h"
+ 
++#ifdef BUILD_NATSPEC
++#include "natspec.h"
++#endif
++
++
++
+ /* Using our private realpath function */
+ #include "realpath.h"
+ 
+@@ -727,14 +733,23 @@
+             /* if no charset was set explicitly, autodetect UTF-8 */
+             if( !iocharset ) {
+                 const char* codeset;
+-                codeset = nl_langinfo( CODESET );
+ 
+-                debug( "no iocharset given, current locale encoding is %s\n", codeset );
++#ifdef BUILD_NATSPEC
++		codeset = natspec_get_filename_encoding("");
++		debug( "no iocharset given, current locale encoding is %s\n", codeset );
++		debug("no iocharset given, using libnatspec: %s\n",codeset);
++		iocharset = strdup(codeset);
+ 
++#else
++                codeset = nl_langinfo( CODESET );
++		debug( "no iocharset given, current locale encoding is %s\n", codeset );
+                 if( codeset && !strcmp( codeset, "UTF-8" ) ) {
+                     debug( "locale encoding uses UTF-8, setting iocharset to 'utf8'\n" );
+                     iocharset = "utf8";
+                 }
++#endif
++
++
+             }
+ 
+             /* clean stale locks */
