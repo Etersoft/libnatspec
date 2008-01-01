@@ -1,957 +1,1039 @@
+2007-08-29 23:48  vitlav
+
+	* examples/pmount-0.9.16-alt-natspec.patch (1.1): добавлен патч
+
+2007-08-05 18:04  vitlav
+
+	* libnatspec.spec (1.31): fix lib moving to usr/lib
+
+2007-08-01 01:16  vitlav
+
+	* lib/natspec_internal.h (1.16): fix error messages
+
+2007-08-01 01:06  vitlav
+
+	* lib/convert.c (1.19): move description, set 1 for transliteration
+	  compatibility
+
+2007-07-30 13:01  vitlav
+
+	* ChangeLog (1.9), lib/convert.c (1.18), lib/get_charset.c (1.24),
+	  lib/data/charset_names.h (1.10), tests/test_get_charset.c (1.19):
+	  commit old changes
+
+2007-07-30 13:01  vitlav
+
+	* examples/: unzip-5.52-alt-natspec.patch (1.1), unzip/unix.c
+	  (1.1): add patch for unzip
+
 2006-03-25 00:29  vitlav
 
-	* libnatspec.spec: fix download URL
+	* libnatspec.spec (1.30): fix download URL
 
 2006-03-24 23:58  vitlav
 
-	* libnatspec.spec: bugfix beta release
+	* libnatspec.spec (1.29): bugfix beta release
 
 2006-03-22 09:26  vitlav
 
-	* lib/filesystem.c: fix bug with NULL buf pointer
+	* lib/filesystem.c (1.11): fix bug with NULL buf pointer
 
 2006-03-13 09:07  vitlav
 
-	* release_helper.sh: add release helper script (new manner)
+	* release_helper.sh (1.1): add release helper script (new manner)
 
 2006-03-13 09:07  vitlav
 
-	* natspec.m4.in: fix description
+	* natspec.m4.in (1.2): fix description
 
 2006-03-13 09:06  vitlav
 
-	* configure.ac, NEWS, TODO, libnatspec.spec: fixes before beta
-	  release
+	* configure.ac (1.27), NEWS (1.21), TODO (1.31), libnatspec.spec
+	  (1.28): fixes before beta release
 
 2006-03-13 09:04  vitlav
 
-	* lib/convert.c: small fixes in natspec_iconv
+	* lib/convert.c (1.17): small fixes in natspec_iconv
 
 2006-03-13 09:04  vitlav
 
-	* tests/test_get_charset.c: add test for natspec_iconv
+	* tests/test_get_charset.c (1.18): add test for natspec_iconv
 
 2006-03-12 01:29  vitlav
 
-	* examples/cdrtools-2.01.01a03-natspec.patch: fix patch for new
-	  version
+	* examples/cdrtools-2.01.01a03-natspec.patch (1.1): fix patch for
+	  new version
 
 2006-03-12 01:27  vitlav
 
-	* libnatspec.spec: spec for new version
+	* libnatspec.spec (1.27): spec for new version
 
 2006-03-12 01:26  vitlav
 
-	* README, TODO: commit changes
+	* README (1.17), TODO (1.30): commit changes
 
 2006-03-12 01:05  vitlav
 
-	* lib/detect.c: add missed detect
+	* lib/detect.c (1.1): add missed detect
 
 2006-01-26 02:26  vitlav
 
-	* examples/sdcv-0.4-natspec.patch: patch for new version
+	* examples/sdcv-0.4-natspec.patch (1.1): patch for new version
 
 2006-01-03 04:26  vitlav
 
-	* NEWS, TODO, configure.ac, libnatspec.spec, examples/LICENSE,
-	  lib/Makefile.am, lib/convert.c, lib/get_charset.c, lib/natspec.h,
-	  profile/libnatspec.csh, profile/libnatspec.sh,
-	  src/python/README.txt, src/python/natspec_wrap.c,
-	  tests/test_get_charset.c: changes for updated version 0.2.3 with
-	  new natspec_iconv functions, simplified natspec_convert
+	* NEWS (1.20), TODO (1.29), configure.ac (1.26), libnatspec.spec
+	  (1.26), examples/LICENSE (1.3), lib/Makefile.am (1.16),
+	  lib/convert.c (1.16), lib/get_charset.c (1.23), lib/natspec.h
+	  (1.23), profile/libnatspec.csh (1.6), profile/libnatspec.sh
+	  (1.5), src/python/README.txt (1.3), src/python/natspec_wrap.c
+	  (1.5), tests/test_get_charset.c (1.17): changes for updated
+	  version 0.2.3 with new natspec_iconv functions, simplified
+	  natspec_convert
 
 2006-01-03 03:54  vitlav
 
-	* lib/: convert.c, natspec.h: add natspec_iconv, rename
-	  _natspec_iconv_open to natspec_iconv_open
+	* lib/: convert.c (1.15), natspec.h (1.22): add natspec_iconv,
+	  rename _natspec_iconv_open to natspec_iconv_open
 
 2005-09-21 01:26  vitlav
 
-	* examples/catpkt-1.0-alt-natspec.patch: patch from Igor Zubkov
-	  <icesik@mail.ru>
+	* examples/catpkt-1.0-alt-natspec.patch (1.1): patch from Igor
+	  Zubkov <icesik@mail.ru>
 
 2005-09-05 13:59  vitlav
 
-	* libnatspec.spec: remove libg2c build require
+	* libnatspec.spec (1.25): remove libg2c build require
 
 2005-09-03 22:59  vitlav
 
-	* src/natspec.c: add --system locale option
+	* src/natspec.c (1.22): add --system locale option
 
 2005-08-31 12:23  vitlav
 
-	* lib/filesystem.c: will strstr better then strcmp for check
+	* lib/filesystem.c (1.10): will strstr better then strcmp for check
 	  @locale in G_FILENAME_ENCODING?
 
 2005-08-30 02:55  vitlav
 
-	* lib/filesystem.c: add official support for
+	* lib/filesystem.c (1.9): add official support for
 	  G_FILENAME_ENCODING="@locale"
 
 2005-08-29 17:40  vitlav
 
-	* examples/o3read-0.0.4.patch: natspec in o3read
+	* examples/o3read-0.0.4.patch (1.1): natspec in o3read
 
 2005-07-30 00:50  vitlav
 
-	* libnatspec.spec: fix spec for some notes
+	* libnatspec.spec (1.24): fix spec for some notes
 
 2005-07-22 02:28  vitlav
 
-	* libnatspec.spec: add html API doc
+	* libnatspec.spec (1.23): add html API doc
 
 2005-07-22 02:23  vitlav
 
-	* src/natspec.c: add compiled time in natspec output
+	* src/natspec.c (1.21): add compiled time in natspec output
 
 2005-07-22 02:09  vitlav
 
-	* ChangeLog, INSTALL, NEWS, README, TODO: some notes, changes, news
-	  for 0.2.2
+	* ChangeLog (1.8), INSTALL (1.5), NEWS (1.19), README (1.16), TODO
+	  (1.28): some notes, changes, news for 0.2.2
 
 2005-07-22 02:05  vitlav
 
-	* libnatspec.spec: cleanup spec for 0.2.2
+	* libnatspec.spec (1.22): cleanup spec for 0.2.2
 
 2005-07-22 01:52  vitlav
 
-	* src/: Makefile.am, natspec.c: add country id print
+	* src/: Makefile.am (1.8), natspec.c (1.20): add country id print
 
 2005-07-22 01:51  vitlav
 
-	* libhi/: language.c, natspechi.h, natspechi_internal.h,
-	  data/country.asm: in developing
+	* libhi/: language.c (1.4), natspechi.h (1.4), natspechi_internal.h
+	  (1.3), data/country.asm (1.1): in developing
 
 2005-07-21 22:51  vitlav
 
-	* lib/natspec_internal.h: some fixes
+	* lib/natspec_internal.h (1.15): some fixes
 
 2005-07-21 22:50  vitlav
 
-	* lib/natspec.h: introduce natspec_locale_is_utf8
+	* lib/natspec.h (1.21): introduce natspec_locale_is_utf8
 
 2005-07-21 22:29  vitlav
 
-	* lib/: get_charset.c, filesystem.c: fix bug with empty
-	  G_FILENAME_ENCODING
+	* lib/: get_charset.c (1.22), filesystem.c (1.8): fix bug with
+	  empty G_FILENAME_ENCODING
 
 2005-07-21 22:26  vitlav
 
-	* examples/util-linux-2.12p-natspec.patch: fix spaces
+	* examples/util-linux-2.12p-natspec.patch (1.4): fix spaces
 
 2005-07-21 21:57  vitlav
 
-	* examples/cdrtools-2.01-natspec.patch: support utf8 encoding in
-	  cdrtools
+	* examples/cdrtools-2.01-natspec.patch (1.2): support utf8 encoding
+	  in cdrtools
 
 2005-07-21 18:44  vitlav
 
-	* tests/test_get_charset.c: add some test for compliance
+	* tests/test_get_charset.c (1.16): add some test for compliance
 
 2005-07-16 18:28  vitlav
 
-	* src/natspec.c: add --utf8 option for return utf8 status of
+	* src/natspec.c (1.19): add --utf8 option for return utf8 status of
 	  current locale
 
 2005-07-16 14:14  vitlav
 
-	* libhi/: language.c, natspechi.h, natspechi_internal.h: Adds
-	  country support and some descriptions.
+	* libhi/: language.c (1.3), natspechi.h (1.3), natspechi_internal.h
+	  (1.2): Adds country support and some descriptions.
 
 2005-07-16 14:04  vitlav
 
-	* lib/get_locale.c: disable LANGUAGE using (it is GNU extension
-	  only from messages)
+	* lib/get_locale.c (1.21): disable LANGUAGE using (it is GNU
+	  extension only from messages)
 
 2005-07-12 00:49  vitlav
 
-	* lib/enrich_fs_options.c: remove obsoleted
+	* lib/enrich_fs_options.c (1.25): remove obsoleted
 	  natspec_enrich_fs_options
 
 2005-07-12 00:48  vitlav
 
-	* lib/enrich_fs_options.c: fix descriptions
+	* lib/enrich_fs_options.c (1.24): fix descriptions
 
 2005-07-07 01:58  vitlav
 
-	* src/natspec.c: - print help message to stdout - print error
-	  message to stderr
+	* src/natspec.c (1.18): - print help message to stdout - print
+	  error message to stderr
 
 2005-06-16 01:42  vitlav
 
-	* INSTALL, NEWS, README, TODO, src/natspec.c: small fixes
+	* INSTALL (1.4), NEWS (1.18), README (1.15), TODO (1.27),
+	  src/natspec.c (1.17): small fixes
 
 2005-06-16 01:11  vitlav
 
-	* lib/: convert.c, enrich_fs_options.c, filesystem.c,
-	  get_charset.c, get_locale.c, natspec.h, natspec_internal.h,
-	  data/charset_names.h: code review and cleanup
+	* lib/: convert.c (1.14), enrich_fs_options.c (1.23), filesystem.c
+	  (1.7), get_charset.c (1.21), get_locale.c (1.20), natspec.h
+	  (1.20), natspec_internal.h (1.14), data/charset_names.h (1.9):
+	  code review and cleanup
 
 2005-06-14 00:35  vitlav
 
-	* profile/libnatspec.csh: fixed for csh
+	* profile/libnatspec.csh (1.5): fixed for csh
 
 2005-05-07 11:34  lav
 
-	* ChangeLog, INSTALL, README, TODO, configure.ac,
-	  lib/enrich_fs_options.c, lib/get_locale.c: some description fixes
+	* ChangeLog (1.7), INSTALL (1.3), README (1.14), TODO (1.26),
+	  configure.ac (1.25), lib/enrich_fs_options.c (1.22),
+	  lib/get_locale.c (1.19): some description fixes
 
 2005-04-11 22:48  pv
 
-	* docs/libnatspecDox.cfg.in: Включена настройка для генерирования
-	  документации для языка 'C'
+	* docs/libnatspecDox.cfg.in (1.2): Включена настройка для
+	  генерирования документации для языка 'C'
 
 2005-04-10 23:47  pv
 
-	* Makefile.am, configure.ac, docs/Makefile.am: Подключение
-	  makefile-а для генерирования документации встроено в configure
+	* Makefile.am (1.8), configure.ac (1.24), docs/Makefile.am (1.2):
+	  Подключение makefile-а для генерирования документации встроено в
+	  configure
 
 2005-04-10 23:18  pv
 
-	* lib/: natspec.h, natspec_internal.h: Коментарии переведены в
-	  формат doxygen
+	* lib/: natspec.h (1.19), natspec_internal.h (1.13): Коментарии
+	  переведены в формат doxygen
 
 2005-04-10 22:24  pv
 
-	* INSTALL, configure.ac, docs/Makefile.am,
-	  docs/libnatspecDox.cfg.in, lib/convert.c,
-	  lib/enrich_fs_options.c, lib/filesystem.c, lib/get_charset.c,
-	  lib/get_locale.c: Коментарии переведены в формат doxygen
+	* INSTALL (1.2), configure.ac (1.23), docs/Makefile.am (1.1),
+	  docs/libnatspecDox.cfg.in (1.1), lib/convert.c (1.13),
+	  lib/enrich_fs_options.c (1.21), lib/filesystem.c (1.6),
+	  lib/get_charset.c (1.20), lib/get_locale.c (1.18): Коментарии
+	  переведены в формат doxygen
 
 2005-04-10 02:02  lav
 
-	* ChangeLog, NEWS, README, TODO, configure.ac, libnatspec.spec,
-	  lib/data/README.txt, lib/data/get_charset_data.h: 0.2.1 release
+	* ChangeLog (1.6), NEWS (1.17), README (1.13), TODO (1.25),
+	  configure.ac (1.22), libnatspec.spec (1.21), lib/data/README.txt
+	  (1.3), lib/data/get_charset_data.h (1.11): 0.2.1 release
 
 2005-04-10 01:58  lav
 
-	* src/natspec.c: print current charset (from ln_langinfo and
+	* src/natspec.c (1.16): print current charset (from ln_langinfo and
 	  natspec_get_charset) in info mode
 
 2005-03-17 22:06  lav
 
-	* lib/data/: README.txt, charset_names.h: fix cp1125 order
+	* lib/data/: README.txt (1.2), charset_names.h (1.8): fix cp1125
+	  order
 
 2005-03-17 22:06  lav
 
-	* lib/get_locale.c: fix for use only first locale from string fix
-	  tabs
+	* lib/get_locale.c (1.17): fix for use only first locale from
+	  string fix tabs
 
 2005-03-17 20:37  lav
 
-	* libnatspec.spec: 0.2.0 release
+	* libnatspec.spec (1.20): 0.2.0 release
 
 2005-03-17 20:23  lav
 
-	* ChangeLog, NEWS: for 0.2.0 release
+	* ChangeLog (1.5), NEWS (1.16): for 0.2.0 release
 
 2005-03-17 20:16  lav
 
-	* NEWS, TODO, autogen.sh, configure.ac: for 0.2.0
+	* NEWS (1.15), TODO (1.24), autogen.sh (1.6), configure.ac (1.21):
+	  for 0.2.0
 
 2005-03-17 18:35  lav
 
-	* lib/get_locale.c: add comments
+	* lib/get_locale.c (1.16): add comments
 
 2005-03-17 18:29  lav
 
-	* lib/data/print_data_string.c: fix typo
+	* lib/data/print_data_string.c (1.10): fix typo
 
 2005-03-17 18:28  lav
 
-	* lib/data/get_charset_data.h: set DOS codepage for uk_UA as cp1125
+	* lib/data/get_charset_data.h (1.10): set DOS codepage for uk_UA as
+	  cp1125
 
 2005-03-17 18:28  lav
 
-	* lib/data/charset_names.h: add cp1125, fix descriptions
+	* lib/data/charset_names.h (1.7): add cp1125, fix descriptions
 
 2005-03-17 18:27  lav
 
-	* lib/data/README.txt: for notes about changes
+	* lib/data/README.txt (1.1): for notes about changes
 
 2005-03-10 02:20  pv
 
-	* TODO, configure.ac: Подправил проверку AC_CHECK_FUNCS и
-	  AC_CHECK_HEADERS
+	* TODO (1.23), configure.ac (1.20): Подправил проверку
+	  AC_CHECK_FUNCS и AC_CHECK_HEADERS
 
 2005-03-10 02:12  pv
 
-	* Makefile.am, TODO, configure.ac, src/Makefile.am: 1) Добавил
-	  проверку iconv.h 2) Сделал проверку libpopt не блокирующей 3)
-	  Переделал подключение каталога 'src/python'. Чтобы automake не
-	  выдавал warning
+	* Makefile.am (1.7), TODO (1.22), configure.ac (1.19),
+	  src/Makefile.am (1.7): 1) Добавил проверку iconv.h 2) Сделал
+	  проверку libpopt не блокирующей 3) Переделал подключение каталога
+	  'src/python'. Чтобы automake не выдавал warning
 
 	  комментарии: см. TODO
 
 2005-03-10 00:22  lav
 
-	* profile/: libnatspec.csh, libnatspec.sh: if check $NATSPEC, run
-	  definitely it
+	* profile/: libnatspec.csh (1.4), libnatspec.sh (1.4): if check
+	  $NATSPEC, run definitely it
 
 2005-03-09 23:18  lav
 
-	* lib/: get_charset.c, natspec_internal.h: fix to isalnum using
+	* lib/: get_charset.c (1.19), natspec_internal.h (1.12): fix to
+	  isalnum using
 
 2005-03-09 23:15  lav
 
-	* examples/samba/loadparm.c: samba server
+	* examples/samba/loadparm.c (1.1): samba server
 
 2005-03-09 23:14  lav
 
-	* lib/: convert.c, enrich_fs_options.c, filesystem.c,
-	  get_charset.c, get_locale.c, natspec.h: fix to locale independend
-	  manner fix some typos in descriptions change to use alloca
-	  instead malloc if possible
+	* lib/: convert.c (1.12), enrich_fs_options.c (1.20), filesystem.c
+	  (1.5), get_charset.c (1.18), get_locale.c (1.15), natspec.h
+	  (1.18): fix to locale independend manner fix some typos in
+	  descriptions change to use alloca instead malloc if possible
 
 2005-03-09 23:13  lav
 
-	* tests/test_get_charset.c: update test
+	* tests/test_get_charset.c (1.15): update test
 
 2005-03-09 23:12  lav
 
-	* src/natspec.c: add transliteration option
+	* src/natspec.c (1.15): add transliteration option
 
 2005-03-09 23:12  lav
 
-	* src/python/: README.txt, natspec.i, natspec.py, natspec_wrap.c,
-	  setup.py: update to last versions
+	* src/python/: README.txt (1.2), natspec.i (1.2), natspec.py (1.3),
+	  natspec_wrap.c (1.4), setup.py (1.3): update to last versions
 
 2005-03-09 23:08  lav
 
-	* lib/natspec_internal.h: add wrapper for tolower/upper functions
+	* lib/natspec_internal.h (1.11): add wrapper for tolower/upper
+	  functions
 
 2005-03-09 23:07  lav
 
-	* lib/data/: gen_data.sh, get_charset_data.h, print_data_string.c:
-	  fix to use normalized locale names
+	* lib/data/: gen_data.sh (1.8), get_charset_data.h (1.9),
+	  print_data_string.c (1.9): fix to use normalized locale names
 
 2005-03-09 23:05  lav
 
-	* NEWS: move back news to NEWS
+	* NEWS (1.14): move back news to NEWS
 
 2005-03-09 23:05  lav
 
-	* ChangeLog: fill changelog with script
+	* ChangeLog (1.4): fill changelog with script
 
 2005-03-08 21:40  pv
 
-	* src/python/natspec_wrap.c: bug fix: Неверный пуьть в include
+	* src/python/natspec_wrap.c (1.3): bug fix: Неверный пуьть в
+	  include
 
 2005-03-06 18:33  lav
 
-	* lib/data/: gen_data.sh, get_charset_data.h: fix locale order
-	  according to binary code of symbols (C locale)
+	* lib/data/: gen_data.sh (1.7), get_charset_data.h (1.8): fix
+	  locale order according to binary code of symbols (C locale)
 
 2005-03-06 18:13  lav
 
-	* lib/data/: get_charset_data.h, print_data_string.c: fix ANSI*
-	  encoding for according to iconv
+	* lib/data/: get_charset_data.h (1.7), print_data_string.c (1.8):
+	  fix ANSI* encoding for according to iconv
 
 2005-03-06 18:13  lav
 
-	* lib/: get_charset.c, get_locale.c: rename user_locale to
-	  current_locale fix ANSI* encoding to accordance to iconv
+	* lib/: get_charset.c (1.17), get_locale.c (1.14): rename
+	  user_locale to current_locale fix ANSI* encoding to accordance to
+	  iconv
 
 2005-03-06 18:12  lav
 
-	* lib/convert.c: add diagnostic
+	* lib/convert.c (1.11): add diagnostic
 
 2005-03-06 14:23  lav
 
-	* cvs2cl.pl: from bmp project (for ChangeLog autogeneration)
+	* cvs2cl.pl (1.1): from bmp project (for ChangeLog autogeneration)
 
 2005-03-03 14:05  lav
 
-	* ChangeLog, configure.ac, libnatspec.spec: 0.2pre release
+	* ChangeLog (1.3), configure.ac (1.18), libnatspec.spec (1.19):
+	  0.2pre release
 
 2005-03-03 13:50  lav
 
-	* TODO, src/natspec.c: last fixes
+	* TODO (1.21), src/natspec.c (1.14): last fixes
 
 2005-03-03 00:19  pv
 
-	* TODO: pv: Сделал две задачки
+	* TODO (1.20): pv: Сделал две задачки
 
 2005-03-03 00:18  pv
 
-	* src/Makefile.am: SUBDIRS=python перенесён в корневой Makefile.am
+	* src/Makefile.am (1.6): SUBDIRS=python перенесён в корневой
+	  Makefile.am
 
 2005-03-03 00:17  pv
 
-	* Makefile.am:	В зависимости от ключа HAVE_PYTHON теперь
+	* Makefile.am (1.6):  В зависимости от ключа HAVE_PYTHON теперь
 	  подключается(компилируется) или нет
 	   каталог src/python
 
 2005-03-03 00:16  pv
 
-	* configure.ac: Добавлено генерирование файла natspec.m4
+	* configure.ac (1.17): Добавлено генерирование файла natspec.m4
 
 2005-03-03 00:15  pv
 
-	* natspec.m4: Теперь будет генерироваться автоматическ из
+	* natspec.m4 (1.3): Теперь будет генерироваться автоматическ из
 	  natspec.m4.in
 
 2005-03-03 00:14  pv
 
-	* natspec.m4.in:  Теперь версия будет подставляться автоматически
+	* natspec.m4.in (1.1):	Теперь версия будет подставляться
+	  автоматически
 
 2005-03-02 21:26  lav
 
-	* ChangeLog, NEWS, README, TODO, autogen.sh, configure.ac: fixes
-	  for last version (detail information was lost due power failed)
+	* ChangeLog (1.2), NEWS (1.13), README (1.12), TODO (1.19),
+	  autogen.sh (1.5), configure.ac (1.16): fixes for last version
+	  (detail information was lost due power failed)
 
 2005-03-02 21:26  lav
 
-	* tests/test_get_charset.c: additional tests test for table/charset
-	  equivalent
+	* tests/test_get_charset.c (1.14): additional tests test for
+	  table/charset equivalent
 
 2005-03-02 21:25  lav
 
-	* src/natspec.c: fixes for last version
+	* src/natspec.c (1.13): fixes for last version
 
 2005-03-02 21:25  lav
 
-	* libhi/: language.c, natspechi.h: dummy function
+	* libhi/: language.c (1.2), natspechi.h (1.2): dummy function
 
 2005-03-02 21:24  lav
 
-	* lib/natspec.h: fix comments
+	* lib/natspec.h (1.17): fix comments
 
 2005-03-02 21:24  lav
 
-	* lib/get_locale.c: fix get locale for use with various OS
+	* lib/get_locale.c (1.13): fix get locale for use with various OS
 	  normalize locale string
 
 2005-03-02 21:23  lav
 
-	* lib/get_charset.c: remove setlocale use fix charset gettting
-	  cleanup
+	* lib/get_charset.c (1.16): remove setlocale use fix charset
+	  gettting cleanup
 
 2005-03-02 21:22  lav
 
-	* lib/filesystem.c: fix locale use
+	* lib/filesystem.c (1.4): fix locale use
 
 2005-03-02 21:21  lav
 
-	* lib/: convert.c, enrich_fs_options.c: cleanup
+	* lib/: convert.c (1.10), enrich_fs_options.c (1.19): cleanup
 
 2005-03-02 21:21  lav
 
-	* examples/: samba-3.0.10-natspec.patch, sdcv-0.1-natspec.patch,
-	  submount-0.9-natspec.patch, sdcv/main.cpp, submount/submountd.c:
-	  fixes for last version
+	* examples/: samba-3.0.10-natspec.patch (1.2),
+	  sdcv-0.1-natspec.patch (1.3), submount-0.9-natspec.patch (1.2),
+	  sdcv/main.cpp (1.3), submount/submountd.c (1.3): fixes for last
+	  version
 
 2005-03-01 14:17  lav
 
-	* NEWS, TODO, configure.ac, libnatspec.spec,
-	  profile/libnatspec.csh, profile/libnatspec.sh: commit all changes
+	* NEWS (1.12), TODO (1.18), configure.ac (1.15), libnatspec.spec
+	  (1.18), profile/libnatspec.csh (1.3), profile/libnatspec.sh
+	  (1.3): commit all changes
 
 2005-03-01 14:17  lav
 
-	* libhi/: Makefile.am, language.c, natspechi.h,
-	  natspechi_internal.h, data/Makefile, data/gen_data.sh,
-	  data/language_data.h, data/languages: add hi-level functions
+	* libhi/: Makefile.am (1.1), language.c (1.1), natspechi.h (1.1),
+	  natspechi_internal.h (1.1), data/Makefile (1.1), data/gen_data.sh
+	  (1.1), data/language_data.h (1.1), data/languages (1.1): add
+	  hi-level functions
 
 2005-03-01 01:44  lav
 
-	* configure.ac: change # to dnl build python only when
+	* configure.ac (1.14): change # to dnl build python only when
 	  --with-python
 
 2005-02-28 21:24  lav
 
-	* README: fix description
+	* README (1.11): fix description
 
 2005-02-28 19:49  lav
 
-	* lib/enrich_fs_options.c: add jfs support
+	* lib/enrich_fs_options.c (1.18): add jfs support
 
 2005-02-28 11:59  lav
 
-	* TODO: update todo
+	* TODO (1.17): update todo
 
 2005-02-27 22:56  lav
 
-	* libnatspec.spec: add profile in examples
+	* libnatspec.spec (1.17): add profile in examples
 
 2005-02-27 22:31  lav
 
-	* NEWS, libnatspec.spec: prepare for release 0.1.0
+	* NEWS (1.11), libnatspec.spec (1.16): prepare for release 0.1.0
 
 2005-02-27 22:27  lav
 
-	* README-ru.html: update for 0.1.0
+	* README-ru.html (1.2): update for 0.1.0
 
 2005-02-27 22:26  lav
 
-	* README, TODO, autogen.sh, configure.ac, libnatspec.spec,
-	  src/natspec.c, tests/test_get_charset.c: prepare for release
-	  0.1.0
+	* README (1.10), TODO (1.16), autogen.sh (1.4), configure.ac
+	  (1.13), libnatspec.spec (1.15), src/natspec.c (1.12),
+	  tests/test_get_charset.c (1.13): prepare for release 0.1.0
 
 2005-02-27 22:06  lav
 
-	* lib/: enrich_fs_options.c, get_locale.c: some comments
+	* lib/: enrich_fs_options.c (1.17), get_locale.c (1.12): some
+	  comments
 
 2005-02-27 22:06  lav
 
-	* lib/get_charset.c: fix order of locale use
+	* lib/get_charset.c (1.15): fix order of locale use
 
 2005-02-27 22:04  lav
 
-	* lib/filesystem.c: fix ask filesystem encoding
+	* lib/filesystem.c (1.3): fix ask filesystem encoding
 
 2005-02-27 17:47  lav
 
-	* natspec.m4: add check version
+	* natspec.m4 (1.2): add check version
 
 2005-02-27 14:32  lav
 
-	* libnatspec.spec: add changelog
+	* libnatspec.spec (1.14): add changelog
 
 2005-02-27 14:29  lav
 
-	* libnatspec.spec: disable python module
+	* libnatspec.spec (1.13): disable python module
 
 2005-02-27 14:24  lav
 
-	* Makefile.am, NEWS, libnatspec.spec: release 0.0.9
+	* Makefile.am (1.5), NEWS (1.10), libnatspec.spec (1.12): release
+	  0.0.9
 
 2005-02-26 19:22  lav
 
-	* examples/: submount-0.9-natspec.patch,
-	  submountd-0.9-natspec.patch: rename file
+	* examples/: submount-0.9-natspec.patch (1.1),
+	  submountd-0.9-natspec.patch (1.3): rename file
 
 2005-02-26 19:20  lav
 
-	* examples/samba-3.0.10-natspec.patch: add patch for samba
+	* examples/samba-3.0.10-natspec.patch (1.1): add patch for samba
 
 2005-02-26 19:20  lav
 
-	* examples/samba/: Makefile.in, smbmount.c: move params to correct
-	  place
+	* examples/samba/: Makefile.in (1.2), smbmount.c (1.3): move params
+	  to correct place
 
 2005-02-26 18:24  lav
 
-	* NEWS, README, TODO, configure.ac, libnatspec.spec,
-	  examples/samba/smbmount.c: updates for new version
+	* NEWS (1.9), README (1.9), TODO (1.15), configure.ac (1.12),
+	  libnatspec.spec (1.11), examples/samba/smbmount.c (1.2): updates
+	  for new version
 
 2005-02-26 18:23  lav
 
-	* tests/test_get_charset.c: fix test for new convert function
+	* tests/test_get_charset.c (1.12): fix test for new convert
+	  function
 
 2005-02-26 18:23  lav
 
-	* lib/: convert.c, natspec.h: make convert_with_translit and simple
-	  convert
+	* lib/: convert.c (1.9), natspec.h (1.16): make
+	  convert_with_translit and simple convert
 
 2005-02-26 17:53  lav
 
-	* examples/samba/Makefile.in: add samba
+	* examples/samba/Makefile.in (1.1): add samba
 
 2005-02-26 17:53  lav
 
-	* examples/: util-linux-2.12p-natspec.patch, mount/mount.c,
-	  sdcv/main.cpp, submount/configure.ac, submount/submountd.c:
-	  updates for last version
+	* examples/: util-linux-2.12p-natspec.patch (1.3), mount/mount.c
+	  (1.3), sdcv/main.cpp (1.2), submount/configure.ac (1.2),
+	  submount/submountd.c (1.2): updates for last version
 
 2005-02-26 17:49  lav
 
-	* src/python/: natspec.py, natspec_wrap.c: update for last
-	  functions
+	* src/python/: natspec.py (1.2), natspec_wrap.c (1.2): update for
+	  last functions
 
 2005-02-26 17:47  lav
 
-	* natspec.m4: m4 for using AM_PATH_NATSPEC in configure.am
+	* natspec.m4 (1.1): m4 for using AM_PATH_NATSPEC in configure.am
 
 2005-02-26 14:19  lav
 
-	* lib/convert.c: fix length of returned value
+	* lib/convert.c (1.8): fix length of returned value
 
 2005-02-26 14:13  lav
 
-	* examples/sdcv-0.1-natspec.patch: перед релизом
+	* examples/sdcv-0.1-natspec.patch (1.2): перед релизом
 
 2005-02-26 13:07  lav
 
-	* NEWS, TODO, libnatspec.spec, examples/LICENSE: pre 0.0.5
+	* NEWS (1.8), TODO (1.14), libnatspec.spec (1.10), examples/LICENSE
+	  (1.2): pre 0.0.5
 
 2005-02-26 13:06  lav
 
-	* lib/: convert.c, enrich_fs_options.c: add obsoletes functions
-	  anme for compatibility
+	* lib/: convert.c (1.7), enrich_fs_options.c (1.16): add obsoletes
+	  functions anme for compatibility
 
 2005-02-26 04:06  lav
 
-	* tests/test_get_charset.c: add tests for convert
+	* tests/test_get_charset.c (1.11): add tests for convert
 
 2005-02-26 04:04  lav
 
-	* lib/: Makefile.am, natspec.h, unicode/7bitrepl.lnx,
-	  unicode/Makefile, unicode/gen-7b, unicode/tr7bit.awk,
-	  unicode/uni_7b.h: add unicode2latin for transliteration from
-	  links
+	* lib/: Makefile.am (1.15), natspec.h (1.15), unicode/7bitrepl.lnx
+	  (1.1), unicode/Makefile (1.1), unicode/gen-7b (1.1),
+	  unicode/tr7bit.awk (1.1), unicode/uni_7b.h (1.1): add
+	  unicode2latin for transliteration from links
 
 2005-02-26 04:03  lav
 
-	* lib/convert.c: rename convert to fuzzy_convert and add
+	* lib/convert.c (1.6): rename convert to fuzzy_convert and add
 	  transliteration is conv is fails
 
 2005-02-26 00:35  lav
 
-	* lib/convert.c: add assumed encoding for empty or NULL code
+	* lib/convert.c (1.5): add assumed encoding for empty or NULL code
 
 2005-02-25 13:22  lav
 
-	* examples/: submountd-0.9-natspec.patch,
-	  util-linux-2.12p-natspec.patch, mount/configure, mount/mount.c:
-	  fix patches
+	* examples/: submountd-0.9-natspec.patch (1.2),
+	  util-linux-2.12p-natspec.patch (1.2), mount/configure (1.2),
+	  mount/mount.c (1.2): fix patches
 
 2005-02-25 13:22  lav
 
-	* examples/samba/: configure.in, mount.cifs.c, smbmount.c: add
-	  samba
+	* examples/samba/: configure.in (1.1), mount.cifs.c (1.1),
+	  smbmount.c (1.1): add samba
 
 2005-02-25 13:20  lav
 
-	* src/natspec.c: remove nls output
+	* src/natspec.c (1.11): remove nls output
 
 2005-02-25 13:20  lav
 
-	* tests/test_get_charset.c: fix for new get_enrich_fs_options
+	* tests/test_get_charset.c (1.10): fix for new
+	  get_enrich_fs_options
 
 2005-02-25 13:19  lav
 
-	* lib/: enrich_fs_options.c, natspec.h: rename enrich_fs_options to
-	  get_enriched_fs_options add cifs support
+	* lib/: enrich_fs_options.c (1.15), natspec.h (1.14): rename
+	  enrich_fs_options to get_enriched_fs_options add cifs support
 
 2005-02-24 22:18  lav
 
-	* lib/: convert.c, enrich_fs_options.c: fix some zero char use
+	* lib/: convert.c (1.4), enrich_fs_options.c (1.14): fix some zero
+	  char use
 
 2005-02-24 19:15  lav
 
-	* lib/enrich_fs_options.c: fix bug in zero symbol
+	* lib/enrich_fs_options.c (1.13): fix bug in zero symbol
 
 2005-02-24 19:06  lav
 
-	* configure.ac, libnatspec.spec, lib/enrich_fs_options.c,
-	  lib/get_charset.c, lib/get_locale.c, lib/natspec_internal.h: fix
-	  for new version 0.0.5 some portability fixes remove check pointer
+	* configure.ac (1.11), libnatspec.spec (1.9),
+	  lib/enrich_fs_options.c (1.12), lib/get_charset.c (1.14),
+	  lib/get_locale.c (1.11), lib/natspec_internal.h (1.10): fix for
+	  new version 0.0.5 some portability fixes remove check pointer
 	  before free fix external name for internal function
 
 2005-02-23 20:06  lav
 
-	* NEWS, README, README-ru.html, libnatspec.spec: for 0.0.4 version
+	* NEWS (1.7), README (1.8), README-ru.html (1.1), libnatspec.spec
+	  (1.8): for 0.0.4 version
 
 2005-02-23 18:03  lav
 
-	* NEWS, README, configure.ac, libnatspec.spec, lib/Makefile.am,
-	  lib/convert.c, lib/enrich_fs_options.c, lib/filesystem.c,
-	  lib/get_charset.c, lib/get_locale.c, lib/natspec.h,
-	  lib/natspec_internal.h, lib/data/charset_names.h,
-	  lib/data/gen_data.sh, lib/data/get_charset_data.h,
-	  lib/data/print_data_string.c, src/Makefile.am, src/natspec.c,
-	  tests/Makefile.am, tests/test_get_charset.c: add cvs Id, use
-	  strdup if possible, some fixes
+	* NEWS (1.6), README (1.7), configure.ac (1.10), libnatspec.spec
+	  (1.7), lib/Makefile.am (1.14), lib/convert.c (1.3),
+	  lib/enrich_fs_options.c (1.11), lib/filesystem.c (1.2),
+	  lib/get_charset.c (1.13), lib/get_locale.c (1.10), lib/natspec.h
+	  (1.13), lib/natspec_internal.h (1.9), lib/data/charset_names.h
+	  (1.6), lib/data/gen_data.sh (1.6), lib/data/get_charset_data.h
+	  (1.6), lib/data/print_data_string.c (1.7), src/Makefile.am (1.5),
+	  src/natspec.c (1.10), tests/Makefile.am (1.5),
+	  tests/test_get_charset.c (1.9): add cvs Id, use strdup if
+	  possible, some fixes
 
 2005-02-23 16:39  lav
 
-	* lib/: natspec.h, natspec_internal.h: add description
+	* lib/: natspec.h (1.12), natspec_internal.h (1.8): add description
 
 2005-02-23 15:40  lav
 
-	* libnatspec.spec, src/Makefile.am, src/python/Makefile.am: for
-	  python install
+	* libnatspec.spec (1.6), src/Makefile.am (1.4),
+	  src/python/Makefile.am (1.2): for python install
 
 2005-02-23 15:31  lav
 
-	* Makefile.am, README, TODO, configure.ac, acinclude.m4: add python
-	  detect
+	* Makefile.am (1.4), README (1.6), TODO (1.13), configure.ac (1.9),
+	  acinclude.m4 (1.1): add python detect
 
 2005-02-23 15:31  lav
 
-	* src/python/test_natspec.py: add test
+	* src/python/test_natspec.py (1.1): add test
 
 2005-02-23 15:29  lav
 
-	* src/python/: Makefile.am, README.txt, natspec.i, natspec.py,
-	  natspec_wrap.c, setup.py, wrapper.c: work wrapper
+	* src/python/: Makefile.am (1.1), README.txt (1.1), natspec.i
+	  (1.1), natspec.py (1.1), natspec_wrap.c (1.1), setup.py (1.2),
+	  wrapper.c (1.2): work wrapper
 
 2005-02-23 03:45  lav
 
-	* libnatspec.spec: spec for 0.0.3 version
+	* libnatspec.spec (1.5): spec for 0.0.3 version
 
 2005-02-23 03:42  lav
 
-	* lib/Makefile.am: i want to sleep!!!
+	* lib/Makefile.am (1.13): i want to sleep!!!
 
 2005-02-23 03:40  lav
 
-	* lib/Makefile.am: fix lib vers
+	* lib/Makefile.am (1.12): fix lib vers
 
 2005-02-23 03:35  lav
 
-	* NEWS, README, TODO, configure.ac, lib/Makefile.am: some moves
+	* NEWS (1.5), README (1.5), TODO (1.12), configure.ac (1.8),
+	  lib/Makefile.am (1.11): some moves
 
 2005-02-23 02:55  lav
 
-	* examples/: LICENSE, cdrtools-2.01-natspec.patch,
-	  sdcv-0.1-natspec.patch, submountd-0.9-natspec.patch,
-	  util-linux-2.12p-natspec.patch, mount/Makefile, mount/configure,
-	  mount/mount.c, sdcv/Makefile, sdcv/main.cpp,
-	  submount/Makefile.am, submount/configure.ac,
-	  submount/submountd.c: add example patches for various program
+	* examples/: LICENSE (1.1), cdrtools-2.01-natspec.patch (1.1),
+	  sdcv-0.1-natspec.patch (1.1), submountd-0.9-natspec.patch (1.1),
+	  util-linux-2.12p-natspec.patch (1.1), mount/Makefile (1.1),
+	  mount/configure (1.1), mount/mount.c (1.1), sdcv/Makefile (1.1),
+	  sdcv/main.cpp (1.1), submount/Makefile.am (1.1),
+	  submount/configure.ac (1.1), submount/submountd.c (1.1): add
+	  example patches for various program
 
 2005-02-23 01:11  lav
 
-	* src/python/: setup.py, wrapper.c: add python wrapper skel
+	* src/python/: setup.py (1.1), wrapper.c (1.1): add python wrapper
+	  skel
 
 2005-02-22 22:22  lav
 
-	* lib/data/: gen_data.out.txt, get_charset_data.h,
-	  print_data_string.c: fix bug fix unix charset (get it from glibc
-	  function as temp. hack)
+	* lib/data/: gen_data.out.txt (1.2), get_charset_data.h (1.5),
+	  print_data_string.c (1.6): fix bug fix unix charset (get it from
+	  glibc function as temp. hack)
 
 2005-02-22 15:15  lav
 
-	* tests/test_get_charset.c: test for prev options
+	* tests/test_get_charset.c (1.8): test for prev options
 
 2005-02-22 15:14  lav
 
-	* lib/enrich_fs_options.c: fix bug with prev options detected
+	* lib/enrich_fs_options.c (1.10): fix bug with prev options
+	  detected
 
 2005-02-22 05:36  lav
 
-	* README, libnatspec.pc.in, src/natspec.c,
-	  tests/test_get_charset.c: update for new version
+	* README (1.4), libnatspec.pc.in (1.3), src/natspec.c (1.9),
+	  tests/test_get_charset.c (1.7): update for new version
 
 2005-02-22 05:35  lav
 
-	* lib/get_locale.c: fix comments
+	* lib/get_locale.c (1.9): fix comments
 
 2005-02-22 05:33  lav
 
-	* lib/: Makefile.am, convert.c, enrich_fs_options.c, filesystem.c,
-	  get_charset.c, get_locale.c, natspec.h, natspec_internal.h: -
-	  split filesystem.c - rewrite funcs for 0.0.2 version
+	* lib/: Makefile.am (1.10), convert.c (1.2), enrich_fs_options.c
+	  (1.9), filesystem.c (1.1), get_charset.c (1.12), get_locale.c
+	  (1.8), natspec.h (1.11), natspec_internal.h (1.7): - split
+	  filesystem.c - rewrite funcs for 0.0.2 version
 
 2005-02-22 05:31  lav
 
-	* lib/data/: charset_names.h, gen_data.out.txt, gen_data.sh,
-	  get_charset_data.h, print_data_string.c: - rewrite for nice tabs
-	  - add log error - fix problem with UTF-8
+	* lib/data/: charset_names.h (1.5), gen_data.out.txt (1.1),
+	  gen_data.sh (1.5), get_charset_data.h (1.4), print_data_string.c
+	  (1.5): - rewrite for nice tabs - add log error - fix problem with
+	  UTF-8
 
 2005-02-22 01:05  pv
 
-	* configure.ac:  Добавлен ключ --with-debug (временно
+	* configure.ac (1.7):  Добавлен ключ --with-debug (временно
 	  закоментирован)
 
 2005-02-21 22:48  lav
 
-	* libnatspec.spec: 0.0.2 ver
+	* libnatspec.spec (1.4): 0.0.2 ver
 
 2005-02-21 22:26  lav
 
-	* libnatspec.spec: for new ver
+	* libnatspec.spec (1.3): for new ver
 
 2005-02-21 22:25  lav
 
-	* NEWS, configure.ac: new version (pre)
+	* NEWS (1.4), configure.ac (1.6): new version (pre)
 
 2005-02-21 22:22  lav
 
-	* tests/test_get_charset.c: some fixes
+	* tests/test_get_charset.c (1.6): some fixes
 
 2005-02-21 22:22  lav
 
-	* lib/: Makefile.am, get_charset.c, get_locale.c, natspec.h,
-	  natspec_internal.h: add get charset function, some fixes
+	* lib/: Makefile.am (1.9), get_charset.c (1.11), get_locale.c
+	  (1.7), natspec.h (1.10), natspec_internal.h (1.6): add get
+	  charset function, some fixes
 
 2005-02-21 22:18  lav
 
-	* lib/: get_locale.c, natspec.h: add get current charset
+	* lib/: get_locale.c (1.6), natspec.h (1.9): add get current
+	  charset
 
 2005-02-21 22:17  lav
 
-	* lib/: convert.c, natspec.h: add charset conversion function
-	  (adopted my function from XMMS 2002)
+	* lib/: convert.c (1.1), natspec.h (1.8): add charset conversion
+	  function (adopted my function from XMMS 2002)
 
 2005-02-21 01:02  lav
 
-	* lib/: enrich_fs_options.c, get_charset.c: add some checks, small
-	  fixes
+	* lib/: enrich_fs_options.c (1.8), get_charset.c (1.10): add some
+	  checks, small fixes
 
 2005-02-20 17:08  lav
 
-	* autogen.sh: do configure is Makefile is exists
+	* autogen.sh (1.3): do configure is Makefile is exists
 
 2005-02-20 16:54  lav
 
-	* lib/enrich_fs_options.c: add smb/smbfs support
+	* lib/enrich_fs_options.c (1.7): add smb/smbfs support
 
 2005-02-20 16:40  lav
 
-	* TODO, autogen.sh, configure.ac, libnatspec.pc.in,
-	  lib/Makefile.am, lib/enrich_fs_options.c, lib/get_charset.c,
-	  lib/get_locale.c, lib/natspec.h, lib/natspec_internal.h,
-	  lib/data/charset_names.h, profile/libnatspec.csh,
-	  profile/libnatspec.sh, src/Makefile.am, src/natspec.c,
-	  tests/test_get_charset.c: Fixes for pedantic GCC, last update
-	  before release
+	* TODO (1.11), autogen.sh (1.2), configure.ac (1.5),
+	  libnatspec.pc.in (1.2), lib/Makefile.am (1.8),
+	  lib/enrich_fs_options.c (1.6), lib/get_charset.c (1.9),
+	  lib/get_locale.c (1.5), lib/natspec.h (1.7),
+	  lib/natspec_internal.h (1.5), lib/data/charset_names.h (1.4),
+	  profile/libnatspec.csh (1.2), profile/libnatspec.sh (1.2),
+	  src/Makefile.am (1.3), src/natspec.c (1.8),
+	  tests/test_get_charset.c (1.5): Fixes for pedantic GCC, last
+	  update before release
 
 2005-02-20 13:50  lav
 
-	* libnatspec.spec: update spec
+	* libnatspec.spec (1.2): update spec
 
 2005-02-20 13:49  lav
 
-	* README, configure.ac, lib/Makefile.am, lib/natspec.h,
-	  lib/natspec_internal.h, tests/Makefile.am: auto configure issues
+	* README (1.3), configure.ac (1.4), lib/Makefile.am (1.7),
+	  lib/natspec.h (1.6), lib/natspec_internal.h (1.4),
+	  tests/Makefile.am (1.4): auto configure issues
 
 2005-02-20 13:48  lav
 
-	* TODO: Что сделано
+	* TODO (1.10): Что сделано
 
 2005-02-20 13:28  pv
 
-	* TODO, configure.ac, lib/Makefile.am, tests/Makefile.am: 1) Убрана
-	  линьковка с popt 2) Программы из каталога tests сделаны не
-	  инсталируемыми 3) Сделан предварительный вариант ("подпорка"),
-	  чтобы библиотека устанавливалась в lib
+	* TODO (1.9), configure.ac (1.3), lib/Makefile.am (1.6),
+	  tests/Makefile.am (1.3): 1) Убрана линьковка с popt 2) Программы
+	  из каталога tests сделаны не инсталируемыми 3) Сделан
+	  предварительный вариант ("подпорка"), чтобы библиотека
+	  устанавливалась в lib
 
 2005-02-20 13:19  lav
 
-	* lib/get_locale.c: removing space symbols from i18n strings
+	* lib/get_locale.c (1.4): removing space symbols from i18n strings
 	  ----------------------------------------------------------------------
 
 2005-02-20 12:45  lav
 
-	* INSTALL: add standart INSTALL
+	* INSTALL (1.1): add standart INSTALL
 
 2005-02-20 12:39  lav
 
-	* src/natspec.c: add overall information support
+	* src/natspec.c (1.7): add overall information support
 
 2005-02-20 12:38  lav
 
-	* lib/get_locale.c: do not react for empty LANG
+	* lib/get_locale.c (1.3): do not react for empty LANG
 
 2005-02-20 12:38  lav
 
-	* lib/get_charset.c: return ascii if can't detect nls charset
+	* lib/get_charset.c (1.8): return ascii if can't detect nls charset
 
 2005-02-20 11:47  lav
 
-	* TODO: update todo
+	* TODO (1.8): update todo
 
 2005-02-20 07:26  lav
 
-	* TODO, lib/get_charset.c, lib/get_locale.c, lib/natspec.h,
-	  src/natspec.c: fix descriptions
+	* TODO (1.7), lib/get_charset.c (1.7), lib/get_locale.c (1.2),
+	  lib/natspec.h (1.5), src/natspec.c (1.6): fix descriptions
 
 2005-02-20 07:20  lav
 
-	* profile/: libnatspec.csh, libnatspec.sh: scripts to enable
-	  G_FILENAME_ENCODING if natspec is present
+	* profile/: libnatspec.csh (1.1), libnatspec.sh (1.1): scripts to
+	  enable G_FILENAME_ENCODING if natspec is present
 
 2005-02-20 06:53  lav
 
-	* src/natspec.c: Fix popt, add codepage option
+	* src/natspec.c (1.5): Fix popt, add codepage option
 
 2005-02-20 06:46  lav
 
-	* NEWS, TODO, lib/Makefile.am, lib/enrich_fs_options.c,
-	  lib/get_charset.c, lib/get_locale.c, lib/natspec.h,
-	  lib/natspec_internal.h, lib/data/charset_names.h,
-	  lib/data/gen_data.sh, lib/data/get_charset_data.h: split
-	  get_locale, fix for kernel nls / codepage, change charset table,
-	  add charset table in library
+	* NEWS (1.3), TODO (1.6), lib/Makefile.am (1.5),
+	  lib/enrich_fs_options.c (1.5), lib/get_charset.c (1.6),
+	  lib/get_locale.c (1.1), lib/natspec.h (1.4),
+	  lib/natspec_internal.h (1.3), lib/data/charset_names.h (1.3),
+	  lib/data/gen_data.sh (1.4), lib/data/get_charset_data.h (1.3):
+	  split get_locale, fix for kernel nls / codepage, change charset
+	  table, add charset table in library
 
 2005-02-20 05:33  lav
 
-	* NEWS, README, TODO, lib/enrich_fs_options.c, lib/get_charset.c,
-	  lib/natspec.h, lib/natspec_internal.h, src/natspec.c: add license
+	* NEWS (1.2), README (1.2), TODO (1.5), lib/enrich_fs_options.c
+	  (1.4), lib/get_charset.c (1.5), lib/natspec.h (1.3),
+	  lib/natspec_internal.h (1.2), src/natspec.c (1.4): add license
 	  header, NEWS, review READ and TODO
 
 2005-02-20 05:16  lav
 
-	* TODO, lib/enrich_fs_options.c, lib/get_charset.c, lib/natspec.h:
-	  add codepage support
+	* TODO (1.4), lib/enrich_fs_options.c (1.3), lib/get_charset.c
+	  (1.4), lib/natspec.h (1.2): add codepage support
 
 2005-02-20 05:16  lav
 
-	* tests/test_get_charset.c: add test for enrich_options
+	* tests/test_get_charset.c (1.4): add test for enrich_options
 
 2005-02-20 04:11  lav
 
-	* lib/enrich_fs_options.c: fix NULL params issues
+	* lib/enrich_fs_options.c (1.2): fix NULL params issues
 
 2005-02-20 03:45  lav
 
-	* TODO, lib/Makefile.am, lib/enrich_fs_options.c,
-	  lib/get_charset.c, lib/get_charset.h, lib/natspec.h,
-	  lib/natspec_internal.h, lib/data/print_data_string.c,
-	  src/Makefile.am, src/natspec.c, tests/Makefile.am,
-	  tests/test_get_charset.c: Update to enrich/mount prerelease
+	* TODO (1.3), lib/Makefile.am (1.4), lib/enrich_fs_options.c (1.1),
+	  lib/get_charset.c (1.3), lib/get_charset.h (1.4), lib/natspec.h
+	  (1.1), lib/natspec_internal.h (1.1), lib/data/print_data_string.c
+	  (1.4), src/Makefile.am (1.2), src/natspec.c (1.3),
+	  tests/Makefile.am (1.2), tests/test_get_charset.c (1.3): Update
+	  to enrich/mount prerelease
 
 2005-02-20 02:18  pv
 
-	* Makefile.am: Добавил установку файла для pkgconfig
+	* Makefile.am (1.3): Добавил установку файла для pkgconfig
 
 2005-02-20 02:09  pv
 
-	* configure.ac, libnatspec.pc.in: Настроечный файл для pkgconfig
+	* configure.ac (1.2), libnatspec.pc.in (1.1): Настроечный файл для
+	  pkgconfig
 
 2005-02-20 02:07  pv
 
-	* lib/Makefile.am: 1) Убрал линьковку с libpopt 2) Добавил раздел
-	  для установки header-ов
+	* lib/Makefile.am (1.3): 1) Убрал линьковку с libpopt 2) Добавил
+	  раздел для установки header-ов
 
 2005-02-20 01:59  lav
 
-	* libnatspec.spec: add spec for ALT Linux
+	* libnatspec.spec (1.1): add spec for ALT Linux
 
 2005-02-20 01:18  lav
 
-	* Makefile.am: add tests to compile
+	* Makefile.am (1.2): add tests to compile
 
 2005-02-20 00:28  lav
 
-	* AUTHORS, COPYING, ChangeLog, NEWS, README, TODO,
-	  lib/get_charset.h, lib/data/charset_names.h,
-	  lib/data/gen_data.sh, lib/data/print_data_string.c,
-	  src/natspec.c, tests/test_get_charset.c: Prerelease 0.0.1
+	* AUTHORS (1.1), COPYING (1.1), ChangeLog (1.1), NEWS (1.1), README
+	  (1.1), TODO (1.2), lib/get_charset.h (1.3),
+	  lib/data/charset_names.h (1.2), lib/data/gen_data.sh (1.3),
+	  lib/data/print_data_string.c (1.3), src/natspec.c (1.2),
+	  tests/test_get_charset.c (1.2): Prerelease 0.0.1
 
 2005-02-20 00:18  pv
 
-	* lib/Makefile.am:  Добавлен ключ позволяющий управлять версией
-	  библиотеки
+	* lib/Makefile.am (1.2):  Добавлен ключ позволяющий управлять
+	  версией библиотеки
 	  (он пока-что отключён)
 
 2005-02-19 23:57  pv
 
-	* Makefile.am, autogen.sh, configure.ac, lib/Makefile,
-	  lib/Makefile.am, src/Makefile.am, tests/Makefile.am: Переход к
-	  automake
+	* Makefile.am (1.1), autogen.sh (1.1), configure.ac (1.1),
+	  lib/Makefile (1.3), lib/Makefile.am (1.1), src/Makefile.am (1.1),
+	  tests/Makefile.am (1.1): Переход к automake
 
 2005-02-19 23:38  lav
 
-	* lib/: Makefile, get_charset.c, get_charset.h, data/gen_data.sh,
-	  data/get_charset_data.h, data/print_data_string.c: New version
+	* lib/: Makefile (1.2), get_charset.c (1.2), get_charset.h (1.2),
+	  data/gen_data.sh (1.2), data/get_charset_data.h (1.2),
+	  data/print_data_string.c (1.2): New version
 
 2005-02-19 20:02  lav
 
-	* TODO, lib/Makefile, lib/get_charset.c, lib/get_charset.h,
-	  lib/data/Makefile, lib/data/charset_names.h,
-	  lib/data/gen_data.sh, lib/data/get_charset_data.h,
-	  lib/data/print_data_string.c, src/natspec.c,
-	  tests/test_get_charset.c: Initial revision
+	* TODO (1.1), lib/Makefile (1.1), lib/get_charset.c (1.1),
+	  lib/get_charset.h (1.1), lib/data/Makefile (1.1),
+	  lib/data/charset_names.h (1.1), lib/data/gen_data.sh (1.1),
+	  lib/data/get_charset_data.h (1.1), lib/data/print_data_string.c
+	  (1.1), src/natspec.c (1.1), tests/test_get_charset.c (1.1):
+	  Initial revision
 
 2005-02-19 20:02  lav
 
-	* TODO, lib/Makefile, lib/get_charset.c, lib/get_charset.h,
-	  lib/data/Makefile, lib/data/charset_names.h,
-	  lib/data/gen_data.sh, lib/data/get_charset_data.h,
-	  lib/data/print_data_string.c, src/natspec.c,
-	  tests/test_get_charset.c: first commit
+	* TODO (1.1.1.1), lib/Makefile (1.1.1.1), lib/get_charset.c
+	  (1.1.1.1), lib/get_charset.h (1.1.1.1), lib/data/Makefile
+	  (1.1.1.1), lib/data/charset_names.h (1.1.1.1),
+	  lib/data/gen_data.sh (1.1.1.1), lib/data/get_charset_data.h
+	  (1.1.1.1), lib/data/print_data_string.c (1.1.1.1), src/natspec.c
+	  (1.1.1.1), tests/test_get_charset.c (1.1.1.1): first commit
 
