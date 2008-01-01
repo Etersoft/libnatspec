@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.19 2007/07/30 09:01:50 vitlav Exp $
+ * $Id: test_get_charset.c,v 1.20 2008/01/01 23:00:13 vitlav Exp $
  *
  */
 
@@ -91,6 +91,9 @@ void test_for_convert()
 	printf("%s -> '%s'\n",ti,t);
 	ti = "Ïðîâåðêà \xb9";
 	t = natspec_convert(ti, "", "CP1251", 0);
+	printf("%s -> '%s'\n",ti,t);
+	ti = "Test ðÒÏ×ÅÒËÁ";
+	t = natspec_convert(ti, "IBM866", "KOI8R", 0);
 	printf("%s -> '%s'\n",ti,t);
 	
 	it = natspec_iconv_open("aSCII", "");
