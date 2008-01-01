@@ -1,6 +1,6 @@
 Name: libnatspec
 Version: 0.2.3
-Release: alt0.2beta
+Release: alt1
 
 Summary: Library for national and language-specific issues
 
@@ -96,6 +96,10 @@ mv %buildroot%_libdir/%{name}.* %buildroot%_lib
 
 
 %changelog
+* Wed Jan 02 2008 Vitaly Lipatov <lav@altlinux.ru> 0.2.3-alt1
+- small fixes
+- fix build (add install-sh)
+
 * Fri Mar 24 2006 Vitaly Lipatov <lav@altlinux.ru> 0.2.3-alt0.2beta
 - fix bug with null pointer (thanks to rider@)
 
