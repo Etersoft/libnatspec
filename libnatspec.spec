@@ -65,8 +65,8 @@ Python binding for natspec
 
 # FIXME: I don't know how to install in /lib
 # move to /lib
-mkdir -p %buildroot%_lib
-mv %buildroot%_libdir/%{name}.* %buildroot%_lib
+mkdir -p %buildroot/%_lib
+mv %buildroot%_libdir/%{name}.* %buildroot/%_lib
 
 %post
 %post_ldconfig
