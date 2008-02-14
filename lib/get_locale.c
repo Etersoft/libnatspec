@@ -12,7 +12,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: get_locale.c,v 1.21 2005/07/16 10:04:26 vitlav Exp $
+    $Id: get_locale.c,v 1.22 2008/02/14 22:37:08 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -206,12 +206,12 @@ char *_natspec_repack_locale(const char *locale)
 	country = strchr(lang,'_'); if (country) *country++ = '\0';
 
 	for (i=0; i<strlen(lang); i++)
-		_n_tolower(lang[i]);
+		lang[i] = _n_tolower(lang[i]);
 	strcpy(buf, lang);
 	if (country)
 	{
 		for (i=0; i<strlen(country); i++)
-			_n_toupper(country[i]);
+			country[i] = _n_toupper(country[i]);
 		strcat(buf, "_");
 		strcat(buf, country);
 	}
@@ -225,7 +225,7 @@ char *_natspec_repack_locale(const char *locale)
 	if (dialect)
 	{
 		for(i=0; i<strlen(dialect); i++)
-			_n_tolower(dialect[i]);
+			dialect[i] = _n_tolower(dialect[i]);
 		strcat(buf, "@");
 		strcat(buf, dialect);
 	}

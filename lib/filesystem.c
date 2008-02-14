@@ -9,7 +9,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: filesystem.c,v 1.11 2006/03/22 06:26:47 vitlav Exp $
+    $Id: filesystem.c,v 1.12 2008/02/14 22:37:08 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -53,7 +53,7 @@ static int charset_cmp( const void *name, const void *entry )
 
 
 /*! Returns codepage from charset */
-const int natspec_get_codepage_by_charset(const char *charset)
+int natspec_get_codepage_by_charset(const char *charset)
 {
 	const struct charset_entry *entry;
 	char *cs = natspec_humble_charset(charset);
