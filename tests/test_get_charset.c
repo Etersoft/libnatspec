@@ -3,7 +3,7 @@
  * Copyright (c) 2005 Etersoft
  * Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
  *
- * $Id: test_get_charset.c,v 1.20 2008/01/01 23:00:13 vitlav Exp $
+ * $Id: test_get_charset.c,v 1.21 2008/02/14 23:09:36 vitlav Exp $
  *
  */
 
@@ -103,7 +103,7 @@ void test_for_convert()
 	}
 	strcpy(toi,"Test - Проверка ёлочных игрушек.");
 	li = strlen(toi); lo = 99; tob = to; toai = toi;
-	printf("Before natspec_iconv: it=%d, %s, len=%d\n", it, toi, li);
+	printf("Before natspec_iconv: it=%d, %s, len=%d\n", (iconv_t)it, toi, li);
 	result = natspec_iconv(it, &toai, &li, &tob, &lo, 1);
 	*tob = '\0';
 	printf("Result natspec_iconv: %s (lo=%d), with result=%d\n", to, lo, result);
@@ -139,15 +139,20 @@ void test_nls()
 
 
 #define ok(f,n) printf("%s == %s: %s\n", f,n, (!strcmp(f,n)) ? "PASSED" : "failed");
-#define okn(f,n) printf("%s == %s: %s\n", f,n, (f == n) ? "PASSED" : "failed");
+#define okn(f,n) printf("%s == %s: %s\n", f,(char*)(n), (f == n) ? "PASSED" : "failed");
 
 void compliant_test()
 {
+/*
+	printf("%s\n", natspec_get_charset_by_locale(NATSPEC_UNIXCS, "ru_RU.UTF8"));
+	printf("%s\n", natspec_get_nls_by_charset("UTF8"));
+*/
+	/* FIXME: can be overrided by G_FILENAME_ENCODING */
 	ok(natspec_get_filename_encoding ("ru_RU.UTF8"), "utf8");
-	ok(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, "UTF-8"), "utf8");
-	okn(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, ""), NULL);
+	ok(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, "UTF-8"), "UTF8");
+	ok(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, ""), "KOI8R");
 	okn(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, "haha"), NULL);
-	okn(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, NULL), "koi8-r");
+	ok(natspec_get_charset_by_charset (NATSPEC_UNIXCS,NATSPEC_UNIXCS, NULL), "KOI8R");
 }
 
 char tin[]={0x4,0x22,0,0};
@@ -170,7 +175,7 @@ void test_for_natspec_iconv()
 int main(void)
 {
 	int i;
-	char *locale[7];
+	char *locale[8];
 	const char *cas;
 	locale[0] = getenv("LANG");
 	locale[1] = "POSIX";
@@ -179,6 +184,7 @@ int main(void)
 	locale[4] = "ru";
 	locale[5] = "ru_RU";
 	locale[6] = "";
+	locale[7] = "ru_RU.UTF8";
 	setlocale(LC_ALL,"");
 	printf("FIRST current charset (nl):%s\n",	natspec_get_charset ());
 	printf("FIRST fileenc: %s\n",natspec_get_filename_encoding (""));
