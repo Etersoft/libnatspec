@@ -7,7 +7,7 @@
     Copyright (c) 2005 Etersoft
     Copyright (c) 2002, 2005 Vitaly Lipatov <lav@etersoft.ru>
 
-    $Id: convert.c,v 1.19 2007/07/31 21:06:33 vitlav Exp $
+    $Id: convert.c,v 1.20 2008/02/14 22:36:22 vitlav Exp $
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -45,7 +45,7 @@ static struct
 	iconv_t it, ucs2;
 } ucs2table[MAX_UCS2];
 
-/*! Open iconv table */
+/*! Opens iconv table or returns -1 */
 iconv_t natspec_iconv_open(const char *tocode, const char *fromcode)
 {
 	int i;
@@ -55,15 +55,16 @@ iconv_t natspec_iconv_open(const char *tocode, const char *fromcode)
 		fromcode = natspec_get_charset();
 	for (i=0; i < MAX_UCS2; i++)
 		if (!ucs2table[i].it) {
+			/* use i element if empty */
 			ucs2table[i].it = iconv_open(tocode, fromcode);
-			if (!ucs2table[i].it)
+			if (ucs2table[i].it == (iconv_t)-1)
 				break;
 			ucs2table[i].ucs2 = iconv_open("UCS2", fromcode);
-			if (ucs2table[i].ucs2)
+			if (ucs2table[i].ucs2 != (iconv_t)-1)
 				return ucs2table[i].it;
 			break;
 		}
-	return 0;
+	return (iconv_t)-1;
 }
 
 /*! For future compatibility */
@@ -116,6 +117,7 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 			return result;
 		if (!transliterate)
 			return result;
+		/* find corresport UCS2 table */
 		for (i=0; i < MAX_UCS2; i++)
 			if (ucs2table[i].it == cd) {
 				ucs2 = ucs2table[i].ucs2;
@@ -163,7 +165,7 @@ char *natspec_convert(const char *in_str,
 	const char *tocode, const char *fromcode, int transliterate)
 {
 	size_t result;
-	iconv_t frt, ucs2;
+	iconv_t frt;
 	size_t lena = strlen(in_str)*6; /* FIXME see E2BIG for errno */
 	size_t lenb = strlen(in_str);
 	char *ansa = (char*)alloca(lena+1);
@@ -171,13 +173,15 @@ char *natspec_convert(const char *in_str,
 	char *ansaptr = ansa;
 
 	frt = natspec_iconv_open(tocode, fromcode);
-	if (frt == (iconv_t) -1 || ucs2 == (iconv_t) -1)
+	if (frt == (iconv_t) -1)
 	{
-		char buf[100];
-		snprintf(buf,99,"Broken encoding: '%s' or '%s' (%d) or UCS2 (%d). May be you forget setlocale in main?\n",
-			tocode, fromcode, (int)frt, (int)ucs2);
+		char buf[200];
+		snprintf(buf,199,"Broken encoding: '%s' (to) or '%s' (from) or UCS2. May be you forget setlocale in main or gconv-modules is missed?\n",
+			tocode, fromcode);
 		perror(buf);
-		return NULL;
+		/* return dup of original string if converting is failed */
+		ansaptr = strdup(in_str);
+		return ansaptr;
 	}
 	result = natspec_iconv(frt, &ansbptr, &lenb, &ansaptr, &lena, transliterate);
 	natspec_iconv_close(frt);
