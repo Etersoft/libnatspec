@@ -1,0 +1,100 @@
+diff -u -r zip-2.32.orig/unix/Makefile zip-2.32/unix/Makefile
+--- zip-2.32.orig/unix/Makefile	2006-04-23 03:52:18 +0400
++++ zip-2.32/unix/Makefile	2008-06-24 20:59:38 +0400
+@@ -50,6 +50,7 @@
+ CFLAGS = -O2 $(CFLAGS_NOOPT)
+ LFLAGS1 =
+ LFLAGS2 = -s
++LDADD = -lnatspec
+ 
+ # object file lists
+ OBJZ = zip.o zipfile.o zipup.o fileio.o util.o globals.o crypt.o ttyio.o \
+@@ -113,7 +114,7 @@
+ zipsman: $(ZIPS) $(ZIPMANUAL)
+ 
+ zip$(EXE): $(OBJZ) $(OBJI) $(OBJA)
+-	$(BIND) -o zip$(EXE) $(LFLAGS1) $(OBJZ) $(OBJI) $(OBJA) $(LFLAGS2)
++	$(BIND) -o zip$(EXE) $(LFLAGS1) $(OBJZ) $(OBJI) $(OBJA) $(LFLAGS2) $(LDADD)
+ zipnote$(EXE): $(OBJN)
+ 	$(BIND) -o zipnote$(EXE) $(LFLAGS1) $(OBJN) $(LFLAGS2)
+ zipcloak$(EXE): $(OBJC)
+
+
+diff -u -r zip-2.32.orig/unix/osdep.h zip-2.32/unix/osdep.h
+--- zip-2.32.orig/unix/osdep.h	2005-07-26 04:36:34 +0400
++++ zip-2.32/unix/osdep.h	2008-06-24 20:47:49 +0400
+@@ -19,3 +19,6 @@
+ #if !defined(NO_EF_UT_TIME) && !defined(USE_EF_UT_TIME)
+ #  define USE_EF_UT_TIME
+ #endif
++
++/* Set Windows code as archive type */
++#  define OS_CODE  0x300
+diff -u -r zip-2.32.orig/unix/unix.c zip-2.32/unix/unix.c
+--- zip-2.32.orig/unix/unix.c	2006-05-30 02:35:00 +0400
++++ zip-2.32/unix/unix.c	2008-06-24 20:48:36 +0400
+@@ -12,6 +12,11 @@
+ 
+ #include <time.h>
+ 
++#ifdef UNIX
++#  include <natspec.h>
++#  include <locale.h>
++#endif
++
+ #if defined(MINIX) || defined(__mpexl)
+ #  ifdef S_IWRITE
+ #    undef S_IWRITE
+@@ -58,6 +63,7 @@
+ 
+ /* Local functions */
+ local char *readd OF((DIR *));
++local const char *oem_charset = NULL;
+ 
+ 
+ #ifdef NO_DIR                    /* for AT&T 3B1 */
+@@ -256,6 +262,16 @@
+   if (!pathput)
+     t = last(t, PATH_END);
+ 
++#ifdef UNIX
++  if (!oem_charset) {
++    setlocale(LC_CTYPE, "");
++    oem_charset = natspec_get_charset_by_locale(NATSPEC_DOSCS, "");
++  }
++  /* Convert to internal encoding */
++  if ((n = natspec_convert(t, oem_charset, 0, 0)) == NULL)
++    return NULL;
++  return n;
++#else
+   /* Malloc space for internal name and copy it */
+   if ((n = malloc(strlen(t) + 1)) == NULL)
+     return NULL;
+@@ -263,6 +279,7 @@
+ 
+   if (dosify)
+     msname(n);
++#endif
+ 
+ #ifdef EBCDIC
+   strtoasc(n, n);       /* here because msname() needs native coding */
+@@ -283,8 +300,19 @@
+ {
+   char *x;              /* external file name */
+ 
++#ifdef UNIX
++  if (!oem_charset) {
++    oem_charset = natspec_get_charset_by_locale(NATSPEC_DOSCS, "");
++    setlocale(LC_CTYPE, "");
++  }
++  /* Convert to internal encoding */
++  if ((x = natspec_convert(n, 0, oem_charset, 0)) == NULL)
++    return NULL;
++  return x;
++#else
+   if ((x = malloc(strlen(n) + 1 + PAD)) == NULL)
+     return NULL;
++#endif
+ #ifdef EBCDIC
+   strtoebc(x, n);
+ #else
