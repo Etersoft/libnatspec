@@ -12,6 +12,7 @@
 
 #include <time.h>
 
+//#undef UNIX
 #ifdef UNIX
 #  include <natspec.h>
 #  include <locale.h>
@@ -262,15 +263,24 @@ int *pdosflag;          /* output: force MSDOS file attributes? */
   if (!pathput)
     t = last(t, PATH_END);
 
+#ifdef UNIX
   setlocale(LC_CTYPE, "");
   if (!oem_charset)
     oem_charset = natspec_get_charset_by_locale(NATSPEC_DOSCS, "");
   /* Convert to internal encoding */
   if ((n = natspec_convert(t, oem_charset, 0, 0)) == NULL)
     return NULL;
-printf("n=%s t=%s oem=%s, unix=%s\n",n,t, oem_charset,natspec_get_charset_by_locale(NATSPEC_UNIXCS, ""));
+  printf("n=%s t=%s oem=%s, unix=%s\n",n,t, oem_charset,natspec_get_charset_by_locale(NATSPEC_UNIXCS, ""));
+  return n;
+#else
+  /* Malloc space for internal name and copy it */
+  if ((n = malloc(strlen(t) + 1)) == NULL)
+    return NULL;
+  strcpy(n, t);
+
   if (dosify)
     msname(n);
+#endif
 
 #ifdef EBCDIC
   strtoasc(n, n);       /* here because msname() needs native coding */
@@ -291,11 +301,24 @@ char *n;                /* internal file name */
 {
   char *x;              /* external file name */
 
+#ifdef UNIX
+  setlocale(LC_CTYPE, "");
   if (!oem_charset)
     oem_charset = natspec_get_charset_by_locale(NATSPEC_DOSCS, "");
   /* Convert to internal encoding */
   if ((x = natspec_convert(n, 0, oem_charset, 0)) == NULL)
     return NULL;
+  printf("x=%s n=%s oem=%s\n",x,n, oem_charset);
+  return x;
+#else
+  if ((x = malloc(strlen(n) + 1 + PAD)) == NULL)
+    return NULL;
+#endif
+#ifdef EBCDIC
+  strtoebc(x, n);
+#else
+  strcpy(x, n);
+#endif
   return x;
 }
 
