@@ -29,7 +29,7 @@ diff -u -r zip-2.32.orig/unix/osdep.h zip-2.32/unix/osdep.h
  #endif
 +
 +/* Set Windows code as archive type */
-+#  define OS_CODE  0x300
++#  define OS_CODE  0xb00
 diff -u -r zip-2.32.orig/unix/unix.c zip-2.32/unix/unix.c
 --- zip-2.32.orig/unix/unix.c	2006-05-30 02:35:00 +0400
 +++ zip-2.32/unix/unix.c	2008-06-24 20:48:36 +0400
