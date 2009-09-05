@@ -1,10 +1,6 @@
 #! /bin/sh
 
-set -x
-#./cvs2cl.pl -btT
-aclocal
-autoheader
-libtoolize --force --copy
-automake --add-missing --include-deps --copy --force-missing
-autoconf
-test -f Makefile && ./configure --with-debug --with-python
+# We run just autoreconf, updates all needed
+autoreconf -fiv
+
+./configure --enable-maintainer-mode --with-debug --with-python

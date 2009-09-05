@@ -1,7 +1,7 @@
 # Configure ac for LIBNATSPEC project
 #
 AC_PREREQ(2.52)
-AC_INIT([libnatspec], [0.2.4], lav@etersoft.ru)
+AC_INIT([libnatspec], [0.2.5], lav@etersoft.ru)
 dnl AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 dnl AS_VERSION(comedilib, COMEDILIB, 0, 7, 21)
@@ -97,14 +97,14 @@ dnl case "$target_os" in
 dnl AC_MSG_WARN([We have target $target_os])
 
 AC_CONFIG_FILES([Makefile
-				 libnatspec.pc
-				 natspec.m4
+                 libnatspec.pc
+                 natspec.m4
                  lib/Makefile
                  libhi/Makefile
                  src/Makefile
-				 src/python/Makefile
-				 docs/libnatspecDox.cfg
-				 docs/Makefile
-				 tests/Makefile])
+                 src/python/Makefile
+                 docs/libnatspecDox.cfg
+                 docs/Makefile
+                 tests/Makefile])
 
 AC_OUTPUT

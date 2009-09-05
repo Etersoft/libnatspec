@@ -1,21 +1,19 @@
 Name: libnatspec
-Version: 0.2.4
+Version: 0.2.5
 Release: alt1
 
 Summary: Library for national and language-specific issues
 
 License: LGPL
 Group: System/Libraries
-Url: http://www.etersoft.ru/natspec
+Url: http://sourceforge.net/projects/natspec
 
 Packager: Vitaly Lipatov <lav@altlinux.ru>
 
-Source: http://www.etersoft.ru/download/%name/%name-%version.tar.bz2
+Source: http://prdownloads.sf.net/%name/%name-%version.tar.bz2
 
-# manually removed: gcc-g77 xorg-x11-libs gcc-c++ libstdc++-devel libg2c-devel 
 # Automatically added by buildreq on Fri Jul 22 2005
-# not used now: python-base python-modules-encodings
-BuildRequires: doxygen libpopt-devel 
+BuildRequires: doxygen libpopt-devel
 BuildRequires: rpm-build-compat
 
 %description
@@ -54,14 +52,15 @@ Requires: %name = %version-%release
 Python binding for natspec
 
 %prep
-%setup -q
+%setup
 
 %build
+%autoreconf
 %configure
 %make_build
 
 %install
-%makeinstall
+%makeinstall_std
 
 # FIXME: I don't know how to install in /lib
 # move to /lib
@@ -96,6 +95,10 @@ mv %buildroot%_libdir/%{name}.* %buildroot/%_lib
 
 
 %changelog
+* Sat Sep 05 2009 Vitaly Lipatov <lav@altlinux.ru> 0.2.5-alt1
+- update spec
+- convert to Git, build with gear
+
 * Fri Feb 15 2008 Vitaly Lipatov <lav@altlinux.ru> 0.2.4-alt1
 - natspec_convert returns original string if failed (fix bug #14301)
 - small bugfixes, clean code
