@@ -49,7 +49,8 @@
 #else
 #	define _n_toupper(n) toupper(n)
 #	define _n_tolower(n) tolower(n)
-#	warning "We can't use locale independent lower/upper without GNU"
+/* #	warning "We can't use locale independent lower/upper without GNU" */
+/* FIXME: why it is not good to use locale dependent toupper? */
 #endif
 #define _n_isalnum(n) isalnum(n)
 
@@ -67,7 +68,7 @@
 /*! Add n in next line for debug messaging */
 #define DEBUG(n)
 
-/*! Extracts charset (if exist) from locale, removes punctiation
+/*! Extracts charset (if exist) from locale, removes punctuation
  * signs from it, pack locale again
  * and return malloc allocated locale string
  */
@@ -76,9 +77,9 @@ char *_natspec_repack_locale(const char *locale);
 /*! Struct of charset_relation table */
 struct charsetrel_entry
 {
-    const char *locale;	/*!< Unix locale name (from glibc) */
-    unsigned int lcid;	/*!< Windows locale id (from WINE) */
-			/* for this locale: (can be NULL) */
+    const char *locale;   /*!< Unix locale name (from glibc) */
+    unsigned int lcid;    /*!< Windows locale id (from WINE) */
+    /* for this locale: (can be NULL) */
     const char *unix_cs;  /*!< unix charset */
     const char *win_cs;   /*!< windows charset */
     const char *dos_cs;   /*!< dos charset */

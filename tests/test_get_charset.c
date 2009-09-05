@@ -103,7 +103,7 @@ void test_for_convert()
 	}
 	strcpy(toi,"Test - Проверка ёлочных игрушек.");
 	li = strlen(toi); lo = 99; tob = to; toai = toi;
-	printf("Before natspec_iconv: it=%d, %s, len=%d\n", (iconv_t)it, toi, li);
+	printf("Before natspec_iconv: it=%d, %s, len=%d\n", (int)it, toi, li);
 	result = natspec_iconv(it, &toai, &li, &tob, &lo, 1);
 	*tob = '\0';
 	printf("Result natspec_iconv: %s (lo=%d), with result=%d\n", to, lo, result);
@@ -139,7 +139,7 @@ void test_nls()
 
 
 #define ok(f,n) printf("%s == %s: %s\n", f,n, (!strcmp(f,n)) ? "PASSED" : "failed");
-#define okn(f,n) printf("%s == %s: %s\n", f,(char*)(n), (f == n) ? "PASSED" : "failed");
+#define okn(f,n) printf("%s == NULL: %s\n", f, (f == NULL) ? "PASSED" : "failed");
 
 void compliant_test()
 {

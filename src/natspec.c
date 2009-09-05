@@ -198,7 +198,7 @@ int main(int argc, const char** argv)
 	{
 		int id;
 		if (verbose) printf("Country ID (for DOS): ");
-//		id = natspec_get_country_id();
+		id = -1; /* natspec_get_country_id(); */
 		printf("%d", id);
 		if (verbose) puts("");
 		if (!info) exit(0);
