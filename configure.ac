@@ -23,19 +23,17 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 #AC_PROG_LIBTOOL
 
-
 dnl Initialize libtool
 AC_DISABLE_STATIC
 AC_ENABLE_SHARED(yes)
 AC_ENABLE_STATIC(no)
 AM_PROG_LIBTOOL
-dnl AC_PROG_LIBTOOL
+AM_PROG_CC_C_O
 
 dnl Checks for libraries.
 check_popt=""
 AC_CHECK_LIB([popt], [main], check_popt=true)
 if test "x$check_popt" == x ; then
-#	AC_MSG_ERROR([*** libpopt not found.])
 	AC_MSG_WARN([ libpopt not found.])
 else
 	POPT_LIBS=-lpopt
@@ -92,6 +90,7 @@ AC_ARG_WITH(debug, [  --with-debug    Compile with debug information], CFLAGS="$
 AC_ARG_WITH(i18n-file, [  --with-i18n-file=file Use this file for system LANG search],
 	i18n_file=$withval,
 	i18n_file=/etc/sysconfig/i18n)
+
 AC_DEFINE_UNQUOTED(NATSPEC_I18N_FILE,"$i18n_file",[ File with system wide LANG variable])
 dnl case "$target_os" in
 dnl AC_MSG_WARN([We have target $target_os])
