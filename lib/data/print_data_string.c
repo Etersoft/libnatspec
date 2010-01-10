@@ -107,8 +107,8 @@ char *_natspec_repack_locale(const char *locale)
 void print_w( char *str, int w)
 {
   char buf[100]; int i;
-  sprintf (buf,"%s%s", str, ( w ? ", " : ""));
-  printf (buf);
+  sprintf(buf, "%s%s", str, ( w ? ", " : ""));
+  printf("%s", buf);
   i=w-strlen(buf);
   if (i>0)
 	  for (;i;i--)
