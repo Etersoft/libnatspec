@@ -46,8 +46,9 @@
 #endif
 
 
+/* FIXME: use __const due typedef int (*__compar_fn_t) (__const void *, __const void *); */
 /*! Internal: Helper for bsearch */
-static int charset_locale_cmp( const void *name, const void *entry )
+static int charset_locale_cmp( __const void *name, __const void *entry )
 {
     const struct charsetrel_entry *rel = (const struct charsetrel_entry *)entry;
 	DEBUG (printf ("Compare %s with %s\n", (const char*)name, rel->locale));
@@ -84,7 +85,7 @@ const char *natspec_get_charset()
 #if defined(HAVE_LANGINFO_CODESET)
 	charset = nl_langinfo(CODESET);
 	c = natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_UNIXCS, charset);
-	return c ?: charset;
+	return c ? c : charset;
 #else
 	#error "I have not an idea how do it"
 	/* recursive :) FIXME: I
@@ -113,13 +114,13 @@ static const char *get_cs_by_type(const int type,
 		switch(type)
 		{
 			case NATSPEC_WINCS:
-				return entry->win_cs ?: "CP1252";
+				return entry->win_cs ? entry->win_cs : "CP1252";
 			case NATSPEC_DOSCS:
-				return entry->dos_cs ?: "CP437";
+				return entry->dos_cs ? entry->dos_cs : "CP437";
 			case NATSPEC_MACCS:
-				return entry->mac_cs ?: "MAC";
+				return entry->mac_cs ? entry->mac_cs: "MAC";
 			case NATSPEC_UNIXCS:
-				return entry->unix_cs ?: "iso8859-1"; /* Really? */
+				return entry->unix_cs ? entry->unix_cs : "iso8859-1"; /* Really? */
 		}
 	/* fallback to locale charset */
 	return natspec_get_charset();

@@ -62,7 +62,7 @@
 /*! simplified bsearch */
 #define _n_bsearch(what,where,func) bsearch( what, where, \
 		sizeof(where) / sizeof(where[0]), \
-		sizeof(where[0]), &func )
+		sizeof(where[0]), func )
 
 
 /*! Add n in next line for debug messaging */

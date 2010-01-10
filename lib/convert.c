@@ -79,8 +79,8 @@ int natspec_iconv_close(iconv_t cd)
 	return iconv_close(cd);
 }
 
-
-static int ucs2_cmp( const void *ucs2, const void *entry )
+/* use __const due typedef int (*__compar_fn_t) (__const void *, __const void *); */
+static int ucs2_cmp( __const void *ucs2, __const void *entry )
 {
 	const struct u7_struct *s = (const struct u7_struct*)entry;
 	const unsigned short *u = (const unsigned short*)ucs2;
@@ -108,7 +108,6 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 	size_t result;
 	for(;;)
 	{
-		//DEBUG (printf("%s\n",*inbuf));
 		DEBUG (printf("%d (ucs2: %d), %s:%d\n",cd, ucs2, *inbuf, *inbytesleft));
 		result = iconv(cd, inbuf, inbytesleft, outbuf, outbytesleft);
 		if (result != (size_t) -1)

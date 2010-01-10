@@ -44,8 +44,9 @@
 # include <langinfo.h>
 #endif
 
+/* FIXME: due typedef int (*__compar_fn_t) (__const void *, __const void *); */
 /*! Internal: charset comparing for bsearch */
-static int charset_cmp( const void *name, const void *entry )
+static int charset_cmp( __const void *name, __const void *entry )
 {
     const struct charset_entry *charset = (const struct charset_entry *)entry;
     return strcmp( (const char *)name, charset->charset_name );
