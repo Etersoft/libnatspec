@@ -1,7 +1,12 @@
+*~
+src/python/build
+lib/data/print_data_string.exe
+lib/data/print_data_string.exe.so
 Makefile
 *.in
 aclocal.m4
 autom4te.cache/
+compile
 config.guess
 config.h
 config.h.in
