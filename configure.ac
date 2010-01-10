@@ -8,7 +8,7 @@ dnl AS_VERSION(comedilib, COMEDILIB, 0, 7, 21)
 dnl AS_LIBTOOL(COMEDILIB, 0, 7, 18, yes)
 
 AC_CONFIG_HEADER(config.h)
-CFLAGS="-Wall -funsigned-char"
+CFLAGS="$CFLAGS -Wall -funsigned-char"
 
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE
