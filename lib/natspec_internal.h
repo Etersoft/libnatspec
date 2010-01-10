@@ -43,15 +43,18 @@
 #	error "NL_LANGINFO is missed"
 #endif
 
+/*
+// https://bugzilla.altlinux.org/show_bug.cgi?id=21431
 #ifdef __USE_GNU
 #	define _n_toupper(n) toupper_l(n,"C")
 #	define _n_tolower(n) tolower_l(n,"C")
 #else
+*/
+
+/* Use locale dependent upper/lower */
 #	define _n_toupper(n) toupper(n)
 #	define _n_tolower(n) tolower(n)
-/* #	warning "We can't use locale independent lower/upper without GNU" */
-/* FIXME: why it is not good to use locale dependent toupper? */
-#endif
+/* #endif */
 #define _n_isalnum(n) isalnum(n)
 
 /*! Test string for empty
