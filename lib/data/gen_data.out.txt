@@ -1,22 +1,4 @@
 This is log error file. See for your problem locale here and send me a mail: lav@etersoft.ru
-Warning: Language 'aa_DJ' was not recognized, defaulting to English.
-Warning: Language 'aa_DJ' was not recognized, defaulting to English.
-Warning: Language 'aa_DJ' was not recognized, defaulting to English.
-Warning: Language 'aa_ER' was not recognized, defaulting to English.
-Warning: Language 'aa_ER' was not recognized, defaulting to English.
-Warning: Language 'aa_ER' was not recognized, defaulting to English.
-Warning: Language 'aa_ER' was not recognized, defaulting to English.
-Warning: Language 'aa_ER' was not recognized, defaulting to English.
-Warning: Language 'aa_ER' was not recognized, defaulting to English.
-Warning: Language 'aa_ET' was not recognized, defaulting to English.
-Warning: Language 'aa_ET' was not recognized, defaulting to English.
-Warning: Language 'aa_ET' was not recognized, defaulting to English.
-Warning: Language 'am_ET' was not recognized, defaulting to English.
-Warning: Language 'am_ET' was not recognized, defaulting to English.
-Warning: Language 'am_ET' was not recognized, defaulting to English.
-Warning: Language 'an_ES' was not recognized, defaulting to English.
-Warning: Language 'an_ES' was not recognized, defaulting to English.
-Warning: Language 'an_ES' was not recognized, defaulting to English.
 Can't locate codepage 720 for ar_AE locale
 Can't locate codepage 10004 for ar_AE locale
 Can't locate codepage 720 for ar_AE.utf8 locale
@@ -33,9 +15,6 @@ Can't locate codepage 720 for ar_EG locale
 Can't locate codepage 10004 for ar_EG locale
 Can't locate codepage 720 for ar_EG.utf8 locale
 Can't locate codepage 10004 for ar_EG.utf8 locale
-Warning: Language 'ar_IN' was not recognized, defaulting to 'ar_SA'.
-Warning: Language 'ar_IN' was not recognized, defaulting to 'ar_SA'.
-Warning: Language 'ar_IN' was not recognized, defaulting to 'ar_SA'.
 Can't locate codepage 720 for ar_IN locale
 Can't locate codepage 10004 for ar_IN locale
 Can't locate codepage 720 for ar_IQ locale
@@ -74,14 +53,8 @@ Can't locate codepage 720 for ar_SA locale
 Can't locate codepage 10004 for ar_SA locale
 Can't locate codepage 720 for ar_SA.utf8 locale
 Can't locate codepage 10004 for ar_SA.utf8 locale
-Warning: Language 'ar_SD' was not recognized, defaulting to 'ar_SA'.
-Warning: Language 'ar_SD' was not recognized, defaulting to 'ar_SA'.
-Warning: Language 'ar_SD' was not recognized, defaulting to 'ar_SA'.
 Can't locate codepage 720 for ar_SD locale
 Can't locate codepage 10004 for ar_SD locale
-Warning: Language 'ar_SD' was not recognized, defaulting to 'ar_SA'.
-Warning: Language 'ar_SD' was not recognized, defaulting to 'ar_SA'.
-Warning: Language 'ar_SD' was not recognized, defaulting to 'ar_SA'.
 Can't locate codepage 720 for ar_SD.utf8 locale
 Can't locate codepage 10004 for ar_SD.utf8 locale
 Can't locate codepage 720 for ar_SY locale
@@ -97,66 +70,16 @@ Can't locate codepage 10004 for ar_YE locale
 Can't locate codepage 720 for ar_YE.utf8 locale
 Can't locate codepage 10004 for ar_YE.utf8 locale
 Can't locate codepage 10081 for az_AZ.utf8 locale
-Warning: Language 'bn_BD' was not recognized, defaulting to English.
-Warning: Language 'bn_BD' was not recognized, defaulting to English.
-Warning: Language 'bn_BD' was not recognized, defaulting to English.
-Warning: Language 'bn_IN' was not recognized, defaulting to English.
-Warning: Language 'bn_IN' was not recognized, defaulting to English.
-Warning: Language 'bn_IN' was not recognized, defaulting to English.
-Warning: Language 'bs_BA' was not recognized, defaulting to English.
-Warning: Language 'bs_BA' was not recognized, defaulting to English.
-Warning: Language 'bs_BA' was not recognized, defaulting to English.
-Warning: Language 'byn_ER' was not recognized, defaulting to English.
-Warning: Language 'byn_ER' was not recognized, defaulting to English.
-Warning: Language 'byn_ER' was not recognized, defaulting to English.
 Can't locate codepage 10029 for cs_CZ locale
 Can't locate codepage 10029 for cs_CZ.utf8 locale
-Warning: Language 'de_BE' was not recognized, defaulting to 'de_DE'.
-Warning: Language 'de_BE' was not recognized, defaulting to 'de_DE'.
-Warning: Language 'de_BE' was not recognized, defaulting to 'de_DE'.
-Warning: Language 'de_BE' was not recognized, defaulting to 'de_DE'.
-Warning: Language 'de_BE' was not recognized, defaulting to 'de_DE'.
-Warning: Language 'de_BE' was not recognized, defaulting to 'de_DE'.
-Warning: Language 'de_BE' was not recognized, defaulting to 'de_DE'.
-Warning: Language 'de_BE' was not recognized, defaulting to 'de_DE'.
-Warning: Language 'de_BE' was not recognized, defaulting to 'de_DE'.
+Can't locate codepage 737 for el_CY locale
+Can't locate codepage 10006 for el_CY locale
+Can't locate codepage 737 for el_CY.utf8 locale
+Can't locate codepage 10006 for el_CY.utf8 locale
 Can't locate codepage 737 for el_GR locale
 Can't locate codepage 10006 for el_GR locale
 Can't locate codepage 737 for el_GR.utf8 locale
 Can't locate codepage 10006 for el_GR.utf8 locale
-Warning: Language 'en_BW' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_BW' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_BW' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_BW' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_BW' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_BW' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_DK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_DK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_DK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_DK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_DK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_DK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_HK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_HK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_HK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_HK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_HK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_HK' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_IN' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_IN' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_IN' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_SG' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_SG' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_SG' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_SG' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_SG' was not recognized, defaulting to 'en_US'.
-Warning: Language 'en_SG' was not recognized, defaulting to 'en_US'.
-Warning: Language 'es_US' was not recognized, defaulting to 'es_ES'.
-Warning: Language 'es_US' was not recognized, defaulting to 'es_ES'.
-Warning: Language 'es_US' was not recognized, defaulting to 'es_ES'.
-Warning: Language 'es_US' was not recognized, defaulting to 'es_ES'.
-Warning: Language 'es_US' was not recognized, defaulting to 'es_ES'.
-Warning: Language 'es_US' was not recognized, defaulting to 'es_ES'.
 Can't locate codepage 775 for et_EE locale
 Can't locate codepage 10029 for et_EE locale
 Can't locate codepage 775 for et_EE.iso885915 locale
@@ -167,18 +90,6 @@ Can't locate codepage 720 for fa_IR locale
 Can't locate codepage 10004 for fa_IR locale
 Can't locate codepage 10079 for fo_FO locale
 Can't locate codepage 10079 for fo_FO.utf8 locale
-Warning: Language 'gez_ER' was not recognized, defaulting to English.
-Warning: Language 'gez_ER' was not recognized, defaulting to English.
-Warning: Language 'gez_ER' was not recognized, defaulting to English.
-Warning: Language 'gez_ER' was not recognized, defaulting to English.
-Warning: Language 'gez_ER' was not recognized, defaulting to English.
-Warning: Language 'gez_ER' was not recognized, defaulting to English.
-Warning: Language 'gez_ET' was not recognized, defaulting to English.
-Warning: Language 'gez_ET' was not recognized, defaulting to English.
-Warning: Language 'gez_ET' was not recognized, defaulting to English.
-Warning: Language 'gez_ET' was not recognized, defaulting to English.
-Warning: Language 'gez_ET' was not recognized, defaulting to English.
-Warning: Language 'gez_ET' was not recognized, defaulting to English.
 Can't locate codepage 1 for gu_IN locale
 Can't locate codepage 2 for gu_IN locale
 Can't locate codepage 10005 for he_IL locale
@@ -189,35 +100,20 @@ Can't locate codepage 10082 for hr_HR locale
 Can't locate codepage 10082 for hr_HR.utf8 locale
 Can't locate codepage 10029 for hu_HU locale
 Can't locate codepage 10029 for hu_HU.utf8 locale
+Can't locate codepage 1 for hy_AM locale
+Can't locate codepage 2 for hy_AM locale
 Can't locate codepage 10079 for is_IS locale
 Can't locate codepage 10079 for is_IS.utf8 locale
-Warning: Language 'iw_IL' was not recognized, defaulting to English.
-Warning: Language 'iw_IL' was not recognized, defaulting to English.
-Warning: Language 'iw_IL' was not recognized, defaulting to English.
-Warning: Language 'iw_IL' was not recognized, defaulting to English.
-Warning: Language 'iw_IL' was not recognized, defaulting to English.
-Warning: Language 'iw_IL' was not recognized, defaulting to English.
 Can't locate codepage 10001 for ja_JP.eucjp locale
 Can't locate codepage 10001 for ja_JP.utf8 locale
 Can't locate codepage 1 for ka_GE locale
 Can't locate codepage 2 for ka_GE locale
-Warning: Language 'kl_GL' was not recognized, defaulting to English.
-Warning: Language 'kl_GL' was not recognized, defaulting to English.
-Warning: Language 'kl_GL' was not recognized, defaulting to English.
-Warning: Language 'kl_GL' was not recognized, defaulting to English.
-Warning: Language 'kl_GL' was not recognized, defaulting to English.
-Warning: Language 'kl_GL' was not recognized, defaulting to English.
+Can't locate codepage 1 for ka_GE.utf8 locale
+Can't locate codepage 2 for ka_GE.utf8 locale
 Can't locate codepage 1 for kn_IN locale
 Can't locate codepage 2 for kn_IN locale
-fixme:nls:get_env_lcid charset euckr was not recognized
 Can't locate codepage 10003 for ko_KR.euckr locale
 Can't locate codepage 10003 for ko_KR.utf8 locale
-Warning: Language 'lg_UG' was not recognized, defaulting to English.
-Warning: Language 'lg_UG' was not recognized, defaulting to English.
-Warning: Language 'lg_UG' was not recognized, defaulting to English.
-Warning: Language 'lo_LA' was not recognized, defaulting to English.
-Warning: Language 'lo_LA' was not recognized, defaulting to English.
-Warning: Language 'lo_LA' was not recognized, defaulting to English.
 Can't locate codepage 775 for lt_LT locale
 Can't locate codepage 10029 for lt_LT locale
 Can't locate codepage 775 for lt_LT.utf8 locale
@@ -226,144 +122,50 @@ Can't locate codepage 775 for lv_LV locale
 Can't locate codepage 10029 for lv_LV locale
 Can't locate codepage 775 for lv_LV.utf8 locale
 Can't locate codepage 10029 for lv_LV.utf8 locale
-Warning: Language 'mi_NZ' was not recognized, defaulting to English.
-Warning: Language 'mi_NZ' was not recognized, defaulting to English.
-Warning: Language 'mi_NZ' was not recognized, defaulting to English.
-Warning: Language 'ml_IN' was not recognized, defaulting to English.
-Warning: Language 'ml_IN' was not recognized, defaulting to English.
-Warning: Language 'ml_IN' was not recognized, defaulting to English.
 Can't locate codepage 1 for mr_IN locale
 Can't locate codepage 2 for mr_IN locale
-Warning: Language 'mt_MT' was not recognized, defaulting to English.
-Warning: Language 'mt_MT' was not recognized, defaulting to English.
-Warning: Language 'mt_MT' was not recognized, defaulting to English.
-Warning: Language 'mt_MT' was not recognized, defaulting to English.
-Warning: Language 'mt_MT' was not recognized, defaulting to English.
-Warning: Language 'mt_MT' was not recognized, defaulting to English.
-Warning: Language 'ne_NP' was not recognized, defaulting to English.
-Warning: Language 'ne_NP' was not recognized, defaulting to English.
-Warning: Language 'ne_NP' was not recognized, defaulting to English.
-Warning: Language 'no_NO' was not recognized, defaulting to English.
-Warning: Language 'no_NO' was not recognized, defaulting to English.
-Warning: Language 'no_NO' was not recognized, defaulting to English.
-Warning: Language 'no_NO' was not recognized, defaulting to English.
-Warning: Language 'no_NO' was not recognized, defaulting to English.
-Warning: Language 'no_NO' was not recognized, defaulting to English.
-Warning: Language 'oc_FR' was not recognized, defaulting to English.
-Warning: Language 'oc_FR' was not recognized, defaulting to English.
-Warning: Language 'oc_FR' was not recognized, defaulting to English.
-Warning: Language 'om_ET' was not recognized, defaulting to English.
-Warning: Language 'om_ET' was not recognized, defaulting to English.
-Warning: Language 'om_ET' was not recognized, defaulting to English.
-Warning: Language 'om_KE' was not recognized, defaulting to English.
-Warning: Language 'om_KE' was not recognized, defaulting to English.
-Warning: Language 'om_KE' was not recognized, defaulting to English.
 Can't locate codepage 1 for pa_IN locale
 Can't locate codepage 2 for pa_IN locale
+Can't locate codepage 1 for pa_PK locale
+Can't locate codepage 2 for pa_PK locale
 Can't locate codepage 10029 for pl_PL locale
 Can't locate codepage 10029 for pl_PL.utf8 locale
 Can't locate codepage 10029 for ro_RO locale
 Can't locate codepage 10029 for ro_RO.utf8 locale
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'ru_UA' was not recognized, defaulting to 'ru_RU'.
-Warning: Language 'se_NO' was not recognized, defaulting to English.
-Warning: Language 'se_NO' was not recognized, defaulting to English.
-Warning: Language 'se_NO' was not recognized, defaulting to English.
-Warning: Language 'sid_ET' was not recognized, defaulting to English.
-Warning: Language 'sid_ET' was not recognized, defaulting to English.
-Warning: Language 'sid_ET' was not recognized, defaulting to English.
+Can't locate codepage 1 for sa_IN locale
+Can't locate codepage 2 for sa_IN locale
 Can't locate codepage 10029 for sk_SK locale
 Can't locate codepage 10029 for sk_SK.utf8 locale
 Can't locate codepage 10029 for sl_SI locale
 Can't locate codepage 10029 for sl_SI.utf8 locale
-Warning: Language 'so_DJ' was not recognized, defaulting to English.
-Warning: Language 'so_DJ' was not recognized, defaulting to English.
-Warning: Language 'so_DJ' was not recognized, defaulting to English.
-Warning: Language 'so_ET' was not recognized, defaulting to English.
-Warning: Language 'so_ET' was not recognized, defaulting to English.
-Warning: Language 'so_ET' was not recognized, defaulting to English.
-Warning: Language 'so_KE' was not recognized, defaulting to English.
-Warning: Language 'so_KE' was not recognized, defaulting to English.
-Warning: Language 'so_KE' was not recognized, defaulting to English.
-Warning: Language 'so_SO' was not recognized, defaulting to English.
-Warning: Language 'so_SO' was not recognized, defaulting to English.
-Warning: Language 'so_SO' was not recognized, defaulting to English.
 Can't locate codepage 10029 for sq_AL locale
 Can't locate codepage 10029 for sq_AL.utf8 locale
-Warning: Language 'st_ZA' was not recognized, defaulting to English.
-Warning: Language 'st_ZA' was not recognized, defaulting to English.
-Warning: Language 'st_ZA' was not recognized, defaulting to English.
-Warning: Language 'st_ZA' was not recognized, defaulting to English.
-Warning: Language 'st_ZA' was not recognized, defaulting to English.
-Warning: Language 'st_ZA' was not recognized, defaulting to English.
+Can't locate codepage 10029 for sr_ME locale
+Can't locate codepage 10029 for sr_RS locale
+Can't locate codepage 10029 for sr_RS@latin locale
 Can't locate codepage 1 for ta_IN locale
 Can't locate codepage 2 for ta_IN locale
 Can't locate codepage 1 for te_IN locale
 Can't locate codepage 2 for te_IN locale
-Warning: Language 'tg_TJ' was not recognized, defaulting to English.
-Warning: Language 'tg_TJ' was not recognized, defaulting to English.
-Warning: Language 'tg_TJ' was not recognized, defaulting to English.
 Can't locate codepage 10021 for th_TH locale
 Can't locate codepage 10021 for th_TH.utf8 locale
-Warning: Language 'ti_ER' was not recognized, defaulting to English.
-Warning: Language 'ti_ER' was not recognized, defaulting to English.
-Warning: Language 'ti_ER' was not recognized, defaulting to English.
-Warning: Language 'ti_ET' was not recognized, defaulting to English.
-Warning: Language 'ti_ET' was not recognized, defaulting to English.
-Warning: Language 'ti_ET' was not recognized, defaulting to English.
-Warning: Language 'tig_ER' was not recognized, defaulting to English.
-Warning: Language 'tig_ER' was not recognized, defaulting to English.
-Warning: Language 'tig_ER' was not recognized, defaulting to English.
-Warning: Language 'tl_PH' was not recognized, defaulting to English.
-Warning: Language 'tl_PH' was not recognized, defaulting to English.
-Warning: Language 'tl_PH' was not recognized, defaulting to English.
+Can't locate codepage 10081 for tr_CY locale
+Can't locate codepage 10081 for tr_CY.utf8 locale
 Can't locate codepage 10081 for tr_TR locale
 Can't locate codepage 10081 for tr_TR.utf8 locale
-Warning: Language 'tt_RU' was not recognized, defaulting to 'tt_TA'.
-Warning: Language 'tt_RU' was not recognized, defaulting to 'tt_TA'.
-Warning: Language 'tt_RU' was not recognized, defaulting to 'tt_TA'.
 Can't locate codepage 720 for ur_PK locale
 Can't locate codepage 10004 for ur_PK locale
-Can't locate codepage 10029 for uz_UZ locale
 Can't locate codepage 10029 for uz_UZ@cyrillic locale
-fixme:nls:get_env_lcid charset tcvn was not recognized
-Warning: Language 'xh_ZA' was not recognized, defaulting to English.
-Warning: Language 'xh_ZA' was not recognized, defaulting to English.
-Warning: Language 'xh_ZA' was not recognized, defaulting to English.
-Warning: Language 'xh_ZA' was not recognized, defaulting to English.
-Warning: Language 'xh_ZA' was not recognized, defaulting to English.
-Warning: Language 'xh_ZA' was not recognized, defaulting to English.
-Warning: Language 'yi_US' was not recognized, defaulting to English.
-Warning: Language 'yi_US' was not recognized, defaulting to English.
-Warning: Language 'yi_US' was not recognized, defaulting to English.
+/srv/wine/Projects/wine-origin/wine: line 65: bad substitution: no closing "`" in `uname -s`
 Can't locate codepage 10008 for zh_CN locale
-fixme:nls:get_env_lcid charset gb18030 was not recognized
 Can't locate codepage 10008 for zh_CN.gb18030 locale
-fixme:nls:get_env_lcid charset gbk was not recognized
 Can't locate codepage 10008 for zh_CN.gbk locale
 Can't locate codepage 10008 for zh_CN.utf8 locale
 Can't locate codepage 10002 for zh_HK locale
 Can't locate codepage 10002 for zh_HK.utf8 locale
 Can't locate codepage 10008 for zh_SG locale
-fixme:nls:get_env_lcid charset gbk was not recognized
 Can't locate codepage 10008 for zh_SG.gbk locale
+Can't locate codepage 10008 for zh_SG.utf8 locale
 Can't locate codepage 10002 for zh_TW locale
-fixme:nls:get_env_lcid charset euctw was not recognized
 Can't locate codepage 10002 for zh_TW.euctw locale
 Can't locate codepage 10002 for zh_TW.utf8 locale
-Warning: Language 'zu_ZA' was not recognized, defaulting to English.
-Warning: Language 'zu_ZA' was not recognized, defaulting to English.
-Warning: Language 'zu_ZA' was not recognized, defaulting to English.
-Warning: Language 'zu_ZA' was not recognized, defaulting to English.
-Warning: Language 'zu_ZA' was not recognized, defaulting to English.
-Warning: Language 'zu_ZA' was not recognized, defaulting to English.
