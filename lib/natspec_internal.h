@@ -32,7 +32,7 @@
 #ifdef HAVE_CONFIG_H
 #	include "../config.h"
 #else
-#	error "config.h is missed"
+#	error "config.h is missing"
 #endif
 
 #include "natspec.h"
@@ -40,7 +40,7 @@
 #ifdef HAVE_NL_LANGINFO
 #	define HAVE_LANGINFO_CODESET
 #else
-#	error "NL_LANGINFO is missed"
+#	error "NL_LANGINFO is missing"
 #endif
 
 /*
