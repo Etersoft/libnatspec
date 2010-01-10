@@ -1,5 +1,5 @@
 Name: libnatspec
-Version: 0.2.5
+Version: 0.2.6
 Release: alt1
 
 Summary: Library for national and language-specific issues
@@ -13,7 +13,8 @@ Packager: Vitaly Lipatov <lav@altlinux.ru>
 Source: http://prdownloads.sf.net/%name/%name-%version.tar.bz2
 
 # Automatically added by buildreq on Fri Jul 22 2005
-BuildRequires: doxygen libpopt-devel
+BuildRequires: libpopt-devel
+# due aclocaldir
 BuildRequires: rpm-build-compat
 
 %description
@@ -67,20 +68,15 @@ Python binding for natspec
 mkdir -p %buildroot/%_lib
 mv %buildroot%_libdir/%{name}.* %buildroot/%_lib
 
-%post
-%post_ldconfig
-
-%postun
-%postun_ldconfig
-
 %files
 %doc AUTHORS README ChangeLog NEWS TODO README-ru.html
 /%_lib/*.so.*
 %_bindir/*
+%_man1dir/*
 #/etc/profile.d/*
 
 %files devel
-%doc docs/html
+#doc docs/html
 %_includedir/*
 /%_lib/%name.so
 %_pkgconfigdir/*
@@ -95,6 +91,12 @@ mv %buildroot%_libdir/%{name}.* %buildroot/%_lib
 
 
 %changelog
+* Sun Jan 10 2010 Vitaly Lipatov <lav@altlinux.ru> 0.2.6-alt1
+- cleanup spec
+- regenerate supported locales list
+- check kk_KZ.UTF-8 locale support (fix alt bug #21957)
+- do not use toupper_l/tolower_l (fix alt bug #21431)
+
 * Sat Sep 05 2009 Vitaly Lipatov <lav@altlinux.ru> 0.2.5-alt1
 - update spec
 - convert to Git, build with gear
