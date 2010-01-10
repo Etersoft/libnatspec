@@ -53,14 +53,16 @@ fi
 
 # check Doxygen
 DOXYGEN=""
-AC_CHECK_PROG(DOX, doxygen, yes)
+AC_ARG_WITH(doxygen, [  --with-doxygen    Generate doxygen documentation ],
+[AC_CHECK_PROG(DOX, doxygen, yes)
 if test "x$DOX" != x ; then
 	DOXYGEN="doxygen"
 else
-	AC_MSG_WARN([*** Doxygen not found])
+	AC_MSG_ERROR([*** Doxygen not found])
 fi
+])
 AC_SUBST(DOXYGEN)
-AM_CONDITIONAL(HAVE_DOXYGEN, test x$DOX = xyes)
+AM_CONDITIONAL(HAVE_DOXYGEN, test x$DOXYGEN != x)
 
 
 
