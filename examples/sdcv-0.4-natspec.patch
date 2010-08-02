@@ -1,3 +1,5 @@
+# Adds libnatspec support
+# Vitaly Lipatov <lav@etersoft.ru>
 diff -urN /home/lav/RPM/BUILD/sdcv-0.4/configure.ac sdcv-0.4/configure.ac
 --- /home/lav/RPM/BUILD/sdcv-0.4/configure.ac	2005-06-06 01:56:52 +0400
 +++ sdcv-0.4/configure.ac	2006-01-25 11:41:06 +0300

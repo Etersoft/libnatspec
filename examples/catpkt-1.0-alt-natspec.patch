@@ -1,3 +1,5 @@
+# Adds libnatspec support
+# Vitaly Lipatov <lav@etersoft.ru>
 diff -urN catpkt-1.0.orig/catpkt.c catpkt-1.0/catpkt.c
 --- catpkt-1.0.orig/catpkt.c	1999-04-03 21:14:51 +0300
 +++ catpkt-1.0/catpkt.c	2005-09-15 22:29:21 +0300

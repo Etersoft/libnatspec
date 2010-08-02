@@ -1,3 +1,5 @@
+# Adds libnatspec support
+# Vitaly Lipatov <lav@etersoft.ru>
 https://bugzilla.altlinux.org/show_bug.cgi?id=10180
 
 --- ./configure.ac.orig	2007-07-03 02:34:16 +0400

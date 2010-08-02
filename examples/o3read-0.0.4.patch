@@ -1,3 +1,5 @@
+# Adds libnatspec support
+# Vitaly Lipatov <lav@etersoft.ru>
 natspec patch: encoding output to locale charset
 diff -urN o3read-0.0.4.old/Makefile o3read-0.0.4/Makefile
 --- o3read-0.0.4.old/Makefile	2005-01-07 11:28:47 +0300
