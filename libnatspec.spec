@@ -1,6 +1,6 @@
 Name: libnatspec
 Version: 0.2.6
-Release: alt2
+Release: alt2.qa1
 
 Summary: Library for national and language-specific issues
 
@@ -91,6 +91,10 @@ mv %buildroot%_libdir/%{name}.* %buildroot/%_lib
 
 
 %changelog
+* Thu Nov 25 2010 Igor Vlasenko <viy@altlinux.ru> 0.2.6-alt2.qa1
+- rebuild using girar-nmu to require/provide setversion 
+  by request of mithraen@
+
 * Sun Mar 07 2010 Vitaly Lipatov <lav@altlinux.ru> 0.2.6-alt2
 - set in natspec.m4 require only 0.2.4 version of libnatspec for build
 
