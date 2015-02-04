@@ -163,7 +163,6 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 char *natspec_convert(const char *in_str,
 	const char *tocode, const char *fromcode, int transliterate)
 {
-	size_t result;
 	iconv_t frt;
 	size_t lena = strlen(in_str)*6; /* FIXME see E2BIG for errno */
 	size_t lenb = strlen(in_str);
@@ -182,7 +181,7 @@ char *natspec_convert(const char *in_str,
 		ansaptr = strdup(in_str);
 		return ansaptr;
 	}
-	result = natspec_iconv(frt, &ansbptr, &lenb, &ansaptr, &lena, transliterate);
+	(void)natspec_iconv(frt, &ansbptr, &lenb, &ansaptr, &lena, transliterate);
 	natspec_iconv_close(frt);
 	*ansaptr = '\0';
 	ansaptr = strdup(ansa);
