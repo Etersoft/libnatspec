@@ -184,8 +184,7 @@ char *natspec_convert(const char *in_str,
 	(void)natspec_iconv(frt, &ansbptr, &lenb, &ansaptr, &lena, transliterate);
 	natspec_iconv_close(frt);
 	*ansaptr = '\0';
-	ansaptr = strdup(ansa);
-	return ansaptr;
+	return strdup(ansa);
 }
 
 
