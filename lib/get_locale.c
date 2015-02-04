@@ -52,7 +52,7 @@
 > turn.  This is a GNU extension.
 */
 
-static char *get_from_env()
+char *natspec_internal_get_locale_from_env()
 {
 	char *tmp, *next;
 	/* The highest priority value is the `LANGUAGE' environment
@@ -78,7 +78,7 @@ static char *get_from_env()
  */
 char *natspec_get_current_locale()
 {
-	char *locale = get_from_env();
+	char *locale = natspec_internal_get_locale_from_env();
 	if (locale == NULL)
 		return natspec_get_system_locale();
 	return locale;
@@ -166,7 +166,7 @@ char *natspec_get_system_locale()
 {
 	char *locale = get_from_system_i18n("LANG");
 	if (locale == NULL)
-		locale = get_from_env();
+		locale = natspec_internal_get_locale_from_env();
 	/*! \todo FIXME: we get SegFault in library (when empty sysconfig/i18n and POSIX locale) if return NULL */
 	if (locale == NULL)
 		locale = strdup("C");
