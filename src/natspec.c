@@ -44,6 +44,8 @@
 # include <langinfo.h>
 #endif
 
+/* natspec internals */
+char *natspec_internal_get_locale_from_env();
 
 char *charset_type;
 char *locale, *transliterate;
@@ -144,8 +146,11 @@ int main(int argc, const char** argv)
 	fprintf(stderr, "Compiled without popt. Exit\n");
 	exit(1);
 #endif
+
+        /* Print overall information by default */
 	if (argc == 1)
 		info = 1;
+
 	if (version || info)
 	{
 		printf("%s, compiled %s\n",PACKAGE_STRING,__DATE__);
@@ -177,9 +182,11 @@ int main(int argc, const char** argv)
 	{
 		if (verbose) printf("Current locale: ");
 		printf("%s",locale);
+		if (!natspec_internal_get_locale_from_env())
+		printf(" (got from system locale)");
 		if (verbose) puts("");
 	}
-	if (get_system_locale || verbose)
+	if (get_system_locale || info)
 	{
 		if (verbose) printf("System locale: ");
 		printf("%s", natspec_get_system_locale());
@@ -230,9 +237,12 @@ int main(int argc, const char** argv)
 	if (charset_type)
 		get_charset(charset_type);
 	is_utf8 = natspec_locale_is_utf8("");
-	if (verbose)
-		printf("Current locale is%sin UTF8 encoding\n",(is_utf8 ? " " : " NOT "));
-	if (utf8 && !info)
-		return is_utf8 ? 0 : 1;
+	if (utf8 || info)
+	{
+		if (verbose)
+			printf("Current locale is%sin UTF8 encoding\n",(is_utf8 ? " " : " NOT "));
+		if (!info)
+			return is_utf8 ? 0 : 1;
+	}
 	return 0;
 }
