@@ -1,6 +1,8 @@
+# This spec is backported to ALTLinux p7 automatically by rpmbph script. Do not edit it.
+#
 Name: libnatspec
 Version: 0.2.8
-Release: alt1
+Release: alt0.M70P.1
 
 Summary: Library for national and language-specific issues
 
@@ -92,6 +94,9 @@ mv %buildroot%_libdir/%{name}.* %buildroot/%_lib
 
 
 %changelog
+* Sat Aug 15 2015 Vitaly Lipatov <lav@altlinux.ru> 0.2.8-alt0.M70P.1
+- backport to ALTLinux p7 (by rpmbph script)
+
 * Sat Aug 15 2015 Vitaly Lipatov <lav@altlinux.ru> 0.2.8-alt1
 - natspec: add missed -l (--locale) option
 
