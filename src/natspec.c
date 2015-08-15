@@ -50,7 +50,7 @@ char *natspec_internal_get_locale_from_env();
 char *charset_type;
 char *locale, *transliterate;
 int version, verbose, fsenc, fcodepage, nls, flag_help, info;
-int flag_locale, utf8, country_id, get_system_locale;
+int utf8, country_id, get_system_locale, get_user_locale;
 
 #if defined HAVE_LIBPOPT
 poptContext context = NULL;
@@ -64,6 +64,8 @@ struct poptOption options[] =
      "return 0 if locale is utfed", ""},
 	{"country-id", 0, POPT_ARG_NONE,  &country_id, 1,
      "print country ID (international numbering)", ""},
+    {"locale", 'l', POPT_ARG_NONE,  &get_user_locale, 1,
+     "print current user locale", ""},
 	{"system-locale", 0, POPT_ARG_NONE,  &get_system_locale, 1,
      "print system locale", ""},
     {"info", 'i', POPT_ARG_NONE,  &info, 0,
@@ -178,7 +180,7 @@ int main(int argc, const char** argv)
 		verbose = 1;
 	}
 	locale = natspec_get_current_locale();
-	if (flag_locale || info)
+	if (get_user_locale || info)
 	{
 		if (verbose) printf("Current locale: ");
 		printf("%s",locale);
