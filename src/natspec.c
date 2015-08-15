@@ -1,7 +1,7 @@
 /*
     src/natspec.c
-	
-	command line util for access to libnatspec functions
+
+    command line util for access to libnatspec functions
 
     NATSPEC library
     Copyright (c) 2005 Etersoft
@@ -60,13 +60,13 @@ struct poptOption options[] =
      "print codepage", ""},
     {"fsenc", 'f', POPT_ARG_NONE,  &fsenc, 1,
      "print filesystem encoding", ""},
-	{"utf8", 0, POPT_ARG_NONE,  &utf8, 1,
+    {"utf8", 0, POPT_ARG_NONE,  &utf8, 1,
      "return 0 if locale is utfed", ""},
-	{"country-id", 0, POPT_ARG_NONE,  &country_id, 1,
+    {"country-id", 0, POPT_ARG_NONE,  &country_id, 1,
      "print country ID (international numbering)", ""},
     {"locale", 'l', POPT_ARG_NONE,  &get_user_locale, 1,
      "print current user locale", ""},
-	{"system-locale", 0, POPT_ARG_NONE,  &get_system_locale, 1,
+    {"system-locale", 0, POPT_ARG_NONE,  &get_system_locale, 1,
      "print system locale", ""},
     {"info", 'i', POPT_ARG_NONE,  &info, 0,
      "print overall encoding/charset info for your system", ""},
@@ -182,10 +182,11 @@ int main(int argc, const char** argv)
 	locale = natspec_get_current_locale();
 	if (get_user_locale || info)
 	{
-		if (verbose) printf("Current locale: ");
-		printf("%s",locale);
+		if (verbose)
+			printf("Current user locale: ");
+		printf("%s", locale);
 		if (!natspec_internal_get_locale_from_env())
-		printf(" (got from system locale)");
+			printf(" (got from system locale)");
 		if (verbose) puts("");
 	}
 	if (get_system_locale || info)
