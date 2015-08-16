@@ -44,6 +44,8 @@
 # include <langinfo.h>
 #endif
 
+#define VERBOSE if (verbose) printf
+
 /* natspec internals */
 char *natspec_internal_get_locale_from_env();
 
@@ -99,15 +101,13 @@ static const char *get_charset(char *charset_type)
 		type = NATSPEC_UNIXCS;
 	else
 	{
-		if (verbose) printf("We do not know %s type of encoding\n",charset_type);
+		VERBOSE("We do not know %s type of encoding\n",charset_type);
 		printf("ASCII\n");
 		exit(1);
 	}
 	charset = natspec_get_charset_by_locale(type, locale);
-	if (verbose)
-		printf("Charset of '%s' system: %s\n", charset_type, charset);
-	else
-		printf("%s\n",charset);
+	VERBOSE("Charset of '%s' system: ", charset_type);
+	printf("%s\n", charset);
 	return charset;
 }
 
@@ -182,8 +182,7 @@ int main(int argc, const char** argv)
 	locale = natspec_get_current_locale();
 	if (get_user_locale || info)
 	{
-		if (verbose)
-			printf("Current user locale: ");
+		VERBOSE("Current user locale: ");
 		printf("%s", locale);
 		if (verbose && !natspec_internal_get_locale_from_env())
 			printf(" (got from system locale)");
@@ -191,14 +190,14 @@ int main(int argc, const char** argv)
 	}
 	if (get_system_locale || info)
 	{
-		if (verbose) printf("System locale: ");
+		VERBOSE("System locale: ");
 		printf("%s\n", natspec_get_system_locale());
 		if (!info) exit(0);
 	}
 	if (fsenc || info)
 	{
 		const char *buf;
-		if (verbose) printf("Filename encoding in iconv/nls form: ");
+		VERBOSE("Filename encoding in iconv/nls form: ");
 		buf = natspec_get_filename_encoding("");
 		printf("%s\n",buf);
 		if (!info) exit(0);
@@ -206,7 +205,7 @@ int main(int argc, const char** argv)
 	if (country_id || info)
 	{
 		int id;
-		if (verbose) printf("Country ID (for DOS): ");
+		VERBOSE("Country ID (for DOS): ");
 		id = -1; /* natspec_get_country_id(); */
 		printf("%d\n", id);
 		if (!info) exit(0);
@@ -214,7 +213,7 @@ int main(int argc, const char** argv)
 	if (fcodepage || info)
 	{
 		int cp;
-		if (verbose) printf("Codepage of DOS: ");
+		VERBOSE("Codepage of DOS: ");
 		cp = natspec_get_codepage_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
 		printf("%d\n", cp);
@@ -238,8 +237,7 @@ int main(int argc, const char** argv)
 	is_utf8 = natspec_locale_is_utf8("");
 	if (utf8 || info)
 	{
-		if (verbose)
-			printf("Current locale is%sin UTF8 encoding\n",(is_utf8 ? " " : " NOT "));
+		VERBOSE("Current locale is%sin UTF8 encoding\n",(is_utf8 ? " " : " NOT "));
 		if (!info)
 			return is_utf8 ? 0 : 1;
 	}
