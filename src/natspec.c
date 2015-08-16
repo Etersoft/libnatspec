@@ -185,15 +185,14 @@ int main(int argc, const char** argv)
 		if (verbose)
 			printf("Current user locale: ");
 		printf("%s", locale);
-		if (!natspec_internal_get_locale_from_env())
+		if (verbose && !natspec_internal_get_locale_from_env())
 			printf(" (got from system locale)");
-		if (verbose) puts("");
+		puts("");
 	}
 	if (get_system_locale || info)
 	{
 		if (verbose) printf("System locale: ");
-		printf("%s", natspec_get_system_locale());
-		if (verbose) puts("");
+		printf("%s\n", natspec_get_system_locale());
 		if (!info) exit(0);
 	}
 	if (fsenc || info)
@@ -201,8 +200,7 @@ int main(int argc, const char** argv)
 		const char *buf;
 		if (verbose) printf("Filename encoding in iconv/nls form: ");
 		buf = natspec_get_filename_encoding("");
-		printf("%s",buf);
-		if (verbose) puts("");
+		printf("%s\n",buf);
 		if (!info) exit(0);
 	}
 	if (country_id || info)
@@ -210,8 +208,7 @@ int main(int argc, const char** argv)
 		int id;
 		if (verbose) printf("Country ID (for DOS): ");
 		id = -1; /* natspec_get_country_id(); */
-		printf("%d", id);
-		if (verbose) puts("");
+		printf("%d\n", id);
 		if (!info) exit(0);
 	}
 	if (fcodepage || info)
@@ -220,8 +217,7 @@ int main(int argc, const char** argv)
 		if (verbose) printf("Codepage of DOS: ");
 		cp = natspec_get_codepage_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
-		printf("%d", cp);
-		if (verbose) puts("");
+		printf("%d\n", cp);
 		if (!info) exit(0);
 	}
 	if (info)
