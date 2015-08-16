@@ -4,8 +4,8 @@
     command line util for access to libnatspec functions
 
     NATSPEC library
-    Copyright (c) 2005 Etersoft
-    Copyright (c) 2005 Vitaly Lipatov <lav@etersoft.ru>
+    Copyright (c) 2005, 2015 Etersoft
+    Copyright (c) 2005, 2015 Vitaly Lipatov <lav@etersoft.ru>
 
     $Id: natspec.c,v 1.22 2005/09/03 18:59:28 vitlav Exp $
 
@@ -138,10 +138,10 @@ int main(int argc, const char** argv)
       poptFreeContext(poptCtx);
 	}
 */	
-    if(flag_help)
+	if(flag_help)
 	{
-	poptPrintHelp(poptCtx, stdout, 0);
-    exit(0);
+		poptPrintHelp(poptCtx, stdout, 0);
+		exit(0);
 	}
 
 #else
@@ -155,8 +155,9 @@ int main(int argc, const char** argv)
 
 	if (version || info)
 	{
-		printf("%s, compiled %s\n",PACKAGE_STRING,__DATE__);
-		if (!info) exit(0);
+		printf("%s, compiled %s\n", PACKAGE_STRING,__DATE__);
+		if (!info)
+			exit(0);
 	}
 	if (transliterate)
 	{
@@ -176,7 +177,7 @@ int main(int argc, const char** argv)
 	}
 	if (info)
 	{
-		printf(" === Overall information ===\n");
+		printf(" === Overall locale information ===\n");
 		verbose = 1;
 	}
 	locale = natspec_get_current_locale();
@@ -192,7 +193,8 @@ int main(int argc, const char** argv)
 	{
 		VERBOSE("System locale: ");
 		printf("%s\n", natspec_get_system_locale());
-		if (!info) exit(0);
+		if (!info)
+			exit(0);
 	}
 	if (fsenc || info)
 	{
@@ -200,7 +202,8 @@ int main(int argc, const char** argv)
 		VERBOSE("Filename encoding in iconv/nls form: ");
 		buf = natspec_get_filename_encoding("");
 		printf("%s\n",buf);
-		if (!info) exit(0);
+		if (!info)
+			exit(0);
 	}
 	if (country_id || info)
 	{
@@ -208,7 +211,8 @@ int main(int argc, const char** argv)
 		VERBOSE("Country ID (for DOS): ");
 		id = -1; /* natspec_get_country_id(); */
 		printf("%d\n", id);
-		if (!info) exit(0);
+		if (!info)
+			exit(0);
 	}
 	if (fcodepage || info)
 	{
@@ -217,8 +221,10 @@ int main(int argc, const char** argv)
 		cp = natspec_get_codepage_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, locale));
 		printf("%d\n", cp);
-		if (!info) exit(0);
+		if (!info)
+			exit(0);
 	}
+
 	if (info)
 	{
 		char *types[]={"UNIX","WIN","DOS","MAC"};
@@ -232,9 +238,11 @@ int main(int argc, const char** argv)
 #endif
 		printf("\tnatspec_get_charset: %s\n",natspec_get_charset());
 	}
+
 	if (charset_type)
 		get_charset(charset_type);
 	is_utf8 = natspec_locale_is_utf8("");
+
 	if (utf8 || info)
 	{
 		VERBOSE("Current locale is%sin UTF8 encoding\n",(is_utf8 ? " " : " NOT "));
