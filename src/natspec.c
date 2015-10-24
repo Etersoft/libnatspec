@@ -163,9 +163,14 @@ int main(int argc, const char** argv)
 	{
 		char *str = NULL;
 		if (argv) {
+#if defined HAVE_LIBPOPT
 			while (poptPeekArg(poptCtx))
 				str = (char *)poptGetArg(poptCtx);
 			poptFreeContext(poptCtx);
+#else
+			fprintf(stderr, "Compiled without popt. Exit\n");
+			exit(1);
+#endif
 		}
 		if ( str != NULL)
 		{
