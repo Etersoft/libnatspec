@@ -9,3 +9,8 @@ before_install:
 
 before_script:
   - ./autogen.sh
+
+script:
+  - ./configure
+  - make
+  - make check
