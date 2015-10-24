@@ -14,12 +14,15 @@ env:
    - secure: "W5lqOddGHIHQhRg1NHkoEjbDNE3aMjs7rR9G410Azb+IG2VF6kNkNHWChxbEWaXMdt1nTCnafcvrhtlPzXATBEej4DxkF0LogwFNYrQy1z7TBjIEMw7xf1BYYkRSpbb17U7dcsKJWi/rrLugWfdtiwTfWYbHkf0yCOvRLwD25J8ExwdHjsYbXdNCRxu5LprsKgchZm1CGIYWWHikj0DCYkXYiqW9oXerWB0dGdVKQB3Q22vIXbs8Z1AzFabg38jGCqv4TIPUmSVxhI6LuV3uFzAWWAEBtCp5+LyPg9Jz78lmO7a7K4pg0GlNzKcKTfOx1TjmsKqihogNRvS1KHVrQtR/dtXPQy+DGv87fIOoTDNHkOOHakLt3PhhaHHf9bDvjPRAR8k8t5SAwJSLssa3slN2cdNlNaD1dcigZlzrDuw00YinB9QQ+UczImCubgv5bnGCY930/NrjNYKyPtzDHEARBTKdlP5DvmB53OzccW8e+7kFq3AQiKtht6LyJGdse2Ds+x5MHS/1jqI5n89vgnh3/bjCRBvR7p1kDkTagc/26CsFs9ClU1sEpG2H1JoYrJyQHJWDZ+XVhKPwEAOXRXVDVTwOqwbjyp7p+aNCTcserC2Pm68hpDfDMToake4IKdIEBcjJPNUJ6YOcYp8delesOabNjtYymYZ3T2b0eTQ="
 
 before_install:
+  # tcl-dev need for SWIG generated code (src/python)
   - sudo apt-get install libpopt-dev
 
 #before_script:
 
 script:
-  - ./autogen.sh
+  #- ./autogen.sh
+  - autoreconf -fiv
+  - ./configure --with-debug
   - make
   - make check
 
