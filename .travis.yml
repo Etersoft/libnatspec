@@ -29,7 +29,7 @@ script:
 addons:
   coverity_scan:
     project:
-      name: "vitlav-libnatspec"
+      name: "vitlav/libnatspec"
       description: "LIBNATSPEC build submitted via Travis CI"
     notification_email: lav@etersoft.ru
     build_command: make -j4
