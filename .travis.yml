@@ -17,14 +17,14 @@ before_install:
   # tcl-dev need for SWIG generated code (src/python)
   - sudo apt-get install libpopt-dev
 
-#before_script:
-
-script:
+before_script:
   #- ./autogen.sh
   - autoreconf -fiv
   - ./configure --with-debug
-  - make
-  - make check
+
+script:
+  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then make && make check
+
 
 addons:
   coverity_scan:
@@ -32,5 +32,6 @@ addons:
       name: "vitlav/libnatspec"
       description: "LIBNATSPEC build submitted via Travis CI"
     notification_email: lav@etersoft.ru
+    build_command_prepend: "./configure; make clean"
     build_command: make -j4
     branch_pattern: coverity_scan
