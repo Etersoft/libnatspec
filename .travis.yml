@@ -23,7 +23,7 @@ before_script:
   - ./configure --with-debug
 
 script:
-  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then make && make check
+  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then make && make check ; fi
 
 
 addons:
