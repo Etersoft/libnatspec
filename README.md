@@ -1,17 +1,24 @@
+LIBNATSPEC [![Build Status](https://travis-ci.org/vitlav/libnatspec.svg?branch=master)](https://travis-ci.org/vitlav/libnatspec) [![Coverity Scan Build Status](https://scan.coverity.com/projects/vitlav-libnatspec/badge.svg)](https://scan.coverity.com/projects/vitlav-libnatspec)
+=====
+
     LIBNATSPEC
 	The Nation Specifity Library
 	Vitaly Lipatov <lav@etersoft.ru>
 
-== About libnatspec ===
+About libnatspec
+----------------
 
 libnatspec is a collection of function for requiest various
 charsets and locales for host system and for other system.
 The libnatspec allows applications to be written that are
 locale and system independent. Libnatspec is tries to use
 user locale information if possible.
+
 It contains table with relations between locale name and encoding
-of other system. 
+of other system.
+
 It tested in various OS (with GCC installed):
+
  + ALT Linux 2.4 Master (x86)
  + Debian GNU/Linux 3.0 (Alpha)
  - Solaris SunOS 5.9 (Sparc/x86) (missed libiconv during linking)
@@ -28,6 +35,7 @@ It has been tested with various Linux programs/servers:
  + smbmount
  + submount (subfs)
  - smbd/nmbd/swat/smbclient
+ + zip/unzip
 
 This distribution contains library, header files and binding
 to other languages as python (--with-python option for configure)
@@ -35,32 +43,27 @@ to other languages as python (--with-python option for configure)
 Please if you discover some bug or misfunction of the natspec library
 on your system, email me about it.
 
-=== Installation ===
+Installation
+------------
 
 Installation instructions are found in INSTALL.
 For RPM-based system you can use libnatspec.spec as an example.
 
-=== More Information ===
-
-LIBNATSPEC is at sourceforge.net called as natspec project.
-libnatspec also has a web page, at http://etersoft.ru/natspec
-or http://natspec.sourceforge.net
-
-New versions of the package can be found on the ftp site
-ftp://ftp.altlinux.ru/pub/people/lav/natspec or the http site
-http://etersoft.ru/download/natspec
+More Information
+----------------
 
 libnatspec may be freely distibuted and modified in accordance with
 the GNU Lesser General Public License. Examples in the libnatspec
 distribution can fall under different licenses;
 see the example/LICENSE file and individual files for details.
 
-The person for contact is Vitaly Lipatov <lav@etersoft.ru>
+The person for contact: Vitaly Lipatov <lav@etersoft.ru>
 
-=== Examples of use ===
+Examples of use
+---------------
 
-==== Convert files from other system to our one ====
-
+### Convert files from other system to our one
+```
 // Get the filename encoding in your system
 const char *fileenc = natspec_get_filename_encoding("");
 
@@ -69,10 +72,11 @@ const char *win_cs = natspec_get_charset_by_locale(NATSPEC_WINCS,"");
 
 // Do conversion from foreign to local filename encoding
 const char * unix_filename = natspec_convert(win_filename,win_cs, fileenc);
+```
 
+### Using in .c files
 
-==== Using in .c files ====
-
+```
 #ifdef HAVE_NATSPEC
 #include <natspec.h>
 #endif
@@ -80,14 +84,13 @@ const char * unix_filename = natspec_convert(win_filename,win_cs, fileenc);
 #ifdef HAVE_NATSPEC
 	some with natspec using
 #endif
+```
 
-==== Using in configure.in files ====
+### Using in configure.in files
+
 1. Add line with AM_PATH_NATSPEC in configure.in
 it makes NATSPEC_LIBS, NATSPEC_CFLAGS variables for Makefiles
 and defines HAVE_NATSPEC in config.h
 2. Use option --with-natspec for configure
 
-==== Links ====
-http://www.sensi.org/~alec/locale/ About locale
-
-07.05.2005
+07.05.2005, 24.10.2015
