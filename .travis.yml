@@ -4,13 +4,30 @@ compiler:
   - clang
   - gcc
 
+cache:
+  apt: true
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "W5lqOddGHIHQhRg1NHkoEjbDNE3aMjs7rR9G410Azb+IG2VF6kNkNHWChxbEWaXMdt1nTCnafcvrhtlPzXATBEej4DxkF0LogwFNYrQy1z7TBjIEMw7xf1BYYkRSpbb17U7dcsKJWi/rrLugWfdtiwTfWYbHkf0yCOvRLwD25J8ExwdHjsYbXdNCRxu5LprsKgchZm1CGIYWWHikj0DCYkXYiqW9oXerWB0dGdVKQB3Q22vIXbs8Z1AzFabg38jGCqv4TIPUmSVxhI6LuV3uFzAWWAEBtCp5+LyPg9Jz78lmO7a7K4pg0GlNzKcKTfOx1TjmsKqihogNRvS1KHVrQtR/dtXPQy+DGv87fIOoTDNHkOOHakLt3PhhaHHf9bDvjPRAR8k8t5SAwJSLssa3slN2cdNlNaD1dcigZlzrDuw00YinB9QQ+UczImCubgv5bnGCY930/NrjNYKyPtzDHEARBTKdlP5DvmB53OzccW8e+7kFq3AQiKtht6LyJGdse2Ds+x5MHS/1jqI5n89vgnh3/bjCRBvR7p1kDkTagc/26CsFs9ClU1sEpG2H1JoYrJyQHJWDZ+XVhKPwEAOXRXVDVTwOqwbjyp7p+aNCTcserC2Pm68hpDfDMToake4IKdIEBcjJPNUJ6YOcYp8delesOabNjtYymYZ3T2b0eTQ="
+
 before_install:
   - sudo apt-get install libpopt-dev
 
-before_script:
-  - ./autogen.sh
+#before_script:
 
 script:
-  - ./configure
+  - ./autogen.sh
   - make
   - make check
+
+addons:
+  coverity_scan:
+    project:
+      name: "vitlav-libnatspec"
+      description: "LIBNATSPEC build submitted via Travis CI"
+    notification_email: lav@etersoft.ru
+    build_command: make -j4
+    branch_pattern: coverity_scan
