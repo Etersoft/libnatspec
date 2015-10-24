@@ -103,10 +103,10 @@ void test_for_convert()
 	}
 	strcpy(toi,"Test - Проверка ёлочных игрушек.");
 	li = strlen(toi); lo = 99; tob = to; toai = toi;
-	printf("Before natspec_iconv: it=%d, %s, len=%d\n", (int)it, toi, li);
+	printf("Before natspec_iconv: it=%p, %s, len=%lu\n", it, toi, li);
 	result = natspec_iconv(it, &toai, &li, &tob, &lo, 1);
 	*tob = '\0';
-	printf("Result natspec_iconv: %s (lo=%d), with result=%d\n", to, lo, result);
+	printf("Result natspec_iconv: %s (lo=%lu), with result=%lu\n", to, lo, result);
 	natspec_iconv_close(it);
 }
 
@@ -169,7 +169,7 @@ void test_for_natspec_iconv()
 	assert (tt != (iconv_t)-1);
 	size = natspec_iconv(tt, &inbuf, &insize, &outbuf, &outsize, 0);
 	*outbuf = 0;
-	printf("natspec_iconv: insize=%d outsize=%d size=%d outbuf=%s\n", insize, outsize, size, buf);
+	printf("natspec_iconv: insize=%lu outsize=%lu size=%lu outbuf=%s\n", insize, outsize, size, buf);
 }
 
 int main(void)
