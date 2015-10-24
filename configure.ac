@@ -1,7 +1,9 @@
 # Configure ac for LIBNATSPEC project
 #
 AC_PREREQ(2.52)
-AC_INIT([libnatspec], [0.3.0], lav@etersoft.ru)
+# TODO: get version from spec file
+# TODO: add libtool versioning current:revision:age
+AC_INIT([libnatspec], [0.3.1], lav@etersoft.ru)
 dnl AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 dnl AS_VERSION(comedilib, COMEDILIB, 0, 7, 21)
