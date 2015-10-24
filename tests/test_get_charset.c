@@ -22,36 +22,46 @@
 void test_for_enrich()
 {
 	char *ret, *ret1;
+
 	ret1 = natspec_get_enriched_fs_options(NULL, NULL);
 	printf("enrich NULL: %s\n",ret1);
+	free(ret1);
+
 	ret = NULL;
 	ret1 = natspec_get_enriched_fs_options("udf", ret);
 	printf("enrich udf: ret='%s', ret1='%s'\n",ret, ret1);
+	free(ret1);
 
 	ret = ",";
 	ret1 = natspec_get_enriched_fs_options("udf", ret);
 	printf("enrich udf: ret='%s', ret1='%s'\n",ret, ret1);
 	assert (strcmp(ret,ret1));
+	free(ret1);
 
 	ret = "defaults";
 	ret1 = natspec_get_enriched_fs_options("vfat", ret);
 	printf("enrich VFAT: %s %p:%p\n",ret,ret,ret1);
 	assert (strcmp(ret,ret1));
+	free(ret1);
 
 	ret = "iocharset=koi8-r";
 	ret1 = natspec_get_enriched_fs_options("vfat", ret);
 	printf("enrich VFAT with io: %s %p:%p\n",ret,ret,ret1);
 	assert (!strcmp(ret,ret1));
+	free(ret1);
 
 	ret = "";
 	ret1 = natspec_get_enriched_fs_options("smb", ret);
 	printf("enrich SMB: %s\n",ret1);
 	assert (strcmp(ret,ret1));
+	free(ret1);
 
 	ret = strdup("defaults");
 	ret1 = natspec_get_enriched_fs_options("reiserfs", ret);
 	printf("enrich reiserfs: %s\n",ret1);
 	assert (!strcmp(ret,ret1));
+	free(ret);
+	free(ret1);
 }
 
 void test_for_iconv()
@@ -119,11 +129,11 @@ void test_nls()
 		const char *t;
 		iconv_t it;
 		const char *locale = charset_relation[i].locale;
-		assert (t=natspec_get_filename_encoding(locale));
-		/* printf("%s\n",t); */
+		t = natspec_get_filename_encoding(locale);
+		assert (t);
 		it = iconv_open(t,"UTF-8");
 		if ( it == (iconv_t)(-1))
-	  	{
+		{
 		  	printf("TEST_ICONV for nls: does not know '%s'\n",t);
 			exit (1);
 		}
