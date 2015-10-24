@@ -166,8 +166,10 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 	char *replocale = _natspec_repack_locale(locale);
 
 	/* Search the same locale string in table. We are sure locale is repacked (normalized) */
-	if ( _n_isempty(replocale))
+	if ( _n_isempty(replocale)) {
+		free (replocale);
 		return NULL;
+	}
 	entry = _n_bsearch( replocale, charset_relation, charset_locale_cmp );
 	free (replocale);
 
