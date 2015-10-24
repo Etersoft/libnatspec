@@ -6,11 +6,12 @@ Summary: Library for national and language-specific issues
 
 License: LGPL
 Group: System/Libraries
-Url: http://sourceforge.net/projects/natspec
+Url: https://github.com/vitlav/libnatspec
 
 Packager: Vitaly Lipatov <lav@altlinux.ru>
 
-Source: http://prdownloads.sf.net/%name/%name-%version.tar.bz2
+# Source-git: https://github.com/vitlav/libnatspec
+Source: %name-%version.tar
 
 # Automatically added by buildreq on Fri Jul 22 2005
 BuildRequires: libpopt-devel
@@ -23,7 +24,9 @@ This library provides userful functions for
 mount, submount, mkisofs, multimedia players.
 This library try to help resolve charset hell (encoding problem)
 in a various programs depends on locale and messages.
-See detailed description at %url.
+See detailed description at
+http://www.freesource.info/wiki/Lokalizacija/NATSPECDescription
+or http://freesource.info/wiki/Lokalizacija/BibliotekaNATSPEC
 
 %package devel
 Summary: Development package of library for national and language-specific issues
