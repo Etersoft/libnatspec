@@ -285,6 +285,7 @@ static const struct charsetrel_entry charset_relation[] =
  {"mai_IN",       1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
  {"mg_MG",        1033,  "ISO885915",   "CP1252",   "IBM437",   "MAC" },
  {"mg_MG.UTF8",   1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
+ {"mhr_RU",       1049,  "UTF8",        "CP1251",   "IBM866",   "MACCYRILLIC" },
  {"mi_NZ",        1033,  "ISO885913",   "CP1252",   "IBM437",   "MAC" },
  {"mi_NZ.UTF8",   1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
  {"mk_MK",        1071,  "ISO88595",    "CP1251",   "IBM866",   "MACCYRILLIC" },
