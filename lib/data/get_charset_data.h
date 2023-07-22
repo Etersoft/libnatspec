@@ -270,6 +270,7 @@ static const struct charsetrel_entry charset_relation[] =
  {"ks_IN@devanagari", 1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
  {"ku_TR",        1033,  "ISO88599",    "CP1252",   "IBM437",   "MAC" },
  {"ku_TR.UTF8",   1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
+ {"kv_RU.UTF8",   1049,  "UTF8",        "CP1251",   "IBM866",   "MACCYRILLIC" },
  {"kw_GB",        1169,  "ISO88591",    "CP1252",   "IBM850",   "MAC" },
  {"kw_GB.UTF8",   1169,  "UTF8",        "CP1252",   "IBM850",   "MAC" },
  {"ky_KG",        1088,  "UTF8",        "CP1251",   "IBM866",   "MACCYRILLIC" },
