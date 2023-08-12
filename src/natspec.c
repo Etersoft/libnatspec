@@ -175,7 +175,7 @@ int main(int argc, const char** argv)
 		if ( str != NULL)
 		{
 			setlocale(LC_ALL,"");
-			str = natspec_convert_with_translit(str, "", transliterate);
+			str = natspec_convert(str, "", transliterate, 1);
 			puts(str);
 		}
 		exit(0);
