@@ -111,8 +111,8 @@ static void add_options(char *buf, const char *fs)
 	int codepagenum = natspec_get_codepage_by_charset(
 			natspec_get_charset_by_locale(NATSPEC_DOSCS, ""));
 	char codepage[10];
-	assert (codepagenum<1000000);
-	sprintf(codepage, "%d", codepagenum);
+	short cpn = codepagenum & 0x7FFF;
+	sprintf(codepage, "%d", cpn);
 	DEBUG (fprintf (stderr,"fn=%s ENRICH: codepage=%s\n",charset,codepage));
 
 	/* Specially for each file system */
