@@ -4,10 +4,7 @@ AC_PREREQ(2.52)
 # TODO: get version from spec file
 # TODO: add libtool versioning current:revision:age
 AC_INIT([libnatspec], [0.3.1], lav@etersoft.ru)
-dnl AC_CANONICAL_SYSTEM
-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
-dnl AS_VERSION(comedilib, COMEDILIB, 0, 7, 21)
-dnl AS_LIBTOOL(COMEDILIB, 0, 7, 18, yes)
+AM_INIT_AUTOMAKE
 
 AC_CONFIG_HEADER(config.h)
 CFLAGS="$CFLAGS -Wall -funsigned-char"
@@ -56,12 +53,14 @@ fi
 # check Doxygen
 DOXYGEN=""
 AC_ARG_WITH(doxygen, [  --with-doxygen    Generate doxygen documentation ],
-[AC_CHECK_PROG(DOX, doxygen, yes)
-if test "x$DOX" != x ; then
-	DOXYGEN="doxygen"
-else
-	AC_MSG_ERROR([*** Doxygen not found])
-fi
+[], [with_doxygen=no])
+AS_IF([test "x$with_doxygen" != xno],
+  [AC_CHECK_PROG(DOX, doxygen, yes)
+  if test "x$DOX" != x ; then
+    DOXYGEN="doxygen"
+  else
+    AC_MSG_ERROR([*** Doxygen not found])
+  fi
 ])
 AC_SUBST(DOXYGEN)
 AM_CONDITIONAL(HAVE_DOXYGEN, test x$DOXYGEN != x)
@@ -79,8 +78,10 @@ AC_CHECK_FUNCS([nl_langinfo setlocale strcasecmp strchr strdup strstr])
 
 dnl Python
 AC_ARG_WITH(python, [  --with-python    Compile python binding ],
-[AM_PATH_PYTHON(2.3)
-AM_CHECK_PYTHON_HEADERS(HAVE_PYTHON=yes,[HAVE_PYTHON=no;AC_MSG_WARN([python headers not found, disabling python binding])])
+[], [with_python=no])
+AS_IF([test "x$with_python" != xno],
+  [AM_PATH_PYTHON(2.3)
+  AM_CHECK_PYTHON_HEADERS(HAVE_PYTHON=yes,[HAVE_PYTHON=no;AC_MSG_WARN([python headers not found, disabling python binding])])
 ])
 AM_CONDITIONAL(HAVE_PYTHON, [test "x$HAVE_PYTHON" = xyes])
 
@@ -89,7 +90,10 @@ dnl #AS_COMPILER_FLAG([-Wno-unused-function],[PYTHON_QUIET="$PYTHON_QUIET -Wno-u
 dnl #AC_SUBST(PYTHON_QUIET)
 
 
-AC_ARG_WITH(debug, [  --with-debug    Compile with debug information], CFLAGS="$CFLAGS -g")
+AC_ARG_WITH(debug, [  --with-debug    Compile with debug information],
+[], [with_debug=no])
+AS_IF([test "x$with_debug" != xno],
+[CFLAGS="$CFLAGS -g"])
 
 AC_ARG_WITH(i18n-file, [  --with-i18n-file=file Use this file for system LANG search],
 	i18n_file=$withval,
