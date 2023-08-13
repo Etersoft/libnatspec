@@ -134,8 +134,10 @@ main (int argc, char **argv)
  /* Or system? */
   LCID lcid = GetUserDefaultLCID ();
   UINT ansi_cp, mac_cp, oem_cp, unix_cp;
+#ifdef DUMMY
   GetLocaleInfoW (lcid, LOCALE_IDEFAULTUNIXCODEPAGE | LOCALE_RETURN_NUMBER,
 		  (LPWSTR) & unix_cp, sizeof (unix_cp) / sizeof (WCHAR));
+#endif
   GetLocaleInfoW (lcid, LOCALE_IDEFAULTANSICODEPAGE | LOCALE_RETURN_NUMBER,
 		  (LPWSTR) & ansi_cp, sizeof (ansi_cp) / sizeof (WCHAR));
   GetLocaleInfoW (lcid, LOCALE_IDEFAULTCODEPAGE | LOCALE_RETURN_NUMBER,
@@ -151,7 +153,7 @@ main (int argc, char **argv)
   print_w (buf, 7);
   /* I don't know how to set wine for system enc */
 #ifdef DUMMY
-  print_charset(unix_cp, 15,"");
+  print_charset(unix_cp, 15, "");
 #else
   print_charset(0,15,natspec_humble_charset(nl_langinfo(CODESET)));
 #endif
