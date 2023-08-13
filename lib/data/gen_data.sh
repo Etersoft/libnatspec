@@ -3,11 +3,18 @@
 #    $Id: gen_data.sh,v 1.8 2005/03/09 20:07:30 lav Exp $
 
 OUTFILE=get_charset_data.h
-PRINTDATAPROGRAM="wwo ./print_data_string.exe.so"
+PRINTDATAPROGRAM="wine ./print_data_string.exe.so"
 
 print()
 {
 	printf " { \"%s\",\t%d,\t\"%s\",\t\"%s\",\t\"%s\",\t\"%s\" }%s\n" $@ >>$OUTFILE
+}
+
+get_locales()
+{
+	locale -a
+	# https://bugzilla.altlinux.org/47030
+	echo "kv_RU.UTF8"
 }
 
 echo Test string for $LANG locale:
@@ -23,7 +30,7 @@ static const struct charsetrel_entry charset_relation[] =
 EOF
 echo "Generating with WINE program..."
 echo "This is log error file. See for your problem locale here and send me a mail: lav@etersoft.ru">./gen_data.out.txt
-for i in `locale -a | LC_ALL=C sort`
+for i in $(get_locales | LC_ALL=C sort)
 do
 	echo -e -n " {" >>$OUTFILE
 	LANG=$i LC_CTYPE=$i $PRINTDATAPROGRAM 2>>./gen_data.out.txt >>$OUTFILE
