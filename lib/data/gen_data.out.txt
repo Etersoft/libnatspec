@@ -1,171 +1,893 @@
 This is log error file. See for your problem locale here and send me a mail: lav@etersoft.ru
+0124:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+013c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0154:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for aa_DJ locale
+Can't locate codepage 2 for aa_DJ locale
+016c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for aa_DJ.utf8 locale
+Can't locate codepage 2 for aa_DJ.utf8 locale
+0184:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for aa_ER locale
+Can't locate codepage 2 for aa_ER locale
+019c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for aa_ER@saaho locale
+Can't locate codepage 2 for aa_ER@saaho locale
+01b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for aa_ET locale
+Can't locate codepage 2 for aa_ET locale
+01cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0214:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ak_GH locale
+Can't locate codepage 2 for ak_GH locale
+022c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for am_ET locale
+Can't locate codepage 2 for am_ET locale
+0244:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+025c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0274:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+028c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_AE locale
 Can't locate codepage 10004 for ar_AE locale
+02a4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_AE.utf8 locale
 Can't locate codepage 10004 for ar_AE.utf8 locale
+02bc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_BH locale
 Can't locate codepage 10004 for ar_BH locale
+02d4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_BH.utf8 locale
 Can't locate codepage 10004 for ar_BH.utf8 locale
+02ec:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_DZ locale
 Can't locate codepage 10004 for ar_DZ locale
+0304:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_DZ.utf8 locale
 Can't locate codepage 10004 for ar_DZ.utf8 locale
+031c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_EG locale
 Can't locate codepage 10004 for ar_EG locale
+0334:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_EG.utf8 locale
 Can't locate codepage 10004 for ar_EG.utf8 locale
-Can't locate codepage 720 for ar_IN locale
-Can't locate codepage 10004 for ar_IN locale
+034c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0364:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_IQ locale
 Can't locate codepage 10004 for ar_IQ locale
+037c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_IQ.utf8 locale
 Can't locate codepage 10004 for ar_IQ.utf8 locale
+0394:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_JO locale
 Can't locate codepage 10004 for ar_JO locale
+03ac:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_JO.utf8 locale
 Can't locate codepage 10004 for ar_JO.utf8 locale
+03c4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_KW locale
 Can't locate codepage 10004 for ar_KW locale
+03dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_KW.utf8 locale
 Can't locate codepage 10004 for ar_KW.utf8 locale
+03f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_LB locale
 Can't locate codepage 10004 for ar_LB locale
+040c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_LB.utf8 locale
 Can't locate codepage 10004 for ar_LB.utf8 locale
+0424:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_LY locale
 Can't locate codepage 10004 for ar_LY locale
+043c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_LY.utf8 locale
 Can't locate codepage 10004 for ar_LY.utf8 locale
+0454:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_MA locale
 Can't locate codepage 10004 for ar_MA locale
+046c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_MA.utf8 locale
 Can't locate codepage 10004 for ar_MA.utf8 locale
+0484:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_OM locale
 Can't locate codepage 10004 for ar_OM locale
+049c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_OM.utf8 locale
 Can't locate codepage 10004 for ar_OM.utf8 locale
+04b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_QA locale
 Can't locate codepage 10004 for ar_QA locale
+04cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_QA.utf8 locale
 Can't locate codepage 10004 for ar_QA.utf8 locale
+04e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_SA locale
 Can't locate codepage 10004 for ar_SA locale
+04fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_SA.utf8 locale
 Can't locate codepage 10004 for ar_SA.utf8 locale
+0514:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_SD locale
 Can't locate codepage 10004 for ar_SD locale
+052c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_SD.utf8 locale
 Can't locate codepage 10004 for ar_SD.utf8 locale
+0544:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 720 for ar_SS locale
+Can't locate codepage 10004 for ar_SS locale
+055c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_SY locale
 Can't locate codepage 10004 for ar_SY locale
+0574:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_SY.utf8 locale
 Can't locate codepage 10004 for ar_SY.utf8 locale
+058c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_TN locale
 Can't locate codepage 10004 for ar_TN locale
+05a4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_TN.utf8 locale
 Can't locate codepage 10004 for ar_TN.utf8 locale
+05bc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_YE locale
 Can't locate codepage 10004 for ar_YE locale
+05d4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ar_YE.utf8 locale
 Can't locate codepage 10004 for ar_YE.utf8 locale
-Can't locate codepage 10081 for az_AZ.utf8 locale
+05ec:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for as_IN locale
+Can't locate codepage 2 for as_IN locale
+0604:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ast_ES locale
+Can't locate codepage 2 for ast_ES locale
+061c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ast_ES.utf8 locale
+Can't locate codepage 2 for ast_ES.utf8 locale
+0634:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+064c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0664:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+067c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0694:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06ac:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06c4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for bem_ZM locale
+Can't locate codepage 2 for bem_ZM locale
+06dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+070c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0724:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+073c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0754:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+076c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0784:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+079c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for bn_BD locale
+Can't locate codepage 2 for bn_BD locale
+07b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for bn_IN locale
+Can't locate codepage 2 for bn_IN locale
+07cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for bo_CN locale
+Can't locate codepage 2 for bo_CN locale
+07e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for bo_IN locale
+Can't locate codepage 2 for bo_IN locale
+07fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0814:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0034:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0020:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for brx_IN locale
+Can't locate codepage 2 for brx_IN locale
+0118:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0130:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0148:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for byn_ER locale
+Can't locate codepage 2 for byn_ER locale
+0160:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ca_AD locale
+0178:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ca_AD.utf8 locale
+0190:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01a8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01c0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01d8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01f0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ca_FR locale
+0208:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ca_FR.utf8 locale
+0220:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ca_IT locale
+0238:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ca_IT.utf8 locale
+0250:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ce_RU locale
+Can't locate codepage 2 for ce_RU locale
+0268:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for chr_US locale
+Can't locate codepage 2 for chr_US locale
+0280:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 720 for ckb_IQ locale
+Can't locate codepage 10004 for ckb_IQ locale
+0298:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02b0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02c8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for cs_CZ locale
+02e0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for cs_CZ.utf8 locale
+02f8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0310:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0328:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+err:environ:init_unix_codepage unrecognized charset 'ISO-8859-14'
+err:environ:init_unix_codepage unrecognized charset 'ISO-8859-14'
+err:environ:init_unix_codepage unrecognized charset 'ISO-8859-14'
+0340:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0358:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0370:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0388:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03a0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03b8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+040c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0424:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+043c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0454:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+046c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0484:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+049c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for de_IT locale
+Can't locate codepage 2 for de_IT locale
+04b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for de_IT.utf8 locale
+Can't locate codepage 2 for de_IT.utf8 locale
+04cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0514:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+052c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for doi_IN locale
+Can't locate codepage 2 for doi_IN locale
+0544:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+055c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for dv_MV locale
+Can't locate codepage 2 for dv_MV locale
+0574:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for dz_BT locale
+Can't locate codepage 2 for dz_BT locale
+058c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 737 for el_CY locale
 Can't locate codepage 10006 for el_CY locale
+05a4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 737 for el_CY.utf8 locale
 Can't locate codepage 10006 for el_CY.utf8 locale
+05bc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 737 for el_GR locale
 Can't locate codepage 10006 for el_GR locale
+05d4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 737 for el_GR.utf8 locale
 Can't locate codepage 10006 for el_GR.utf8 locale
+05ec:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 737 for el_GR@euro locale
+Can't locate codepage 10006 for el_GR@euro locale
+0604:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+061c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0634:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+064c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0664:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+067c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0694:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06ac:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for en_DK locale
+Can't locate codepage 2 for en_DK locale
+06c4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for en_DK.utf8 locale
+Can't locate codepage 2 for en_DK.utf8 locale
+06dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+070c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0724:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+073c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0754:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+076c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0784:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for en_IL locale
+Can't locate codepage 2 for en_IL locale
+079c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0814:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0034:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0020:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0118:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0130:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0148:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0160:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0178:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0190:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01a8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01c0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01d8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for eo locale
+Can't locate codepage 2 for eo locale
+01f0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0208:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0220:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0238:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0250:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0268:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0280:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0298:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02b0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02c8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02e0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02f8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0310:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0328:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0340:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0358:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0370:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0388:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03a0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03b8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+040c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0424:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+043c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0454:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+046c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0484:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+049c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0514:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+052c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0544:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+055c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0574:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+058c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05a4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05bc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05d4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05ec:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 775 for et_EE locale
 Can't locate codepage 10029 for et_EE locale
+0604:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 775 for et_EE.iso885915 locale
 Can't locate codepage 10029 for et_EE.iso885915 locale
+061c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 775 for et_EE.utf8 locale
 Can't locate codepage 10029 for et_EE.utf8 locale
+0634:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for eu_ES locale
+064c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for eu_ES.utf8 locale
+0664:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for eu_ES@euro locale
+067c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for fa_IR locale
 Can't locate codepage 10004 for fa_IR locale
+0694:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06ac:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06c4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+070c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10079 for fo_FO locale
+0724:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10079 for fo_FO.utf8 locale
+073c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0754:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+076c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0784:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+079c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0814:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0034:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0020:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0118:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0130:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for fur_IT locale
+Can't locate codepage 2 for fur_IT locale
+0148:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0160:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0178:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0190:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01a8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01c0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01d8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01f0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0208:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0220:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0238:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0250:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0268:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0280:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0298:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for gu_IN locale
 Can't locate codepage 2 for gu_IN locale
+02b0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for gv_GB locale
+Can't locate codepage 2 for gv_GB locale
+02c8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for gv_GB.utf8 locale
+Can't locate codepage 2 for gv_GB.utf8 locale
+02e0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02f8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0310:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10005 for he_IL locale
+0328:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10005 for he_IL.utf8 locale
+0340:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for hi_IN locale
 Can't locate codepage 2 for hi_IN locale
+0358:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0370:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0388:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10082 for hr_HR locale
+03a0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10082 for hr_HR.utf8 locale
+03b8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+040c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for hu_HU locale
+0424:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for hu_HU.utf8 locale
+043c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for hy_AM locale
 Can't locate codepage 2 for hy_AM locale
+0454:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+err:environ:init_unix_codepage unrecognized charset 'ARMSCII-8'
+err:environ:init_unix_codepage unrecognized charset 'ARMSCII-8'
+err:environ:init_unix_codepage unrecognized charset 'ARMSCII-8'
+Can't locate codepage 1 for hy_AM.armscii8 locale
+Can't locate codepage 2 for hy_AM.armscii8 locale
+046c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0484:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+049c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10079 for is_IS locale
+04fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10079 for is_IS.utf8 locale
+0514:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+052c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0544:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+055c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0574:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+058c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05a4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10001 for ja_JP.eucjp locale
+05bc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10001 for ja_JP.utf8 locale
+05d4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+err:environ:init_unix_codepage unrecognized charset 'GEORGIAN-PS'
+err:environ:init_unix_codepage unrecognized charset 'GEORGIAN-PS'
+err:environ:init_unix_codepage unrecognized charset 'GEORGIAN-PS'
 Can't locate codepage 1 for ka_GE locale
 Can't locate codepage 2 for ka_GE locale
+05ec:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for ka_GE.utf8 locale
 Can't locate codepage 2 for ka_GE.utf8 locale
+0604:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for kab_DZ locale
+Can't locate codepage 2 for kab_DZ locale
+061c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+err:environ:init_unix_codepage unrecognized charset 'PT154'
+err:environ:init_unix_codepage unrecognized charset 'PT154'
+err:environ:init_unix_codepage unrecognized charset 'PT154'
+Can't locate codepage 1 for kk_KZ locale
+Can't locate codepage 2 for kk_KZ locale
+0634:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for kk_KZ.utf8 locale
+Can't locate codepage 2 for kk_KZ.utf8 locale
+064c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0664:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+067c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for km_KH locale
+Can't locate codepage 2 for km_KH locale
+0694:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for kn_IN locale
 Can't locate codepage 2 for kn_IN locale
+06ac:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10003 for ko_KR.euckr locale
+06c4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10003 for ko_KR.utf8 locale
+06dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for kok_IN locale
+Can't locate codepage 2 for kok_IN locale
+06f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ks_IN locale
+Can't locate codepage 2 for ks_IN locale
+070c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ks_IN@devanagari locale
+Can't locate codepage 2 for ks_IN@devanagari locale
+0724:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+073c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0754:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+076c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for kw_GB locale
+Can't locate codepage 2 for kw_GB locale
+0784:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for kw_GB.utf8 locale
+Can't locate codepage 2 for kw_GB.utf8 locale
+079c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+err:environ:init_unix_codepage unrecognized charset 'ISO-8859-10'
+err:environ:init_unix_codepage unrecognized charset 'ISO-8859-10'
+err:environ:init_unix_codepage unrecognized charset 'ISO-8859-10'
+Can't locate codepage 1 for lg_UG locale
+Can't locate codepage 2 for lg_UG locale
+07e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for lg_UG.utf8 locale
+Can't locate codepage 2 for lg_UG.utf8 locale
+07fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0814:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0034:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0020:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ln_CD locale
+Can't locate codepage 2 for ln_CD locale
+0118:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for lo_LA locale
+Can't locate codepage 2 for lo_LA locale
+0130:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 775 for lt_LT locale
 Can't locate codepage 10029 for lt_LT locale
+0148:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 775 for lt_LT.utf8 locale
 Can't locate codepage 10029 for lt_LT.utf8 locale
+0160:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 775 for lv_LV locale
 Can't locate codepage 10029 for lv_LV locale
+0178:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 775 for lv_LV.utf8 locale
 Can't locate codepage 10029 for lv_LV.utf8 locale
+0190:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01a8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01c0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for mai_IN locale
+Can't locate codepage 2 for mai_IN locale
+01d8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01f0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for mfe_MU locale
+Can't locate codepage 2 for mfe_MU locale
+0208:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for mg_MG locale
+Can't locate codepage 2 for mg_MG locale
+0220:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for mg_MG.utf8 locale
+Can't locate codepage 2 for mg_MG.utf8 locale
+0238:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0250:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0268:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for mi_NZ locale
+Can't locate codepage 2 for mi_NZ locale
+0280:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for mi_NZ.utf8 locale
+Can't locate codepage 2 for mi_NZ.utf8 locale
+0298:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02b0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02c8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02e0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02f8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ml_IN locale
+Can't locate codepage 2 for ml_IN locale
+0310:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0328:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for mni_IN locale
+Can't locate codepage 2 for mni_IN locale
+0340:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0358:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for mr_IN locale
 Can't locate codepage 2 for mr_IN locale
+0370:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0388:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+03a0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for mt_MT locale
+Can't locate codepage 2 for mt_MT locale
+03b8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for mt_MT.utf8 locale
+Can't locate codepage 2 for mt_MT.utf8 locale
+03dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for my_MM locale
+Can't locate codepage 2 for my_MM locale
+03f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+040c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0424:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+043c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0454:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for nds_DE locale
+Can't locate codepage 2 for nds_DE locale
+046c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for nds_NL locale
+Can't locate codepage 2 for nds_NL locale
+0484:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ne_NP locale
+Can't locate codepage 2 for ne_NP locale
+049c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0514:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+052c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0544:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+055c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0574:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+058c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05a4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05bc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for nr_ZA locale
+Can't locate codepage 2 for nr_ZA locale
+05d4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05ec:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0604:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+061c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for om_ET locale
+Can't locate codepage 2 for om_ET locale
+0634:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for om_KE locale
+Can't locate codepage 2 for om_KE locale
+064c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for om_KE.utf8 locale
+Can't locate codepage 2 for om_KE.utf8 locale
+0664:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for or_IN locale
+Can't locate codepage 2 for or_IN locale
+067c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for os_RU locale
+Can't locate codepage 2 for os_RU locale
+0694:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for pa_IN locale
 Can't locate codepage 2 for pa_IN locale
-Can't locate codepage 1 for pa_PK locale
-Can't locate codepage 2 for pa_PK locale
+06ac:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06c4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for pl_PL locale
+070c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for pl_PL.utf8 locale
+0724:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ps_AF locale
+Can't locate codepage 2 for ps_AF locale
+073c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0754:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+076c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0784:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+079c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+07fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for ro_RO locale
+0814:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for ro_RO.utf8 locale
+0034:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0020:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0118:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0130:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0148:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0160:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0178:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ru_UA locale
+0190:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ru_UA.cp1251 locale
+01a8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ru_UA.koi8u locale
+01c0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 2 for ru_UA.utf8 locale
+01d8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01f0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for sa_IN locale
 Can't locate codepage 2 for sa_IN locale
+0208:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0220:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0238:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for sc_IT locale
+Can't locate codepage 2 for sc_IT locale
+0250:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0268:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for sd_IN@devanagari locale
+Can't locate codepage 2 for sd_IN@devanagari locale
+0280:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0298:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02b0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02c8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02e0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for si_LK locale
+Can't locate codepage 2 for si_LK locale
+02f8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0310:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for sk_SK locale
+0328:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for sk_SK.utf8 locale
+0340:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for sl_SI locale
+0358:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for sl_SI.utf8 locale
+0370:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0388:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for so_DJ locale
+Can't locate codepage 2 for so_DJ locale
+03a0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for so_DJ.utf8 locale
+Can't locate codepage 2 for so_DJ.utf8 locale
+03b8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for so_ET locale
+Can't locate codepage 2 for so_ET locale
+03dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for so_KE locale
+Can't locate codepage 2 for so_KE locale
+03f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for so_KE.utf8 locale
+Can't locate codepage 2 for so_KE.utf8 locale
+040c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for so_SO locale
+Can't locate codepage 2 for so_SO locale
+0424:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for so_SO.utf8 locale
+Can't locate codepage 2 for so_SO.utf8 locale
+043c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for sq_AL locale
+0454:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for sq_AL.utf8 locale
-Can't locate codepage 10029 for sr_ME locale
-Can't locate codepage 10029 for sr_RS locale
+046c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 10029 for sq_MK locale
+0484:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+049c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10029 for sr_RS@latin locale
+04cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ss_ZA locale
+Can't locate codepage 2 for ss_ZA locale
+04e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for st_ZA locale
+Can't locate codepage 2 for st_ZA locale
+04fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for st_ZA.utf8 locale
+Can't locate codepage 2 for st_ZA.utf8 locale
+0514:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+052c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0544:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+055c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0574:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+058c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05a4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05bc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for syr locale
+Can't locate codepage 2 for syr locale
+05d4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+05ec:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for ta_IN locale
 Can't locate codepage 2 for ta_IN locale
+0604:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ta_LK locale
+Can't locate codepage 2 for ta_LK locale
+061c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0634:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 1 for te_IN locale
 Can't locate codepage 2 for te_IN locale
+064c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+err:environ:init_unix_codepage unrecognized charset 'KOI8-T'
+err:environ:init_unix_codepage unrecognized charset 'KOI8-T'
+err:environ:init_unix_codepage unrecognized charset 'KOI8-T'
+0664:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+067c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+err:environ:read_nls_file failed to load /usr/lib/wine-etersoft/../../share/wine-etersoft/nls/c_28601.nls
+err:environ:read_nls_file failed to load /usr/lib/wine-etersoft/../../share/wine-etersoft/nls/c_28601.nls
+err:environ:read_nls_file failed to load /usr/lib/wine-etersoft/../../share/wine-etersoft/nls/c_28601.nls
 Can't locate codepage 10021 for th_TH locale
+0694:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10021 for th_TH.utf8 locale
+06ac:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+06c4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ti_ER locale
+Can't locate codepage 2 for ti_ER locale
+06dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ti_ET locale
+Can't locate codepage 2 for ti_ET locale
+06f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for tig_ER locale
+Can't locate codepage 2 for tig_ER locale
+070c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 10029 for tk_TM locale
+0724:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+073c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0754:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+076c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for to_TO locale
+Can't locate codepage 2 for to_TO locale
+0784:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+079c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10081 for tr_CY locale
+07b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10081 for tr_CY.utf8 locale
+07cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10081 for tr_TR locale
+07e4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10081 for tr_TR.utf8 locale
+07fc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ts_ZA locale
+Can't locate codepage 2 for ts_ZA locale
+0814:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0034:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0020:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 720 for ug_CN locale
+Can't locate codepage 10004 for ug_CN locale
+0118:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0130:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0148:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0160:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0178:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0190:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 720 for ur_IN locale
+Can't locate codepage 2 for ur_IN locale
+01a8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 720 for ur_PK locale
 Can't locate codepage 10004 for ur_PK locale
-Can't locate codepage 10029 for uz_UZ@cyrillic locale
-/srv/wine/Projects/wine-origin/wine: line 65: bad substitution: no closing "`" in `uname -s`
+01c0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01d8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+01f0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0208:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for ve_ZA locale
+Can't locate codepage 2 for ve_ZA locale
+0220:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0238:fixme:gdi:get_default_fonts unhandled charset 0x000000a3 - use ANSI_CHARSET for default stock objects
+024c:fixme:gdi:get_default_fonts unhandled charset 0x000000a3 - use ANSI_CHARSET for default stock objects
+0238:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0250:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0268:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0280:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for wae_CH locale
+Can't locate codepage 2 for wae_CH locale
+0298:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+Can't locate codepage 1 for wal_ET locale
+Can't locate codepage 2 for wal_ET locale
+02b0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02c8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02e0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+02f8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0310:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0328:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0340:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0358:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+0370:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10008 for zh_CN locale
+0388:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10008 for zh_CN.gb18030 locale
+03a0:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10008 for zh_CN.gbk locale
+03b8:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10008 for zh_CN.utf8 locale
+03dc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10002 for zh_HK locale
+03f4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10002 for zh_HK.utf8 locale
+040c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10008 for zh_SG locale
+0424:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10008 for zh_SG.gbk locale
+043c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10008 for zh_SG.utf8 locale
+0454:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10002 for zh_TW locale
+046c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+err:environ:init_unix_codepage unrecognized charset 'EUC-TW'
+err:environ:init_unix_codepage unrecognized charset 'EUC-TW'
+err:environ:init_unix_codepage unrecognized charset 'EUC-TW'
 Can't locate codepage 10002 for zh_TW.euctw locale
+0484:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
 Can't locate codepage 10002 for zh_TW.utf8 locale
+049c:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04b4:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
+04cc:fixme:ver:GetCurrentPackageId (000000000011FDA0 0000000000000000): stub
