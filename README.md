@@ -8,16 +8,36 @@ LIBNATSPEC [![Build Status](https://travis-ci.org/vitlav/libnatspec.svg?branch=m
 About libnatspec
 ----------------
 
-libnatspec is a collection of function for requiest various
-charsets and locales for host system and for other system.
-The libnatspec allows applications to be written that are
-locale and system independent. Libnatspec is tries to use
-user locale information if possible.
+libnatspec is designed to smooth out national peculiarities when using software. Its primary objectives are:
+- Addressing encoding issues in most popular scenarios.
+- Providing various auxiliary tools that facilitate software localization.
 
-It contains table with relations between locale name and encoding
-of other system.
+Linux users often encounter encoding problems, both with file content and file names. These issues arise when:
+- Mounting various storage devices like floppy disks, CDs, flash drives, and external hard drives.
+- Mounting network resources via SAMBA.
+- Burning discs or creating file systems using commands like mkisofs, growisofs, and software like k3b, xcdroast.
+- Using the file manager 'mc' with its built-in text recoding feature.
 
-It tested in various OS (with GCC installed):
+Moreover, there's a vast array of software where encoding specifications would be beneficial
+but are currently lacking, such as FTP servers and clients, file systems used for OS installation,
+and many multimedia players.
+
+libnatspec provides a solution to these challenges by offering a centralized approach
+to handle encoding-related tasks, enhancing portability and freeing individual software projects
+from implementing ad-hoc solutions.
+
+The library defines essential concepts like:
+- Local file system encoding (filename encoding).
+- User locale.
+- System locale.
+- Charset of the user locale.
+- Charset and codepage of other operating systems (WIN, DOS, MAC) for a given locale.
+
+It also offers an API for these concepts and additional functions that allow:
+- Augmenting mount parameters with encodings based on the file system type.
+- Converting strings from one encoding to another, with transliteration if necessary.
+
+It has been tested in various OS (with GCC installed):
 
  + ALT Linux 2.4 Master (x86)
  + Debian GNU/Linux 3.0 (Alpha)
@@ -29,7 +49,7 @@ It tested in various OS (with GCC installed):
  - FreeBSD 4.10 (x86) (missed popt)
 It is not tested in other Unix-like system yet.
 
-It has been tested with various Linux programs/servers:
+It also has been tested with various Linux/server software:
  + mount
  + mkisofs / isoinfo
  + smbmount
@@ -40,14 +60,14 @@ It has been tested with various Linux programs/servers:
 This distribution contains library, header files and binding
 to other languages as python (--with-python option for configure)
 
-Please if you discover some bug or misfunction of the natspec library
-on your system, email me about it.
+If you discover some bug or misfunction of the natspec library
+on your system, please email me about it.
 
 Installation
 ------------
 
-Installation instructions are found in INSTALL.
-For RPM-based system you can use libnatspec.spec as an example.
+Installation instructions can be found in the INSTALL file.
+For RPM-based systems, you can use `libnatspec.spec` as an example.
 
 More Information
 ----------------
