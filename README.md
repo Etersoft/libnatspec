@@ -66,8 +66,8 @@ on your system, please email me about it.
 Installation
 ------------
 
-Installation instructions are placed in the INSTALL file.
-For RPM-based systems you can use libnatspec.spec as a reference.
+Installation instructions can be found in the INSTALL file.
+For RPM-based systems, you can use `libnatspec.spec` as an example.
 
 More Information
 ----------------
