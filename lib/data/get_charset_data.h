@@ -323,6 +323,7 @@ static const struct charsetrel_entry charset_relation[] =
  {"om_KE",        1033,  "ISO88591",    "CP1252",   "IBM437",   "MAC" },
  {"om_KE.UTF8",   1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
  {"or_IN",        1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
+ {"os_RU",        1092,  "UTF8",        "CP1251",   "IBM866",   "MACCYRILLIC" },
  {"pa_IN",        1094,  "UTF8",         NULL,       NULL,       NULL },
  {"pa_PK",        1094,  "UTF8",         NULL,       NULL,       NULL },
  {"pap_AN",       1033,  "UTF8",        "CP1252",   "IBM437",   "MAC" },
