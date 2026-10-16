@@ -105,8 +105,20 @@ const char *natspec_get_filename_encoding(const char *locale)
 	{
 		/* If get from env G_FILENAME_ENCODING non empty string, and use current locale (""),
 		   search in static table the same name: normalized */
-		buf = natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_UNIXCS, buf);
+		char *first = strdup(buf), *comma;
+		buf = NULL;
+		if (first)
+		{
+			comma = strchr(first, ',');
+			if (comma)
+				*comma = '\0';
+			buf = natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_UNIXCS, first);
+			free(first);
+		}
 	}
+	else
+		/* G_FILENAME_ENCODING is for the current locale only */
+		buf = NULL;
 	/* If above try is failed */
 	if (_n_isempty(buf))
 	{

@@ -10,10 +10,10 @@ LIB_NO_LOCALE_SOURCES		= ../lib/get_charset.c ../lib/enrich_fs_options.c \
 
 PASS_TESTS					= test_get_charset test_names test_locale_charset test_env \
 	test_enrich test_convert test_detect test_tables test_iconv_open \
-	test_null_charset test_charset_relation
+	test_null_charset test_charset_relation test_filename_env
 
 # programs for known bugs, move to PASS_TESTS after fix
-XFAIL_TESTS					= xfail_locale_lookup xfail_i18n xfail_translit
+XFAIL_TESTS					= xfail_i18n xfail_translit
 
 check_PROGRAMS				= $(PASS_TESTS) $(XFAIL_TESTS)
 dist_check_SCRIPTS			= test_cli.sh test_python.sh test_data_overrides.sh
