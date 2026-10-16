@@ -65,7 +65,9 @@ char *natspec_humble_charset( const char *charset)
 	/* Do not remove punctuation for ANSI encoding... */
 	if( strstr(charset,"ANSI_X3") )
 		return strdup(charset);
-	buf = alloca( strlen(charset) + 1 );
+	buf = malloc( strlen(charset) + 1 );
+	if (!buf)
+		return NULL;
    	for (i = 0, j = 0; charset[i]; i++)
 	{
 		if (charset[i] == ':')
@@ -75,7 +77,7 @@ char *natspec_humble_charset( const char *charset)
 	}
    	buf[j] = 0;
 	DEBUG (printf ("Clean charset '%s', after: '%s'",charset, buf));
-	return strdup(buf);
+	return buf;
 }
 
 /*! Returns current charset */
