@@ -28,7 +28,9 @@ check_out()
 	expected="$1"
 	shift
 	total=$((total+1))
-	got="$(run "$@" 2>&1)"
+	# stdout only: the libtool wrapper (bash) warns to stderr
+	# about locales missed in the system
+	got="$(run "$@" 2>/dev/null)"
 	if [ "$got" != "$expected" ] ; then
 		echo "FAIL: $*: got '$got', expected '$expected'"
 		failed=$((failed+1))
