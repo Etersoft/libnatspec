@@ -127,25 +127,45 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 		else
 		{
 			/* Replace invalid input character. See code of links, sim, iconv, catdoc */
-			int tmpresult;
+			size_t tmpresult;
 			unsigned short tmp;
 			size_t lentmp = UCS2_SIZE;
 			char *tmpptr = (char*) &tmp;
+			char *saveinbuf = *inbuf;
+			size_t saveinbytesleft = *inbytesleft;
 			DEBUG (printf("replace: %d, %s:%d\n",ucs2, *inbuf, *inbytesleft));
 			tmpresult = iconv(ucs2, inbuf, inbytesleft, &tmpptr, &lentmp);
-			if ((tmpresult == (size_t) -1 && errno == E2BIG) || tmpresult != (size_t) -1)
+			if (tmpptr != (char*) &tmp &&
+				(tmpresult != (size_t) -1 || errno == E2BIG))
 			{
 				const char *t = get_7bit(tmp);
-				strcpy(*outbuf, t);
-				(*outbuf) += strlen(t);
-				(*outbytesleft) -= UCS2_SIZE;
-				result += tmpresult;
+				size_t tlen = strlen(t);
+				if (tlen > *outbytesleft)
+				{
+					/* unread the character, caller have to give more space */
+					*inbuf = saveinbuf;
+					*inbytesleft = saveinbytesleft;
+					iconv(ucs2, NULL, NULL, NULL, NULL);
+					errno = E2BIG;
+					return (size_t) -1;
+				}
+				memcpy(*outbuf, t, tlen);
+				(*outbuf) += tlen;
+				(*outbytesleft) -= tlen;
 				DEBUG (printf("br\n"));
 			}
 			else
 			{	/* if iconv could not help, skip one byte from input string */
 				/* DEBUG (printf("%d '%c'\n",errno, *ansbptr));
 				DEBUG (perror("")); */
+				*inbuf = saveinbuf;
+				*inbytesleft = saveinbytesleft;
+				iconv(ucs2, NULL, NULL, NULL, NULL);
+				if (*outbytesleft < 1)
+				{
+					errno = E2BIG;
+					return (size_t) -1;
+				}
 				**outbuf = '_';
 				(*outbuf)++;
 				(*inbytesleft)--;
