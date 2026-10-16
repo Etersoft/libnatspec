@@ -4,7 +4,7 @@ Release: alt1
 
 Summary: Library for national and language-specific issues
 
-License: LGPL
+License: LGPL-2.1-only
 Group: System/Libraries
 Url: https://github.com/Etersoft/libnatspec
 

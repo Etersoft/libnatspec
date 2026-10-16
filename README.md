@@ -183,9 +183,10 @@ License and contacts
 --------------------
 
 libnatspec may be freely distributed and modified in accordance with
-the GNU Lesser General Public License, version 2.1. Examples in the
-distribution can fall under different licenses; see `examples/LICENSE`
-and individual files for details.
+the GNU Lesser General Public License, version 2.1 only
+(SPDX: `LGPL-2.1-only`, see `COPYING`). Examples in the distribution can
+fall under different licenses; see `examples/LICENSE` and individual files
+for details.
 
 Source code: https://github.com/Etersoft/libnatspec
 
