@@ -32,7 +32,7 @@ Sanitizer run: `./configure CFLAGS="-g -O1 -fsanitize=address,undefined" LDFLAGS
 - configure options: `--with-python` (SWIG binding in `src/python`), `--with-doxygen` (API docs in `docs/`), `--with-debug`, `--with-i18n-file=FILE[:FILE...]` (system-wide LANG source, default `/etc/locale.conf:/etc/sysconfig/i18n`, first file with LANG wins).
 - Builds with `-Wall -funsigned-char`; autogen adds `-Werror -pedantic`, so keep code warning-free.
 - Depends on iconv (required) and popt (optional, for the `natspec` CLI).
-- Release tarball: `release.sh` (needs etersoft-build-utils). The version is kept in both `libnatspec.spec` and `AC_INIT` in `configure.ac` — bump them together.
+- Release: tag `X.Y.Z` (upstream) next to ALT tags `X.Y.Z-altN`; `./release.sh [tag]` makes `../libnatspec-X.Y.Z.tar.gz` with generated `configure` via `make distcheck` — publish it on GitHub Releases so distributions build without autotools. The version is kept in both `libnatspec.spec` and `AC_INIT` in `configure.ac` — bump them together.
 - Reference built libraries as `$(top_builddir)/lib/libnatspec.la` and list every header in `*_SOURCES`, otherwise `make distcheck` breaks.
 
 ## Layout and architecture
