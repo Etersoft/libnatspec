@@ -17,6 +17,8 @@ Source: %name-%version.tar
 BuildRequires: libpopt-devel
 # due aclocaldir
 BuildRequires: rpm-build-compat
+# for tests: iconv modules for KOI8-R, CP1251, MACINTOSH and others
+BuildRequires: glibc-gconv-modules
 
 %description
 Library for national and language-specific issues.
@@ -63,6 +65,9 @@ Python binding for natspec
 %autoreconf
 %configure
 %make_build
+
+%check
+%make_build check
 
 %install
 %makeinstall_std
