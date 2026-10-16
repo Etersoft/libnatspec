@@ -1,8 +1,8 @@
 /*
  * Public domain
  *
- * Known bug: empty charset crashes public lookup functions
- * (natspec_humble_charset returns NULL which goes to bsearch)
+ * Empty or NULL charset in lookup functions gives the default value
+ * (natspec_humble_charset returns NULL for it)
  */
 
 #include "check.h"

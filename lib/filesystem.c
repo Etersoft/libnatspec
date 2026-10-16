@@ -58,6 +58,8 @@ int natspec_get_codepage_by_charset(const char *charset)
 {
 	const struct charset_entry *entry;
 	char *cs = natspec_humble_charset(charset);
+	if (!cs)
+		return 437;
 	/* We are sure now cs is normalized */
 	entry = _n_bsearch( cs, charset_names, charset_cmp );
 	free(cs);
@@ -73,9 +75,12 @@ const char *natspec_get_nls_by_charset(const char *charset)
 	if (charset != NULL)
 	{
 		char *cs = natspec_humble_charset(charset);
-		/* We are sure now CS is normalized */
-		entry = _n_bsearch( cs, charset_names, charset_cmp );
-		free(cs);
+		if (cs)
+		{
+			/* We are sure now CS is normalized */
+			entry = _n_bsearch( cs, charset_names, charset_cmp );
+			free(cs);
+		}
 		if (entry)
 			return entry->nls;
 	}

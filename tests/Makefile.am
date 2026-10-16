@@ -9,10 +9,11 @@ LIB_NO_LOCALE_SOURCES		= ../lib/get_charset.c ../lib/enrich_fs_options.c \
 	../lib/convert.c ../lib/filesystem.c ../lib/detect.c
 
 PASS_TESTS					= test_get_charset test_names test_locale_charset test_env \
-	test_enrich test_convert test_detect test_tables test_iconv_open
+	test_enrich test_convert test_detect test_tables test_iconv_open \
+	test_null_charset
 
 # programs for known bugs, move to PASS_TESTS after fix
-XFAIL_TESTS					= xfail_tables xfail_locale_lookup xfail_null_charset \
+XFAIL_TESTS					= xfail_tables xfail_locale_lookup \
 	xfail_i18n xfail_translit
 
 check_PROGRAMS				= $(PASS_TESTS) $(XFAIL_TESTS)
