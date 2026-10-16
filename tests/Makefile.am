@@ -12,7 +12,11 @@ PASS_TESTS					= test_get_charset test_names test_locale_charset test_env \
 	test_enrich test_convert test_detect test_tables
 
 check_PROGRAMS				= $(PASS_TESTS)
-TESTS						= $(PASS_TESTS)
+dist_check_SCRIPTS			= test_cli.sh
+TESTS						= $(PASS_TESTS) test_cli.sh
+
+AM_TESTS_ENVIRONMENT		= top_builddir='$(top_builddir)'; top_srcdir='$(top_srcdir)'; \
+	PYTHON='$(PYTHON)'; export top_builddir top_srcdir PYTHON;
 
 EXTRA_DIST					= check.h test_util.h
 
