@@ -155,7 +155,7 @@ int main(int argc, const char** argv)
 
 	if (version || info)
 	{
-		printf("%s, compiled %s\n", PACKAGE_STRING,__DATE__);
+		printf("%s\n", PACKAGE_STRING);
 		if (!info)
 			exit(0);
 	}
