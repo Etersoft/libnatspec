@@ -73,6 +73,9 @@ static void test_translit(void)
 	CHECK_STR_FREE(natspec_convert("a\xA0z", "ASCII", "ISO-8859-1", 1), "a z");
 	/* U+00AD SOFT HYPHEN is dropped */
 	CHECK_STR_FREE(natspec_convert("a\xC2\xADz", "ASCII", "UTF-8", 1), "az");
+	/* character outside BMP gives one '_': U+1F600 GRINNING FACE */
+	CHECK_STR_FREE(natspec_convert("a\xF0\x9F\x98\x80z", "ASCII", "UTF-8", 1), "a_z");
+	CHECK_STR_FREE(natspec_convert("\xF0\x9F\x98\x80" HELLO_UTF8, "KOI8-R", "UTF-8", 1), "_" HELLO_KOI8R);
 	/* U+2284 NOT A SUBSET OF */
 	CHECK_STR_FREE(natspec_convert("\xE2\x8A\x84", "ASCII", "UTF-8", 1), "!(C");
 	/* U+2202 PARTIAL DIFFERENTIAL is longer than 6 bytes */

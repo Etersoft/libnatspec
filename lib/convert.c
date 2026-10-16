@@ -37,9 +37,10 @@
 #include "natspec_internal.h"
 #include "unicode/uni_7b.h"
 
-#define UCS2_SIZE 2
+#define UCS4_SIZE 4
 
-/* UCS2 descriptors for transliteration, one per natspec_iconv_open */
+/* UCS-4 descriptors (named ucs2 for history) for transliteration,
+   one per natspec_iconv_open */
 struct ucs2_entry
 {
 	iconv_t it, ucs2;
@@ -79,7 +80,7 @@ iconv_t natspec_iconv_open(const char *tocode, const char *fromcode)
 		free(e);
 		return (iconv_t)-1;
 	}
-	e->ucs2 = iconv_open("UCS2", fromcode);
+	e->ucs2 = iconv_open("UCS-4BE", fromcode);
 	if (e->ucs2 == (iconv_t)-1) {
 		iconv_close(e->it);
 		free(e);
@@ -156,17 +157,20 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 		{
 			/* Replace invalid input character. See code of links, sim, iconv, catdoc */
 			size_t tmpresult;
-			unsigned short tmp;
-			size_t lentmp = UCS2_SIZE;
-			char *tmpptr = (char*) &tmp;
+			unsigned char tmp[UCS4_SIZE];
+			size_t lentmp = UCS4_SIZE;
+			char *tmpptr = (char*) tmp;
 			char *saveinbuf = *inbuf;
 			size_t saveinbytesleft = *inbytesleft;
 			DEBUG (printf("replace: %d, %s:%d\n",ucs2, *inbuf, *inbytesleft));
 			tmpresult = iconv(ucs2, inbuf, inbytesleft, &tmpptr, &lentmp);
-			if (tmpptr != (char*) &tmp &&
+			if (tmpptr == (char*) tmp + UCS4_SIZE &&
 				(tmpresult != (size_t) -1 || errno == E2BIG))
 			{
-				const char *t = get_7bit(tmp);
+				unsigned long ucs4 = ((unsigned long)tmp[0] << 24) |
+					((unsigned long)tmp[1] << 16) | (tmp[2] << 8) | tmp[3];
+				/* only BMP characters are in the transliteration table */
+				const char *t = ucs4 > 0xFFFF ? "_" : get_7bit(ucs4);
 				size_t tlen = strlen(t);
 				if (tlen > *outbytesleft)
 				{
@@ -223,7 +227,7 @@ char *natspec_convert(const char *in_str,
 	if (frt == (iconv_t) -1)
 	{
 		char buf[200];
-		snprintf(buf,199,"Broken encoding: '%s' (to) or '%s' (from) or UCS2. May be you forget setlocale in main or gconv-modules is missed?\n",
+		snprintf(buf,199,"Broken encoding: '%s' (to) or '%s' (from) or UCS-4. May be you forget setlocale in main or gconv-modules is missed?\n",
 			tocode, fromcode);
 		perror(buf);
 		/* return dup of original string if converting is failed */
