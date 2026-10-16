@@ -1,0 +1,66 @@
+# Make release tarball with generated configure (make distcheck, as release.sh)
+# and publish it on GitHub Releases when an upstream tag X.Y.Z is pushed.
+# ALT tags X.Y.Z-altN are not released.
+name: release
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag X.Y.Z'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y autoconf automake libtool make gcc libpopt-dev
+
+      - name: Check that the tag matches AC_INIT version
+        run: |
+          version=$(sed -n 's/^AC_INIT(\[libnatspec\], \[\([^]]*\)\].*/\1/p' configure.ac)
+          if [ "$version" != "$TAG" ] ; then
+            echo "Version in configure.ac is '$version', tag is '$TAG'"
+            exit 1
+          fi
+
+      - name: Make and check tarball
+        run: |
+          autoreconf -fi
+          ./configure
+          make distcheck
+          sha256sum libnatspec-$TAG.tar.gz > libnatspec-$TAG.tar.gz.sha256
+
+      - name: Release notes from NEWS
+        run: |
+          awk -v head="libnatspec-$TAG:" \
+            'index($0, head) == 1 { found = 1 ; next } found && /^libnatspec-/ { exit } found' \
+            NEWS > notes.md
+          cat notes.md
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          files="libnatspec-$TAG.tar.gz libnatspec-$TAG.tar.gz.sha256"
+          if gh release view "$TAG" > /dev/null 2>&1 ; then
+            gh release upload "$TAG" $files --clobber
+          else
+            gh release create "$TAG" $files --verify-tag \
+              --title "libnatspec $TAG" --notes-file notes.md
+          fi
