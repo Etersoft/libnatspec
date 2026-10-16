@@ -118,6 +118,11 @@ static void test_filename_encoding(void)
 	CHECK_STR(natspec_get_filename_encoding("de_DE@euro"), "iso8859-15");
 	CHECK_STR(natspec_get_filename_encoding("ja_JP.EUC-JP"), "euc-jp");
 	CHECK_STR(natspec_get_filename_encoding("xx_YY"), "iso8859-1");
+	/* ALT bug 21957 */
+	CHECK_STR(natspec_get_filename_encoding("kk_KZ.UTF-8"), "utf8");
+	/* ALT bug 47030 */
+	CHECK_STR(natspec_get_filename_encoding("mhr_RU"), "utf8");
+	CHECK_STR(natspec_get_filename_encoding("kv_RU.UTF-8"), "utf8");
 
 	/* G_FILENAME_ENCODING is used for current locale (""),
 	   for explicit locale it is checked in xfail_locale_lookup */
