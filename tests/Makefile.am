@@ -11,9 +11,12 @@ LIB_NO_LOCALE_SOURCES		= ../lib/get_charset.c ../lib/enrich_fs_options.c \
 PASS_TESTS					= test_get_charset test_names test_locale_charset test_env \
 	test_enrich test_convert test_detect test_tables
 
-check_PROGRAMS				= $(PASS_TESTS)
+# programs for known bugs, move to PASS_TESTS after fix
+XFAIL_TESTS					= xfail_tables
+
+check_PROGRAMS				= $(PASS_TESTS) $(XFAIL_TESTS)
 dist_check_SCRIPTS			= test_cli.sh test_python.sh
-TESTS						= $(PASS_TESTS) test_cli.sh
+TESTS						= $(PASS_TESTS) $(XFAIL_TESTS) test_cli.sh
 if HAVE_PYTHON
 TESTS						+= test_python.sh
 endif
@@ -28,3 +31,6 @@ test_env_LDADD				=
 test_env_CFLAGS				= $(AM_CFLAGS)
 # use tables directly, without the library
 test_tables_LDADD			=
+xfail_tables_SOURCES		= xfail_tables.c ../lib/get_locale.c ../lib/get_charset.c
+xfail_tables_LDADD			=
+xfail_tables_CFLAGS			= $(AM_CFLAGS)
