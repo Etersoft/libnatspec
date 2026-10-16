@@ -73,7 +73,7 @@ struct poptOption options[] =
     {"info", 'i', POPT_ARG_NONE,  &info, 0,
      "print overall encoding/charset info for your system", ""},
     {"transl", 'a', POPT_ARG_STRING,  &transliterate, 1,
-     "transliterate arg from ENC to current encoding and print it", ""},
+     "STRING is in ENC: print it in the current locale encoding, transliterate characters missed there (natspec -a UTF-8 STRING)", "ENC"},
     {"version", 'V', POPT_ARG_NONE, &version, 1,
      "display version and exit", NULL },
     {"verbose", 'v', POPT_ARG_NONE, &verbose, 0,

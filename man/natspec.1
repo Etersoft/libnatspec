@@ -71,11 +71,13 @@ Print summary information about current locale\&.
 .PP
 \fB\-a \fR\fB\fIencoding\fR\fR, \fB\-\-transl=\fR\fB\fIencoding\fR\fR
 .RS 4
-Transliterate
-\fIARG\fR
-from
+Print the string argument, which is in
+\fIencoding\fR, in the encoding of the current locale\&.
+Characters missed in the current encoding are transliterated
+(in the C locale \fBnatspec \-a UTF\-8\fR prints a Russian word
+in UTF\-8 with Latin letters)\&. The
 \fIencoding\fR
-to the current encoding and print the result\&.
+is the encoding of the argument, not the target one\&.
 .RE
 .PP
 \fB\-v\fR, \fB\-\-verbose\fR
