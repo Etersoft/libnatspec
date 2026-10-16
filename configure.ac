@@ -32,7 +32,7 @@ AM_PROG_CC_C_O
 dnl Checks for libraries.
 check_popt=""
 AC_CHECK_LIB([popt], [main], check_popt=true)
-if test "x$check_popt" == x ; then
+if test "x$check_popt" = x ; then
 	AC_MSG_WARN([ libpopt not found.])
 else
 	POPT_LIBS=-lpopt
@@ -46,7 +46,7 @@ AC_CHECK_HEADERS([langinfo.h locale.h stdlib.h string.h strings.h])
 
 check_iconv=""
 AC_CHECK_HEADERS([iconv.h],check_iconv=true)
-if test "x$check_iconv" == x ; then
+if test "x$check_iconv" = x ; then
 	AC_MSG_ERROR([*** iconv.h not found.])
 fi
 
