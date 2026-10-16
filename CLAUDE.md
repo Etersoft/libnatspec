@@ -29,7 +29,7 @@ Sanitizer run: `./configure CFLAGS="-g -O1 -fsanitize=address,undefined" LDFLAGS
 - Tests set and clear `LC_ALL`/`LC_CTYPE`/`LANG`/`G_FILENAME_ENCODING` themselves, so they don't depend on your environment. Without `setlocale()` the fallback charset is `ANSI_X3.4-1968`.
 - `test_env` and `xfail_i18n` are linked with `lib/*.c` directly. `i18n_get_locale.c` rebuilds `get_locale.c` so that the system i18n file comes from `$NATSPEC_TEST_I18N_FILE`.
 - `test_cli.sh` is skipped if `natspec` was built without popt, and `test_python.sh` is skipped without `--with-python` or in sanitizer builds.
-- configure options: `--with-python` (SWIG binding in `src/python`), `--with-doxygen` (API docs in `docs/`), `--with-debug`, `--with-i18n-file=FILE` (system-wide LANG source, default `/etc/sysconfig/i18n`).
+- configure options: `--with-python` (SWIG binding in `src/python`), `--with-doxygen` (API docs in `docs/`), `--with-debug`, `--with-i18n-file=FILE[:FILE...]` (system-wide LANG source, default `/etc/locale.conf:/etc/sysconfig/i18n`, first file with LANG wins).
 - Builds with `-Wall -funsigned-char`; autogen adds `-Werror -pedantic`, so keep code warning-free.
 - Depends on iconv (required) and popt (optional, for the `natspec` CLI).
 - Release tarball: `release.sh` (needs etersoft-build-utils). The version is kept in both `libnatspec.spec` and `AC_INIT` in `configure.ac` — bump them together.

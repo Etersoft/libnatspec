@@ -57,7 +57,7 @@ char *natspec_get_user_locale();
 
 /*! 
  * Returns malloc allocated string with system locale
- * retrieved from LANG variable in /etc/sysconfig/i18n file
+ * retrieved from LANG variable in /etc/locale.conf or /etc/sysconfig/i18n file
  */
 char *natspec_get_system_locale();
 

@@ -93,9 +93,10 @@ AC_ARG_WITH(debug, [  --with-debug    Compile with debug information],
 AS_IF([test "x$with_debug" != xno],
 [CFLAGS="$CFLAGS -g"])
 
-AC_ARG_WITH(i18n-file, [  --with-i18n-file=file Use this file for system LANG search],
+AC_ARG_WITH(i18n-file, [  --with-i18n-file=file Use this file (or ':' separated list of files)
+                        for system LANG search [/etc/locale.conf:/etc/sysconfig/i18n]],
 	i18n_file=$withval,
-	i18n_file=/etc/sysconfig/i18n)
+	i18n_file=/etc/locale.conf:/etc/sysconfig/i18n)
 
 AC_DEFINE_UNQUOTED(NATSPEC_I18N_FILE,"$i18n_file",[ File with system wide LANG variable])
 dnl case "$target_os" in

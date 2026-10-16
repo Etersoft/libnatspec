@@ -53,7 +53,7 @@ return a newly allocated string which must be freed with `free()`;
 | Function | Description |
 |----------|-------------|
 | `natspec_get_current_locale()` | locale from `LC_ALL`, `LC_CTYPE`, `LANG`, or the system locale |
-| `natspec_get_system_locale()` | `LANG` from the system i18n file (`/etc/sysconfig/i18n` by default) |
+| `natspec_get_system_locale()` | `LANG` from the system locale file (`/etc/locale.conf`, then `/etc/sysconfig/i18n` by default) |
 | `natspec_get_charset()` | charset of the current locale (after `setlocale`) |
 | `natspec_get_charset_by_locale(type, locale)` | charset of `NATSPEC_UNIXCS`, `NATSPEC_WINCS`, `NATSPEC_DOSCS` or `NATSPEC_MACCS` for a locale (`""` is the current locale, `NULL` is the system one) |
 | `natspec_locale_is_utf8(locale)` | non-zero for a UTF-8 locale |
@@ -155,8 +155,9 @@ make check
 make install
 ```
 
-`--with-i18n-file` sets the file with the system wide `LANG` variable
-(`/etc/sysconfig/i18n` by default).
+`--with-i18n-file` sets the file (or `:` separated list of files) with the
+system wide `LANG` variable (`/etc/locale.conf:/etc/sysconfig/i18n` by
+default, the first file with `LANG` is used).
 
 For RPM-based systems see `libnatspec.spec`.
 

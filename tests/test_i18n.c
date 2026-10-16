@@ -30,6 +30,35 @@ static void check_i18n(const char *content, const char *expected)
 	test_remove_file(file);
 }
 
+/* NATSPEC_I18N_FILE can be ':' separated list, the first file with LANG wins */
+static void check_list(const char *content1, const char *content2, const char *expected)
+{
+	char *f1 = test_write_file(content1), *f2 = test_write_file(content2);
+	char *list = malloc(strlen(f1) + strlen(f2) + 32), *got;
+	sprintf(list, "/nonexistent/locale.conf:%s:%s", f1, f2);
+	setenv("NATSPEC_TEST_I18N_FILE", list, 1);
+	got = natspec_get_system_locale();
+	check_total++;
+	if (got == NULL || strcmp(got, expected))
+	{
+		check_failed++;
+		fprintf(stderr, "FAIL: system locale for list '%s' + '%s': got '%s', expected '%s'\n",
+			content1, content2, got ? got : "(null)", expected);
+	}
+	free(got);
+	free(list);
+	test_remove_file(f1);
+	test_remove_file(f2);
+	unsetenv("NATSPEC_TEST_I18N_FILE");
+}
+
+static void test_file_list(void)
+{
+	check_list("LANG=ru_RU.UTF-8\n", "LANG=uk_UA.UTF-8\n", "ru_RU.UTF-8");
+	check_list("LC_TIME=C\n", "LANG=uk_UA.UTF-8\n", "uk_UA.UTF-8");
+	check_list("", "", "C");
+}
+
 int main(void)
 {
 	char buf[300];
@@ -63,5 +92,6 @@ int main(void)
 	strcat(buf, "\nLANG=ru_RU.UTF-8\n");
 	check_i18n(buf, "ru_RU.UTF-8");
 
+	test_file_list();
 	return check_done();
 }

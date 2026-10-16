@@ -100,6 +100,7 @@ const char *get_i18n_filename()
 
 /* File with locale information:
  *   SuSE         - /etc/rc.local       RC_LANG=
+ *   systemd      - /etc/locale.conf    LANG=
  *   RedHat-based - /etc/sysconfig/i18n LANG=
  *   Debian       - /etc/enviroment     LANG=
  *   Slackware    - /etc/profile        export LANG=
@@ -111,14 +112,14 @@ const char *get_i18n_filename()
  *  Supported syntax of the line (shell-like):
  *    [export] NAME = [quote]value[quote] [; or # comment]
 */
-static char *get_from_system_i18n(const char *str)
+static char *get_from_file(const char *file, const char *str)
 {
 	char *locale = NULL;
 	char *line = NULL;
 	size_t size = 0;
 	size_t len = strlen(str);
 	FILE *fd;
-	fd = fopen(NATSPEC_I18N_FILE,"r");
+	fd = fopen(file,"r");
 	if (!fd)
 		return NULL;
 	while (!locale && getline(&line, &size, fd) != -1)
@@ -156,6 +157,26 @@ static char *get_from_system_i18n(const char *str)
 	}
 	free(line);
 	fclose(fd);
+	return locale;
+}
+
+/*! Read str from the first file of NATSPEC_I18N_FILE (':' separated list)
+ *  which has it */
+static char *get_from_system_i18n(const char *str)
+{
+	char *files, *file, *next, *locale = NULL;
+	files = strdup(NATSPEC_I18N_FILE);
+	if (!files)
+		return NULL;
+	for (file = files; file && !locale; file = next)
+	{
+		next = strchr(file, ':');
+		if (next)
+			*next++ = '\0';
+		if (*file)
+			locale = get_from_file(file, str);
+	}
+	free(files);
 	return locale;
 }
 
