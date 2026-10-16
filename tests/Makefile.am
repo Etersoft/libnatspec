@@ -9,7 +9,7 @@ LIB_NO_LOCALE_SOURCES		= ../lib/get_charset.c ../lib/enrich_fs_options.c \
 	../lib/convert.c ../lib/filesystem.c ../lib/detect.c
 
 PASS_TESTS					= test_get_charset test_names test_locale_charset test_env \
-	test_enrich test_convert
+	test_enrich test_convert test_detect
 
 check_PROGRAMS				= $(PASS_TESTS)
 TESTS						= $(PASS_TESTS)
