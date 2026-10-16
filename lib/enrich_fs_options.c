@@ -164,6 +164,8 @@ char* natspec_get_enriched_fs_options(const char *fs, const char *options)
 
 	ret = malloc ( strlen(options) + 
 			strlen(buf) + 1 + 1 ); /* add 2 byte for '\0' and ',' */
+	if (!ret)
+		return NULL;
 	strcpy (ret, options);
 	add_option (ret, buf, "");
 	return ret;
