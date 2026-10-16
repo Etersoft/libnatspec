@@ -1,30 +1,30 @@
-#!/bin/bash
+#!/bin/sh
+# Make release tarball libnatspec-VERSION.tar.gz from a git tag
+# with generated configure (by make distcheck, so it is checked to build).
+#
+# Usage: ./release.sh [tag]     (default tag is the version from configure.ac)
+# Result: ../libnatspec-VERSION.tar.gz
+#
+# Publish it on GitHub Releases, so distributions do not need autotools:
+#   gh release create VERSION ../libnatspec-VERSION.tar.gz -R Etersoft/libnatspec
 
-# Release project with autoreconf
+set -e
 
-# use etersoft-build-utils package
-. /usr/share/eterbuild/eterbuild 1.7.0
-load_mod spec
+tag="$1"
+[ -n "$tag" ] || tag=$(sed -n 's/^AC_INIT(\[libnatspec\], \[\([^]]*\)\].*/\1/p' configure.ac)
+[ -n "$tag" ] || { echo "Can't get version from configure.ac" >&2 ; exit 1 ; }
+outdir=$(cd .. && pwd)
 
+tmp=$(mktemp -d)
+trap 'chmod -R u+w "$tmp" ; rm -rf "$tmp"' EXIT
 
-# git release script
-tag=$1
+git archive --prefix=src/ "$tag" | tar xf - -C "$tmp"
+cd "$tmp/src"
+autoreconf -fi
+./configure
+make distcheck
 
-# fast hack
-SPEC=*.spec
-version=$(get_version $SPEC)
-pkgname=$(get_tarballname $SPEC)-$version
-test -n "$tag" || tag=$(get_version $SPEC)-$(get_release $SPEC)
-pwd=$(pwd)
-
-git archive --prefix=$pkgname/ $tag | tar xvfC - $TMPDIR
-
-cd $TMPDIR/$pkgname
-if [ -f configure.ac ] ; then
-	autoreconf -fiv
-	rm -rf autom4te*
-fi
-cd ..
-tar cfvj $pwd/../$pkgname.tar.bz2 $pkgname
-rm -rf $pkgname
-ls -l $pwd/../$pkgname.tar.bz2
+for i in libnatspec-*.tar.gz ; do
+	cp -v "$i" "$outdir/"
+	ls -l "$outdir/$i"
+done
