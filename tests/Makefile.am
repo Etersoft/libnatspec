@@ -12,7 +12,7 @@ PASS_TESTS					= test_get_charset test_names test_locale_charset test_env \
 	test_enrich test_convert test_detect test_tables
 
 # programs for known bugs, move to PASS_TESTS after fix
-XFAIL_TESTS					= xfail_tables
+XFAIL_TESTS					= xfail_tables xfail_locale_lookup
 
 check_PROGRAMS				= $(PASS_TESTS) $(XFAIL_TESTS)
 dist_check_SCRIPTS			= test_cli.sh test_python.sh
