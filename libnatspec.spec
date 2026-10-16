@@ -6,11 +6,11 @@ Summary: Library for national and language-specific issues
 
 License: LGPL
 Group: System/Libraries
-Url: https://github.com/vitlav/libnatspec
+Url: https://github.com/Etersoft/libnatspec
 
 Packager: Vitaly Lipatov <lav@altlinux.ru>
 
-# Source-git: https://github.com/vitlav/libnatspec
+# Source-git: https://github.com/Etersoft/libnatspec
 Source: %name-%version.tar
 
 # Automatically added by buildreq on Fri Jul 22 2005
