@@ -1,5 +1,5 @@
 Name: libnatspec
-Version: 0.3.5
+Version: 0.4.0
 Release: alt1
 
 Summary: Library for national and language-specific issues
@@ -101,6 +101,39 @@ mv %buildroot%_libdir/%{name}.* %buildroot/%_lib
 
 
 %changelog
+* Sat Oct 17 2026 Vitaly Lipatov <lav@altlinux.ru> 0.4.0-alt1
+- security: fix stack buffer overflow in natspec_iconv()/natspec_convert()
+  with transliteration (since 0.1.0)
+- security: natspec_convert(): use heap buffer instead of alloca()
+  (stack exhaustion on big input)
+- natspec_humble_charset(): use malloc() instead of alloca()
+- natspec_iconv_open(): mutex protected list instead of the global table
+  of 5 descriptors (thread safety, leaks after failed open)
+- do not crash on empty charset, return NULL from natspec_convert(NULL)
+- read system locale from /etc/locale.conf, then /etc/sysconfig/i18n
+- parse i18n file by lines with shell-like syntax (SUPPORTED_LANG= is not LANG=)
+- use charset from locale name if it is not in the table
+  (be_BY.CP1251, de_DE.UTF-8@euro, zh_CN.GB2312)
+- find C, POSIX and C.UTF-8 locales, fix sorting of the locale table
+- recognize charset aliases (windows-1251, CP866, macintosh)
+- use G_FILENAME_ENCODING for the current locale only, take the first
+  charset of the comma separated list
+- data: kk_KZ uses CP1251/IBM866 as in Windows, Russian charsets for
+  Cyrillic languages of Russia (ce, cv, kv, mdf, mhr, os)
+- data: keep manual corrections in charset_overrides.txt (applied by gen_data.sh)
+- transliteration: fix duplicate and wrong entries, NO-BREAK SPACE gives space,
+  one '_' for a character outside BMP
+- python binding: regenerate with SWIG 4, works with python3
+- add test suite (make check), run it in %check
+- build: fix configure with dash and -Werror (popt was not found),
+  make distcheck and VPATH builds, link with libiconv if needed,
+  drop AC_FUNC_MALLOC (cross build) and __DATE__ (reproducible build)
+- natspec: clarify --transl help (ALT bug 47189)
+- rewrite README.md, remove dead Travis CI config
+- release.sh makes tarball with configure (make distcheck)
+- License: LGPL-2.1-only (SPDX), rewrite package descriptions
+- profile scripts are not executable
+
 * Mon May 12 2025 Vitaly Lipatov <lav@altlinux.ru> 0.3.5-alt1
 - update data generator code
 - configure.ac: fix AC_ARG_WITH using
