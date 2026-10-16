@@ -1,150 +1,191 @@
-LIBNATSPEC [![Coverity Scan Build Status](https://scan.coverity.com/projects/vitlav-libnatspec/badge.svg)](https://scan.coverity.com/projects/vitlav-libnatspec)
-=====
+LIBNATSPEC — The Nation Specifity Library
+=========================================
 
-    LIBNATSPEC
-	The Nation Specifity Library
-	Vitaly Lipatov <lav@etersoft.ru>
+[![Packaging status](https://repology.org/badge/latest-versions/libnatspec.svg)](https://repology.org/project/libnatspec/versions)
 
-About libnatspec
-----------------
+libnatspec smooths out national peculiarities of a system: it knows which
+character sets are used for a locale here and on other systems (Windows,
+DOS, Mac), and converts strings between them.
 
-libnatspec is a collection of functions for requesting various
-charsets and locales for the host system and for other systems
-(Windows, DOS, Mac). It allows applications to be written that are
-locale and system independent. Libnatspec tries to use user locale
-information if possible.
+Encoding problems with file names and contents appear when you:
 
-It contains a table with relations between locale names and encodings
-of other systems, and helpers to:
+ * mount FAT/NTFS/ISO 9660/UDF media: flash drives, external disks, CDs;
+ * mount SMB/CIFS network shares;
+ * unpack archives made on Windows (zip, 7z) or burn discs (mkisofs);
+ * exchange files with FTP servers and clients, multimedia players, etc.
 
- * detect the current user and system locale and its charset;
- * get the filename encoding;
- * get the Windows/DOS/Mac charset and codepage for a locale;
- * add proper `iocharset=`/`codepage=` options for mounting filesystems;
- * convert strings between encodings (iconv wrappers with transliteration).
+Instead of every program guessing encodings on its own, libnatspec gives
+one answer for all of them, based on the user locale.
 
-This distribution contains the library, header files, the `natspec`
-command line utility and a binding to Python (`--with-python` option
-for configure).
-
-Please if you discover some bug or misfunction of the natspec library
-on your system, email me about it.
-
-Building
+Concepts
 --------
 
-Requirements: a C compiler, autotools, libtool, iconv.
-Optional: popt (for the `natspec` utility), Python and SWIG (Python binding),
-Doxygen (API documentation).
+The library defines and provides API for:
 
+ * user locale and system locale;
+ * charset of a locale;
+ * local file system encoding (filename encoding);
+ * charset and code page of other systems (Windows, DOS, Mac) for a locale.
+
+And helpers to:
+
+ * add `iocharset=`, `codepage=` and `nls=` options to mount options
+   according to the file system type;
+ * convert strings between encodings, with transliteration of characters
+   which the target encoding does not have (`Ж` → `ZH`, `∂` → `\partial`).
+
+Examples for the `ru_RU.UTF-8` locale:
+
+| Question                               | Answer           |
+|----------------------------------------|------------------|
+| charset of the locale                  | UTF8             |
+| Windows / DOS / Mac charset            | CP1251 / IBM866 / MACCYRILLIC |
+| mount options for `vfat`               | `iocharset=utf8,codepage=866` |
+| mount options for `ntfs`               | `nls=utf8`       |
+
+API
+---
+
+All functions are declared in `natspec.h`. Functions returning `char *`
+return a newly allocated string which must be freed with `free()`;
+`const char *` results point to static data.
+
+| Function | Description |
+|----------|-------------|
+| `natspec_get_current_locale()` | locale from `LC_ALL`, `LC_CTYPE`, `LANG`, or the system locale |
+| `natspec_get_system_locale()` | `LANG` from the system i18n file (`/etc/sysconfig/i18n` by default) |
+| `natspec_get_charset()` | charset of the current locale (after `setlocale`) |
+| `natspec_get_charset_by_locale(type, locale)` | charset of `NATSPEC_UNIXCS`, `NATSPEC_WINCS`, `NATSPEC_DOSCS` or `NATSPEC_MACCS` for a locale (`""` is the current locale, `NULL` is the system one) |
+| `natspec_locale_is_utf8(locale)` | non-zero for a UTF-8 locale |
+| `natspec_get_filename_encoding(locale)` | filename encoding in kernel nls form (`G_FILENAME_ENCODING` is honored for the current locale) |
+| `natspec_get_enriched_fs_options(fs, options)` | mount options with encoding options added |
+| `natspec_get_codepage_by_charset(cs)`, `natspec_get_nls_by_charset(cs)` | code page number and kernel nls name of a charset |
+| `natspec_convert(str, tocode, fromcode, transliterate)` | convert a string (`NULL` or `""` charset is the current one) |
+| `natspec_iconv_open()`, `natspec_iconv()`, `natspec_iconv_close()` | iconv-like API with transliteration |
+
+Charset names are accepted in any common form: `KOI8-R`, `koi8r`,
+`windows-1251`, `CP866`.
+
+### Convert file names from Windows to the local encoding
+
+```c
+#include <locale.h>
+#include <natspec.h>
+
+setlocale(LC_ALL, "");
+
+/* filename encoding of this system */
+const char *fileenc = natspec_get_filename_encoding("");
+/* charset of Windows for the current locale */
+const char *win_cs = natspec_get_charset_by_locale(NATSPEC_WINCS, "");
+
+/* the last argument enables transliteration */
+char *unix_filename = natspec_convert(win_filename, fileenc, win_cs, 1);
+...
+free(unix_filename);
 ```
-autoreconf -fiv
-./configure [--with-python] [--with-doxygen] [--with-debug] [--with-i18n-file=FILE]
-make
-make install
+
+### Add encoding options to mount options
+
+```c
+char *options = natspec_get_enriched_fs_options("vfat", "ro,noexec");
+/* "ro,noexec,iocharset=utf8,codepage=866" in ru_RU.UTF-8 */
+...
+free(options);
 ```
 
-`--with-i18n-file` sets the file with the system wide LANG variable
-(`/etc/sysconfig/i18n` by default).
+### Use in your project
 
-Run the tests with `make check`.
+Use `pkg-config --cflags --libs libnatspec`, or the autoconf macro from
+`natspec.m4`:
 
-For RPM-based systems you can use libnatspec.spec as an example.
-More installation instructions are found in INSTALL.
+1. Add `AM_PATH_NATSPEC` to `configure.ac`. It sets `NATSPEC_LIBS` and
+   `NATSPEC_CFLAGS` for Makefiles and defines `HAVE_NATSPEC` in `config.h`.
+2. Run configure with `--with-natspec`.
+3. Make natspec support optional in the code:
+
+```c
+#ifdef HAVE_NATSPEC
+#include <natspec.h>
+#endif
+```
+
+Patches which add natspec support to unzip, zip, p7zip, mount, mkisofs,
+samba, pmount and other programs are in the `examples/` directory.
 
 The natspec utility
 -------------------
 
 ```
-natspec --info              # overall encoding/charset info for your system
+natspec --info              # overall locale and encoding information
 natspec --locale            # current user locale
 natspec --system-locale     # system locale
-natspec --fsenc             # filesystem (filename) encoding
-natspec --charset win       # charset for other system: unix, win, dos, mac
-natspec --codepage          # codepage
-natspec --utf8              # exit code 0 if the locale is UTF-8
-natspec --transl ENC STRING # transliterate STRING from ENC to the current encoding
+natspec --fsenc             # filename encoding
+natspec --charset win       # charset of other system: unix, win, dos, mac
+natspec --codepage          # DOS code page
+natspec --utf8              # exit code 0 if the current locale is UTF-8
+natspec --transl ENC STRING # convert STRING from ENC to the current encoding
+                            # with transliteration
 ```
 
-See `natspec --help` and `man natspec` for details.
+See `natspec --help` and `man natspec`.
 
-Examples of use
----------------
-
-### Convert files from other system to our one
-```
-// Get the filename encoding in your system
-const char *fileenc = natspec_get_filename_encoding("");
-
-// Get the charset in other system WIN
-const char *win_cs = natspec_get_charset_by_locale(NATSPEC_WINCS, "");
-
-// Do conversion from foreign to local filename encoding
-// (the last argument enables transliteration of inconvenient symbols)
-char *unix_filename = natspec_convert(win_filename, fileenc, win_cs, 0);
-...
-free(unix_filename);
-```
-
-Functions returning `char *` return a newly allocated string which must be
-freed with `free()`. Do not forget to call `setlocale(LC_ALL, "")` first.
-
-### Using in .c files
-
-```
-#ifdef HAVE_NATSPEC
-#include <natspec.h>
-#endif
-...
-#ifdef HAVE_NATSPEC
-	some with natspec using
-#endif
-```
-
-### Using in configure.ac files
-
-1. Add line with AM_PATH_NATSPEC in configure.ac
-it makes NATSPEC_LIBS, NATSPEC_CFLAGS variables for Makefiles
-and defines HAVE_NATSPEC in config.h
-2. Use option --with-natspec for configure
-
-Alternatively use pkg-config: `pkg-config --cflags --libs libnatspec`.
-
-Patches adding natspec support to various programs (mount, mkisofs,
-unzip, zip, samba, pmount and others) can be found in the `examples/`
-directory.
-
-Tested systems
+Python binding
 --------------
 
-Historically (2005) it was tested in various OS (with GCC installed):
+Configure with `--with-python` to build the `natspec` module (SWIG):
 
- + ALT Linux 2.4 Master (x86)
- + Debian GNU/Linux 3.0 (Alpha)
- - Solaris SunOS 5.9 (Sparc/x86) (missed libiconv during linking)
- ? Slackware (x86)
- + Mandrake (x86)
- + RedHat (x86)
- ? ASPLinux (x86)
- - FreeBSD 4.10 (x86) (missed popt)
+```python
+import natspec
+natspec.natspec_convert("Привет", "ASCII", "UTF-8", 1)   # 'Privet'
+```
 
-and with various Linux programs/servers:
+Building
+--------
 
- + mount
- + mkisofs / isoinfo
- + smbmount
- + submount (subfs)
- - smbd/nmbd/swat/smbclient
- + zip/unzip
+Requirements: a C compiler, autoconf, automake, libtool, iconv.
+Optional: popt (for the `natspec` utility), Python and SWIG (Python
+binding), Doxygen (API documentation).
 
-License
--------
+```
+autoreconf -fiv
+./configure [--with-python] [--with-doxygen] [--with-i18n-file=FILE]
+make
+make check
+make install
+```
+
+`--with-i18n-file` sets the file with the system wide `LANG` variable
+(`/etc/sysconfig/i18n` by default).
+
+For RPM-based systems see `libnatspec.spec`.
+
+Data
+----
+
+The table of locales and their Windows/DOS/Mac charsets
+(`lib/data/get_charset_data.h`) is generated from Wine locale data by
+`lib/data/gen_data.sh`. Manual corrections are kept in
+`lib/data/charset_overrides.txt` with the source of every value.
+If a charset for your locale is wrong, please report it with a reference
+(for example, to the Microsoft NLS API Reference).
+
+Packages
+--------
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/libnatspec.svg)](https://repology.org/project/libnatspec/versions)
+
+natspec-enabled builds of unzip, zip, p7zip and 7zip are available
+in ALT Linux and AUR.
+
+License and contacts
+--------------------
 
 libnatspec may be freely distributed and modified in accordance with
-the GNU Lesser General Public License. Examples in the libnatspec
-distribution can fall under different licenses;
-see the examples/LICENSE file and individual files for details.
+the GNU Lesser General Public License, version 2.1. Examples in the
+distribution can fall under different licenses; see `examples/LICENSE`
+and individual files for details.
 
-The person for contact: Vitaly Lipatov <lav@etersoft.ru>
+Source code: https://github.com/Etersoft/libnatspec
 
-07.05.2005, 24.10.2015, 16.10.2026
+Please report bugs there or to Vitaly Lipatov <lav@etersoft.ru>.
