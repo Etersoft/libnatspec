@@ -183,18 +183,77 @@ static const struct charsetrel_entry* get_entry_by_locale(const char *locale)
 }
 
 
+/*! Internal: returns static string for charset (in humble form)
+ *  from the table or NULL if it is unknown */
+static const char *get_static_charset(const char *charset)
+{
+	int i;
+	for (i = 0; i < sizeof(charset_relation)/sizeof(charset_relation[0]); i++)
+		if (charset_relation[i].unix_cs && !strcmp(charset, charset_relation[i].unix_cs))
+			return charset_relation[i].unix_cs;
+	return NULL;
+}
+
+/*! Internal: search entry for locale without charset
+ *  (language[_territory][@modifier], then language[_territory]) */
+static const struct charsetrel_entry* get_entry_without_charset(const char *locale)
+{
+	const struct charsetrel_entry *entry = NULL;
+	char *buf, *next, *dialect, *charset;
+	buf = malloc( strlen(locale) + 1 );
+	if (!buf)
+		return NULL;
+	strcpy(buf, locale);
+	next = strchr(buf, ':'); if (next) *next = '\0';
+	dialect = strchr(buf, '@');
+	charset = strchr(buf, '.');
+	if (charset)
+	{
+		/* remove charset part, keep modifier */
+		if (dialect && dialect > charset)
+			memmove(charset, dialect, strlen(dialect) + 1);
+		else
+			*charset = '\0';
+		entry = get_entry_by_locale(buf);
+		dialect = strchr(buf, '@');
+		if (!entry && dialect)
+		{
+			*dialect = '\0';
+			entry = get_entry_by_locale(buf);
+		}
+	}
+	free(buf);
+	return entry;
+}
+
 /*! Returns charset by locale for type */
 const char * natspec_get_charset_by_locale(const int type, const char *locale)
 {
 	char *must_free = NULL;
 	const struct charsetrel_entry* entry;
+	const char *unix_cs = NULL;
 	/* use system locale for NULL or user locale if empty */
 	if (locale == NULL)
 		locale = must_free = natspec_get_system_locale();
 	else if (locale[0] == '\0')
 		locale = must_free = natspec_get_current_locale();
 	entry = get_entry_by_locale(locale);
+	if (!entry && locale)
+	{
+		/* The locale charset is not in the table (be_BY.CP1251):
+		   use charset from locale name and other charsets of the language */
+		char *charset = natspec_extract_charset_from_locale(locale);
+		if (charset)
+		{
+			unix_cs = get_static_charset(charset);
+			if (unix_cs)
+				entry = get_entry_without_charset(locale);
+			free(charset);
+		}
+	}
 	free (must_free);
+	if (unix_cs && type == NATSPEC_UNIXCS)
+		return unix_cs;
 	return get_cs_by_type(type, entry);
 }
 

@@ -24,19 +24,6 @@ static void check_locale(const char *locale, int type, const char *expected)
 	}
 }
 
-static void test_charset_not_in_table(void)
-{
-	check_locale("be_BY.CP1251", NATSPEC_UNIXCS, "CP1251");
-	check_locale("be_BY.CP1251", NATSPEC_DOSCS, "IBM866");
-	check_locale("en_GB.ISO-8859-15", NATSPEC_UNIXCS, "ISO885915");
-	check_locale("en_GB.ISO-8859-15", NATSPEC_WINCS, "CP1252");
-	check_locale("de_DE.UTF-8@euro", NATSPEC_UNIXCS, "UTF8");
-	check_locale("de_DE.UTF-8@euro", NATSPEC_DOSCS, "IBM850");
-	check_locale("zh_CN.GB2312", NATSPEC_UNIXCS, "GB2312");
-	check_locale("zh_TW.Big5", NATSPEC_UNIXCS, "BIG5");
-	CHECK(natspec_locale_is_utf8("de_DE.UTF-8@euro"));
-}
-
 static void test_aliases(void)
 {
 	CHECK_INT(natspec_get_codepage_by_charset("windows-1251"), 1251);
@@ -60,7 +47,6 @@ int main(void)
 	unsetenv("LC_ALL");
 	unsetenv("LC_CTYPE");
 	unsetenv("LANG");
-	test_charset_not_in_table();
 	test_aliases();
 	test_filename_encoding_env();
 	return check_done();

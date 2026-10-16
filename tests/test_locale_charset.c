@@ -65,6 +65,19 @@ static void test_charset_by_locale(void)
 	check_locale("POSIX", ASCII, "CP1252", "IBM437", "MAC");
 	check_locale("C.UTF-8", "UTF8", "CP1252", "IBM437", "MAC");
 	check_locale("C.utf8", "UTF8", "CP1252", "IBM437", "MAC");
+	/* charset of locale is not in the table: charset from the name,
+	   other charsets of the language */
+	check_locale("be_BY.CP1251", "CP1251", "CP1251", "IBM866", "MACCYRILLIC");
+	check_locale("en_GB.ISO-8859-15", "ISO885915", "CP1252", "IBM850", "MAC");
+	check_locale("de_DE.UTF-8@euro", "UTF8", "CP1252", "IBM850", "MAC");
+	check_locale("zh_CN.GB2312", "GB2312", "CP936", "CP936", "MAC");
+	check_locale("zh_TW.Big5", "BIG5", "BIG5", "BIG5", "MAC");
+	check_locale("uz_UZ.UTF-8@cyrillic", "UTF8", "CP1251", "IBM866", "MACCYRILLIC");
+	check_locale("ru_RU.KOI8-R@nonexistent", "KOI8R", "CP1251", "IBM866", "MACCYRILLIC");
+	/* country is unknown, but charset is known */
+	check_locale("xx_YY.UTF-8", "UTF8", ASCII, ASCII, ASCII);
+	/* unknown charset */
+	check_locale("ru_RU.NONEXISTENT", ASCII, ASCII, ASCII, ASCII);
 	/* unknown locale falls back to current charset */
 	check_locale("xx_YY", ASCII, ASCII, ASCII, ASCII);
 }
@@ -80,6 +93,8 @@ static void test_locale_is_utf8(void)
 	CHECK(!natspec_locale_is_utf8("ru_RU"));
 	CHECK(!natspec_locale_is_utf8("en_US"));
 	CHECK(!natspec_locale_is_utf8("xx_YY"));
+	CHECK(natspec_locale_is_utf8("de_DE.UTF-8@euro"));
+	CHECK(natspec_locale_is_utf8("xx_YY.utf8"));
 }
 
 static void test_filename_encoding(void)
