@@ -6,8 +6,9 @@ pyexec_LTLIBRARIES =
 endif
 
 _natspec_la_SOURCES = natspec_wrap.c
-_natspec_la_CFLAGS = $(LIBNATSPEC_CFLAGS) $(PYTHON_INCLUDES) $(PYTHON_QUIET)
-_natspec_la_LDFLAGS = -module -avoid-version $(LIBNATSPEC)
+_natspec_la_CFLAGS = $(LIBNATSPEC_CFLAGS) $(PYTHON_INCLUDES) $(PYTHON_QUIET) -Wno-error=pedantic -Wno-pedantic
+_natspec_la_LDFLAGS = -module -avoid-version
+_natspec_la_LIBADD = $(top_builddir)/lib/libnatspec.la
 
 pyexec_SCRIPTS = natspec.py
 
