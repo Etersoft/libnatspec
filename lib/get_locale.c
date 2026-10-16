@@ -106,60 +106,56 @@ const char *get_i18n_filename()
  *   FreeBSD      - /etc/profile        LANG=ru_RU.KOI8-R; export LANG
 */
 
-/*! Read system wide locale, return str or NULL if it does not exist 
- *  Since POSIX:1996 locale info we get from LANG variable 
- * \todo fix ugly buf, fgets
+/*! Read system wide locale, return str or NULL if it does not exist
+ *  Since POSIX:1996 locale info we get from LANG variable
+ *  Supported syntax of the line (shell-like):
+ *    [export] NAME = [quote]value[quote] [; or # comment]
 */
 static char *get_from_system_i18n(const char *str)
 {
-	int i;
-	char *locale = NULL, *t;
+	char *locale = NULL;
+	char *line = NULL;
+	size_t size = 0;
+	size_t len = strlen(str);
 	FILE *fd;
 	fd = fopen(NATSPEC_I18N_FILE,"r");
-	for (;fd;)
+	if (!fd)
+		return NULL;
+	while (!locale && getline(&line, &size, fd) != -1)
 	{
-		char buf[100], buf1[100];
-		char *r;
-		/* Read next line */
-		r = fgets(buf, 99, fd);
-		if (!r) break;
-		/* Remove unneeded symbols FIXME: some glibc func?*/
-		for (i = 0; *r; r++)
+		char *p = line, *value;
+		char quote = 0;
+		p += strspn(p, " \t");
+		if (!strncmp(p, "export", 6) && (p[6] == ' ' || p[6] == '\t'))
 		{
-			/* Break line at ';#' symbols */
-			if (*r == ';' || *r == '#')
-				break;
-			switch (*r)
-			{
-				case ' ':
-				case '\n':
-				case '\t':
-				case '"':
-				case '\r':
-					break;
-				default:
-					buf1[i++] = *r;
-			}
+			p += 6;
+			p += strspn(p, " \t");
 		}
-		buf1[i] = 0;
-		DEBUG (printf("GSL: after space removing '%s'",buf1));
-		/* Skip empty strings and comments */
-		if (!i)
+		/* NAME must be at the beginning of the line */
+		if (strncmp(p, str, len))
 			continue;
-		i = strlen(str);
-		/* Find str in any position */
-		t = strstr(buf1, str);
-		if (t == NULL)
+		p += len;
+		p += strspn(p, " \t");
+		if (*p != '=')
 			continue;
-		/* CHECKME: if i < strlen(buf1)? */
-		if (!strncmp(t, str, i) && t[i] == '=')
-		{
-			locale = strdup ( t+i+1 );
-			break;
-		}
+		p++;
+		p += strspn(p, " \t");
+		if (*p == '"' || *p == '\'')
+			quote = *p++;
+		value = p;
+		if (quote)
+			p = strchr(p, quote);
+		else
+			p += strcspn(p, " \t;#\r\n");
+		if (!p)
+			continue; /* unterminated quote */
+		*p = '\0';
+		DEBUG (printf("GSL: %s='%s'\n", str, value));
+		if (*value)
+			locale = strdup(value);
 	}
-	if (fd)
-		fclose(fd);
+	free(line);
+	fclose(fd);
 	return locale;
 }
 

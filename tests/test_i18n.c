@@ -1,10 +1,9 @@
 /*
  * Public domain
  *
- * Known bugs in /etc/sysconfig/i18n parsing (get_from_system_i18n):
- * - LANG is searched in any position of line
- * - long lines are read by 99 bytes chunks
- * - shell syntax 'export LANG=' is not supported
+ * Syntax of the system i18n file (get_from_system_i18n):
+ * LANG must be at the beginning of the line (SUPPORTED_LANG is not LANG),
+ * long lines, shell syntax (export, quotes)
  *
  * Linked with i18n_get_locale.c, the system i18n file is taken
  * from NATSPEC_TEST_I18N_FILE
@@ -41,6 +40,14 @@ int main(void)
 	check_i18n("SUPPORTED_LANG=de_DE\nLANG=ru_RU.UTF-8\n", "ru_RU.UTF-8");
 	check_i18n("RC_LANG=de_DE\nLANG=ru_RU.UTF-8\n", "ru_RU.UTF-8");
 	check_i18n("export LANG=ru_RU.UTF-8\n", "ru_RU.UTF-8");
+	check_i18n("\texport  LANG=ru_RU.UTF-8\n", "ru_RU.UTF-8");
+	check_i18n("LANG='uk_UA.UTF-8'\n", "uk_UA.UTF-8");
+	check_i18n("LANG=\"uk_UA.UTF-8\" # comment\n", "uk_UA.UTF-8");
+	check_i18n("LANGUAGE=de_DE\nLANG=ru_RU.UTF-8\n", "ru_RU.UTF-8");
+	/* broken and empty values are skipped */
+	check_i18n("LANG=\"uk_UA.UTF-8\nLANG=ru_RU.UTF-8\n", "ru_RU.UTF-8");
+	check_i18n("LANG=\nLANG=ru_RU.UTF-8\n", "ru_RU.UTF-8");
+	check_i18n("LANG=\n", "C");
 
 	/* the tail of long comment must not be parsed */
 	memset(buf, 0, sizeof(buf));
