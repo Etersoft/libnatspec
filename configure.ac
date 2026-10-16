@@ -27,7 +27,7 @@ AM_PROG_CC_C_O
 
 dnl Checks for libraries.
 check_popt=""
-AC_CHECK_LIB([popt], [main], check_popt=true)
+AC_CHECK_LIB([popt], [poptGetContext], check_popt=true)
 if test "x$check_popt" = x ; then
 	AC_MSG_WARN([ libpopt not found.])
 else
