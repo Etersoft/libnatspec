@@ -13,7 +13,7 @@ PASS_TESTS					= test_get_charset test_names test_locale_charset test_env \
 
 # programs for known bugs, move to PASS_TESTS after fix
 XFAIL_TESTS					= xfail_tables xfail_locale_lookup xfail_null_charset \
-	xfail_ucs2table xfail_i18n
+	xfail_ucs2table xfail_i18n xfail_translit
 
 check_PROGRAMS				= $(PASS_TESTS) $(XFAIL_TESTS)
 dist_check_SCRIPTS			= test_cli.sh test_python.sh
