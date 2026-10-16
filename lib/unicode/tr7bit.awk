@@ -14,7 +14,9 @@ function hex2dec(xx) {
 		
 /^U/{
 	gsub("\\\\", "\\\\");
-	printf("0x%s\n", substr($0, 3));
+	# lowercase code for sorting, keep replacement as is
+	i = index($0, ":");
+	printf("0x%s%s\n", tolower(substr($0, 3, i - 3)), substr($0, i));
 }
 /^0x[0-9a-fA-F]*[	 ]/{
 	c = hex2dec(substr($1, 3));

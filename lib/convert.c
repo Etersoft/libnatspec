@@ -122,7 +122,7 @@ static int ucs2_cmp( __const void *ucs2, __const void *entry )
 /*! Get transliterated UCS2 character or '_' if it is impossible */
 static const char *get_7bit (unsigned short ucs2)
 {
-	struct u7_struct *entry;
+	const struct u7_struct *entry;
 	entry = _n_bsearch( &ucs2, unicode_7b, ucs2_cmp );
 	if (entry == NULL || entry->s == NULL)
 		return "_";
