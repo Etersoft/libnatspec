@@ -47,10 +47,7 @@ make install
 `--with-i18n-file` sets the file with the system wide LANG variable
 (`/etc/sysconfig/i18n` by default).
 
-The test program is built in `tests/` and can be run directly:
-```
-./tests/test_get_charset
-```
+Run the tests with `make check`.
 
 For RPM-based systems you can use libnatspec.spec as an example.
 More installation instructions are found in INSTALL.
