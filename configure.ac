@@ -6,7 +6,7 @@ AC_PREREQ(2.52)
 AC_INIT([libnatspec], [0.3.5], lav@etersoft.ru)
 AM_INIT_AUTOMAKE
 
-AC_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 CFLAGS="$CFLAGS -Wall -funsigned-char"
 
 dnl Initialize maintainer mode
@@ -15,7 +15,6 @@ AM_MAINTAINER_MODE
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_CXX
-AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
@@ -23,10 +22,7 @@ AC_PROG_MAKE_SET
 #AC_PROG_LIBTOOL
 
 dnl Initialize libtool
-AC_DISABLE_STATIC
-AC_ENABLE_SHARED(yes)
-AC_ENABLE_STATIC(no)
-AM_PROG_LIBTOOL
+LT_INIT([disable-static])
 AM_PROG_CC_C_O
 
 dnl Checks for libraries.
@@ -41,7 +37,6 @@ else
 fi
 
 dnl Checks for header files.
-AC_HEADER_STDC
 AC_CHECK_HEADERS([langinfo.h locale.h stdlib.h string.h strings.h])
 
 check_iconv=""
