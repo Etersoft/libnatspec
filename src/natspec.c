@@ -166,6 +166,9 @@ int main(int argc, const char** argv)
 #if defined HAVE_LIBPOPT
 			while (poptPeekArg(poptCtx))
 				str = (char *)poptGetArg(poptCtx);
+			/* the arg belongs to the context (freed by poptFreeContext since popt 1.19) */
+			if (str)
+				str = strdup(str);
 			poptFreeContext(poptCtx);
 #else
 			fprintf(stderr, "Compiled without popt. Exit\n");
