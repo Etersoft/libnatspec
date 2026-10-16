@@ -13,7 +13,8 @@ print()
 get_locales()
 {
 	locale -a
-	# https://bugzilla.altlinux.org/47030
+	# https://bugzilla.altlinux.org/47030: kv_RU.UTF-8 may be missed in locale -a
+	locale -a | grep -qix 'kv_RU\.utf-\?8' || echo "kv_RU.UTF8"
 }
 
 echo Test string for $LANG locale:
