@@ -15,11 +15,20 @@ Autotools project (generated files like `configure`, `Makefile.in` are gitignore
 # or manually:
 autoreconf -fiv && ./configure --with-debug
 make
-make check                   # runs tests/test_get_charset (the only test; aborts on assert failure)
+make check                   # all tests in tests/
+make -C tests check TESTS=test_convert   # single test; output in tests/test_convert.log
 make distcheck               # verifies VPATH build and tarball completeness
 ```
 
-- The test output depends on the current `LANG`/`LC_*`; run it directly to see it, e.g. `LANG=ru_RU.UTF-8 ./tests/test_get_charset`.
+Sanitizer run: `./configure CFLAGS="-g -O1 -fsanitize=address,undefined" LDFLAGS="-fsanitize=address,undefined" && ASAN_OPTIONS=detect_leaks=0 make check`.
+
+### Tests (`tests/`)
+
+- C tests use `tests/check.h` (`CHECK`, `CHECK_INT`, `CHECK_STR`, `CHECK_STR_FREE`), which reports every failed check and ends with `return check_done();`. Exit code 77 means skip.
+- `test_*` programs must pass. `xfail_*` programs hold **known, unfixed bugs** and are listed in `XFAIL_TESTS`. When you fix a bug, move its checks into a `test_*` program (or move the program to `PASS_TESTS`); otherwise the test reports XPASS and `make check` fails.
+- Tests set and clear `LC_ALL`/`LC_CTYPE`/`LANG`/`G_FILENAME_ENCODING` themselves, so they don't depend on your environment. Without `setlocale()` the fallback charset is `ANSI_X3.4-1968`.
+- `test_env` and `xfail_i18n` are linked with `lib/*.c` directly. `i18n_get_locale.c` rebuilds `get_locale.c` so that the system i18n file comes from `$NATSPEC_TEST_I18N_FILE`.
+- `test_cli.sh` is skipped if `natspec` was built without popt, and `test_python.sh` is skipped without `--with-python` or in sanitizer builds.
 - configure options: `--with-python` (SWIG binding in `src/python`), `--with-doxygen` (API docs in `docs/`), `--with-debug`, `--with-i18n-file=FILE` (system-wide LANG source, default `/etc/sysconfig/i18n`).
 - Builds with `-Wall -funsigned-char`; autogen adds `-Werror -pedantic`, so keep code warning-free.
 - Depends on iconv (required) and popt (optional, for the `natspec` CLI).
