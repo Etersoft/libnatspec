@@ -133,6 +133,7 @@ mv %buildroot%_libdir/%{name}.* %buildroot/%_lib
 - release.sh makes tarball with configure (make distcheck)
 - License: LGPL-2.1-only (SPDX), rewrite package descriptions
 - profile scripts are not executable
+- natspec: fix use after free of --transl argument with popt 1.19
 
 * Mon May 12 2025 Vitaly Lipatov <lav@altlinux.ru> 0.3.5-alt1
 - update data generator code

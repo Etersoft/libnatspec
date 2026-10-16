@@ -30,6 +30,8 @@ libnatspec-0.4.0: 17-Oct-2026:
  - release.sh makes tarball with configure (make distcheck)
  - License: LGPL-2.1-only (SPDX), rewrite package descriptions
  - profile scripts are not executable
+ - natspec: fix use after free of --transl argument with popt 1.19
+ - publish release tarball by GitHub Actions on upstream tag
 
 libnatspec-0.2.4: 15-Feb-2008:
  - natspec_convert returns original string if failed (fix bug #14301)
