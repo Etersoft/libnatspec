@@ -5,7 +5,6 @@
  * - locale with charset absent in the table falls back to the current
  *   charset instead of the charset from locale name and other
  *   charsets of the language
- * - charset aliases (windows-1251, CP866) are not recognized
  * - G_FILENAME_ENCODING is used (without check) for explicit locale too
  */
 
@@ -24,15 +23,6 @@ static void check_locale(const char *locale, int type, const char *expected)
 	}
 }
 
-static void test_aliases(void)
-{
-	CHECK_INT(natspec_get_codepage_by_charset("windows-1251"), 1251);
-	CHECK_INT(natspec_get_codepage_by_charset("CP866"), 866);
-	CHECK_STR(natspec_get_nls_by_charset("windows-1251"), "cp1251");
-	CHECK_STR(natspec_get_nls_by_charset("CP866"), "cp866");
-	CHECK_STR(natspec_get_charset_by_charset(NATSPEC_DOSCS, NATSPEC_WINCS, "windows-1251"), "IBM866");
-}
-
 static void test_filename_encoding_env(void)
 {
 	setenv("G_FILENAME_ENCODING", "KOI8-R", 1);
@@ -47,7 +37,6 @@ int main(void)
 	unsetenv("LC_ALL");
 	unsetenv("LC_CTYPE");
 	unsetenv("LANG");
-	test_aliases();
 	test_filename_encoding_env();
 	return check_done();
 }

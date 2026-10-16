@@ -55,6 +55,37 @@ static int charset_locale_cmp( __const void *name, __const void *entry )
     return strcmp( (const char *)name, rel->locale );
 }
 
+/*! Internal: charset aliases (in humble form) to names used in the tables */
+static const char *charset_aliases[][2] =
+{
+	{ "CP437", "IBM437" },
+	{ "CP737", "IBM737" },
+	{ "CP775", "IBM775" },
+	{ "CP850", "IBM850" },
+	{ "CP852", "IBM852" },
+	{ "CP855", "IBM855" },
+	{ "CP857", "IBM857" },
+	{ "CP860", "IBM860" },
+	{ "CP861", "IBM861" },
+	{ "CP862", "IBM862" },
+	{ "CP863", "IBM863" },
+	{ "CP864", "IBM864" },
+	{ "CP865", "IBM865" },
+	{ "CP866", "IBM866" },
+	{ "CP869", "IBM869" },
+	{ "CP874", "IBM874" },
+	{ "MACINTOSH", "MAC" },
+	{ "WINDOWS1250", "CP1250" },
+	{ "WINDOWS1251", "CP1251" },
+	{ "WINDOWS1252", "CP1252" },
+	{ "WINDOWS1253", "CP1253" },
+	{ "WINDOWS1254", "CP1254" },
+	{ "WINDOWS1255", "CP1255" },
+	{ "WINDOWS1256", "CP1256" },
+	{ "WINDOWS1257", "CP1257" },
+	{ "WINDOWS1258", "CP1258" },
+};
+
 /*! Removes punctuation characters from charset name */
 char *natspec_humble_charset( const char *charset)
 {
@@ -76,6 +107,13 @@ char *natspec_humble_charset( const char *charset)
 			buf[j++] = _n_toupper(charset[i]);
 	}
    	buf[j] = 0;
+	for (i = 0; i < sizeof(charset_aliases)/sizeof(charset_aliases[0]); i++)
+		if (!strcmp(buf, charset_aliases[i][0]))
+		{
+			/* the name can be longer than the alias (CP437 -> IBM437) */
+			free(buf);
+			return strdup(charset_aliases[i][1]);
+		}
 	DEBUG (printf ("Clean charset '%s', after: '%s'",charset, buf));
 	return buf;
 }

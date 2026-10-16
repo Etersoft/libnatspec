@@ -29,6 +29,11 @@ static void test_humble_charset(void)
 	/* ANSI_X3.4-1968 (ASCII in glibc) is kept as is */
 	CHECK_STR_FREE(natspec_humble_charset("ANSI_X3.4-1968"), "ANSI_X3.4-1968");
 	CHECK_STR_FREE(natspec_humble_charset("--"), "");
+	/* aliases */
+	CHECK_STR_FREE(natspec_humble_charset("windows-1251"), "CP1251");
+	CHECK_STR_FREE(natspec_humble_charset("CP866"), "IBM866");
+	CHECK_STR_FREE(natspec_humble_charset("cp437"), "IBM437");
+	CHECK_STR_FREE(natspec_humble_charset("macintosh"), "MAC");
 }
 
 static void test_extract_charset(void)
@@ -78,6 +83,8 @@ static void test_codepage(void)
 	CHECK_INT(natspec_get_codepage_by_charset("ISO-8859-5"), 28595);
 	CHECK_INT(natspec_get_codepage_by_charset("GB2312"), 936);
 	CHECK_INT(natspec_get_codepage_by_charset("BIG5"), 950);
+	CHECK_INT(natspec_get_codepage_by_charset("windows-1251"), 1251);
+	CHECK_INT(natspec_get_codepage_by_charset("CP866"), 866);
 	/* unknown charset gives ASCII codepage */
 	CHECK_INT(natspec_get_codepage_by_charset("NONEXISTENT"), 437);
 }
@@ -94,6 +101,8 @@ static void test_nls(void)
 	CHECK_STR(natspec_get_nls_by_charset("ISO8859-15"), "iso8859-15");
 	CHECK_STR(natspec_get_nls_by_charset("EUC-JP"), "euc-jp");
 	CHECK_STR(natspec_get_nls_by_charset("GB2312"), "gb2312");
+	CHECK_STR(natspec_get_nls_by_charset("windows-1251"), "cp1251");
+	CHECK_STR(natspec_get_nls_by_charset("CP866"), "cp866");
 	/* fallback is always a valid nls */
 	CHECK_STR(natspec_get_nls_by_charset(NULL), "iso8859-1");
 	CHECK_STR(natspec_get_nls_by_charset("NONEXISTENT"), "iso8859-1");

@@ -203,16 +203,19 @@ char *_natspec_repack_locale(const char *locale)
 		return NULL;
 	DEBUG (printf("repack_locale\n"));
 	lang = strdup( locale );
-	buf = malloc( strlen(locale) + 1 );
+	/* normalized charset can be longer than in locale (cp866 -> IBM866) */
+	charset = natspec_extract_charset_from_locale(locale);
+	buf = malloc( strlen(locale) + (charset ? strlen(charset) : 0) + 2 );
 	if (!lang || !buf)
 	{
 		free(lang);
 		free(buf);
+		free(charset);
 		return NULL;
 	}
 	next = strchr(lang,':'); if (next) *next++ = '\0';
 	dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
-	charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
+	next = strchr(lang,'.'); if (next) *next = '\0';
 	country = strchr(lang,'_'); if (country) *country++ = '\0';
 
 	/* C and POSIX locale names are case sensitive */
@@ -227,7 +230,6 @@ char *_natspec_repack_locale(const char *locale)
 		strcat(buf, "_");
 		strcat(buf, country);
 	}
-	charset = natspec_extract_charset_from_locale(locale);
 	if (charset)
 	{
 		strcat(buf, ".");
