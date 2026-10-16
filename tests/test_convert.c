@@ -68,6 +68,13 @@ static void test_translit(void)
 	CHECK_STR_FREE(natspec_convert("caf\xC3\xA9", "ASCII", "UTF-8", 1), "cafe");
 	/* U+00C4 LATIN CAPITAL LETTER A WITH DIAERESIS to KOI8-R */
 	CHECK_STR_FREE(natspec_convert("\xC3\x84" HELLO_UTF8, "KOI8-R", "UTF-8", 1), "A:" HELLO_KOI8R);
+	/* U+00A0 NO-BREAK SPACE */
+	CHECK_STR_FREE(natspec_convert("a\xC2\xA0z", "ASCII", "UTF-8", 1), "a z");
+	CHECK_STR_FREE(natspec_convert("a\xA0z", "ASCII", "ISO-8859-1", 1), "a z");
+	/* U+00AD SOFT HYPHEN is dropped */
+	CHECK_STR_FREE(natspec_convert("a\xC2\xADz", "ASCII", "UTF-8", 1), "az");
+	/* U+2284 NOT A SUBSET OF */
+	CHECK_STR_FREE(natspec_convert("\xE2\x8A\x84", "ASCII", "UTF-8", 1), "!(C");
 	/* U+2202 PARTIAL DIFFERENTIAL is longer than 6 bytes */
 	CHECK_STR_FREE(natspec_convert("\xE2\x88\x82", "ASCII", "UTF-8", 1), "\\partial");
 	/* invalid UTF-8 byte is replaced with '_' */

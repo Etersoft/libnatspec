@@ -2,7 +2,7 @@
  * Public domain
  *
  * Consistency checks for built-in tables (they are searched with bsearch)
- * Strict checks which fail now are in xfail_tables.c
+ * Checks which fail now are in xfail_tables.c
  */
 
 #include "check.h"
@@ -47,10 +47,10 @@ static void test_unicode_7b(void)
 	for (i = 1; i < COUNT(unicode_7b); i++)
 	{
 		check_total++;
-		if (unicode_7b[i-1].x > unicode_7b[i].x)
+		if (unicode_7b[i-1].x >= unicode_7b[i].x)
 		{
 			check_failed++;
-			fprintf(stderr, "FAIL: unicode_7b: 0x%04x is not sorted\n", unicode_7b[i].x);
+			fprintf(stderr, "FAIL: unicode_7b: duplicate or unsorted 0x%04x\n", unicode_7b[i].x);
 		}
 	}
 	/* table must be full for bsearch over sizeof */

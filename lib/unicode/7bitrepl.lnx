@@ -290,7 +290,6 @@ U+027a:*<lat>
 U+027b:r.
 U+027d:*.
 0x2a	U+027E #	LATIN SMALL LETTER FISHHOOK R	-> *
-U+0280:r"
 0x52	U+0280 #	LATIN LETTER SMALL CAPITAL R	-> R
 U+0281:g"
 U+0282:s.
@@ -343,7 +342,6 @@ U+0325:<o>
 0x2d	U+0329
 0x5b	U+032a
 U+032b:<w>
-U+0334:<H>
 U+0374:'
 U+0375:,
 U+037a:j3
@@ -1498,7 +1496,7 @@ U+226e:!<
 U+226f:!>
 U+2282:(C
 U+2283:)C
-U+2282:!(C
+U+2284:!(C
 U+2286:(_
 U+2287:)_
 U+2295:(+)
