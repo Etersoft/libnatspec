@@ -184,11 +184,10 @@ char *natspec_convert(const char *in_str,
 	const char *tocode, const char *fromcode, int transliterate)
 {
 	iconv_t frt;
-	size_t lena = strlen(in_str)*6; /* FIXME see E2BIG for errno */
-	size_t lenb = strlen(in_str);
-	char *ansa = (char*)alloca(lena+1);
-	char *ansbptr = (char*)in_str;
-	char *ansaptr = ansa;
+	size_t lenb, lena, size;
+	char *ansa, *ansaptr, *ansbptr = (char*)in_str;
+
+	lenb = strlen(in_str);
 
 	frt = natspec_iconv_open(tocode, fromcode);
 	if (frt == (iconv_t) -1)
@@ -201,10 +200,44 @@ char *natspec_convert(const char *in_str,
 		ansaptr = strdup(in_str);
 		return ansaptr;
 	}
-	(void)natspec_iconv(frt, &ansbptr, &lenb, &ansaptr, &lena, transliterate);
+
+	/* one byte is reserved for the terminating '\0' */
+	size = lenb + 16;
+	ansa = malloc(size + 1);
+	ansaptr = ansa;
+	lena = size;
+	while (ansa)
+	{
+		size_t res;
+		int flush = !lenb;
+		if (!flush)
+			res = natspec_iconv(frt, &ansbptr, &lenb, &ansaptr, &lena, transliterate);
+		else /* flush shift state of the output */
+			res = iconv(frt, NULL, NULL, &ansaptr, &lena);
+		if (res == (size_t) -1 && errno == E2BIG)
+		{
+			size_t done = ansaptr - ansa;
+			char *tmp = realloc(ansa, size * 2 + 1);
+			if (!tmp)
+			{
+				free(ansa);
+				ansa = NULL;
+				break;
+			}
+			ansa = tmp;
+			ansaptr = ansa + done;
+			lena += size;
+			size *= 2;
+			continue;
+		}
+		/* other errors are ignored: return converted part */
+		if (res == (size_t) -1 || flush)
+			break;
+	}
 	natspec_iconv_close(frt);
-	*ansaptr = '\0';
-	return strdup(ansa);
+	if (ansa)
+		*ansaptr = '\0';
+	return ansa;
 }
 
 

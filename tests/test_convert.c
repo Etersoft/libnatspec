@@ -13,6 +13,25 @@
 
 #include "natspec.h"
 
+/* U+2202 (PARTIAL DIFFERENTIAL) transliterates to "\partial" */
+static void test_long_translit(void)
+{
+	char *in, *out;
+	size_t i, n = 5000;
+	in = malloc(n + 2);
+	assert(in);
+	for (i = 0; i < n; i++)
+		in[i] = '\xB6'; /* PARTIAL DIFFERENTIAL in MACINTOSH */
+	strcpy(in + n, "z");
+	out = natspec_convert(in, "ASCII", "MACINTOSH", 1);
+	assert(out);
+	assert(strlen(out) == n * strlen("\\partial") + 1);
+	assert(!strncmp(out, "\\partial\\partial", 16));
+	assert(out[strlen(out) - 1] == 'z');
+	free(out);
+	free(in);
+}
+
 /* natspec_iconv must not write past the given output buffer */
 static void test_iconv_small_buffer(void)
 {
@@ -39,10 +58,27 @@ static void test_iconv_small_buffer(void)
 	assert(!strncmp(out, "abcZH", 5));
 }
 
+/* big input must not exhaust the stack */
+static void test_big_input(void)
+{
+	size_t n = 20 * 1024 * 1024;
+	char *in = malloc(n + 1), *out;
+	assert(in);
+	memset(in, 'a', n);
+	in[n] = '\0';
+	out = natspec_convert(in, "ASCII", "UTF-8", 1);
+	assert(out);
+	assert(strlen(out) == n);
+	free(out);
+	free(in);
+}
+
 int main(void)
 {
 	setlocale(LC_ALL, "");
 	test_iconv_small_buffer();
+	test_long_translit();
+	test_big_input();
 	printf("DONE\n");
 	return 0;
 }
