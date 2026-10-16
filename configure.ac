@@ -3,7 +3,7 @@
 AC_PREREQ(2.52)
 # TODO: get version from spec file
 # TODO: add libtool versioning current:revision:age
-AC_INIT([libnatspec], [0.3.1], lav@etersoft.ru)
+AC_INIT([libnatspec], [0.3.5], lav@etersoft.ru)
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_HEADER(config.h)
