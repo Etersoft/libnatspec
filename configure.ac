@@ -87,8 +87,6 @@ AC_C_CONST
 AC_TYPE_SIZE_T
 
 dnl Checks for library functions.
-AC_FUNC_MALLOC
-AC_FUNC_ALLOCA
 AC_CHECK_FUNCS([nl_langinfo setlocale strcasecmp strchr strdup strstr])
 
 dnl Python
