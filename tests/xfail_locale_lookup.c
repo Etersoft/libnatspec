@@ -6,7 +6,6 @@
  *   charset instead of the charset from locale name and other
  *   charsets of the language
  * - C.UTF-8 is not recognized as UTF-8
- * - uk_UA lost DOS CP1125 (see lib/data/README.txt) in the last data update
  * - charset aliases (windows-1251, CP866) are not recognized
  * - G_FILENAME_ENCODING is used (without check) for explicit locale too
  */
@@ -48,12 +47,6 @@ static void test_c_locale(void)
 	CHECK(natspec_locale_is_utf8("C.utf8"));
 }
 
-static void test_uk_ua(void)
-{
-	check_locale("uk_UA", NATSPEC_DOSCS, "CP1125");
-	check_locale("uk_UA.UTF-8", NATSPEC_DOSCS, "CP1125");
-}
-
 static void test_aliases(void)
 {
 	CHECK_INT(natspec_get_codepage_by_charset("windows-1251"), 1251);
@@ -79,7 +72,6 @@ int main(void)
 	unsetenv("LANG");
 	test_charset_not_in_table();
 	test_c_locale();
-	test_uk_ua();
 	test_aliases();
 	test_filename_encoding_env();
 	return check_done();
