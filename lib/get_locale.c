@@ -68,6 +68,8 @@ char *natspec_internal_get_locale_from_env()
 		!strcmp(tmp, "POSIX") || !strcmp(tmp, "C") )
 			return NULL;
 	tmp = strdup(tmp);
+	if (!tmp)
+		return NULL;
 	/* Use only first locale int string */
 	next = strchr(tmp,':'); if (next) *next++ = '\0';
 	return tmp;
@@ -181,6 +183,8 @@ char *natspec_extract_charset_from_locale(const char *locale)
 	if (_n_isempty(locale))
 		return NULL;
 	lang = strdup( locale );
+	if (!lang)
+		return NULL;
 	next = strchr(lang,':'); if (next) *next++ = '\0';
 	dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
 	charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
@@ -200,6 +204,12 @@ char *_natspec_repack_locale(const char *locale)
 	DEBUG (printf("repack_locale\n"));
 	lang = strdup( locale );
 	buf = malloc( strlen(locale) + 1 );
+	if (!lang || !buf)
+	{
+		free(lang);
+		free(buf);
+		return NULL;
+	}
 	next = strchr(lang,':'); if (next) *next++ = '\0';
 	dialect = strchr(lang,'@'); if (dialect) *dialect++ = '\0';
 	charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
