@@ -48,6 +48,23 @@ if test "x$check_iconv" = x ; then
 	AC_MSG_ERROR([*** iconv.h not found.])
 fi
 
+dnl iconv is in libc with glibc, GNU libiconv needs -liconv
+dnl (its iconv.h renames iconv_open to libiconv_open)
+ICONV_LIBS=""
+AC_MSG_CHECKING([for library with iconv_open])
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <iconv.h>]],
+		[[iconv_t cd = iconv_open("", ""); iconv_close(cd);]])],
+	[AC_MSG_RESULT([none required])],
+	[save_LIBS="$LIBS"
+	LIBS="$LIBS -liconv"
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <iconv.h>]],
+			[[iconv_t cd = iconv_open("", ""); iconv_close(cd);]])],
+		[AC_MSG_RESULT([-liconv])
+		ICONV_LIBS="-liconv"],
+		[AC_MSG_RESULT([no])
+		AC_MSG_ERROR([*** iconv_open not found.])])])
+AC_SUBST(ICONV_LIBS)
+
 # check Doxygen
 DOXYGEN=""
 AC_ARG_WITH(doxygen, [  --with-doxygen    Generate doxygen documentation ],

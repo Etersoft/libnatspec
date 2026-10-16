@@ -8,4 +8,5 @@ Description: Nation specifity library - libnatspec
 Requires:
 Version: @VERSION@
 Libs: -lnatspec
+Libs.private: @ICONV_LIBS@
 Cflags:
