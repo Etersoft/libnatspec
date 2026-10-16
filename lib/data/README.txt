@@ -10,4 +10,5 @@ Notes:
  - For uk_UA DOS codepage IBM866 is used as in Windows (OEM code page 866
    in Wine tools/make_unicode), not CP1125: Linux kernel has no cp1125 nls,
    so codepage=1125 can not be used for vfat
- - For be_BE DOS codepage changed to IBM849
+ - For be_BY DOS codepage IBM866 is used as in Windows (Microsoft NLS API
+   Reference: be-BY OEM 866), IBM849 is not used: Linux kernel has no cp849 nls
