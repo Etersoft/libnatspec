@@ -187,6 +187,8 @@ char *natspec_convert(const char *in_str,
 	size_t lenb, lena, size;
 	char *ansa, *ansaptr, *ansbptr = (char*)in_str;
 
+	if (!in_str)
+		return NULL;
 	lenb = strlen(in_str);
 
 	frt = natspec_iconv_open(tocode, fromcode);
