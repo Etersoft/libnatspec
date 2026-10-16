@@ -27,6 +27,7 @@
 
 #include <iconv.h>
 #include <errno.h>
+#include <pthread.h>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -38,44 +39,75 @@
 
 #define UCS2_SIZE 2
 
-/* FIXME: only hack */
-#define MAX_UCS2 5
-static struct
+/* UCS2 descriptors for transliteration, one per natspec_iconv_open */
+struct ucs2_entry
 {
 	iconv_t it, ucs2;
-} ucs2table[MAX_UCS2];
+	struct ucs2_entry *next;
+};
+static struct ucs2_entry *ucs2list;
+static pthread_mutex_t ucs2list_lock = PTHREAD_MUTEX_INITIALIZER;
+
+/*! Internal: returns UCS2 descriptor for cd or 0 */
+static iconv_t find_ucs2(iconv_t cd)
+{
+	struct ucs2_entry *e;
+	iconv_t ucs2 = 0;
+	pthread_mutex_lock(&ucs2list_lock);
+	for (e = ucs2list; e; e = e->next)
+		if (e->it == cd) {
+			ucs2 = e->ucs2;
+			break;
+		}
+	pthread_mutex_unlock(&ucs2list_lock);
+	return ucs2;
+}
 
 /*! Opens iconv table or returns -1 */
 iconv_t natspec_iconv_open(const char *tocode, const char *fromcode)
 {
-	int i;
+	struct ucs2_entry *e;
 	if ( _n_isempty(tocode) )
 		tocode = natspec_get_charset();
 	if ( _n_isempty(fromcode) )
 		fromcode = natspec_get_charset();
-	for (i=0; i < MAX_UCS2; i++)
-		if (!ucs2table[i].it) {
-			/* use i element if empty */
-			ucs2table[i].it = iconv_open(tocode, fromcode);
-			if (ucs2table[i].it == (iconv_t)-1)
-				break;
-			ucs2table[i].ucs2 = iconv_open("UCS2", fromcode);
-			if (ucs2table[i].ucs2 != (iconv_t)-1)
-				return ucs2table[i].it;
-			break;
-		}
-	return (iconv_t)-1;
+	e = malloc(sizeof(*e));
+	if (!e)
+		return (iconv_t)-1;
+	e->it = iconv_open(tocode, fromcode);
+	if (e->it == (iconv_t)-1) {
+		free(e);
+		return (iconv_t)-1;
+	}
+	e->ucs2 = iconv_open("UCS2", fromcode);
+	if (e->ucs2 == (iconv_t)-1) {
+		iconv_close(e->it);
+		free(e);
+		return (iconv_t)-1;
+	}
+	pthread_mutex_lock(&ucs2list_lock);
+	e->next = ucs2list;
+	ucs2list = e;
+	pthread_mutex_unlock(&ucs2list_lock);
+	return e->it;
 }
 
-/*! For future compatibility */
+/*! Closes descriptor opened with natspec_iconv_open */
 int natspec_iconv_close(iconv_t cd)
 {
-	int i;
-	for (i=0; i < MAX_UCS2; i++)
-		if (ucs2table[i].it == cd) {
-			iconv_close(ucs2table[i].ucs2);
-			ucs2table[i].it = 0;
+	struct ucs2_entry **p, *e = NULL;
+	pthread_mutex_lock(&ucs2list_lock);
+	for (p = &ucs2list; *p; p = &(*p)->next)
+		if ((*p)->it == cd) {
+			e = *p;
+			*p = e->next;
+			break;
 		}
+	pthread_mutex_unlock(&ucs2list_lock);
+	if (e) {
+		iconv_close(e->ucs2);
+		free(e);
+	}
 	return iconv_close(cd);
 }
 
@@ -103,7 +135,6 @@ static const char *get_7bit (unsigned short ucs2)
 size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 	char **outbuf, size_t *outbytesleft, int transliterate)
 {
-	int i;
 	iconv_t ucs2 = 0;
 	size_t result;
 	for(;;)
@@ -116,12 +147,9 @@ size_t natspec_iconv(iconv_t cd, char **inbuf, size_t *inbytesleft,
 			return result;
 		if (!transliterate)
 			return result;
-		/* find corresport UCS2 table */
-		for (i=0; i < MAX_UCS2; i++)
-			if (ucs2table[i].it == cd) {
-				ucs2 = ucs2table[i].ucs2;
-				break;
-			}
+		/* find corresponding UCS2 descriptor */
+		if (!ucs2)
+			ucs2 = find_ucs2(cd);
 		if (!ucs2)
 			return result;
 		else

@@ -1,10 +1,10 @@
 /*
  * Public domain
  *
- * Known bugs in the global ucs2table of lib/convert.c:
- * - failed natspec_iconv_open leaves table slot busy
- * - only 5 descriptors can be opened at the same time
- * - table is not thread safe
+ * Tests for descriptors of natspec_iconv_open:
+ * - failed open does not leave resources busy
+ * - many descriptors can be open at the same time
+ * - concurrent use from threads
  */
 
 #include <pthread.h>

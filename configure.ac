@@ -36,6 +36,9 @@ else
 	AC_DEFINE(HAVE_LIBPOPT,1,[Define if you have the POPT library])
 fi
 
+dnl pthread is in libc since glibc 2.34
+AC_SEARCH_LIBS([pthread_mutex_lock], [pthread])
+
 dnl Checks for header files.
 AC_CHECK_HEADERS([langinfo.h locale.h stdlib.h string.h strings.h])
 
