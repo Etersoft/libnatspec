@@ -1,8 +1,11 @@
-noinst_PROGRAMS				= test_get_charset test_convert
-TESTS						= test_get_charset test_convert
-test_get_charset_SOURCES 	= test_get_charset.c
-test_get_charset_LDADD 		= $(top_builddir)/lib/libnatspec.la
-test_get_charset_CFLAGS		= -I$(top_srcdir)/lib -pedantic
-test_convert_SOURCES 		= test_convert.c
-test_convert_LDADD 			= $(top_builddir)/lib/libnatspec.la
-test_convert_CFLAGS			= -I$(top_srcdir)/lib -pedantic
+AUTOMAKE_OPTIONS			= subdir-objects
+
+AM_CFLAGS					= -I$(top_srcdir)/lib -pedantic
+LDADD						= $(top_builddir)/lib/libnatspec.la
+
+PASS_TESTS					= test_get_charset test_convert
+
+check_PROGRAMS				= $(PASS_TESTS)
+TESTS						= $(PASS_TESTS)
+
+EXTRA_DIST					= check.h
