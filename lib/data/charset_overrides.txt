@@ -6,3 +6,12 @@
 # Microsoft NLS API Reference: kk-KZ ANSI 1251, OEM 866
 # (Wine has no legacy code pages for Kazakh)
 kk_KZ	CP1251	IBM866	MACCYRILLIC
+
+# Cyrillic languages of Russia unknown to Windows (Wine falls back to en-US
+# or to no code pages): files come from Windows with Russian locale
+ce_RU	CP1251	IBM866	MACCYRILLIC
+cv_RU	CP1251	IBM866	MACCYRILLIC
+kv_RU	CP1251	IBM866	MACCYRILLIC
+mdf_RU	CP1251	IBM866	MACCYRILLIC
+mhr_RU	CP1251	IBM866	MACCYRILLIC
+os_RU	CP1251	IBM866	MACCYRILLIC
