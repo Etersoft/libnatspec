@@ -156,6 +156,9 @@ static const struct charsetrel_entry* get_entry_by_charset(const int bytype,
 				entry = &charset_relation[i];
 				break;
 			}
+		for (i = 0; !entry && i < sizeof(charset_alias_relation)/sizeof(charset_alias_relation[0]); i++)
+			if (!strcmp (charset, get_cs_by_type(bytype,&charset_alias_relation[i])))
+				entry = &charset_alias_relation[i];
 	}
 	free (must_free);
 	return entry;

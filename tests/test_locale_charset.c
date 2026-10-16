@@ -117,6 +117,9 @@ static void test_charset_by_charset(void)
 	/* by windows charset */
 	CHECK_STR(natspec_get_charset_by_charset(NATSPEC_DOSCS, NATSPEC_WINCS, "CP1251"), "IBM866");
 	CHECK_STR(natspec_get_charset_by_charset(NATSPEC_WINCS, NATSPEC_WINCS, "cp1251"), "CP1251");
+	/* ASCII aliases (charset_alias_relation) */
+	CHECK_STR(natspec_get_charset_by_charset(NATSPEC_WINCS, NATSPEC_UNIXCS, "ASCII"), "CP1252");
+	CHECK_STR(natspec_get_charset_by_charset(NATSPEC_DOSCS, NATSPEC_UNIXCS, "ANSI_X3.4-1968"), "IBM437");
 	/* unknown */
 	CHECK_STR(natspec_get_charset_by_charset(NATSPEC_WINCS, NATSPEC_UNIXCS, "NONEXISTENT"), NULL);
 	CHECK_STR(natspec_get_charset_by_charset(NATSPEC_UNIXCS, NATSPEC_WINCS, "KOI8-R"), NULL);

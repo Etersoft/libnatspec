@@ -515,8 +515,11 @@ static const struct charsetrel_entry charset_relation[] =
  {"zu_ZA",        1077,  "ISO88591",    "CP1252",   "IBM850",   "MAC" },
  {"zu_ZA.UTF8",   1077,  "UTF8",        "CP1252",   "IBM850",   "MAC" },
 
-/* Follow entries is dummy for ASCII/ANSI encoding */
+};
+
+/* Additional entries for search by charset only (not sorted by locale) */
+static const struct charsetrel_entry charset_alias_relation[] =
+{
  { "POSIX",	1033,	"ASCII",	"CP1252",	"IBM437",	"MAC" },
  { "POSIX",	1033,	"ANSIX341968",	"CP1252",	"IBM437",	"MAC" }
-
 };

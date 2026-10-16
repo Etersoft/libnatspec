@@ -35,12 +35,17 @@ do
 	LANG=$i LC_CTYPE=$i $PRINTDATAPROGRAM 2>>./gen_data.out.txt >>$OUTFILE
 	echo -e " }," >>$OUTFILE
 done
-echo >>$OUTFILE
-echo "/* Follow entries is dummy for ASCII/ANSI encoding */" >>$OUTFILE
+cat <<EOF >>$OUTFILE
+
+};
+
+/* Additional entries for search by charset only (not sorted by locale) */
+static const struct charsetrel_entry charset_alias_relation[] =
+{
+EOF
 print "POSIX" 1033 ASCII CP1252 IBM437 "MAC" ,
 print "POSIX" 1033 ANSIX341968 CP1252 IBM437 "MAC"
 cat <<EOF >>$OUTFILE
-
 };
 EOF
 
