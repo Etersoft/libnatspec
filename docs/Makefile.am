@@ -3,21 +3,20 @@ DOC_CFG = *Dox.cfg
 # DOXYGEN = doxygen
 
 DIRS = html
-DOCFILES = ${DIRS}/*.{html,css,png}
 ########################################################################
 
-all: ${DOC_CFG}
+all-local: ${DOC_CFG}
 	${DOXYGEN} $<
 
-depend :
-
-.PHONY: clean
-clean:
-	${RM} ${DOCFILES} *~
-
-re: clean all
-
+clean-local:
+	rm -rf ${DIRS}
 
 # install
-docdir = $(datadir)/doc/@PACKAGE@-@VERSION@/html
-doc_DATA = $(shell find $(top_srcdir)/docs/html -name \*.*) 
+htmldocdir = $(datadir)/doc/@PACKAGE@-@VERSION@/html
+
+install-data-local:
+	$(MKDIR_P) $(DESTDIR)$(htmldocdir)
+	$(INSTALL_DATA) ${DIRS}/* $(DESTDIR)$(htmldocdir)
+
+uninstall-local:
+	rm -rf $(DESTDIR)$(htmldocdir)
