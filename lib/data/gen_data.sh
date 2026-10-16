@@ -49,4 +49,7 @@ cat <<EOF >>$OUTFILE
 };
 EOF
 
+echo "Applying manual overrides from charset_overrides.txt..."
+./apply_overrides.sh $OUTFILE charset_overrides.txt || exit 1
+
 subst '/:fixme:winediag/d' ./gen_data.out.txt

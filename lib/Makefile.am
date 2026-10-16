@@ -11,3 +11,7 @@ libnatspec_la_SOURCES	= get_charset.c get_locale.c enrich_fs_options.c convert.c
 libnatspec_include_HEADERS 	= natspec.h
 libnatspec_includedir 		= $(includedir)
 
+
+# data generator and manual overrides (used by tests/test_data_overrides.sh)
+EXTRA_DIST				= data/apply_overrides.sh data/charset_overrides.txt \
+	data/gen_data.sh data/README.txt

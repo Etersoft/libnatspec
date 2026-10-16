@@ -50,6 +50,9 @@ static void test_charset_by_locale(void)
 	check_locale("uk_UA", "KOI8U", "CP1251", "IBM866", "MACUKRAINIAN");
 	check_locale("uk_UA.UTF-8", "UTF8", "CP1251", "IBM866", "MACUKRAINIAN");
 	check_locale("be_BY", "CP1251", "CP1251", "IBM866", "MACCYRILLIC");
+	/* lib/data/charset_overrides.txt */
+	check_locale("kk_KZ", "PT154", "CP1251", "IBM866", "MACCYRILLIC");
+	check_locale("kk_KZ.UTF-8", "UTF8", "CP1251", "IBM866", "MACCYRILLIC");
 	check_locale("en_US", "ISO88591", "CP1252", "IBM437", "MAC");
 	check_locale("en_US.UTF-8", "UTF8", "CP1252", "IBM437", "MAC");
 	check_locale("de_DE@euro", "ISO885915", "CP1252", "IBM850", "MAC");

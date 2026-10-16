@@ -1,0 +1,8 @@
+# Manual overrides for get_charset_data.h, applied by gen_data.sh
+# (see apply_overrides.sh). Charsets are for Windows, DOS and Mac.
+#
+# locale	windows	dos	mac	# reason
+
+# Microsoft NLS API Reference: kk-KZ ANSI 1251, OEM 866
+# (Wine has no legacy code pages for Kazakh)
+kk_KZ	CP1251	IBM866	MACCYRILLIC

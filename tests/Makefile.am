@@ -16,8 +16,8 @@ PASS_TESTS					= test_get_charset test_names test_locale_charset test_env \
 XFAIL_TESTS					= xfail_locale_lookup xfail_i18n xfail_translit
 
 check_PROGRAMS				= $(PASS_TESTS) $(XFAIL_TESTS)
-dist_check_SCRIPTS			= test_cli.sh test_python.sh
-TESTS						= $(PASS_TESTS) $(XFAIL_TESTS) test_cli.sh
+dist_check_SCRIPTS			= test_cli.sh test_python.sh test_data_overrides.sh
+TESTS						= $(PASS_TESTS) $(XFAIL_TESTS) test_cli.sh test_data_overrides.sh
 if HAVE_PYTHON
 TESTS						+= test_python.sh
 endif
