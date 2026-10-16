@@ -21,14 +21,15 @@ BuildRequires: rpm-build-compat
 BuildRequires: glibc-gconv-modules
 
 %description
-Library for national and language-specific issues.
-This library provides userful functions for
-mount, submount, mkisofs, multimedia players.
-This library try to help resolve charset hell (encoding problem)
-in a various programs depends on locale and messages.
-See detailed description at
-http://www.freesource.info/wiki/Lokalizacija/NATSPECDescription
-or http://freesource.info/wiki/Lokalizacija/BibliotekaNATSPEC
+libnatspec knows which charsets are used for a locale on this system
+and on Windows, DOS and Mac, and converts strings between them with
+transliteration of missed characters.
+
+It helps programs to get file names and mount options right:
+iocharset/codepage for FAT, NTFS, ISO 9660, UDF and SMB/CIFS,
+file names in archives made on Windows, and so on.
+
+This package contains the shared library and the natspec utility.
 
 %package devel
 Summary: Development package of library for national and language-specific issues
@@ -36,19 +37,19 @@ Group: Development/C
 Requires: %name = %version-%release
 
 %description devel
-The %name-devel package contains the necessary include files
-for developing applications with %name
-This library try to help resolve charset hell (encoding problem)
-in a various programs depends on locale and messages.
+The %name-devel package contains the header file, pkg-config file
+and autoconf macro (AM_PATH_NATSPEC) for developing applications
+with %name.
 
 %package devel-examples
-Summary: Examples of %name using
+Summary: Examples of patches adding %name support to programs
 Group: Development/Documentation
 BuildArch: noarch
 
 %description devel-examples
-The %name-devel package contains examples of patches
-for developing applications with %name
+Examples of patches which add %name support to unzip, zip, p7zip,
+mount, mkisofs, samba and other programs, and profile scripts
+setting G_FILENAME_ENCODING.
 
 %package -n python-module-natspec
 Summary: Python binding
