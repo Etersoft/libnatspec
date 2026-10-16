@@ -5,7 +5,6 @@
  * - locale with charset absent in the table falls back to the current
  *   charset instead of the charset from locale name and other
  *   charsets of the language
- * - C.UTF-8 is not recognized as UTF-8
  * - charset aliases (windows-1251, CP866) are not recognized
  * - G_FILENAME_ENCODING is used (without check) for explicit locale too
  */
@@ -38,15 +37,6 @@ static void test_charset_not_in_table(void)
 	CHECK(natspec_locale_is_utf8("de_DE.UTF-8@euro"));
 }
 
-static void test_c_locale(void)
-{
-	check_locale("C", NATSPEC_WINCS, "CP1252");
-	check_locale("POSIX", NATSPEC_DOSCS, "IBM437");
-	check_locale("C.UTF-8", NATSPEC_UNIXCS, "UTF8");
-	CHECK(natspec_locale_is_utf8("C.UTF-8"));
-	CHECK(natspec_locale_is_utf8("C.utf8"));
-}
-
 static void test_aliases(void)
 {
 	CHECK_INT(natspec_get_codepage_by_charset("windows-1251"), 1251);
@@ -71,7 +61,6 @@ int main(void)
 	unsetenv("LC_CTYPE");
 	unsetenv("LANG");
 	test_charset_not_in_table();
-	test_c_locale();
 	test_aliases();
 	test_filename_encoding_env();
 	return check_done();

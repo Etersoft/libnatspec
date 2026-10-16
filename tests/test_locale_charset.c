@@ -61,6 +61,10 @@ static void test_charset_by_locale(void)
 	check_locale("he_IL", "ISO88598", "CP1255", "IBM862", "MAC");
 	check_locale("pl_PL", "ISO88592", "CP1250", "IBM852", "MAC");
 	check_locale("th_TH", "TIS620", "IBM874", "IBM874", "MAC");
+	check_locale("C", ASCII, "CP1252", "IBM437", "MAC");
+	check_locale("POSIX", ASCII, "CP1252", "IBM437", "MAC");
+	check_locale("C.UTF-8", "UTF8", "CP1252", "IBM437", "MAC");
+	check_locale("C.utf8", "UTF8", "CP1252", "IBM437", "MAC");
 	/* unknown locale falls back to current charset */
 	check_locale("xx_YY", ASCII, ASCII, ASCII, ASCII);
 }
@@ -70,6 +74,8 @@ static void test_locale_is_utf8(void)
 	CHECK(natspec_locale_is_utf8("ru_RU.UTF-8"));
 	CHECK(natspec_locale_is_utf8("ru_RU.utf8"));
 	CHECK(natspec_locale_is_utf8("en_US.UTF-8"));
+	CHECK(natspec_locale_is_utf8("C.UTF-8"));
+	CHECK(!natspec_locale_is_utf8("C"));
 	CHECK(!natspec_locale_is_utf8("ru_RU.KOI8-R"));
 	CHECK(!natspec_locale_is_utf8("ru_RU"));
 	CHECK(!natspec_locale_is_utf8("en_US"));

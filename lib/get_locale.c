@@ -215,8 +215,10 @@ char *_natspec_repack_locale(const char *locale)
 	charset = strchr(lang,'.'); if (charset) *charset++ = '\0';
 	country = strchr(lang,'_'); if (country) *country++ = '\0';
 
-	for (i=0; i<strlen(lang); i++)
-		lang[i] = _n_tolower(lang[i]);
+	/* C and POSIX locale names are case sensitive */
+	if (strcmp(lang, "C") && strcmp(lang, "POSIX"))
+		for (i=0; i<strlen(lang); i++)
+			lang[i] = _n_tolower(lang[i]);
 	strcpy(buf, lang);
 	if (country)
 	{

@@ -57,6 +57,10 @@ static void test_repack_locale(void)
 	CHECK_STR_FREE(_natspec_repack_locale("de_DE.UTF-8@euro"), "de_DE.UTF8@euro");
 	CHECK_STR_FREE(_natspec_repack_locale("ru_RU.KOI8-R:en_US"), "ru_RU.KOI8R");
 	CHECK_STR_FREE(_natspec_repack_locale("sr_RS@latin"), "sr_RS@latin");
+	/* C and POSIX are case sensitive */
+	CHECK_STR_FREE(_natspec_repack_locale("C"), "C");
+	CHECK_STR_FREE(_natspec_repack_locale("POSIX"), "POSIX");
+	CHECK_STR_FREE(_natspec_repack_locale("C.UTF-8"), "C.UTF8");
 }
 
 static void test_codepage(void)

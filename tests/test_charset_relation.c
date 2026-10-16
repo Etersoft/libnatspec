@@ -1,9 +1,8 @@
 /*
  * Public domain
  *
- * Known bugs: built-in tables break bsearch
- * - two POSIX entries are at the end of charset_relation, after zu_ZA.UTF8
- * - C, C.UTF8, POSIX keys can never match (locale is lowercased by repack)
+ * charset_relation is searched with bsearch by repacked locale:
+ * it must be sorted and every key must be reachable
  */
 
 #include "check.h"
