@@ -30,7 +30,7 @@
 #define __NATSPEC_INTERNAL_H
 
 #ifdef HAVE_CONFIG_H
-#	include "../config.h"
+#	include "config.h"
 #else
 #	error "config.h is missing"
 #endif
