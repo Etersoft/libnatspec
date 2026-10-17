@@ -26,7 +26,7 @@ endif
 AM_TESTS_ENVIRONMENT		= top_builddir='$(top_builddir)'; top_srcdir='$(top_srcdir)'; \
 	PYTHON='$(PYTHON)'; export top_builddir top_srcdir PYTHON;
 
-EXTRA_DIST					= check.h test_util.h
+EXTRA_DIST					= check.h test_util.h fuzz
 
 test_env_SOURCES			= test_env.c i18n_get_locale.c $(LIB_NO_LOCALE_SOURCES)
 test_env_LDADD				=
