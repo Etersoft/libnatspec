@@ -5,7 +5,9 @@
 # Usage: ./release.sh [tag]     (default tag is the version from configure.ac)
 # Result: ../libnatspec-VERSION.tar.gz
 #
-# Publish it on GitHub Releases, so distributions do not need autotools:
+# GitHub Actions makes a draft release with it on tag push: rewrite the notes
+# to the main changes and publish it. Or publish it by hand, so distributions
+# do not need autotools:
 #   gh release create VERSION ../libnatspec-VERSION.tar.gz -R Etersoft/libnatspec
 
 set -e

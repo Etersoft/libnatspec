@@ -46,6 +46,8 @@ jobs:
           make distcheck
           sha256sum libnatspec-$TAG.tar.gz > libnatspec-$TAG.tar.gz.sha256
 
+      # the draft gets the full NEWS section: rewrite it to the main changes
+      # and publish the release by hand
       - name: Release notes from NEWS
         run: |
           awk -v head="libnatspec-$TAG:" \
@@ -61,6 +63,6 @@ jobs:
           if gh release view "$TAG" > /dev/null 2>&1 ; then
             gh release upload "$TAG" $files --clobber
           else
-            gh release create "$TAG" $files --verify-tag \
+            gh release create "$TAG" $files --verify-tag --draft \
               --title "libnatspec $TAG" --notes-file notes.md
           fi
