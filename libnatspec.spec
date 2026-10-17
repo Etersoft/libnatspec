@@ -129,8 +129,6 @@ mv %buildroot%_libdir/%{name}.* %buildroot/%_lib
   make distcheck and VPATH builds, link with libiconv if needed,
   drop AC_FUNC_MALLOC (cross build) and __DATE__ (reproducible build)
 - natspec: clarify --transl help (ALT bug 47189)
-- rewrite README.md, remove dead Travis CI config
-- release.sh makes tarball with configure (make distcheck)
 - License: LGPL-2.1-only (SPDX), rewrite package descriptions
 - profile scripts are not executable
 - natspec: fix use after free of --transl argument with popt 1.19
